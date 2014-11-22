@@ -1,0 +1,12 @@
+commit ce1f40d66db8b4c7b9469517c169761ba74c10b0
+Author: Luigi Ballabio <luigi.ballabio@gmail.com>
+Date:   Tue, 11 Nov 2014 12:03:24 +0100
+
+    Backported fixes for Clang and Boost 1.57 from master.
+
+commit 37ed88e7c71da945571520859415ff9b59a1c635
+Author: Luigi Ballabio <luigi.ballabio@gmail.com>
+Date:   Thu, 27 Feb 2014 11:39:54 +0100
+
+    Bump version number to 1.4.1.
+

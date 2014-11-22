@@ -1,0 +1,11 @@
+
+Changes for QuantLib 1.4.1:
+===========================
+
+QuantLib 1.4.1 is a compatibility release. It fixes a number of
+compilation errors that surfaced when using QuantLib 1.4 with
+Clang 3.5 and Boost 1.57. Thanks to Tim Smith for the heads-up.
+
+If you are not using Clang, you don't need to upgrade from
+QuantLib 1.4 to 1.4.1.
+
