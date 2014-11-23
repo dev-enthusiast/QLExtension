@@ -28,7 +28,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -70,6 +70,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\vc110\Release\</OutputPath>
@@ -95,10 +96,11 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\..\Output\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
@@ -106,6 +108,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -116,6 +119,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -196,6 +200,7 @@
     <Compile Include="BlackVolTermStructureHandle.cs" />
     <Compile Include="Bond.cs" />
     <Compile Include="BondFunctions.cs" />
+    <Compile Include="BondHelper.cs" />
     <Compile Include="BoolVector.cs" />
     <Compile Include="BoundaryCondition.cs" />
     <Compile Include="BoundaryConstraint.cs" />
@@ -264,6 +269,7 @@
     <Compile Include="CPIBond.cs" />
     <Compile Include="CreditDefaultSwap.cs" />
     <Compile Include="Cubic.cs" />
+    <Compile Include="CubicBSplinesFitting.cs" />
     <Compile Include="CubicNaturalSpline.cs" />
     <Compile Include="CumulativeBinomialDistribution.cs" />
     <Compile Include="CumulativeNormalDistribution.cs" />
@@ -373,6 +379,7 @@
     <Compile Include="ExchangeRate.cs" />
     <Compile Include="ExchangeRateManager.cs" />
     <Compile Include="Exercise.cs" />
+    <Compile Include="ExponentialSplinesFitting.cs" />
     <Compile Include="FalsePosition.cs" />
     <Compile Include="FDAmericanEngine.cs" />
     <Compile Include="FDBermudanEngine.cs" />
@@ -386,6 +393,8 @@
     <Compile Include="FFTVarianceGammaEngine.cs" />
     <Compile Include="FIMCurrency.cs" />
     <Compile Include="Finland.cs" />
+    <Compile Include="FittedBondDiscountCurve.cs" />
+    <Compile Include="FittingMethod.cs" />
     <Compile Include="FixedDividend.cs" />
     <Compile Include="FixedRateBond.cs" />
     <Compile Include="FixedRateBondHelper.cs" />
@@ -478,6 +487,7 @@
     <Compile Include="INRCurrency.cs" />
     <Compile Include="Instrument.cs" />
     <Compile Include="InstrumentVector.cs" />
+    <Compile Include="IntegralCdsEngine.cs" />
     <Compile Include="IntegralEngine.cs" />
     <Compile Include="InterestRate.cs" />
     <Compile Include="InterestRateIndex.cs" />
@@ -569,6 +579,7 @@
     <Compile Include="MultipleStatistics.cs" />
     <Compile Include="MultiplicativePriceSeasonalityPtr.cs" />
     <Compile Include="MXNCurrency.cs" />
+    <Compile Include="NelsonSiegelFitting.cs" />
     <Compile Include="NeumannBC.cs" />
     <Compile Include="NewZealand.cs" />
     <Compile Include="NLGCurrency.cs" />
@@ -640,6 +651,7 @@
     <Compile Include="Redemption.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="RelinkableBlackVolTermStructureHandle.cs" />
+    <Compile Include="RelinkableCalibratedModelHandle.cs" />
     <Compile Include="RelinkableCapFloorTermVolatilityStructureHandle.cs" />
     <Compile Include="RelinkableDefaultProbabilityTermStructureHandle.cs" />
     <Compile Include="RelinkableLocalVolTermStructureHandle.cs" />
@@ -667,6 +679,7 @@
     <Compile Include="SampleRealVector.cs" />
     <Compile Include="SARCurrency.cs" />
     <Compile Include="SaudiArabia.cs" />
+    <Compile Include="SCalibratedModelHandle.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Seasonality.cs" />
     <Compile Include="Secant.cs" />
@@ -681,6 +694,7 @@
     <Compile Include="ShortRateModelHandle.cs" />
     <Compile Include="SimpleCashFlow.cs" />
     <Compile Include="SimpleDayCounter.cs" />
+    <Compile Include="SimplePolynomialFitting.cs" />
     <Compile Include="SimpleQuote.cs" />
     <Compile Include="Simplex.cs" />
     <Compile Include="SimpsonIntegral.cs" />
@@ -707,6 +721,7 @@
     <Compile Include="StulzEngine.cs" />
     <Compile Include="SuperSharePayoff.cs" />
     <Compile Include="SVD.cs" />
+    <Compile Include="SvenssonFitting.cs" />
     <Compile Include="Swap.cs" />
     <Compile Include="SwapIndex.cs" />
     <Compile Include="SwapRateHelper.cs" />
@@ -810,6 +825,8 @@
     <Compile Include="YYFRHICP.cs" />
     <Compile Include="YYUKRPI.cs" />
     <Compile Include="YYUSCPI.cs" />
+    <Compile Include="YYZACPI.cs" />
+    <Compile Include="ZACPI.cs" />
     <Compile Include="ZARCurrency.cs" />
     <Compile Include="ZeroCouponBond.cs" />
     <Compile Include="ZeroCouponInflationSwap.cs" />
