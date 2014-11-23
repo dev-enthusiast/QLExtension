@@ -10269,6 +10269,36 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_VanillaSwap")]
   public static extern void delete_VanillaSwap(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete__OvernightIndexedSwap")]
+  public static extern void delete__OvernightIndexedSwap(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_OvernightIndexedSwap_Receiver_get")]
+  public static extern int OvernightIndexedSwap_Receiver_get();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_OvernightIndexedSwap_Payer_get")]
+  public static extern int OvernightIndexedSwap_Payer_get();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_OvernightIndexedSwap__SWIG_0")]
+  public static extern global::System.IntPtr new_OvernightIndexedSwap__SWIG_0(int jarg1, double jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, double jarg4, global::System.Runtime.InteropServices.HandleRef jarg5, global::System.Runtime.InteropServices.HandleRef jarg6, double jarg7);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_OvernightIndexedSwap__SWIG_1")]
+  public static extern global::System.IntPtr new_OvernightIndexedSwap__SWIG_1(int jarg1, double jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, double jarg4, global::System.Runtime.InteropServices.HandleRef jarg5, global::System.Runtime.InteropServices.HandleRef jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_OvernightIndexedSwap_fairRate")]
+  public static extern double OvernightIndexedSwap_fairRate(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_OvernightIndexedSwap_fairSpread")]
+  public static extern double OvernightIndexedSwap_fairSpread(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_OvernightIndexedSwap_fixedLegBPS")]
+  public static extern double OvernightIndexedSwap_fixedLegBPS(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_OvernightIndexedSwap_overnightLegBPS")]
+  public static extern double OvernightIndexedSwap_overnightLegBPS(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_OvernightIndexedSwap")]
+  public static extern void delete_OvernightIndexedSwap(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_DiscountingSwapEngine__SWIG_0")]
   public static extern global::System.IntPtr new_DiscountingSwapEngine__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
@@ -10499,6 +10529,15 @@ class NQuantLibcPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_DatedOISRateHelper")]
   public static extern void delete_DatedOISRateHelper(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_FedFundBasisSwapRateHelper")]
+  public static extern global::System.IntPtr new_FedFundBasisSwapRateHelper(int jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FedFundBasisSwapRateHelper_swap")]
+  public static extern global::System.IntPtr FedFundBasisSwapRateHelper_swap(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_FedFundBasisSwapRateHelper")]
+  public static extern void delete_FedFundBasisSwapRateHelper(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_RateHelperVector_Clear")]
   public static extern void RateHelperVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -13377,6 +13416,9 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_VanillaSwap_SWIGUpcast")]
   public static extern global::System.IntPtr VanillaSwap_SWIGUpcast(global::System.IntPtr jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_OvernightIndexedSwap_SWIGUpcast")]
+  public static extern global::System.IntPtr OvernightIndexedSwap_SWIGUpcast(global::System.IntPtr jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_DiscountingSwapEngine_SWIGUpcast")]
   public static extern global::System.IntPtr DiscountingSwapEngine_SWIGUpcast(global::System.IntPtr jarg1);
 
@@ -13406,6 +13448,9 @@ class NQuantLibcPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_DatedOISRateHelper_SWIGUpcast")]
   public static extern global::System.IntPtr DatedOISRateHelper_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FedFundBasisSwapRateHelper_SWIGUpcast")]
+  public static extern global::System.IntPtr FedFundBasisSwapRateHelper_SWIGUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FittedBondDiscountCurve_SWIGUpcast")]
   public static extern global::System.IntPtr FittedBondDiscountCurve_SWIGUpcast(global::System.IntPtr jarg1);

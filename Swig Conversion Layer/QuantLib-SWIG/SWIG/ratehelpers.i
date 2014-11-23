@@ -39,6 +39,7 @@ using QuantLib::BondHelper;
 using QuantLib::FixedRateBondHelper;
 using QuantLib::OISRateHelper;
 using QuantLib::DatedOISRateHelper;
+using QuantLib::FedFundBasisSwapRateHelper;
 typedef boost::shared_ptr<RateHelper> DepositRateHelperPtr;
 typedef boost::shared_ptr<RateHelper> FraRateHelperPtr;
 typedef boost::shared_ptr<RateHelper> FuturesRateHelperPtr;
@@ -47,6 +48,7 @@ typedef boost::shared_ptr<RateHelper> BondHelperPtr;
 typedef boost::shared_ptr<RateHelper> FixedRateBondHelperPtr;
 typedef boost::shared_ptr<RateHelper> OISRateHelperPtr;
 typedef boost::shared_ptr<RateHelper> DatedOISRateHelperPtr;
+typedef boost::shared_ptr<RateHelper> FedFundBasisSwapRateHelperPtr;
 %}
 
 %ignore RateHelper;
@@ -387,6 +389,29 @@ class DatedOISRateHelperPtr : public boost::shared_ptr<RateHelper> {
         }
     }
 };
+
+// Added by Letian
+%rename(FedFundBasisSwapRateHelper) FedFundBasisSwapRateHelperPtr;
+class FedFundBasisSwapRateHelperPtr : public boost::shared_ptr<RateHelper> {
+  public:
+    %extend {
+        FedFundBasisSwapRateHelperPtr(
+				int settlementDays,
+				const Period& tenor,
+                const Handle<Quote>& rate,
+				const Handle<Quote>& basis,
+                const OvernightIndexPtr& index) {
+            boost::shared_ptr<OvernightIndex> ois =
+                boost::dynamic_pointer_cast<OvernightIndex>(index);
+            return new FedFundBasisSwapRateHelperPtr(
+                new FedFundBasisSwapRateHelper(settlementDays, tenor, rate, basis, ois));
+        }
+        OvernightIndexedSwapPtr swap() {
+            return boost::dynamic_pointer_cast<FedFundBasisSwapRateHelper>(*self)->swap();
+        }
+    }
+};
+// End Add
 
 
 // allow use of RateHelper vectors

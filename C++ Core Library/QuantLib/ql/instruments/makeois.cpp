@@ -34,7 +34,7 @@ namespace QuantLib {
       rule_(DateGeneration::Forward),
       endOfMonth_(1*Months<=swapTenor && swapTenor<=2*Years ? true : false),
       type_(OvernightIndexedSwap::Payer), nominal_(1.0),
-      overnightSpread_(0.0),
+	  overnightSpread_(0.0),
       fixedDayCount_(overnightIndex->dayCounter()),
       engine_(new DiscountingSwapEngine(overnightIndex_->forwardingTermStructure())) {}
 
@@ -177,4 +177,8 @@ namespace QuantLib {
         return *this;
     }
 
+	MakeOIS& MakeOIS::withRateAveragingType(int avgtype) {
+		averagingType_ = avgtype;
+		return *this;
+	}
 }

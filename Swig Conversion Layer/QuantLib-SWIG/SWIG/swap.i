@@ -28,10 +28,12 @@
 %{
 using QuantLib::Swap;
 using QuantLib::VanillaSwap;
+using QuantLib::OvernightIndexedSwap;
 using QuantLib::DiscountingSwapEngine;
 
 typedef boost::shared_ptr<Instrument> SwapPtr;
 typedef boost::shared_ptr<Instrument> VanillaSwapPtr;
+typedef boost::shared_ptr<Instrument> OvernightIndexedSwapPtr;
 typedef boost::shared_ptr<PricingEngine> DiscountingSwapEnginePtr;
 %}
 
@@ -110,6 +112,63 @@ class VanillaSwapPtr : public SwapPtr {
         }
     }
 };
+
+// Added by Letian: OvernightIndexedSwap
+#if defined(SWIGJAVA) || defined(SWIGCSHARP)
+%rename(_OvernightIndexedSwap) OvernightIndexedSwap;
+#else
+%ignore OvernightIndexedSwap;
+#endif
+class OvernightIndexedSwap {
+  public:
+    enum Type { Receiver = -1, Payer = 1 };
+#if defined(SWIGJAVA) || defined(SWIGCSHARP)
+  private:
+    OvernightIndexedSwap();
+#endif
+};
+
+%rename(OvernightIndexedSwap) OvernightIndexedSwapPtr;
+class OvernightIndexedSwapPtr : public SwapPtr {
+    #if defined(SWIGMZSCHEME) || defined(SWIGGUILE)
+    %rename("fair-rate")        fairRate;
+    %rename("fair-spread")      fairSpread;
+    %rename("fixed-leg-BPS")    fixedLegBPS;
+    %rename("floating-leg-BPS") floatingLegBPS;
+    #endif
+  public:
+    %extend {
+        static const OvernightIndexedSwap::Type Receiver = OvernightIndexedSwap::Receiver;
+        static const OvernightIndexedSwap::Type Payer = OvernightIndexedSwap::Payer;
+        OvernightIndexedSwapPtr(OvernightIndexedSwap::Type type, Real nominal,
+                       const Schedule& schedule, Rate fixedRate,
+                       const DayCounter& fixedDC,
+                       const OvernightIndexPtr& overnightIndex,
+                       Spread spread = 0.0) {
+            boost::shared_ptr<OvernightIndex> ois =
+                boost::dynamic_pointer_cast<OvernightIndex>(overnightIndex);
+            return new OvernightIndexedSwapPtr(
+                    new OvernightIndexedSwap(type, nominal,schedule,fixedRate,
+                                    fixedDC, ois, spread));
+        }
+        Rate fairRate() {
+            return boost::dynamic_pointer_cast<OvernightIndexedSwap>(*self)->fairRate();
+        }
+        Spread fairSpread() {
+            return boost::dynamic_pointer_cast<OvernightIndexedSwap>(*self)
+                 ->fairSpread();
+        }
+        Real fixedLegBPS() {
+            return boost::dynamic_pointer_cast<OvernightIndexedSwap>(*self)
+                 ->fixedLegBPS();
+        }
+        Real overnightLegBPS() {
+            return boost::dynamic_pointer_cast<OvernightIndexedSwap>(*self)
+                 ->overnightLegBPS();
+        }
+    }
+};
+// End Add
 
 
 %rename(DiscountingSwapEngine) DiscountingSwapEnginePtr;

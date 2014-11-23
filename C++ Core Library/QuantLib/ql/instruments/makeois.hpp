@@ -57,6 +57,7 @@ namespace QuantLib {
         MakeOIS& withFixedLegDayCount(const DayCounter& dc);
 
         MakeOIS& withOvernightLegSpread(Spread sp);
+		MakeOIS& withRateAveragingType(int avgtype);
 
         MakeOIS& withDiscountingTermStructure(
                   const Handle<YieldTermStructure>& discountingTermStructure);
@@ -76,6 +77,7 @@ namespace QuantLib {
         Real nominal_;
 
         Spread overnightSpread_;
+		int averagingType_;
         DayCounter fixedDayCount_;
 
         boost::shared_ptr<PricingEngine> engine_;

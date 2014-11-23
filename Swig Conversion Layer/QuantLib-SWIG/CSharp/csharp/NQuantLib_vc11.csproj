@@ -389,6 +389,7 @@
     <Compile Include="FDDividendEuropeanEngine.cs" />
     <Compile Include="FDEuropeanEngine.cs" />
     <Compile Include="FDShoutEngine.cs" />
+    <Compile Include="FedFundBasisSwapRateHelper.cs" />
     <Compile Include="FedFunds.cs" />
     <Compile Include="FFTVarianceGammaEngine.cs" />
     <Compile Include="FIMCurrency.cs" />
@@ -606,6 +607,7 @@
     <Compile Include="OptionletVolatilityStructure.cs" />
     <Compile Include="OptionletVolatilityStructureHandle.cs" />
     <Compile Include="OvernightIndex.cs" />
+    <Compile Include="OvernightIndexedSwap.cs" />
     <Compile Include="Parabolic.cs" />
     <Compile Include="ParkinsonSigma.cs" />
     <Compile Include="Path.cs" />
@@ -845,6 +847,7 @@
     <Compile Include="_CalibrationHelper.cs" />
     <Compile Include="_Callability.cs" />
     <Compile Include="_Exercise.cs" />
+    <Compile Include="_OvernightIndexedSwap.cs" />
     <Compile Include="_VanillaSwap.cs" />
     <Compile Include="_YearOnYearInflationSwap.cs" />
     <Compile Include="_ZeroCouponInflationSwap.cs" />

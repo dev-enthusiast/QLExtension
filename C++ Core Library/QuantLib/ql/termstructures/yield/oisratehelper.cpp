@@ -156,4 +156,71 @@ namespace QuantLib {
             RateHelper::accept(v);
     }
 
+	FedFundBasisSwapRateHelper::FedFundBasisSwapRateHelper(
+		Natural settlementDays,
+		const Period& tenor, // swap maturity
+		const Handle<Quote>& fixedRate,
+		const Handle<Quote>& basisSpread,
+		const boost::shared_ptr<OvernightIndex>& overnightIndex,
+		const Handle<YieldTermStructure>& discount)
+		: RelativeDateRateHelper(fixedRate),
+		settlementDays_(settlementDays), tenor_(tenor), basisSpread_(basisSpread),
+		overnightIndex_(overnightIndex), discountHandle_(discount) {
+		registerWith(overnightIndex_);
+		registerWith(discountHandle_);
+		initializeDates();
+	}
+
+	void FedFundBasisSwapRateHelper::initializeDates() {
+
+		// dummy OvernightIndex with curve/swap arguments
+		// review here
+		boost::shared_ptr<IborIndex> clonedIborIndex =
+			overnightIndex_->clone(termStructureHandle_);
+		shared_ptr<OvernightIndex> clonedOvernightIndex =
+			boost::dynamic_pointer_cast<OvernightIndex>(clonedIborIndex);
+
+		// input discount curve Handle might be empty now but it could
+		//    be assigned a curve later; use a RelinkableHandle here
+		swap_ = MakeOIS(tenor_, clonedOvernightIndex, 0.0)
+			.withDiscountingTermStructure(discountRelinkableHandle_)
+			.withSettlementDays(settlementDays_)
+			.withOvernightLegSpread(basisSpread_->value())
+			.withRateAveragingType(1);				// arithmetic averaging
+
+		earliestDate_ = swap_->startDate();
+		latestDate_ = swap_->maturityDate();
+	}
+
+	void FedFundBasisSwapRateHelper::setTermStructure(YieldTermStructure* t) {
+		// do not set the relinkable handle as an observer -
+		// force recalculation when needed
+		bool observer = false;
+
+		shared_ptr<YieldTermStructure> temp(t, no_deletion);
+		termStructureHandle_.linkTo(temp, observer);
+
+		if (discountHandle_.empty())
+			discountRelinkableHandle_.linkTo(temp, observer);
+		else
+			discountRelinkableHandle_.linkTo(*discountHandle_, observer);
+
+		RelativeDateRateHelper::setTermStructure(t);
+	}
+
+	Real FedFundBasisSwapRateHelper::impliedQuote() const {
+		QL_REQUIRE(termStructure_ != 0, "term structure not set");
+		// we didn't register as observers - force calculation
+		swap_->recalculate();
+		return swap_->fairRate();
+	}
+
+	void FedFundBasisSwapRateHelper::accept(AcyclicVisitor& v) {
+		Visitor<FedFundBasisSwapRateHelper>* v1 =
+			dynamic_cast<Visitor<FedFundBasisSwapRateHelper>*>(&v);
+		if (v1 != 0)
+			v1->visit(*this);
+		else
+			RateHelper::accept(v);
+	}
 }
