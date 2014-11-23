@@ -1,0 +1,6 @@
+boost:
+bootstrap
+bjam --toolset=msvc-10.0 address-model=64 --build-type=complete
+
+Swig
+Add swigwin to PATH
