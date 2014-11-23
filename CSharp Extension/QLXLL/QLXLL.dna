@@ -1,0 +1,40 @@
+<DnaLibrary Name="QLXLL" RuntimeVersion="v4.0">
+	<ExternalLibrary Path="QLXLL.dll" Pack="true" />
+  
+  <!--Some images taht can be used in the Ribon ui-->
+  <Image Name="M" Path="images/m.png" Pack="true"/>
+
+  <!-- Below are three CustomUI elements used for different Excel versions.
+       Need not have all three - ExcelDna whatever is most appropriate.
+  -->
+  <CustomUI>
+    <!-- Inside here is the exact RibbonX xml passed to Excel -->
+    <!-- This will only be loaded for Excel 2010 because of the namespace -->
+    <customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui' loadImage='LoadImage'>
+      <ribbon>
+        <tabs>
+          <tab id='QLXLLTab' label='QuantLib XLL'>
+            <group id='LoginGroup' label='Login'>
+              <button id='buttonLogin' label='Login' image='M' size='large' onAction='RunTagMacro' tag='Login_Click' />
+              <button id='buttonError' label='Display Error Details' imageMso='GroupShowHideListView' size='large' onAction='Error_Click'/>
+            </group>
+            <group id='functionGroup' label='QLXLL Functions'>
+              <!--Menu Time-->
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='QLXLL1' label='Operation'>
+                <button id='Button1' label='My First Button' onAction='Function_Click'/>
+              </menu>
+              <!--Menu 2 -->
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='QLXLL2' label='Time'>
+                <button id='Button2' label='My First Button' onAction='Function_Click'/>
+              </menu>
+            </group>
+            <group id='helpGroup' label='Help'>
+              <button id='buttonHelper' label='Help Context' imageMso='ShapeBasicsHelp' size='large' onAction='Help_Click'/>
+              <button id='buttonAbout' label='About QLXLL' imageMso='OfficeDiagnostics' size ='large' onAction='About_Click'/>
+            </group>
+          </tab>
+        </tabs>
+      </ribbon>
+    </customUI>
+  </CustomUI>
+</DnaLibrary>
