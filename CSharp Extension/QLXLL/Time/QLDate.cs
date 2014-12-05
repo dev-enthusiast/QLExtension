@@ -14,7 +14,7 @@ namespace QLXLL
         public static Object qlNow(
             [ExcelArgument(Description = "(INT)interval in seconds ")]double interval)
         {
-            string[] param = { interval.ToString(), "Now" };
+            string[] param = { interval.ToString(), "NOW" };
             object ret = XlCall.RTD("QLXLL.RTDTimerServer", null, param);
             return new object[,] { { ret } };
         }

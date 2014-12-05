@@ -68,7 +68,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\..\..\Output\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -109,7 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rtd\RTDTimeServer.cs" />
+    <Compile Include="Rtd\RTDTimerServer.cs" />
     <Compile Include="Termstructures\QLRateHelpers.cs" />
     <Compile Include="Time\QLDate.cs" />
     <Compile Include="Utils\OHRepository.cs" />
@@ -146,16 +146,19 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if not exist $(TargetDir)QLXLL.dna copy $(ProjectDir)QLXLL.dna $(TargetDir)QLXLL.dna
+
 del /f $(TargetDir)QLXLL.xll
-copy $(SolutionDir)\..\ExcelDna-0.30\Distribution\ExcelDna.xll $(TargetDir)QLXLL.xll
+
+copy $(SolutionDir)\packages\Excel-DNA.0.32.0\tools\ExcelDna.xll $(TargetDir)QLXLL.xll
+
 cd $(TargetDir)
-$(SolutionDir)\..\ExcelDna-0.30\Distribution\ExcelDnaPack.exe $(TargetDir)QLXLL.dna /Y
-copy $(TargetDir)QLXLL-packed.xll $(TargetDir)QLXLL.xll
-xcopy "C:\QLExtension\Source\packages\Excel-DNA.0.32.0\tools\ExcelDna.xll" "$(TargetDir)QLXLL-AddIn.xll*" /C /Y
-xcopy "$(TargetDir)QLXLL-AddIn.dna*" "$(TargetDir)QLXLL-AddIn64.dna*" /C /Y
-xcopy "C:\QLExtension\Source\packages\Excel-DNA.0.32.0\tools\ExcelDna64.xll" "$(TargetDir)QLXLL-AddIn64.xll*" /C /Y
-"C:\QLExtension\Source\packages\Excel-DNA.0.32.0\tools\ExcelDnaPack.exe" "$(TargetDir)QLXLL-AddIn.dna" /Y
-"C:\QLExtension\Source\packages\Excel-DNA.0.32.0\tools\ExcelDnaPack.exe" "$(TargetDir)QLXLL-AddIn64.dna" /Y</PostBuildEvent>
+
+$(SolutionDir)\packages\Excel-DNA.0.32.0\tools\ExcelDnaPack.exe $(TargetDir)QLXLL.dna /Y
+
+copy $(TargetDir)QLXLL-packed.xll $(TargetDir)QLXLL.xll</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>if not exist $(TargetDir)ExcelDna.Integration.dll copy $(SolutionDir)packages\Excel-DNA.0.32.0\tools\ExcelDna.Integration.dll $(TargetDir)ExcelDna.Integration.dll</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

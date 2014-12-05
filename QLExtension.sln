@@ -95,6 +95,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurveBuilder", "CSharp Exte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLXLL", "CSharp Extension\QLXLL\QLXLL.csproj", "{E5077C71-A46A-48D3-953D-4135BEA566BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLExtLib", "CSharp Extension\QLExtLib\QLExtLib.csproj", "{7720778C-80F7-4004-8508-283BAFA8F4E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug (static runtime)|Any CPU = Debug (static runtime)|Any CPU
@@ -401,6 +403,36 @@ Global
 		{E5077C71-A46A-48D3-953D-4135BEA566BE}.Release|x64.Build.0 = Release|x64
 		{E5077C71-A46A-48D3-953D-4135BEA566BE}.Release|x86.ActiveCfg = Release|x86
 		{E5077C71-A46A-48D3-953D-4135BEA566BE}.Release|x86.Build.0 = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Any CPU.Build.0 = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Win32.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|x64.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|x86.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Win32.ActiveCfg = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Win32.Build.0 = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Any CPU.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Any CPU.Build.0 = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Mixed Platforms.Build.0 = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Win32.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|x64.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|x86.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Win32.ActiveCfg = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Win32.Build.0 = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|x64.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -415,5 +447,6 @@ Global
 		{1FD947F1-D99E-46FB-8890-04E11E8340C2} = {84D03523-F85A-4FCD-B5B9-BB31CAF2B5E2}
 		{9FC865A2-E1AE-437F-8556-3ADAEC8AA6B2} = {90179BB8-D954-4832-9946-B2D67CDDC3FC}
 		{E5077C71-A46A-48D3-953D-4135BEA566BE} = {90179BB8-D954-4832-9946-B2D67CDDC3FC}
+		{7720778C-80F7-4004-8508-283BAFA8F4E6} = {90179BB8-D954-4832-9946-B2D67CDDC3FC}
 	EndGlobalSection
 EndGlobal
