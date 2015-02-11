@@ -672,6 +672,7 @@
     <Compile Include="RONCurrency.cs" />
     <Compile Include="Rounding.cs" />
     <Compile Include="Russia.cs" />
+    <Compile Include="SABRInterpolation.cs" />
     <Compile Include="SalvagingAlgorithm.cs" />
     <Compile Include="SampleArray.cs" />
     <Compile Include="SampledCurve.cs" />

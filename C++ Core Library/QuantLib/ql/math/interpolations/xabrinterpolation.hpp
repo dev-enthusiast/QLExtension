@@ -134,15 +134,15 @@ class XABRInterpolationImpl : public Interpolation::templateImpl<I1, I2>,
 
         // we must update weights if it is vegaWeighted
         if (vegaWeighted_) {
-            std::vector<Real>::const_iterator x = this->xBegin_;
-            std::vector<Real>::const_iterator y = this->yBegin_;
+            // std::vector<Real>::const_iterator x = this->xBegin_;
+            // std::vector<Real>::const_iterator y = this->yBegin_;
             // std::vector<Real>::iterator w = weights_.begin();
             this->weights_.clear();
             Real weightsSum = 0.0;
-            for (; x != this->xEnd_; ++x, ++y) {
-                Real stdDev = std::sqrt((*y) * (*y) * this->t_);
+			for (Size i = 0; i<Size(this->xEnd_ - this->xBegin_); ++i) {
+                Real stdDev = std::sqrt((this->yBegin_[i]) * (this->yBegin_[i]) * this->t_);
                 this->weights_.push_back(
-                    blackFormulaStdDevDerivative(*x, forward_, stdDev));
+                    blackFormulaStdDevDerivative(this->xBegin_[i], forward_, stdDev));
                 weightsSum += this->weights_.back();
             }
             // weight normalization
@@ -241,12 +241,12 @@ class XABRInterpolationImpl : public Interpolation::templateImpl<I1, I2>,
     // calculate total squared weighted difference (L2 norm)
     Real interpolationSquaredError() const {
         Real error, totalError = 0.0;
-        std::vector<Real>::const_iterator x = this->xBegin_;
-        std::vector<Real>::const_iterator y = this->yBegin_;
-        std::vector<Real>::const_iterator w = this->weights_.begin();
-        for (; x != this->xEnd_; ++x, ++y, ++w) {
-            error = (value(*x) - *y);
-            totalError += error * error * (*w);
+        //std::vector<Real>::const_iterator x = this->xBegin_;
+        //std::vector<Real>::const_iterator y = this->yBegin_;
+        // std::vector<Real>::const_iterator w = this->weights_.begin();
+		for (Size i = 0; i<Size(this->xEnd_ - this->xBegin_); ++i) {
+            error = (value(this->xBegin_[i]) - this->yBegin_[i]);
+            totalError += error * error * (this->weights_[i]);
         }
         return totalError;
     }
@@ -254,13 +254,14 @@ class XABRInterpolationImpl : public Interpolation::templateImpl<I1, I2>,
     // calculate weighted differences
     Disposable<Array> interpolationErrors(const Array &) const {
         Array results(this->xEnd_ - this->xBegin_);
-        std::vector<Real>::const_iterator x = this->xBegin_;
-        Array::iterator r = results.begin();
-        std::vector<Real>::const_iterator y = this->yBegin_;
-        std::vector<Real>::const_iterator w = this->weights_.begin();
-        for (; x != this->xEnd_; ++x, ++r, ++w, ++y) {
-            *r = (value(*x) - *y) * std::sqrt(*w);
-        }
+        //std::vector<Real>::const_iterator x = this->xBegin_; 
+        //std::vector<Real>::const_iterator y = this->yBegin_;
+        //std::vector<Real>::const_iterator w = this->weights_.begin();
+		Array::iterator r = results.begin();
+		for (Size i = 0; i < this->xEnd_ - this->xBegin_; i++)
+		{
+			*r = (value(this->xBegin_[i]) - this->yBegin_[i]) * std::sqrt(this->weights_[i]);
+		}
         return results;
     }
 

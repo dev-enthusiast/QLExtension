@@ -78,6 +78,46 @@ class Safe##T {
 };
 %enddef
 
+%{
+// sabr
+// safe versions which copy their arguments
+class SafeInterpolation_sabr {
+  public:
+    SafeInterpolation_sabr(const Array& x, const Array& y, const double expiry, const double forward, 
+		const double alpha, const double beta, const double sigma0, const double rho,
+		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false)
+    : x_(x), y_(y), f_(x_.begin(),x_.end(),y_.begin(), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed, isrhofixed) {}
+    Real operator()(Real x, bool allowExtrapolation=false) {
+        return f_(x, allowExtrapolation);
+    }
+	Real update() {
+		f_.update();
+		return f_.maxError();
+	}
+    Array x_, y_;
+    QuantLib::SABRInterpolation f_;
+};
+%}
+
+%define make_safe_interpolation2(Alias)
+%{
+typedef SafeInterpolation_sabr Safe##T;
+%}
+%rename(Alias) Safe##T;
+class Safe##T {
+    #if defined(SWIGMZSCHEME) || defined(SWIGGUILE) \
+     || defined(SWIGCSHARP) || defined(SWIGPERL)
+    %rename(call) operator();
+    #endif
+  public:
+    Safe##T(const Array& x, const Array& y, const double expiry, const double forward, 
+		const double alpha, const double beta, const double sigma0, const double rho);
+
+    Real operator()(Real x, bool allowExtrapolation=false);
+	Real update();
+};
+%enddef
+
 make_safe_interpolation(LinearInterpolation,LinearInterpolation);
 make_safe_interpolation(LogLinearInterpolation,LogLinearInterpolation);
 
@@ -99,6 +139,8 @@ make_safe_interpolation(Parabolic,Parabolic);
 make_safe_interpolation(LogParabolic,LogParabolic);
 make_safe_interpolation(MonotonicParabolic,MonotonicParabolic);
 make_safe_interpolation(MonotonicLogParabolic,MonotonicLogParabolic);
+
+make_safe_interpolation2(SABRInterpolation);
 
 %define extend_spline(T)
 %extend Safe##T {

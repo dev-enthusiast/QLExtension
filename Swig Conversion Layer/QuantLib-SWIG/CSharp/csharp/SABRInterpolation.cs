@@ -10,20 +10,20 @@
 
 namespace QuantLib {
 
-public class Brent : global::System.IDisposable {
+public class SABRInterpolation : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal Brent(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal SABRInterpolation(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Brent obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(SABRInterpolation obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  ~Brent() {
+  ~SABRInterpolation() {
     Dispose();
   }
 
@@ -32,7 +32,7 @@ public class Brent : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          NQuantLibcPINVOKE.delete_Brent(swigCPtr);
+          NQuantLibcPINVOKE.delete_SABRInterpolation(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,23 +40,26 @@ public class Brent : global::System.IDisposable {
     }
   }
 
-  public void setMaxEvaluations(uint evaluations) {
-    NQuantLibcPINVOKE.Brent_setMaxEvaluations(swigCPtr, evaluations);
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho) : this(NQuantLibcPINVOKE.new_SABRInterpolation(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void setLowerBound(double lowerBound) {
-    NQuantLibcPINVOKE.Brent_setLowerBound(swigCPtr, lowerBound);
+  public double call(double x, bool allowExtrapolation) {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_call__SWIG_0(swigCPtr, x, allowExtrapolation);
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
-  public void setUpperBound(double upperBound) {
-    NQuantLibcPINVOKE.Brent_setUpperBound(swigCPtr, upperBound);
+  public double call(double x) {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_call__SWIG_1(swigCPtr, x);
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
-  public Brent() : this(NQuantLibcPINVOKE.new_Brent(), true) {
+  public double update() {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_update(swigCPtr);
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }
