@@ -358,7 +358,27 @@ namespace QLXLL
                         }
                     }
                     else
-                        throw new ArgumentOutOfRangeException("Unknown type to convert to QuantLib.Calendar");
+                        throw new ArgumentOutOfRangeException("Unknown type to convert to Calendar");
+                }
+                else if (typeof(T) == typeof(QuantLib.DayCounter))              // to DayCounter
+                {
+                    if (obj is string)
+                    {
+                        string c = (string)obj;
+                        switch (c.ToUpper())
+                        {
+                            case "ACTUAL360":
+                                return (T)(object)(new QuantLib.Actual360());
+                            case "ACTUAL365":
+                                return (T)(object)(new QuantLib.Actual365Fixed());
+                            case "ACTUALACTUAL":
+                                return (T)(object)(new QuantLib.ActualActual());
+                            default:
+                                throw new ArgumentOutOfRangeException("Day Counter not supported yet.");
+                        }
+                    }
+                    else
+                        throw new ArgumentOutOfRangeException("Unknown type to convert to DayCounter");
                 }
                 else if (typeof(T) == typeof(QuantLib.Period))
                 {

@@ -63,11 +63,11 @@ namespace CurveBuilder
             res = sabr.call(0.040);
             res = sabr.call(0.042);
 
-            QuantLib.EuropeanOption option = new EuropeanOption(payoff, exercise);
-            AnalyticEuropeanEngine engine = new AnalyticEuropeanEngine(process);
-            option.delta();
+            //QuantLib.EuropeanOption option = new EuropeanOption(payoff, exercise);
+            //AnalyticEuropeanEngine engine = new AnalyticEuropeanEngine(process);
+            //option.delta();
 
-            QuantLib.ForwardVanillaOption option2 = new ForwardVanillaOption(moneyness, resetDate, payoff, exercise);
+            //QuantLib.ForwardVanillaOption option2 = new ForwardVanillaOption(moneyness, resetDate, payoff, exercise);
 
             QuantLib.Calendar calendar = new QuantLib.TARGET();
             QuantLib.Date settlementDate = new QuantLib.Date(22, QuantLib.Month.September, 2004);

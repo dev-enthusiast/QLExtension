@@ -46,10 +46,10 @@ namespace QLXLL
                     creationTime = now;
                 }
                 List<object> newObj = new List<object>(4);
-                newObj[0] = obj;
-                newObj[1] = callerAddress;
-                newObj[2] = creationTime;
-                newObj[3] = now;
+                newObj.Add(obj);
+                newObj.Add(callerAddress);
+                newObj.Add(creationTime);
+                newObj.Add(now);
 
                 objectInfo_.Add(objID, newObj);
                 if(errorMap_.ContainsKey(callerAddress))
@@ -101,8 +101,15 @@ namespace QLXLL
             {
                 if(objectInfo_.ContainsKey(realID))
                 {
-                    return (T)((List<object>) (objectInfo_[objID]))[0];
+                    // return (T)((List<object>) (objectInfo_[objID]))[0];
+                    List<object> tmp = (List<object>)objectInfo_[objID];
+                    T ob = (T)tmp[0];
+                    return ob;
                 }
+            }
+            catch (Exception e)
+            {
+                QLUtil.logError(objID, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
             }
             finally
             {

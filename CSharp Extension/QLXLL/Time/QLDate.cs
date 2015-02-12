@@ -28,6 +28,35 @@ namespace QLXLL
                 return DateTime.Today;
         }
 
+        [ExcelFunction(Description = "set the evaluation date of the whole spreadsheet", Category = "QLXLL - Time")]
+        public static object qlSetEvaluationDate(
+            [ExcelArgument(Description = "Evaluation Date ")]DateTime date)
+        {
+            if (QLUtil.CallFromWizard())
+                return false;
+
+            string callerAddress = "";
+            callerAddress = QLUtil.getActiveCellAddress();
+
+            QuantLib.Date todaysDate; 
+            try
+            {
+                if (date == DateTime.MinValue)
+                    todaysDate = QLUtil.ConvertObject<QuantLib.Date>(DateTime.Today,"date");
+                else
+                    todaysDate = QLUtil.ConvertObject<QuantLib.Date>(date,"date");
+
+                QuantLib.Settings.instance().setEvaluationDate(todaysDate);
+
+                return QLUtil.ConvertObject<DateTime>(todaysDate, "date");
+            }
+            catch (Exception e)
+            {
+                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                return false;
+            }
+        }
+
         [ExcelFunction(Description = "check if the given date is a business day", Category = "QLXLL - Time")]
         public static bool qlIsBusinessDay(
             [ExcelArgument(Description = "Date ")]DateTime date,

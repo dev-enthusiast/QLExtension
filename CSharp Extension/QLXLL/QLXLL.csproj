@@ -109,6 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Instruments\EuropeanOption.cs" />
     <Compile Include="Rtd\RTDTimerServer.cs" />
     <Compile Include="Termstructures\QLRateHelpers.cs" />
     <Compile Include="Time\QLDate.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Utils\QLAddin.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utils\QLEnum.cs" />
     <Compile Include="Utils\QLRibbonMenu.cs" />
     <Compile Include="Utils\QLUtil.cs" />
   </ItemGroup>
