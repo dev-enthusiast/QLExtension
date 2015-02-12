@@ -92,8 +92,14 @@ class SafeInterpolation_sabr {
     }
 	Real update() {
 		f_.update();
-		return f_.maxError();
+		return f_.rmsError();
 	}
+
+	Real alpha() { return f_.alpha();}
+	Real beta() { return f_.beta(); }
+	Real nu() { return f_.nu(); }
+	Real rho() { return f_.rho(); }
+	Real maxError() { return f_.maxError(); }
     Array x_, y_;
     QuantLib::SABRInterpolation f_;
 };

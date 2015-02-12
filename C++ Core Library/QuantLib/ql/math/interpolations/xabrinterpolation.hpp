@@ -84,7 +84,7 @@ template <typename Model> class XABRCoeffHolder {
 
     /*! Expiry, Forward */
     Real t_;
-    const Real &forward_;
+    const Real forward_;
     /*! Parameters */
     std::vector<Real> params_;
     std::vector<bool> paramIsFixed_;
@@ -253,12 +253,12 @@ class XABRInterpolationImpl : public Interpolation::templateImpl<I1, I2>,
 
     // calculate weighted differences
     Disposable<Array> interpolationErrors(const Array &) const {
-        Array results(this->xEnd_ - this->xBegin_);
+        Array results(Size(this->xEnd_ - this->xBegin_));
         //std::vector<Real>::const_iterator x = this->xBegin_; 
         //std::vector<Real>::const_iterator y = this->yBegin_;
         //std::vector<Real>::const_iterator w = this->weights_.begin();
 		Array::iterator r = results.begin();
-		for (Size i = 0; i < this->xEnd_ - this->xBegin_; i++)
+		for (Size i = 0; i < Size(this->xEnd_ - this->xBegin_); i++)
 		{
 			*r = (value(this->xBegin_[i]) - this->yBegin_[i]) * std::sqrt(this->weights_[i]);
 		}
@@ -313,7 +313,7 @@ class XABRInterpolationImpl : public Interpolation::templateImpl<I1, I2>,
     const Real errorAccept_;
     const bool useMaxError_;
     const Size maxGuesses_;
-    const Real &forward_;
+    const Real forward_;
     bool vegaWeighted_;
     NoConstraint constraint_;
 };
