@@ -117,9 +117,16 @@ class Safe##T {
     #endif
   public:
     Safe##T(const Array& x, const Array& y, const double expiry, const double forward, 
-		const double alpha, const double beta, const double sigma0, const double rho);
+		const double alpha, const double beta, const double sigma0, const double rho,
+		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false);
 
     Real operator()(Real x, bool allowExtrapolation=false);
+
+	Real alpha();
+	Real beta();
+	Real nu();
+	Real rho();
+	Real maxError();
 	Real update();
 };
 %enddef

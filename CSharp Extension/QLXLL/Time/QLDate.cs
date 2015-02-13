@@ -57,6 +57,36 @@ namespace QLXLL
             }
         }
 
+        [ExcelFunction(Description = "calculate year fraction between two dates", Category = "QLXLL - Time")]
+        public static object qlYearFraction(
+            [ExcelArgument(Description = "Start Date ")]DateTime date1,
+            [ExcelArgument(Description = "End Date ")]DateTime date2,
+            [ExcelArgument(Description = "Day Counter ")]string dc)
+        {
+            if (QLUtil.CallFromWizard())
+                return "";
+
+            string callerAddress = "";
+            callerAddress = QLUtil.getActiveCellAddress();
+            OHRepository.Instance.removeErrorMessage(callerAddress);
+
+            try
+            {
+                if ((date1 == DateTime.MinValue) || (date2 == DateTime.MinValue))
+                    throw new Exception("Date must not be empty. ");
+
+                QuantLib.Date start = QLUtil.ConvertObject<QuantLib.Date>(date1, "date");
+                QuantLib.Date end = QLUtil.ConvertObject<QuantLib.Date>(date2, "date");
+                QuantLib.DayCounter daycounter = QLUtil.ConvertObject<QuantLib.DayCounter>(dc, "daycounter");
+                return daycounter.yearFraction(start, end);
+            }
+            catch (Exception e)
+            {
+                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                return "";
+            }
+        }
+
         [ExcelFunction(Description = "check if the given date is a business day", Category = "QLXLL - Time")]
         public static bool qlIsBusinessDay(
             [ExcelArgument(Description = "Date ")]DateTime date,

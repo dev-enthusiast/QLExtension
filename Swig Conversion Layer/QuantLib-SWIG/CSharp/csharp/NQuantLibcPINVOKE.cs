@@ -3101,14 +3101,41 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_MonotonicLogParabolic")]
   public static extern void delete_MonotonicLogParabolic(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation")]
-  public static extern global::System.IntPtr new_SABRInterpolation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8);
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_0")]
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9, bool jarg10, bool jarg11, bool jarg12);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_1")]
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9, bool jarg10, bool jarg11);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_2")]
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9, bool jarg10);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_3")]
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_4")]
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_4(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_call__SWIG_0")]
   public static extern double SABRInterpolation_call__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, bool jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_call__SWIG_1")]
   public static extern double SABRInterpolation_call__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_alpha")]
+  public static extern double SABRInterpolation_alpha(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_beta")]
+  public static extern double SABRInterpolation_beta(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_nu")]
+  public static extern double SABRInterpolation_nu(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_rho")]
+  public static extern double SABRInterpolation_rho(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_maxError")]
+  public static extern double SABRInterpolation_maxError(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_update")]
   public static extern double SABRInterpolation_update(global::System.Runtime.InteropServices.HandleRef jarg1);

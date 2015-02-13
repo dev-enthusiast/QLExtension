@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Instruments\EuropeanOption.cs" />
+    <Compile Include="Models\Volatility.cs" />
     <Compile Include="Rtd\RTDTimerServer.cs" />
     <Compile Include="Termstructures\QLRateHelpers.cs" />
     <Compile Include="Time\QLDate.cs" />

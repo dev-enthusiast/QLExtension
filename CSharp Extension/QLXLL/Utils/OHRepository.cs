@@ -101,10 +101,10 @@ namespace QLXLL
             {
                 if(objectInfo_.ContainsKey(realID))
                 {
-                    // return (T)((List<object>) (objectInfo_[objID]))[0];
-                    List<object> tmp = (List<object>)objectInfo_[objID];
-                    T ob = (T)tmp[0];
-                    return ob;
+                    return (T)((List<object>) (objectInfo_[realID]))[0];
+                    // List<object> tmp = (List<object>)objectInfo_[realID];
+                    // T ob = (T)tmp[0];
+                    // return ob;
                 }
             }
             catch (Exception e)

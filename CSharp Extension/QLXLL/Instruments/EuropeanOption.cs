@@ -92,7 +92,7 @@ namespace QLXLL
         }
 
         [ExcelFunction(Description = "European Option with Black Scholes Pricer", Category = "QLXLL - Instruments")]
-        public static object qlGetOptionGreek(
+        public static object qlGetOptionBSMGreek(
             [ExcelArgument(Description = "id of option ")] string ObjectId,
             [ExcelArgument(Description = "Greek type ")]string gtype)
         {

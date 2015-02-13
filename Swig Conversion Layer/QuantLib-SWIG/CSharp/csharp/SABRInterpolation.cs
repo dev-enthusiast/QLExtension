@@ -40,7 +40,23 @@ public class SABRInterpolation : global::System.IDisposable {
     }
   }
 
-  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho) : this(NQuantLibcPINVOKE.new_SABRInterpolation(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho), true) {
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed, bool isbetafixed, bool issigma0fixed, bool isrhofixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_0(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed, isrhofixed), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed, bool isbetafixed, bool issigma0fixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_1(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed, bool isbetafixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_2(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_3(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_4(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -52,6 +68,36 @@ public class SABRInterpolation : global::System.IDisposable {
 
   public double call(double x) {
     double ret = NQuantLibcPINVOKE.SABRInterpolation_call__SWIG_1(swigCPtr, x);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double alpha() {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_alpha(swigCPtr);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double beta() {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_beta(swigCPtr);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double nu() {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_nu(swigCPtr);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double rho() {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_rho(swigCPtr);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double maxError() {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_maxError(swigCPtr);
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
