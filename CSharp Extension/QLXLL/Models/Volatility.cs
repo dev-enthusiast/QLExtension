@@ -11,6 +11,7 @@ namespace QLXLL
 {
     public class Volatility
     {
+        #region SABR
         [ExcelFunction(Description = "SABR section calibration", Category = "QLXLL - Models")]
         public static string qlSABRModel(
             [ExcelArgument(Description = "id of option to be constructed ")] string ObjectId,
@@ -43,9 +44,14 @@ namespace QLXLL
                     yy.set(i, volatilities[i]);
                 }
 
+                EndCriteria endcriteria = new EndCriteria(100000, 100, 1e-8, 1e-8, 1e-8);
+                OptimizationMethod opmodel = new Simplex(0.01);
+                // Change the parameter sequence
+                // alpha ~ sigma0(3), beta ~ beta(1), nu ~ alpha(0), rho ~ rho(2)
                 SABRInterpolation sabr = new SABRInterpolation(xx, yy, tenor, forward, 
-                    initials[0], initials[1], initials[2], initials[3],
-                    (bool)isfixed[0], (bool)isfixed[1], (bool)isfixed[2], (bool)isfixed[3]);
+                    initials[3], initials[1], initials[0], initials[2],
+                    endcriteria, opmodel,
+                    (bool)isfixed[3], (bool)isfixed[1], (bool)isfixed[0], (bool)isfixed[2], true);
                 
                 double err = 0;
                 // only update if there exist free parameters
@@ -80,11 +86,16 @@ namespace QLXLL
             {
                 Xl.Range rng = QLUtil.getActiveCellRange();
                 SABRInterpolation option = OHRepository.Instance.getObject<SABRInterpolation>(ObjectId);
-                double[] ret = new double[4];
-                ret[0] = option.alpha();
-                ret[1] = option.beta();
-                ret[2] = option.rho();
-                ret[3] = option.nu();
+
+                // Change the parameter sequence
+                // alpha ~ sigma0(3), beta ~ beta(1), nu ~ alpha(0), rho ~ rho(2)
+                object[,] ret = new object[6,2];
+                ret[0, 0] = "alpha:";  ret[0, 1] = option.nu();
+                ret[1, 0] = "beta:"; ret[1, 1] = option.beta();
+                ret[2, 0] = "rho:"; ret[2, 1] = option.rho();
+                ret[3, 0] = "atmvol:"; ret[3, 1] = option.alpha();
+                ret[4, 0] = "rmsError:"; ret[4, 1] = option.rmsError();
+                ret[5, 0] = "maxError:"; ret[5, 1] = option.maxError();
 
                 return ret;
             }
@@ -94,6 +105,7 @@ namespace QLXLL
                 return "";
             }
         }
+
         [ExcelFunction(Description = "Get SABR interpolated value", Category = "QLXLL - Models")]
         public static object qlGetSABRInterpolatedValue(
             [ExcelArgument(Description = "id of SABR model ")] string ObjectId,
@@ -117,5 +129,6 @@ namespace QLXLL
                 return "";
             }
         }
+        #endregion
     }
 }

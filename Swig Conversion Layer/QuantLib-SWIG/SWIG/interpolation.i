@@ -23,6 +23,7 @@
 #define quantlib_interpolation_i
 
 %include linearalgebra.i
+%include optimizers.i
 
 %{
 using QuantLib::Extrapolator;
@@ -85,8 +86,13 @@ class SafeInterpolation_sabr {
   public:
     SafeInterpolation_sabr(const Array& x, const Array& y, const double expiry, const double forward, 
 		const double alpha, const double beta, const double sigma0, const double rho,
-		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false)
-    : x_(x), y_(y), f_(x_.begin(),x_.end(),y_.begin(), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed, isrhofixed) {}
+		EndCriteria& endCriteria, OptimizationMethod& optimizationMethod,
+		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false, const bool vegaweighted = true)
+    : x_(x), y_(y), f_(x_.begin(),x_.end(),y_.begin(), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed, isrhofixed, vegaweighted, 
+		boost::shared_ptr<EndCriteria>(&endCriteria), boost::shared_ptr<OptimizationMethod>(&optimizationMethod)) 
+		{
+			
+		}
     Real operator()(Real x, bool allowExtrapolation=false) {
         return f_(x, allowExtrapolation);
     }
@@ -99,6 +105,7 @@ class SafeInterpolation_sabr {
 	Real beta() { return f_.beta(); }
 	Real nu() { return f_.nu(); }
 	Real rho() { return f_.rho(); }
+	Real rmsError() { return f_.rmsError(); }
 	Real maxError() { return f_.maxError(); }
     Array x_, y_;
     QuantLib::SABRInterpolation f_;
@@ -118,7 +125,10 @@ class Safe##T {
   public:
     Safe##T(const Array& x, const Array& y, const double expiry, const double forward, 
 		const double alpha, const double beta, const double sigma0, const double rho,
-		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false);
+		EndCriteria& endCriteria, OptimizationMethod& optimizationMethod,
+		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false, const bool vegaweighted = true);
+		// const EndCriteria& endCriteria = new EndCriteria(100000, 100, 1e-8, 1e-8, 1e-8));
+		// OptimizationMethod& optimizationMethod = new Simplex(0.01));
 
     Real operator()(Real x, bool allowExtrapolation=false);
 
@@ -126,6 +136,7 @@ class Safe##T {
 	Real beta();
 	Real nu();
 	Real rho();
+	Real rmsError();
 	Real maxError();
 	Real update();
 };
