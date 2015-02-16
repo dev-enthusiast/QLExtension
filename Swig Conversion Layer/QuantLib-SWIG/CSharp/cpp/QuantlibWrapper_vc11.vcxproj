@@ -69,7 +69,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)NQuantLibc.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\boost\stage\lib;$(SolutionDir)..\Output\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\boost\stage\lib;$(SolutionDir)..\Output\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)QuantlibWrapper.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>

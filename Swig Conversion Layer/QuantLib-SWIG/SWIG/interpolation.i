@@ -85,15 +85,15 @@ class Safe##T {
 class SafeInterpolation_sabr {
   public:
     SafeInterpolation_sabr(const Array& x, const Array& y, const double expiry, const double forward, 
-		const double alpha, const double beta, const double sigma0, const double rho,
+		const double alpha, const double beta, const double volvol, const double rho,
 		EndCriteria& endCriteria, OptimizationMethod& optimizationMethod,
-		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false, const bool vegaweighted = true)
-    : x_(x), y_(y), f_(x_.begin(),x_.end(),y_.begin(), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed, isrhofixed, vegaweighted, 
+		const bool isalphafixed = false, const bool isbetafixed = false, const bool isvolvolfixed = false, const bool isrhofixed = false, const bool vegaweighted = true)
+    : x_(x), y_(y), f_(x_.begin(),x_.end(),y_.begin(), expiry, forward, alpha, beta, volvol, rho, isalphafixed, isbetafixed, isvolvolfixed, isrhofixed, vegaweighted, 
 		boost::shared_ptr<EndCriteria>(&endCriteria), boost::shared_ptr<OptimizationMethod>(&optimizationMethod)) 
 		{
 			
 		}
-    Real operator()(Real x, bool allowExtrapolation=false) {
+    Real operator()(Real x, bool allowExtrapolation=true) {
         return f_(x, allowExtrapolation);
     }
 	Real update() {
@@ -114,28 +114,89 @@ class SafeInterpolation_sabr {
 
 %define make_safe_interpolation2(Alias)
 %{
-typedef SafeInterpolation_sabr Safe##T;
+typedef SafeInterpolation_sabr Safe2##T;
 %}
-%rename(Alias) Safe##T;
-class Safe##T {
+%rename(Alias) Safe2##T;
+class Safe2##T {
     #if defined(SWIGMZSCHEME) || defined(SWIGGUILE) \
      || defined(SWIGCSHARP) || defined(SWIGPERL)
     %rename(call) operator();
     #endif
   public:
-    Safe##T(const Array& x, const Array& y, const double expiry, const double forward, 
-		const double alpha, const double beta, const double sigma0, const double rho,
+    Safe2##T(const Array& x, const Array& y, const double expiry, const double forward, 
+		const double alpha, const double beta, const double volvol, const double rho,
 		EndCriteria& endCriteria, OptimizationMethod& optimizationMethod,
-		const bool isalphafixed = false, const bool isbetafixed = false, const bool issigma0fixed = false, const bool isrhofixed = false, const bool vegaweighted = true);
+		const bool isalphafixed = false, const bool isbetafixed = false, const bool isvolvolfixed = false, const bool isrhofixed = false, const bool vegaweighted = true);
 		// const EndCriteria& endCriteria = new EndCriteria(100000, 100, 1e-8, 1e-8, 1e-8));
 		// OptimizationMethod& optimizationMethod = new Simplex(0.01));
 
-    Real operator()(Real x, bool allowExtrapolation=false);
+    Real operator()(Real x, bool allowExtrapolation=true);
 
 	Real alpha();
 	Real beta();
 	Real nu();
 	Real rho();
+	Real rmsError();
+	Real maxError();
+	Real update();
+};
+%enddef
+
+%{
+// svi
+// safe versions which copy their arguments
+class SafeInterpolation_svi {
+  public:
+    SafeInterpolation_svi(const Array& x, const Array& y, const double expiry, const double forward, 
+		const double a, const double b, const double rho, const double m, const double sigma,
+		EndCriteria& endCriteria, OptimizationMethod& optimizationMethod, const bool vegaweighted = true)
+    : x_(x), y_(y), f_(x_.begin(),x_.end(),y_.begin(), expiry, forward, a, b, rho, m, sigma, vegaweighted, 
+		boost::shared_ptr<EndCriteria>(&endCriteria), boost::shared_ptr<OptimizationMethod>(&optimizationMethod), 1E-10) 
+		{
+			
+		}
+    Real operator()(Real x, bool allowExtrapolation=true) {
+        return f_(x, allowExtrapolation);
+    }
+	Real update() {
+		f_.update();
+		return f_.rmsError();
+	}
+
+	Real a() { return f_.a();}
+	Real b() { return f_.b(); }
+	Real rho() { return f_.rho(); }
+	Real m() { return f_.m(); }
+	Real sigma() { return f_.sigma(); }
+	Real rmsError() { return f_.rmsError(); }
+	Real maxError() { return f_.maxError(); }
+    Array x_, y_;
+    QuantLib::SVIInterpolation f_;
+};
+%}
+
+%define make_safe_interpolation3(Alias)
+%{
+typedef SafeInterpolation_svi Safe3##T;
+%}
+%rename(Alias) Safe3##T;
+class Safe3##T {
+    #if defined(SWIGMZSCHEME) || defined(SWIGGUILE) \
+     || defined(SWIGCSHARP) || defined(SWIGPERL)
+    %rename(call) operator();
+    #endif
+  public:
+    Safe3##T(const Array& x, const Array& y, const double expiry, const double forward, 
+		const double a, const double b, const double rho, const double m, const double sigma,
+		EndCriteria& endCriteria, OptimizationMethod& optimizationMethod, const bool vegaweighted = true);
+
+    Real operator()(Real x, bool allowExtrapolation=true);
+
+	Real a();
+	Real b();
+	Real rho();
+	Real m();
+	Real sigma();
 	Real rmsError();
 	Real maxError();
 	Real update();
@@ -165,6 +226,7 @@ make_safe_interpolation(MonotonicParabolic,MonotonicParabolic);
 make_safe_interpolation(MonotonicLogParabolic,MonotonicLogParabolic);
 
 make_safe_interpolation2(SABRInterpolation);
+make_safe_interpolation3(SVIInterpolation);
 
 %define extend_spline(T)
 %extend Safe##T {

@@ -2693,6 +2693,159 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_ZARCurrency")]
   public static extern void delete_ZARCurrency(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Brent_setMaxEvaluations")]
+  public static extern void Brent_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Brent_setLowerBound")]
+  public static extern void Brent_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Brent_setUpperBound")]
+  public static extern void Brent_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Brent")]
+  public static extern global::System.IntPtr new_Brent();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Brent")]
+  public static extern void delete_Brent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Bisection_setMaxEvaluations")]
+  public static extern void Bisection_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Bisection_setLowerBound")]
+  public static extern void Bisection_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Bisection_setUpperBound")]
+  public static extern void Bisection_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Bisection")]
+  public static extern global::System.IntPtr new_Bisection();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Bisection")]
+  public static extern void delete_Bisection(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FalsePosition_setMaxEvaluations")]
+  public static extern void FalsePosition_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FalsePosition_setLowerBound")]
+  public static extern void FalsePosition_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FalsePosition_setUpperBound")]
+  public static extern void FalsePosition_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_FalsePosition")]
+  public static extern global::System.IntPtr new_FalsePosition();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_FalsePosition")]
+  public static extern void delete_FalsePosition(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Ridder_setMaxEvaluations")]
+  public static extern void Ridder_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Ridder_setLowerBound")]
+  public static extern void Ridder_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Ridder_setUpperBound")]
+  public static extern void Ridder_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Ridder")]
+  public static extern global::System.IntPtr new_Ridder();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Ridder")]
+  public static extern void delete_Ridder(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Secant_setMaxEvaluations")]
+  public static extern void Secant_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Secant_setLowerBound")]
+  public static extern void Secant_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Secant_setUpperBound")]
+  public static extern void Secant_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Secant")]
+  public static extern global::System.IntPtr new_Secant();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Secant")]
+  public static extern void delete_Secant(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Constraint")]
+  public static extern void delete_Constraint(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_BoundaryConstraint")]
+  public static extern global::System.IntPtr new_BoundaryConstraint(double jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_BoundaryConstraint")]
+  public static extern void delete_BoundaryConstraint(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_NoConstraint")]
+  public static extern global::System.IntPtr new_NoConstraint();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_NoConstraint")]
+  public static extern void delete_NoConstraint(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_PositiveConstraint")]
+  public static extern global::System.IntPtr new_PositiveConstraint();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_PositiveConstraint")]
+  public static extern void delete_PositiveConstraint(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_EndCriteria")]
+  public static extern global::System.IntPtr new_EndCriteria(uint jarg1, uint jarg2, double jarg3, double jarg4, double jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_EndCriteria_call")]
+  public static extern bool EndCriteria_call(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, bool jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_EndCriteria")]
+  public static extern void delete_EndCriteria(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_OptimizationMethod")]
+  public static extern void delete_OptimizationMethod(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_ConjugateGradient")]
+  public static extern global::System.IntPtr new_ConjugateGradient();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_ConjugateGradient")]
+  public static extern void delete_ConjugateGradient(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Simplex")]
+  public static extern global::System.IntPtr new_Simplex(double jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Simplex")]
+  public static extern void delete_Simplex(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SteepestDescent")]
+  public static extern global::System.IntPtr new_SteepestDescent();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_SteepestDescent")]
+  public static extern void delete_SteepestDescent(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_BFGS")]
+  public static extern global::System.IntPtr new_BFGS();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_BFGS")]
+  public static extern void delete_BFGS(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_0")]
+  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_0(double jarg1, double jarg2, double jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_1")]
+  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_1(double jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_2")]
+  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_2(double jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_3")]
+  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_3();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_LevenbergMarquardt")]
+  public static extern void delete_LevenbergMarquardt(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Optimizer")]
+  public static extern global::System.IntPtr new_Optimizer();
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Optimizer")]
+  public static extern void delete_Optimizer(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LinearInterpolation")]
   public static extern global::System.IntPtr new_LinearInterpolation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
@@ -3102,19 +3255,22 @@ class NQuantLibcPINVOKE {
   public static extern void delete_MonotonicLogParabolic(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_0")]
-  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9, bool jarg10, bool jarg11, bool jarg12);
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9, global::System.Runtime.InteropServices.HandleRef jarg10, bool jarg11, bool jarg12, bool jarg13, bool jarg14, bool jarg15);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_1")]
-  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9, bool jarg10, bool jarg11);
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9, global::System.Runtime.InteropServices.HandleRef jarg10, bool jarg11, bool jarg12, bool jarg13, bool jarg14);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_2")]
-  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9, bool jarg10);
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9, global::System.Runtime.InteropServices.HandleRef jarg10, bool jarg11, bool jarg12, bool jarg13);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_3")]
-  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, bool jarg9);
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9, global::System.Runtime.InteropServices.HandleRef jarg10, bool jarg11, bool jarg12);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_4")]
-  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_4(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8);
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_4(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9, global::System.Runtime.InteropServices.HandleRef jarg10, bool jarg11);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SABRInterpolation__SWIG_5")]
+  public static extern global::System.IntPtr new_SABRInterpolation__SWIG_5(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9, global::System.Runtime.InteropServices.HandleRef jarg10);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_call__SWIG_0")]
   public static extern double SABRInterpolation_call__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, bool jarg3);
@@ -3134,6 +3290,9 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_rho")]
   public static extern double SABRInterpolation_rho(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_rmsError")]
+  public static extern double SABRInterpolation_rmsError(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SABRInterpolation_maxError")]
   public static extern double SABRInterpolation_maxError(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -3142,6 +3301,45 @@ class NQuantLibcPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_SABRInterpolation")]
   public static extern void delete_SABRInterpolation(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SVIInterpolation__SWIG_0")]
+  public static extern global::System.IntPtr new_SVIInterpolation__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, double jarg9, global::System.Runtime.InteropServices.HandleRef jarg10, global::System.Runtime.InteropServices.HandleRef jarg11, bool jarg12);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SVIInterpolation__SWIG_1")]
+  public static extern global::System.IntPtr new_SVIInterpolation__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3, double jarg4, double jarg5, double jarg6, double jarg7, double jarg8, double jarg9, global::System.Runtime.InteropServices.HandleRef jarg10, global::System.Runtime.InteropServices.HandleRef jarg11);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_call__SWIG_0")]
+  public static extern double SVIInterpolation_call__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, bool jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_call__SWIG_1")]
+  public static extern double SVIInterpolation_call__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_a")]
+  public static extern double SVIInterpolation_a(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_b")]
+  public static extern double SVIInterpolation_b(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_rho")]
+  public static extern double SVIInterpolation_rho(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_m")]
+  public static extern double SVIInterpolation_m(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_sigma")]
+  public static extern double SVIInterpolation_sigma(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_rmsError")]
+  public static extern double SVIInterpolation_rmsError(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_maxError")]
+  public static extern double SVIInterpolation_maxError(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SVIInterpolation_update")]
+  public static extern double SVIInterpolation_update(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_SVIInterpolation")]
+  public static extern void delete_SVIInterpolation(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_BilinearInterpolation")]
   public static extern global::System.IntPtr new_BilinearInterpolation(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
@@ -4354,159 +4552,6 @@ class NQuantLibcPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_EurLiborSwapIfrFix")]
   public static extern void delete_EurLiborSwapIfrFix(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Brent_setMaxEvaluations")]
-  public static extern void Brent_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Brent_setLowerBound")]
-  public static extern void Brent_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Brent_setUpperBound")]
-  public static extern void Brent_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Brent")]
-  public static extern global::System.IntPtr new_Brent();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Brent")]
-  public static extern void delete_Brent(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Bisection_setMaxEvaluations")]
-  public static extern void Bisection_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Bisection_setLowerBound")]
-  public static extern void Bisection_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Bisection_setUpperBound")]
-  public static extern void Bisection_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Bisection")]
-  public static extern global::System.IntPtr new_Bisection();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Bisection")]
-  public static extern void delete_Bisection(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FalsePosition_setMaxEvaluations")]
-  public static extern void FalsePosition_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FalsePosition_setLowerBound")]
-  public static extern void FalsePosition_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_FalsePosition_setUpperBound")]
-  public static extern void FalsePosition_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_FalsePosition")]
-  public static extern global::System.IntPtr new_FalsePosition();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_FalsePosition")]
-  public static extern void delete_FalsePosition(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Ridder_setMaxEvaluations")]
-  public static extern void Ridder_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Ridder_setLowerBound")]
-  public static extern void Ridder_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Ridder_setUpperBound")]
-  public static extern void Ridder_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Ridder")]
-  public static extern global::System.IntPtr new_Ridder();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Ridder")]
-  public static extern void delete_Ridder(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Secant_setMaxEvaluations")]
-  public static extern void Secant_setMaxEvaluations(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Secant_setLowerBound")]
-  public static extern void Secant_setLowerBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Secant_setUpperBound")]
-  public static extern void Secant_setUpperBound(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Secant")]
-  public static extern global::System.IntPtr new_Secant();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Secant")]
-  public static extern void delete_Secant(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Constraint")]
-  public static extern void delete_Constraint(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_BoundaryConstraint")]
-  public static extern global::System.IntPtr new_BoundaryConstraint(double jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_BoundaryConstraint")]
-  public static extern void delete_BoundaryConstraint(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_NoConstraint")]
-  public static extern global::System.IntPtr new_NoConstraint();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_NoConstraint")]
-  public static extern void delete_NoConstraint(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_PositiveConstraint")]
-  public static extern global::System.IntPtr new_PositiveConstraint();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_PositiveConstraint")]
-  public static extern void delete_PositiveConstraint(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_EndCriteria")]
-  public static extern global::System.IntPtr new_EndCriteria(uint jarg1, uint jarg2, double jarg3, double jarg4, double jarg5);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_EndCriteria_call")]
-  public static extern bool EndCriteria_call(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, bool jarg4, double jarg5, double jarg6, double jarg7, double jarg8, global::System.Runtime.InteropServices.HandleRef jarg9);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_EndCriteria")]
-  public static extern void delete_EndCriteria(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_OptimizationMethod")]
-  public static extern void delete_OptimizationMethod(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_ConjugateGradient")]
-  public static extern global::System.IntPtr new_ConjugateGradient();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_ConjugateGradient")]
-  public static extern void delete_ConjugateGradient(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Simplex")]
-  public static extern global::System.IntPtr new_Simplex(double jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Simplex")]
-  public static extern void delete_Simplex(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_SteepestDescent")]
-  public static extern global::System.IntPtr new_SteepestDescent();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_SteepestDescent")]
-  public static extern void delete_SteepestDescent(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_BFGS")]
-  public static extern global::System.IntPtr new_BFGS();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_BFGS")]
-  public static extern void delete_BFGS(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_0")]
-  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_0(double jarg1, double jarg2, double jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_1")]
-  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_1(double jarg1, double jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_2")]
-  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_2(double jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_LevenbergMarquardt__SWIG_3")]
-  public static extern global::System.IntPtr new_LevenbergMarquardt__SWIG_3();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_LevenbergMarquardt")]
-  public static extern void delete_LevenbergMarquardt(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Optimizer")]
-  public static extern global::System.IntPtr new_Optimizer();
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_Optimizer")]
-  public static extern void delete_Optimizer(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_BlackVolTermStructure___deref__")]
   public static extern global::System.IntPtr BlackVolTermStructure___deref__(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -12650,6 +12695,30 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_ZARCurrency_SWIGUpcast")]
   public static extern global::System.IntPtr ZARCurrency_SWIGUpcast(global::System.IntPtr jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_BoundaryConstraint_SWIGUpcast")]
+  public static extern global::System.IntPtr BoundaryConstraint_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_NoConstraint_SWIGUpcast")]
+  public static extern global::System.IntPtr NoConstraint_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_PositiveConstraint_SWIGUpcast")]
+  public static extern global::System.IntPtr PositiveConstraint_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_ConjugateGradient_SWIGUpcast")]
+  public static extern global::System.IntPtr ConjugateGradient_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Simplex_SWIGUpcast")]
+  public static extern global::System.IntPtr Simplex_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SteepestDescent_SWIGUpcast")]
+  public static extern global::System.IntPtr SteepestDescent_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_BFGS_SWIGUpcast")]
+  public static extern global::System.IntPtr BFGS_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_LevenbergMarquardt_SWIGUpcast")]
+  public static extern global::System.IntPtr LevenbergMarquardt_SWIGUpcast(global::System.IntPtr jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_RelinkableYieldTermStructureHandle_SWIGUpcast")]
   public static extern global::System.IntPtr RelinkableYieldTermStructureHandle_SWIGUpcast(global::System.IntPtr jarg1);
 
@@ -12889,30 +12958,6 @@ class NQuantLibcPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_EurLiborSwapIfrFix_SWIGUpcast")]
   public static extern global::System.IntPtr EurLiborSwapIfrFix_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_BoundaryConstraint_SWIGUpcast")]
-  public static extern global::System.IntPtr BoundaryConstraint_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_NoConstraint_SWIGUpcast")]
-  public static extern global::System.IntPtr NoConstraint_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_PositiveConstraint_SWIGUpcast")]
-  public static extern global::System.IntPtr PositiveConstraint_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_ConjugateGradient_SWIGUpcast")]
-  public static extern global::System.IntPtr ConjugateGradient_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Simplex_SWIGUpcast")]
-  public static extern global::System.IntPtr Simplex_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_SteepestDescent_SWIGUpcast")]
-  public static extern global::System.IntPtr SteepestDescent_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_BFGS_SWIGUpcast")]
-  public static extern global::System.IntPtr BFGS_SWIGUpcast(global::System.IntPtr jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_LevenbergMarquardt_SWIGUpcast")]
-  public static extern global::System.IntPtr LevenbergMarquardt_SWIGUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_RelinkableBlackVolTermStructureHandle_SWIGUpcast")]
   public static extern global::System.IntPtr RelinkableBlackVolTermStructureHandle_SWIGUpcast(global::System.IntPtr jarg1);

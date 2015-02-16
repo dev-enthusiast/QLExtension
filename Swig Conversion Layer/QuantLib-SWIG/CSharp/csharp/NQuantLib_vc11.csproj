@@ -725,6 +725,7 @@
     <Compile Include="SuperSharePayoff.cs" />
     <Compile Include="SVD.cs" />
     <Compile Include="SvenssonFitting.cs" />
+    <Compile Include="SVIInterpolation.cs" />
     <Compile Include="Swap.cs" />
     <Compile Include="SwapIndex.cs" />
     <Compile Include="SwapRateHelper.cs" />

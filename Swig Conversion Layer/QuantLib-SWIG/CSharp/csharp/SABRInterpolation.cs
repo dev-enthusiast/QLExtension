@@ -40,23 +40,27 @@ public class SABRInterpolation : global::System.IDisposable {
     }
   }
 
-  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed, bool isbetafixed, bool issigma0fixed, bool isrhofixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_0(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed, isrhofixed), true) {
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double volvol, double rho, EndCriteria endCriteria, OptimizationMethod optimizationMethod, bool isalphafixed, bool isbetafixed, bool isvolvolfixed, bool isrhofixed, bool vegaweighted) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_0(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, volvol, rho, EndCriteria.getCPtr(endCriteria), OptimizationMethod.getCPtr(optimizationMethod), isalphafixed, isbetafixed, isvolvolfixed, isrhofixed, vegaweighted), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed, bool isbetafixed, bool issigma0fixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_1(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed, issigma0fixed), true) {
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double volvol, double rho, EndCriteria endCriteria, OptimizationMethod optimizationMethod, bool isalphafixed, bool isbetafixed, bool isvolvolfixed, bool isrhofixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_1(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, volvol, rho, EndCriteria.getCPtr(endCriteria), OptimizationMethod.getCPtr(optimizationMethod), isalphafixed, isbetafixed, isvolvolfixed, isrhofixed), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed, bool isbetafixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_2(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed, isbetafixed), true) {
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double volvol, double rho, EndCriteria endCriteria, OptimizationMethod optimizationMethod, bool isalphafixed, bool isbetafixed, bool isvolvolfixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_2(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, volvol, rho, EndCriteria.getCPtr(endCriteria), OptimizationMethod.getCPtr(optimizationMethod), isalphafixed, isbetafixed, isvolvolfixed), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho, bool isalphafixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_3(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho, isalphafixed), true) {
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double volvol, double rho, EndCriteria endCriteria, OptimizationMethod optimizationMethod, bool isalphafixed, bool isbetafixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_3(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, volvol, rho, EndCriteria.getCPtr(endCriteria), OptimizationMethod.getCPtr(optimizationMethod), isalphafixed, isbetafixed), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double sigma0, double rho) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_4(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, sigma0, rho), true) {
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double volvol, double rho, EndCriteria endCriteria, OptimizationMethod optimizationMethod, bool isalphafixed) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_4(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, volvol, rho, EndCriteria.getCPtr(endCriteria), OptimizationMethod.getCPtr(optimizationMethod), isalphafixed), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public SABRInterpolation(QlArray x, QlArray y, double expiry, double forward, double alpha, double beta, double volvol, double rho, EndCriteria endCriteria, OptimizationMethod optimizationMethod) : this(NQuantLibcPINVOKE.new_SABRInterpolation__SWIG_5(QlArray.getCPtr(x), QlArray.getCPtr(y), expiry, forward, alpha, beta, volvol, rho, EndCriteria.getCPtr(endCriteria), OptimizationMethod.getCPtr(optimizationMethod)), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -92,6 +96,12 @@ public class SABRInterpolation : global::System.IDisposable {
 
   public double rho() {
     double ret = NQuantLibcPINVOKE.SABRInterpolation_rho(swigCPtr);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double rmsError() {
+    double ret = NQuantLibcPINVOKE.SABRInterpolation_rmsError(swigCPtr);
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

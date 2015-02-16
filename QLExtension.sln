@@ -93,9 +93,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityOption_vc11", "Swig C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurveBuilder", "CSharp Extension\CurveBuilder\CurveBuilder.csproj", "{9FC865A2-E1AE-437F-8556-3ADAEC8AA6B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLXLL", "CSharp Extension\QLXLL\QLXLL.csproj", "{E5077C71-A46A-48D3-953D-4135BEA566BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEGLibXll", "CSharp Extension\CEGLibXll\CEGLibXll.csproj", "{E5077C71-A46A-48D3-953D-4135BEA566BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLExtLib", "CSharp Extension\QLExtLib\QLExtLib.csproj", "{7720778C-80F7-4004-8508-283BAFA8F4E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEGLib", "CSharp Extension\CEGLib\CEGLib.csproj", "{7720778C-80F7-4004-8508-283BAFA8F4E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -405,34 +405,40 @@ Global
 		{E5077C71-A46A-48D3-953D-4135BEA566BE}.Release|x86.Build.0 = Release|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Any CPU.ActiveCfg = Debug|Any CPU
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Any CPU.Build.0 = Debug|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Win32.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Mixed Platforms.ActiveCfg = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Mixed Platforms.Build.0 = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Win32.ActiveCfg = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|Win32.Build.0 = Debug|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|x64.ActiveCfg = Debug|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|x86.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|x86.ActiveCfg = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug (static runtime)|x86.Build.0 = Debug|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Win32.ActiveCfg = Debug|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|Win32.Build.0 = Debug|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|x86.ActiveCfg = Debug|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Debug|x86.Build.0 = Debug|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Any CPU.ActiveCfg = Release|Any CPU
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Any CPU.Build.0 = Release|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Mixed Platforms.Build.0 = Release|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Win32.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Mixed Platforms.ActiveCfg = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Mixed Platforms.Build.0 = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Win32.ActiveCfg = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|Win32.Build.0 = Release|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|x64.ActiveCfg = Release|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|x86.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|x86.ActiveCfg = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release (static runtime)|x86.Build.0 = Release|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Win32.ActiveCfg = Release|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|Win32.Build.0 = Release|x86
 		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|x64.ActiveCfg = Release|Any CPU
-		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|x86.ActiveCfg = Release|x86
+		{7720778C-80F7-4004-8508-283BAFA8F4E6}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

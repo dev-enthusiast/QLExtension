@@ -44,6 +44,7 @@ class InterpolationTest {
     static void testBackwardFlat();
     static void testForwardFlat();
     static void testSabrInterpolation();
+	static void testSviInterpolation();
     static void testKernelInterpolation();
     static void testKernelInterpolation2D();
     static void testBicubicDerivatives();

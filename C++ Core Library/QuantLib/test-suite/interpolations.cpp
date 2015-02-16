@@ -31,6 +31,7 @@
 #include <ql/math/interpolations/cubicinterpolation.hpp>
 #include <ql/math/interpolations/multicubicspline.hpp>
 #include <ql/math/interpolations/sabrinterpolation.hpp>
+#include <ql/math/interpolations/sviinterpolation.hpp>
 #include <ql/math/interpolations/kernelinterpolation.hpp>
 #include <ql/math/interpolations/kernelinterpolation2d.hpp>
 #include <ql/math/interpolations/bicubicsplineinterpolation.hpp>
@@ -1337,6 +1338,96 @@ void InterpolationTest::testSabrInterpolation(){
     }
 }
 
+void InterpolationTest::testSviInterpolation(){
+
+	BOOST_TEST_MESSAGE("Testing Svi interpolation...");
+
+	// Test SABR function against input volatilities
+	Real tolerance = 1.0e-12;
+	std::vector<Real> strikes(15);
+	std::vector<Real> volatilities(15);
+	// input strikes
+	strikes[0] = 80; strikes[1] = 82; strikes[2] = 84;
+	strikes[3] = 86; strikes[4] = 88; strikes[5] = 90;
+	strikes[6] = 92; strikes[7] = 94; strikes[8] = 96;
+	strikes[9] = 98; strikes[10] = 100; strikes[11] = 102;
+	strikes[12] = 104; strikes[13] = 106; strikes[14] = 108;
+	// input volatilities
+	volatilities[0] = 0.20611; volatilities[1] = 0.18632; volatilities[2] = 0.1666;
+	volatilities[3] = 0.147; volatilities[4] = 0.1276; volatilities[5] = 0.1086;
+	volatilities[6] = 0.0903; volatilities[7] = 0.07303; volatilities[8] = 0.0572;
+	volatilities[9] = 0.04328; volatilities[10] = 0.03151; volatilities[11] = 0.02215;
+	volatilities[12] = 0.01502; volatilities[13] = 0.00993; volatilities[14] = 0.00645;
+	Time expiry = 0.1640;
+	Real forward = 100;
+	// input SABR coefficients (corresponding to the vols above)
+	Real initialA = 0.1;
+	Real initialB = 0.6;
+	Real initialRho = 0.02;
+	Real initialM = 0.01;
+	Real initialSigma = 0.01;
+	// calculate SABR vols and compare with input vols
+	for (Size i = 0; i< strikes.size(); i++){
+		Real calculatedVol = sviVolatility(strikes[i], forward, expiry,
+			initialA, initialB,
+			initialRho, initialM, initialSigma);
+		if (std::fabs(volatilities[i] - calculatedVol) > tolerance)
+			BOOST_ERROR(
+			"failed to calculate Sabr function at strike " << strikes[i]
+			<< "\n    expected:   " << volatilities[i]
+			<< "\n    calculated: " << calculatedVol
+			<< "\n    error:      " << std::fabs(calculatedVol - volatilities[i]));
+	}
+
+	// Test SABR calibration against input parameters
+	// Use default values (but not null, since then parameters
+	// will then not be fixed during optimization, see the
+	// interpolation constructor, thus rendering the test cases
+	// with fixed parameters non-sensical)
+	Real aGuess = std::sqrt(0.2);
+	Real bGuess = 0.5;
+	Real rhoGuess = std::sqrt(0.4);
+	Real mGuess = 0.1;
+	Real sigmaGuess = 0.5;
+
+	const bool vegaWeighted[] = { true, false };
+
+	Real calibrationTolerance = 5.0e-8;
+	// initialize optimization methods
+	std::vector<boost::shared_ptr<OptimizationMethod> > methods_;
+	methods_.push_back(boost::shared_ptr<OptimizationMethod>(new Simplex(0.01)));
+	methods_.push_back(boost::shared_ptr<OptimizationMethod>(new LevenbergMarquardt(1e-8, 1e-8, 1e-8)));
+	// Initialize end criteria
+	boost::shared_ptr<EndCriteria> endCriteria(new
+		EndCriteria(100000, 100, 1e-8, 1e-8, 1e-8));
+	// Test looping over all possibilities
+	for (Size j = 0; j<methods_.size(); ++j) {
+		for (Size i = 0; i<LENGTH(vegaWeighted); ++i) {
+			// to meet the tough calibration tolerance we need to lower the default
+			// error threshold for accepting a calibration (to be more specific, some
+			// of the new test cases arising from fixing a subset of the model's
+			// parameters do not calibrate with the desired error using the initial
+			// guess (i.e. optimization runs into a local minimum) - then a series of
+			// random start values for optimization is chosen until our tight custom
+			// error threshold is satisfied.
+			SVIInterpolation sviInterpolation(
+				strikes.begin(), strikes.end(), volatilities.begin(),
+				expiry, forward, aGuess, bGuess, rhoGuess, mGuess, sigmaGuess,
+				vegaWeighted[i], endCriteria, methods_[j], 1E-10);
+			sviInterpolation.update();
+
+			// Recover SVI calibration parameters
+			bool failed = false;
+			Real calibratedA = sviInterpolation.a();
+			Real calibratedB = sviInterpolation.b();
+			Real calibratedRho = sviInterpolation.rho();
+			Real calibratedM = sviInterpolation.m();
+			Real calibratedSigma = sviInterpolation.sigma();
+			Real y = sviVolatility(100, forward, expiry, calibratedA, calibratedB, calibratedRho, calibratedM, calibratedSigma);
+		}
+	}
+}
+
 
 void InterpolationTest::testKernelInterpolation() {
 
@@ -1984,34 +2075,35 @@ void InterpolationTest::testTransformations() {
 test_suite* InterpolationTest::suite() {
     test_suite* suite = BOOST_TEST_SUITE("Interpolation tests");
 
-    suite->add(QUANTLIB_TEST_CASE(
-                        &InterpolationTest::testSplineOnGenericValues));
-    suite->add(QUANTLIB_TEST_CASE(
-                        &InterpolationTest::testSimmetricEndConditions));
-    suite->add(QUANTLIB_TEST_CASE(
-                        &InterpolationTest::testDerivativeEndConditions));
-    suite->add(QUANTLIB_TEST_CASE(
-                        &InterpolationTest::testNonRestrictiveHymanFilter));
-    suite->add(QUANTLIB_TEST_CASE(
-                        &InterpolationTest::testSplineOnRPN15AValues));
-    suite->add(QUANTLIB_TEST_CASE(
-                        &InterpolationTest::testSplineOnGaussianValues));
-    suite->add(QUANTLIB_TEST_CASE(
-                        &InterpolationTest::testSplineErrorOnGaussianValues));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testMultiSpline));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testAsFunctor));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testBackwardFlat));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testForwardFlat));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testSabrInterpolation));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testKernelInterpolation));
-    suite->add(QUANTLIB_TEST_CASE(
-                              &InterpolationTest::testKernelInterpolation2D));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testBicubicDerivatives));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testBicubicUpdate));
-    suite->add(QUANTLIB_TEST_CASE(
-                            &InterpolationTest::testRichardsonExtrapolation));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testNoArbSabrInterpolation));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testSabrSingleCases));
-    suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testTransformations));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                    &InterpolationTest::testSplineOnGenericValues));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                    &InterpolationTest::testSimmetricEndConditions));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                    &InterpolationTest::testDerivativeEndConditions));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                    &InterpolationTest::testNonRestrictiveHymanFilter));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                    &InterpolationTest::testSplineOnRPN15AValues));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                    &InterpolationTest::testSplineOnGaussianValues));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                    &InterpolationTest::testSplineErrorOnGaussianValues));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testMultiSpline));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testAsFunctor));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testBackwardFlat));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testForwardFlat));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testSabrInterpolation));
+	suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testSviInterpolation));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testKernelInterpolation));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                          &InterpolationTest::testKernelInterpolation2D));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testBicubicDerivatives));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testBicubicUpdate));
+    //suite->add(QUANTLIB_TEST_CASE(
+    //                        &InterpolationTest::testRichardsonExtrapolation));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testNoArbSabrInterpolation));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testSabrSingleCases));
+    //suite->add(QUANTLIB_TEST_CASE(&InterpolationTest::testTransformations));
     return suite;
 }

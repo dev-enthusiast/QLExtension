@@ -56,13 +56,13 @@ namespace CurveBuilder
                 xx.set(i, strikes[i]);
                 yy.set(i, volatilities[i]);
             }
-            QuantLib.SABRInterpolation sabr = new SABRInterpolation(xx, yy, 1.0, 0.039, Math.Sqrt(0.2), 0.5, Math.Sqrt(0.4), 0.0);
-            double err = sabr.update();
-            res = sabr.call(0.036);
-            res = sabr.call(0.038);
-            res = sabr.call(0.040);
-            res = sabr.call(0.042);
-
+            // QuantLib.SABRInterpolation sabr = new SABRInterpolation(xx, yy, 1.0, 0.039, Math.Sqrt(0.2), 0.5, Math.Sqrt(0.4), 0.0);
+            // double err = sabr.update();
+            // res = sabr.call(0.036);
+            // res = sabr.call(0.038);
+            // res = sabr.call(0.040);
+            // res = sabr.call(0.042);
+            
             //QuantLib.EuropeanOption option = new EuropeanOption(payoff, exercise);
             //AnalyticEuropeanEngine engine = new AnalyticEuropeanEngine(process);
             //option.delta();
