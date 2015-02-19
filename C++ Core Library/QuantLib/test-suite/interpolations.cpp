@@ -1423,6 +1423,8 @@ void InterpolationTest::testSviInterpolation(){
 			Real calibratedRho = sviInterpolation.rho();
 			Real calibratedM = sviInterpolation.m();
 			Real calibratedSigma = sviInterpolation.sigma();
+			Real error = sviInterpolation.rmsError();
+			Real maxerror = sviInterpolation.maxError();
 			Real y = sviVolatility(100, forward, expiry, calibratedA, calibratedB, calibratedRho, calibratedM, calibratedSigma);
 		}
 	}

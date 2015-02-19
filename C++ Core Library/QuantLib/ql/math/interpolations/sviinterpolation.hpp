@@ -103,6 +103,25 @@ namespace detail {
 
 		// Optimization
 		void update() {
+			// we must update weights if it is vegaWeighted
+			if (vegaWeighted_) {
+				// std::vector<Real>::const_iterator x = this->xBegin_;
+				// std::vector<Real>::const_iterator y = this->yBegin_;
+				// std::vector<Real>::iterator w = weights_.begin();
+				this->weights_.clear();
+				Real weightsSum = 0.0;
+				for (Size i = 0; i<Size(this->xEnd_ - this->xBegin_); ++i) {
+					Real stdDev = std::sqrt((this->yBegin_[i]) * (this->yBegin_[i]) * this->t_);
+					this->weights_.push_back(
+						blackFormulaStdDevDerivative(this->xBegin_[i], forward_, stdDev));
+					weightsSum += this->weights_.back();
+				}
+				// weight normalization
+				std::vector<Real>::iterator w = this->weights_.begin();
+				for (; w != this->weights_.end(); ++w)
+					*w /= weightsSum;
+			}
+
 			try {
 				SVIError costFunction(this);
 				Constraint constraint = SVIConstraint();
@@ -250,8 +269,8 @@ namespace detail {
 						return false;
 					if (params[4] <= 0)
 						return false;
-					if (params[0] + params[1] * params[4] * std::sqrt(1-params[2]*params[2]) < 0)
-						return false;
+					//if (params[0] + params[1] * params[4] * std::sqrt(1-params[2]*params[2]) < 0)
+					//	return false;
 
 					return true;
 				}
@@ -285,7 +304,7 @@ namespace detail {
 			= boost::shared_ptr<OptimizationMethod>(),
 			const Real errorAccept = 0.0020,
 			const bool useMaxError = false,
-			const Size maxGuesses = 10) {
+			const Size maxGuesses = 1) {
 
 			impl_ = boost::shared_ptr<Interpolation::Impl>(
 				new detail::SVIInterpolationImpl<I1, I2>(
