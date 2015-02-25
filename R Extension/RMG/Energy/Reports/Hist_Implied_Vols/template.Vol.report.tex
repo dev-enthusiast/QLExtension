@@ -1,0 +1,46 @@
+\documentclass[letterpaper,10pt,landscape]{article}
+\usepackage{longtable}
+\usepackage{color}
+\usepackage{graphicx} \usepackage{times}
+\usepackage{fancyhdr}
+\textwidth       10.8in %178mm
+\oddsidemargin     0in
+  \advance\oddsidemargin by -1in
+  \advance\oddsidemargin by 0.1in
+\evensidemargin    0in
+  \advance\evensidemargin by -1in
+  \advance\evensidemargin by 0.1in
+\textheight        7.0in    % 9.75 is the max you can go
+\topmargin         0in
+  \advance\topmargin by -0.5in  % -0.5in the max you can go
+\headheight        0pt
+\headsep           0pt
+\topskip           0pt
+\pagestyle{fancy}
+\lhead{As of date: _asofdate \\Run time: _rundatetime }
+\chead{}
+\rhead{\color{blue}\LARGE\bf{Volatility Report}}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.2pt}
+
+\begin{document}
+\begin{table}[t]
+\begin{minipage}[t]{0.5\columnwidth}%
+\centering
+%\input{LargestVolatilityTable}
+\end{minipage}%
+\begin{minipage}[t]{0.5\columnwidth}%
+\centering
+%\input{SmallestVolatilityTable}
+\end{minipage}%
+\vfill
+\begin{minipage}[t]{0.5\columnwidth}%
+\centering
+%\input{LargestGainerTable}
+\end{minipage}%
+\begin{minipage}[t]{0.5\columnwidth}%
+\centering
+%\input{LargestLoserTable}
+\end{minipage}%
+\end{table}
+\end{document}

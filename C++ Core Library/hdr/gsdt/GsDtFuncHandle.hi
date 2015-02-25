@@ -1,0 +1,473 @@
+/****************************************************************
+**
+**	GSDTFUNCHANDLE.HI	- 
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsdt/src/gsdt/GsDtFuncHandle.hi,v 1.13 2001/11/27 22:43:59 procmon Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSDT_GSDTFUNCHANDLE_HI )
+#define IN_GSDT_GSDTFUNCHANDLE_HI
+
+#include <gsdt/base.h>
+#include <gsdt/GsDtFuncHandle.h>
+#include <gscore/GsException.h>
+#include <gsdt/GsDtTypeMap.h>
+#include <gsdt/GsFcStream.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: GsDtFuncRepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain, class Range >
+GsDtFuncRepT< Domain, Range >::GsDtFuncRepT(
+) :
+    GsDtFunc( &DomainGsDtType::staticType(), &RangeGsDtType::staticType() ),
+    m_FuncHandle( 0 )
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: GsDtFuncRepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain, class Range >
+GsDtFuncRepT< Domain, Range >::GsDtFuncRepT(
+	GsFuncHandle< Domain, Range > FuncHandle
+) :
+	GsDtFunc( &DomainGsDtType::staticType(), &RangeGsDtType::staticType() ),
+	m_FuncHandle( new GsFuncHandle< Domain, Range >( FuncHandle ) )
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: GsDtFuncRepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain, class Range >
+GsDtFuncRepT< Domain, Range >::GsDtFuncRepT(
+	const GsDtFuncRepT< Domain, Range > &Other
+) :
+	GsDtFunc( &DomainGsDtType::staticType(), &RangeGsDtType::staticType() ),
+	m_FuncHandle( new GsFuncHandle< Domain, Range >( *(Other.m_FuncHandle) ) )
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: GsDtFuncRepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain, class Range >
+GsDtFuncRepT< Domain, Range >::GsDtFuncRepT(
+	GsFuncHandle< Domain, Range > *FuncHandle,
+	GsCopyAction Action
+) :
+	GsDtFunc( &DomainGsDtType::staticType(), &RangeGsDtType::staticType() ),
+	m_FuncHandle( FuncHandle )
+{
+	if( GS_COPY == Action )
+		m_FuncHandle = new GsFuncHandle< Domain, Range >( *FuncHandle );
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: ~GsDtFuncRepT
+**	Returns: nothing
+**	Action : Destructor
+****************************************************************/
+
+template< class Domain, class Range >
+GsDtFuncRepT< Domain, Range >::~GsDtFuncRepT(
+) 
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: operator= 
+**	Returns: *this with new value
+**	Action : 
+****************************************************************/
+
+template< class Domain, class Range >
+GsDtFuncRepT< Domain, Range > & GsDtFuncRepT< Domain, Range >::operator=(
+	const GsDtFuncRepT< Domain, Range > &rhs 
+)
+{
+	if( this != &rhs )
+		m_FuncHandle = new GsFuncHandle< Domain, Range >( *(rhs.m_FuncHandle) );
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: operator() 
+**	Returns: Value of the function
+**	Action : 
+****************************************************************/
+
+template< class Domain, class Range >
+GsDt *GsDtFuncRepT< Domain, Range >::operator()(
+	const GsDt *Arg
+) const
+{
+	const DomainGsDtType
+			*TypeCheckedArg = DomainGsDtType::Cast( Arg );
+
+	if( !TypeCheckedArg )
+		GSX_THROW( GsXInvalidArgument, 
+				     GsString( "Unable to evaluate GsDtFunc.  Arg type was \"" ) + Arg->typeName() + "\"; expected \"" 
+				   + DomainGsDtType::staticType().name() + "\"." ); 
+
+	return new RangeGsDtType( (*m_FuncHandle)( TypeCheckedArg->data() ) );
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: CopyDeep 
+**	Returns: copy of the object
+**	Action : 
+****************************************************************/
+
+template< class Domain, class Range >
+GsDt * GsDtFuncRepT< Domain, Range >::CopyDeep(
+) const
+{
+	return new GsDtFuncRepT< Domain, Range >( *this );
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: CopyShallow
+**	Returns: copy of the object
+**	Action : 
+****************************************************************/
+
+template< class Domain, class Range >
+GsDt * GsDtFuncRepT< Domain, Range >::CopyShallow(
+) const
+{
+	return new GsDtFuncRepT< Domain, Range >( *this );
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: staticType
+**	Returns: GsType of this class
+**	Action : 
+****************************************************************/
+
+template< class Domain, class Range >
+GsType &GsDtFuncRepT< Domain, Range >::staticType(
+)
+{
+	static GsType 
+			*StaticType = 0;
+
+	if( !StaticType )
+	{
+		StaticType = GsType::LookupOrCreate( GsTypeName );
+		StaticType->attach( new GsDtFuncRepT< Domain, Range > );
+	}
+
+	return *StaticType;
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFuncRepT 
+**	Routine: isKindOf
+**	Returns: Is this a kind of something else.
+**	Action : 
+****************************************************************/
+
+template< class Domain, class Range >
+bool GsDtFuncRepT< Domain, Range >::isKindOf(
+	const GsType& Type
+) const
+{
+	return ( staticType() == Type ) || GsDtFunc::isKindOf( Type );
+}
+
+
+
+template<class Domain, class Range >
+void GsDtFuncRepT< Domain, Range >::StreamStore(
+	GsStreamOut	&Stream
+) const
+{
+	if( !m_FuncHandle )
+	{
+		CC_OSTRSTREAM Error;
+		Error << "GsDtFuncRepT::StreamStore - no function handle" << type().name();
+		GSX_THROW( GsXUnsupported, CC_OSTRSTREAM_STR( Error ) );
+	}
+
+	StreamWriteGsFuncObjects( Stream, *m_FuncHandle );
+}
+
+
+template< class Domain, class Range >
+void GsDtFuncRepT< Domain, Range >::StreamRead(
+	GsStreamIn	&Stream
+)
+{
+	delete m_FuncHandle;
+	StreamReadGsFuncObjects( Stream, m_FuncHandle );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: GsDtFunc2RepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDtFunc2RepT< Domain1, Domain2, Range >::GsDtFunc2RepT(
+) :
+	GsDtFunc2( &Domain1GsDtType::staticType(), &Domain2GsDtType::staticType(), &RangeGsDtType::staticType() )
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: GsDtFunc2RepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDtFunc2RepT< Domain1, Domain2, Range >::GsDtFunc2RepT(
+	GsFunc2Handle< Domain1, Domain2, Range > Func2Handle
+) :
+	GsDtFunc2( &Domain1GsDtType::staticType(), &Domain2GsDtType::staticType(), &RangeGsDtType::staticType() ),
+	m_Func2Handle( new GsFunc2Handle< Domain1, Domain2, Range >( Func2Handle ) )
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: GsDtFunc2RepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDtFunc2RepT< Domain1, Domain2, Range >::GsDtFunc2RepT(
+	const GsDtFunc2RepT< Domain1, Domain2, Range > &Other
+) :
+	GsDtFunc2( &Domain1GsDtType::staticType(), &Domain2GsDtType::staticType(), &RangeGsDtType::staticType() ),
+	m_Func2Handle( new GsFunc2Handle< Domain1, Domain2, Range >( *(Other.m_Func2Handle) ) )
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: GsDtFunc2RepT
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDtFunc2RepT< Domain1, Domain2, Range >::GsDtFunc2RepT(
+	GsFunc2Handle< Domain1, Domain2, Range > *Func2Handle,
+	GsCopyAction Action
+) :
+	GsDtFunc2( &Domain1GsDtType::staticType(), &Domain2GsDtType::staticType(), &RangeGsDtType::staticType() ),	
+	m_Func2Handle( Func2Handle )
+{
+	if( GS_COPY == Action )
+		m_Func2Handle = new GsFunc2Handle< Domain1, Domain2, Range >( *Func2Handle );
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: ~GsDtFunc2RepT
+**	Returns: nothing
+**	Action : Destructor
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDtFunc2RepT< Domain1, Domain2, Range >::~GsDtFunc2RepT(
+) 
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: operator= 
+**	Returns: *this with new value
+**	Action : 
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDtFunc2RepT< Domain1, Domain2, Range > & GsDtFunc2RepT< Domain1, Domain2, Range >::operator=(
+	const GsDtFunc2RepT< Domain1, Domain2, Range > &rhs 
+)
+{
+	if( this != &rhs )
+		m_Func2Handle = new GsFunc2Handle< Domain1, Domain2, Range >( *(rhs.m_Func2Handle) );
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: operator() 
+**	Returns: Value of the function
+**	Action : 
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDt *GsDtFunc2RepT< Domain1, Domain2, Range >::operator()(
+	const GsDt *Arg1,
+	const GsDt *Arg2	
+) const
+{
+	const Domain1GsDtType
+			*TypeCheckedArg1 = Domain1GsDtType::Cast( Arg1 );
+
+	if( !TypeCheckedArg1 )
+		GSX_THROW( GsXInvalidArgument, 
+				     GsString( "Unable to evaluate GsDtFunc.  Arg 1 type was \"" ) + Arg1->typeName() + "\"; expected \"" 
+				   + Domain1GsDtType::staticType().name() + "\"." ); 
+
+	const Domain2GsDtType
+			*TypeCheckedArg2 = Domain2GsDtType::Cast( Arg2 );
+
+	if( !TypeCheckedArg2 )
+		GSX_THROW( GsXInvalidArgument, 
+				     GsString( "Unable to evaluate GsDtFunc.  Arg 2 type was \"" ) + Arg2->typeName() + "\"; expected \"" 
+				   + Domain2GsDtType::staticType().name() + "\"." ); 
+
+	return new RangeGsDtType( (*m_Func2Handle)( TypeCheckedArg1->data(), TypeCheckedArg2->data() ) );
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: CopyDeep 
+**	Returns: copy of the object
+**	Action : 
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsDt * GsDtFunc2RepT< Domain1, Domain2, Range >::CopyDeep(
+) const
+{
+	return new GsDtFunc2RepT< Domain1, Domain2, Range >( *this );
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: staticType
+**	Returns: GsType of this class
+**	Action : 
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+GsType &GsDtFunc2RepT< Domain1, Domain2, Range >::staticType(
+)
+{
+	static GsType 
+			*StaticType = 0;
+
+	if( !StaticType )
+	{
+		StaticType = GsType::LookupOrCreate( GsTypeName );
+		StaticType->attach( new GsDtFunc2RepT< Domain1, Domain2, Range > );
+	}
+
+	return *StaticType;
+}
+
+
+
+/****************************************************************
+**	Class  : GsDtFunc2RepT 
+**	Routine: isKindOf
+**	Returns: Is this a kind of something else.
+**	Action : 
+****************************************************************/
+
+template< class Domain1, class Domain2, class Range >
+bool GsDtFunc2RepT< Domain1, Domain2, Range >::isKindOf(
+	const GsType& Type
+) const
+{
+	return ( staticType() == Type ) || GsDtFunc2::isKindOf( Type );
+}
+
+
+
+CC_END_NAMESPACE
+
+#endif 
+
+

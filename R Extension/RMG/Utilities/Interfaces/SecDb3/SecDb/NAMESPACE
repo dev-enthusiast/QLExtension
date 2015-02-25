@@ -1,0 +1,6 @@
+# This doesn't work because the dll cannot be found
+# does not get created by the package
+# useDynLib(RSecDbInterface)
+
+exportPattern("^[^\\.]")
+

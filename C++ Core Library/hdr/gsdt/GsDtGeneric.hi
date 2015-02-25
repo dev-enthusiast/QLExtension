@@ -1,0 +1,333 @@
+/****************************************************************
+**
+**	gsdt/GsDtGeneric.hi	- Generic 'smart-pointer' base class
+**
+**	Copyright 1998 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsdtlite/src/gsdt/GsDtGeneric.hi,v 1.18 2001/11/27 22:45:00 procmon Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSDT_GSDTGENERIC_HI )
+#define IN_GSDT_GSDTGENERIC_HI
+
+#include	<ccstream.h>
+#include	<heapinfo.h>
+#include	<gsdt/GsDtGeneric.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::RegisterOps
+**	Returns: void
+**	Action : register any ops for this class.  Provided so that
+**			 specific instantiations can specialize to get the
+**			 ops they want.
+****************************************************************/
+
+template<class T>
+void GsDtGeneric<T>::RegisterOps() const
+{
+}
+
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::RawTypeName
+**	Returns: GsString
+**	Action : Specialise to an appropriate typename to allow
+**			 classes that have no T::typeName to be wrapped.
+****************************************************************/
+
+template<class T>
+GsString GsDtGeneric<T>::RawTypeName()
+{
+	return GsString( T::typeName() );
+}
+
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::myTypeName
+**	Returns: GsString
+**	Action : Specialise to an appropriate typename
+****************************************************************/
+
+template<class T>
+GsString GsDtGeneric<T>::myTypeName()
+{
+	return GsString( "GsDt<" ) + RawTypeName() + GsString( ">" );
+}
+
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::memberFunctionWrapperPrefix
+**	Returns: std::string
+**	Action : Returns the prefix used for wrapping mem fun ( just typeName() by default )
+****************************************************************/
+
+template<class T>
+CC_NS(std,string) GsDtGeneric<T>::memberFunctionWrapperPrefix() const
+{
+	return RawTypeName();
+}
+
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::initType
+**	Returns: GsType*
+**	Action : initType is not intended to be specialized.
+**			 Initialize the type in one out-of-line function to
+**			 make sure staticType gets initialized properly.
+****************************************************************/
+
+template<class T>
+GsType* GsDtGeneric<T>::initType() CC_NOTHROW
+{
+	static GsType *staticType = 0;
+
+	if( !staticType )
+	{
+		GsDtGeneric<T> 
+				*EmptyInstance;
+
+		// FIX-This should really only be a call to LookupOrCreate(), but
+		// FIX-due to templates possibly being instantiated in multiple
+		// FIX-libraries, the following 2-level initialization is used.
+		GsString Name = myTypeName();
+		staticType = GsType::Lookup( Name.c_str() );
+		if( !staticType )
+		{
+			staticType = GsType::LookupOrCreate( Name.c_str() );
+			staticType->attach( EmptyInstance = new GsDtGeneric<T> );
+			EmptyInstance->RegisterOps();
+		}
+	}
+
+	return staticType;
+}
+
+
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::ctor
+**	Returns: ctors
+**	Action : 
+****************************************************************/
+
+template<class T>
+GsDtGeneric<T>::GsDtGeneric()
+:	m_data( NULL )
+{
+}
+
+template<class T>
+GsDtGeneric<T>::GsDtGeneric(
+	T*				NewData,
+	GsCopyAction	Action
+) :	m_data( NewData )
+{
+	if( NewData && Action != GS_NO_COPY )
+		m_data = makeCopy( NewData );
+}
+
+template<class T>
+GsDtGeneric<T>::GsDtGeneric(
+	const T& NewData
+) :	m_data( makeCopy( NewData ))
+{
+}
+
+template<class T>
+GsDtGeneric<T>::GsDtGeneric(
+	const GsDtGeneric<T>& Other
+) :	m_data( makeCopy( Other.m_data ))
+{
+}
+
+
+template<class T>
+GsDtGeneric<T>& GsDtGeneric<T>::operator=(
+	const GsDtGeneric<T>& Other
+)
+{
+	if( m_data )
+		delete m_data;
+	m_data = makeCopy( Other.m_data );
+	return *this;
+}
+
+
+template<class T>
+GsDtGeneric<T>::~GsDtGeneric()
+{
+	delete m_data;
+}
+
+
+template<class T>
+void GsDtGeneric<T>::releaseData()
+{
+	m_data = NULL;
+}
+
+template<class T>
+GsDt* GsDtGeneric<T>::CopyDeep() const
+{
+	return new GsDtGeneric<T>( m_data, GS_COPY );
+}
+
+template<class T>
+GsDt* GsDtGeneric<T>::CopyShallow() const
+{
+	return CopyDeep();
+}
+
+template<class T>
+int GsDtGeneric<T>::CompareSame( const GsDt& Other ) const
+{
+	const GsDtGeneric<T>* OPtr = GsDtGeneric<T>::Cast( &Other );
+	if( m_data == OPtr->m_data )
+		return 0;
+	if( m_data && !OPtr->m_data )
+		return 1;
+	if( !m_data && OPtr->m_data )
+		return -1;
+	return compareSame( *m_data, *OPtr->m_data );
+}
+
+template<class T>
+FcHashCode GsDtGeneric<T>::HashQuick() const
+{
+	return GsDt::HashQuick();
+}
+
+//template<class T>
+//GsStatus GsDtGeneric<T>::BinaryOpAssignSame( GSDT_BINOP Op, const GsDt &Other );
+
+template<class T>
+GsBool GsDtGeneric<T>::Truth() const
+{
+	return m_data && isTrue( *m_data );
+}
+
+template<class T>
+GsBool GsDtGeneric<T>::isValid() const
+{
+	return IsValid();
+}
+
+template<class T>
+GsBool GsDtGeneric<T>::IsValid() const
+{
+	return m_data && IsValid( *m_data );
+}
+
+template<class T>
+GsString GsDtGeneric<T>::toString() const
+{
+	if( m_data )
+		return m_data->toString();
+	return staticType().name() + ": NULL";
+}
+
+// Things from GSDT_DECLARE_COMMON
+template<class T>
+GsType& GsDtGeneric<T>::staticType()
+{
+	return *initType();
+}
+
+
+template<class T>
+const GsType& GsDtGeneric<T>::type() const
+{
+	return *initType();
+}
+
+
+template<class T>
+bool GsDtGeneric<T>::isKindOf(
+	const GsType& Type
+) const
+{
+	// Check my type, then check my parent's type
+	return *initType() == Type || GsDt::isKindOf( Type );
+}
+
+template<class T>
+void GsDtGeneric<T>::StreamStore(
+	GsStreamOut	&Stream
+) const
+{
+	CC_OSTRSTREAM Error;
+	Error << "@: StreamStore - " << type().name();
+	GSX_THROW( GsXUnsupported, CC_OSTRSTREAM_STR( Error ) );
+}
+
+
+template<class T>
+void GsDtGeneric<T>::StreamRead(
+	GsStreamIn	&Stream
+)
+{
+	CC_OSTRSTREAM Error;
+	Error << "@: StreamRead - " << type().name();
+	GSX_THROW( GsXUnsupported, CC_OSTRSTREAM_STR( Error ) );
+}
+
+template<class T>
+size_t GsDtGeneric<T>::GetMemUsage(
+) const
+{
+	return GetGsHeapMemSize( this );
+}
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::Subscript
+**	Returns: GsDt::Iterator *
+**	Action : Index an element
+****************************************************************/
+
+template<class T>
+GsDt::Iterator *GsDtGeneric<T>::Subscript(
+	const GsDt &Index
+)
+{
+	GsErr( ERR_UNSUPPORTED_OPERATION, "GsDtGeneric<%s>: Subscript(), @", RawTypeName().c_str() );
+	return NULL;
+}
+
+/****************************************************************
+**	Routine: GsDtGeneric<T>::SubscriptFirst
+**	Returns: GsDt::Iterator *
+**	Action : Index an element
+****************************************************************/
+
+template<class T>
+GsDt::Iterator *GsDtGeneric<T>::SubscriptFirst(
+	IterationFlag Flag
+)
+{
+	GsErr( ERR_UNSUPPORTED_OPERATION, "GsDtGeneric<%s>: SubscriptFirst(), @", RawTypeName().c_str() );
+	return NULL;
+}
+
+template<class T>
+size_t GsDtGeneric<T>::GetSize(
+) const
+{
+	return 0;
+}
+
+template<class T>
+GsStatus GsDtGeneric<T>::callMemberFn(
+	const char *memberName, GsDt *Args[], int nArgs, GsDt *&RetValue 
+)
+{
+	GsErr( ERR_UNSUPPORTED_OPERATION, "GsDtGeneric<%s>: callMemberFn(), @", RawTypeName().c_str() );
+	return GS_ERR;
+}
+
+
+CC_END_NAMESPACE
+#endif

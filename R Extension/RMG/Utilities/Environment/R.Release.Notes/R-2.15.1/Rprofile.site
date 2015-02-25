@@ -1,0 +1,71 @@
+# Things you might want to change
+
+# options(papersize="a4")
+# options(editor="notepad")
+# options(pager="internal")
+# options(htmlhelp=TRUE)
+
+# set an evironment variable 
+Sys.setenv(rsecdbdll = "I:/ja/prod/dllw32/")
+
+# location of the CCG packages
+.Library.site <- "S:/All/Risk/Software/R/prod/site-library/R-2.12.1"
+.libPaths(c(.Library.site, 
+   "S:/All/Risk/Software/R/prod/cran-library/R-2.12.1"))   # 3rd party
+
+
+options(stringsAsFactors=FALSE)  # added by AAD on 31-Oct-2007
+
+# do this to remove some fake warnings
+#Sys.setenv(TZ="")
+#cat('CEG: I have set system timezone with Sys.setenv(TZ="").\n')
+
+if( !file.exists("I:/") )
+{
+    command = "net use I: \\\\ceg\\CPSApps /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("P:/") )
+{
+    command = "net use P: \\\\ceg\\Yams /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("S:/") )
+{
+    command = "net use S: \\\\ceg\\cpsshare /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("T:/") )
+{
+    command = "net use T: \\\\ceg\\tsdb /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("V:/") )
+{
+    command = "net use V: \\\\ceg\\EntApps /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("Y:/") )
+{
+    command = "net use Y: \\\\ceg\\build /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+#Added to ensure DSN connections function correctly.
+ORACLE = "V:\\Oracle\\ora90\\bin"
+Sys.setenv( PATH=paste( ORACLE, Sys.getenv("PATH"), sep=";" ) )
+Sys.unsetenv("ORACLE_HOME")
+
+# Add JAVA_HOME to point to the corporate version
+# If this is not set, procmon does not see a recent java and cannot run xlsx package
+Sys.setenv(JAVA_HOME="//CEG/CERApps/sw/external/jdk-6u1")
+Sys.setenv(path=paste("//CEG/CERApps/SW/external/jdk-6u1/jre/bin/client",
+  Sys.getenv("path"), sep=";"))
+
+
+cat("Finished Reading Rprofile.site\nWelcome to R at Constellation!\n")

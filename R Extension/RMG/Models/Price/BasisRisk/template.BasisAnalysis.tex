@@ -1,0 +1,89 @@
+\documentclass[letterpaper,10pt]{article} 
+\usepackage{color} 
+\usepackage{graphicx} \usepackage{times}
+\usepackage{fancyvrb}
+%% \usepackage[pdftex, pdftitle={},
+%%   pdfauthor={Adrian A. Dragulescu}, pdfpagemode={UseOutlines}, 
+%%   bookmarks, bookmarksopen,  pdfstartview={FitH}, colorlinks, 
+%%   linkcolor={blue}, citecolor={blue}, urlcolor={red}]{hyperref}
+				  
+\renewcommand{\baselinestretch}{1.5}
+\textwidth       178mm
+\oddsidemargin     0in
+  \advance\oddsidemargin by -1in
+  \advance\oddsidemargin by 19mm
+\evensidemargin    0in
+  \advance\evensidemargin by -1in
+  \advance\evensidemargin by 19mm
+\textheight        9.25in    % 9.75 is the max you can go
+\topmargin         0in
+  \advance\topmargin by 0in  % -0.5in the max you can go
+\headheight        0pt
+\headsep           0pt
+\topskip           0pt
+
+\newcommand{\monthsOut}{OOOOO}
+\newcommand{\region}{RRRRR}
+\newcommand{\book}{BBBBB}
+\newcommand{\asofdate}{DDDDD}
+
+
+\begin{document}
+%--------------------------------------First Page----------------
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{s:/Risk/Software/Latex/logoCECG.pdf}
+\hfill
+\raisebox{1.6cm}{
+  \parbox{7.5cm}{
+  \begin{flushright}
+    {\color{blue}\Large{\scshape Risk Management Group}}
+  \end{flushright}}}
+\end{figure}
+ 
+\vspace*{0.5in}
+\begin{center}
+\LARGE\bf{Basis Risk}
+\end{center}
+\begin{center}
+   Adrian A.\ Dr\u{a}gulescu
+\end{center}
+\begin{center}
+  \small{Version {\bf A}, compiled \today}
+\end{center}
+\vspace*{1in}
+
+%-----------------------------------------------------------------
+%\tableofcontents
+%-----------------------------------------------------------------
+The analysis is for region \region, books \book, months OOOOO .
+
+\input{Rtables/quantities_all}
+
+\clearpage
+\input{Rtables/base_risk_by_month_all}
+\input{Rtables/base_risk_by_zone_all}
+
+\clearpage
+\begin{figure}
+\centerline{
+ \includegraphics[width=0.80\linewidth]{Plots/quantity.pdf}} 
+ \caption{Quantity by month.}
+\end{figure}
+
+\clearpage
+\begin{figure}
+\centerline{
+ \includegraphics[width=0.80\linewidth]{Plots/base_risk_by_month_all.pdf}} 
+ \caption{Basis risk by month.  The risk is calculated relative to the
+ current forward marks spread.}
+\end{figure}
+\begin{figure}
+\centerline{
+ \includegraphics[width=0.80\linewidth]{Plots/base_risk_by_zone_all.pdf}} 
+ \caption{Basis risk by zone.  The risk is calculated relative to the
+ current forward marks spread.}
+\end{figure}
+
+
+
+\end{document}

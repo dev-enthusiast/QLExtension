@@ -1,0 +1,105 @@
+@{Cmt}
+@{Cmt}	Depends on gscore/gs_t_mat.h
+@{Cmt}
+@{Cmt}	$Log: gs_t_mat_cpp.template,v $
+@{Cmt}	Revision 1.3  1999/10/19 15:11:26  vengrd
+@{Cmt}	Thow an exception if index out of range.
+@{Cmt}
+@{Cmt}	Revision 1.2  1999/03/02 16:38:06  vengrd
+@{Cmt}	use STL lower_bound (binary search)
+@{Cmt}	
+@{Cmt}	Revision 1.1  1999/02/16 21:07:07  vengrd
+@{Cmt}	initial rev
+@{Cmt}	
+@{Cmt}
+@{Cmt}  This file is used to generate the matrix class source files
+@{Cmt}
+@{Param}HdrName		- The name of the header file being generated
+@{Param}HdrNameUC	- HdrName in uppercase with _ for /
+@{Param}SrcName		- The name of the source file being produced
+@{Param}Base		- The base name of the element class
+@{Define}ClassM		@{Class}Matrix
+@{Define}ClassV		@{Class}Vector
+#define GSCVSID "@{CVSHeader}"
+/****************************************************************
+**
+**	@{SrcName} - The @{ClassM} class implementation
+**
+**	Copyright @{Year} - Goldman, Sachs & Co. - New York
+**
+**	GenInfo
+**		Year		- @{Year}
+**      SrcName		- @{SrcName}
+**      HdrName		- @{HdrName}
+**
+****************************************************************/
+
+#define	BUILDING_@{ProjectUC}
+#include	<portable.h>
+#include	<gscore/base.h>
+#include	<@{HdrName}>
+#include	<algorithm>
+#include 	<gscore/GsException.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+CC_USING_NAMESPACE( std );
+
+
+
+/****************************************************************
+**	Class  : @{ClassM} 
+**	Routine: operator= 
+**	Returns: reference to @{ClassM} that was assigned to.
+**	Action : 
+****************************************************************/
+
+@{ClassM}& @{ClassM}::operator=(
+	const @{ClassM}& rhs
+)
+{
+	if (this != &rhs)
+	{
+		m_IndexVector = rhs.m_IndexVector;
+		m_DataMatrix = rhs.m_DataMatrix;
+	}
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : @{ClassM} 
+**	Routine: IndexToRowNum 
+**	Returns: Row number corresponding to the given index.
+**           Exception if out of range.
+**	Action : 
+****************************************************************/
+
+size_t @{ClassM}::IndexToRowNum(
+	index_type Row	
+) const
+{
+	@{ClassV}::const_iterator
+			Begin = m_IndexVector.begin(),
+			End     = m_IndexVector.end(),
+			LowerBound;		 
+	
+	LowerBound = lower_bound( Begin, End, Row );
+
+	if( *LowerBound == Row )
+		return LowerBound - Begin;
+	else
+	{
+		GSX_THROW( GsXBadIndex, GsString( "Index not found among valid indices." ) );
+		return static_cast<size_t>( -1 );
+	}
+}
+
+
+
+CC_END_NAMESPACE
+
+@{Cmt} Local Variables: ***
+@{Cmt} mode:c++ ***
+@{Cmt} End: ***

@@ -1,0 +1,134 @@
+\documentclass[letterpaper,12pt]{article} 
+\usepackage{color}
+\usepackage{graphicx} \usepackage{times}
+				  
+\renewcommand{\baselinestretch}{1.5}
+\textwidth       178mm
+\oddsidemargin     0in
+  \advance\oddsidemargin by -1in
+  \advance\oddsidemargin by 5mm
+\evensidemargin    0in
+  \advance\evensidemargin by -1in
+  \advance\evensidemargin by 5mm
+\textheight        9.25in    % 9.75 is the max you can go
+\topmargin         0in
+  \advance\topmargin by 0in  % -0.5in the max you can go
+\headheight        0pt
+\headsep           0pt
+\topskip           0pt
+%\newcommand{\isoDate}{yyyy-mm-dd}
+
+\begin{document}
+%--------------------------------------First Page----------------
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{s:/Risk/Software/Latex/logoCECG.pdf}
+\hfill
+\raisebox{1.6cm}{
+  \parbox{7.5cm}{
+  \begin{flushright}
+    {\color{blue}\Large{\scshape Risk Management Group}}
+  \end{flushright}}}
+\end{figure}
+
+\vspace*{0.5in}
+\begin{center}
+\LARGE\bf{Power and NG Price Report}
+\end{center}
+\begin{center}
+  Please send your suggestions to Anatoley Zheleznyak
+\end{center}
+\begin{center}
+  \small{Compiled \today}
+\end{center}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableHeader.tex}
+
+%----------------------------------------Power Figs----------------------
+\clearpage
+\begin{figure}
+\vspace*{-5\baselineskip}
+\centerline{\includegraphics[width=0.90\linewidth]
+{S:/All/Risk/Reports/PriceChangeReport/asOfDate/figPower-On-Peak-FP-1.pdf}}
+\end{figure}
+\begin{figure}
+\vspace*{-5\baselineskip}
+\centerline{\includegraphics[width=0.90\linewidth]
+{S:/All/Risk/Reports/PriceChangeReport/asOfDate/figPower-On-Peak-FP-2.pdf}}
+\end{figure}
+%----------------------------------------Power Tables-------------------- 
+\clearpage
+%\thispagestyle{myheadings}
+%\markright{As of asOfDate}
+\vspace*{2\baselineskip}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMPower-On-Peak-FP.tex}
+\vspace*{2\baselineskip}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableQYPower-On-Peak-FP.tex} 
+\vspace*{2\baselineskip}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableSPower-On-Peak-FP.tex} 
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMdPower-On-Peak-FP.tex}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableQYdPower-On-Peak-FP.tex}   
+\nopagebreak[0]
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableSdPower-On-Peak-FP.tex} 
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxMPower-On-Peak-FP.tex}
+
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxQYPower-On-Peak-FP.tex} 
+ 
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxSPower-On-Peak-FP.tex}
+%----------------------------------------NG Figs----------------------
+\clearpage
+\begin{figure}
+\vspace*{-5\baselineskip}
+\centerline{\includegraphics[width=0.90\linewidth]
+{S:/All/Risk/Reports/PriceChangeReport/asOfDate/figNG-FP-1.pdf}}
+\end{figure}
+\begin{figure}
+\vspace*{-5\baselineskip}
+\centerline{\includegraphics[width=0.90\linewidth]
+{S:/All/Risk/Reports/PriceChangeReport/asOfDate/figNG-FP-2.pdf}}
+\end{figure}
+%----------------------------------------NG Tables-------------------- 
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMNG-FP.tex}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableQYNG-FP.tex}
+\nopagebreak[0]
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableSNG-FP.tex}
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMdNG-FP.tex}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableQYdNG-FP.tex}
+\nopagebreak[0]
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableSdNG-FP.tex}
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxMNG-FP.tex}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxQYNG-FP.tex}
+\nopagebreak[0]
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxSNG-FP.tex}
+%----------------------------------------HR Figs----------------------
+\clearpage
+\begin{figure}
+\vspace*{-5\baselineskip}
+\centerline{\includegraphics[width=0.90\linewidth]
+{S:/All/Risk/Reports/PriceChangeReport/asOfDate/figForward-HR-1.pdf}}
+\end{figure}
+\begin{figure}
+\vspace*{-5\baselineskip}
+\centerline{\includegraphics[width=0.90\linewidth]
+{S:/All/Risk/Reports/PriceChangeReport/asOfDate/figForward-HR-2.pdf}}
+\end{figure}
+%----------------------------------------Power Tables-------------------- 
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMForward-HR.tex}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableQYForward-HR.tex} 
+\nopagebreak[0]
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableSForward-HR.tex} 
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMdForward-HR.tex}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableQYdForward-HR.tex}   
+\nopagebreak[0]
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableSdForward-HR.tex}
+\clearpage
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxMForward-HR.tex}
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxQYForward-HR.tex} 
+\nopagebreak[0]
+\input{S:/All/Risk/Reports/PriceChangeReport/asOfDate/tableMinMaxSForward-HR.tex}
+\end{document}

@@ -1,0 +1,263 @@
+/****************************************************************
+**
+**	gsdt/GsDtGenVector.hi
+**
+**	Copyright 1998 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsdt/src/gsdt/GsDtGenVector.hi,v 1.12 2012/07/12 14:55:54 e19351 Exp $
+**
+****************************************************************/
+
+#ifndef IN_GSDT_GSDTGENVECTOR_HI
+#define IN_GSDT_GSDTGENVECTOR_HI
+
+#include <gsdt/base.h>
+#include <gsdt/macros.h>
+#include <gsdt/GsDt.h>
+#include <datatype.h>
+#include <assert.h>
+#include <gscore/GsStream.h>
+#include <gsdt/GsDtTypeMap.h>
+#include <gsdt/GsDtGenVector.h>
+#include <gsdt/GsDtGenVecIter.h>
+#include <gscore/gsdt_fwd.h>
+#include <sstream>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+template<class VEC_TYPE>
+GsString GsDtGenVector<VEC_TYPE>::myTypeName()
+{
+	return GsString( "GsDtV<" + GsString( VEC_TYPE::typeName() ) + ">" );
+}
+
+template<class VEC_TYPE>
+GsType* GsDtGenVector<VEC_TYPE>::initType() CC_NOTHROW
+{
+	static GsType *staticType = 0;
+
+	if( !staticType )
+	{
+		staticType = GsType::LookupOrCreate( myTypeName().c_str() );
+	}
+	return staticType;
+}
+
+// Specialize compareSame() if you wish to be able to sort and/or do
+// something more than just compare pointers when testing equivalence.
+//
+// Potential specialization:
+//	template<class VEC_TYPE>
+//	int compareSame( const VEC_TYPE& lhs, const VEC_TYPE& rhs )
+//	{
+//		return lhs.compare( rhs );
+//	}
+
+template<class VEC_TYPE>
+int GsDtGenVector<VEC_TYPE>::compareSame( const VEC_TYPE& lhs, const VEC_TYPE& rhs ) const
+{
+	if( lhs == rhs )
+		return 0;
+	else if( lhs > rhs )
+		return 1;
+	else
+		return -1;
+}
+
+
+// Specialize BinaryOpAssignSame() if your type can handle VEC_TYPE OP VEC_TYPE
+//
+// Potential specialization:
+//	bool GsDtGenVector<MyType>::BinaryOpAssignSame( GSDT_BINOP Op, const GsDt &Other ) 
+//	{
+//		GsDtGenVector<MyType>* Ptr = GsDtGenVector<MyType>::Cast( &Other );
+//		
+//		// Really needs a switch statement to do all OPs
+//		return *m_data OP= *Ptr->m_data;
+//	}
+
+template<class VEC_TYPE>
+GsStatus GsDtGenVector<VEC_TYPE>::BinaryOpAssignSame( GSDT_BINOP Op, const GsDt &Other )
+{
+	return GsDt::BinaryOpAssignSame( Op, Other );
+}
+
+
+/****************************************************************
+**	Routine: GsDtGenVector<VEC_TYPE>::Subscript
+**	Returns: Iterator / GsErrNull
+**	Action : Return an iterator starting at Index
+****************************************************************/
+
+template<class VEC_TYPE>
+GsDt::Iterator *GsDtGenVector<VEC_TYPE>::Subscript(
+	const GsDt	&Index
+)
+{
+	const GsDtDouble
+			*Val = GsDtDouble::Cast( &Index );
+
+	if( !Val )
+	{
+		GsErrMore( "GsDtGenVector<VEC_TYPE>::Subscript, Index must be of type Double" );
+		return NULL;
+	}
+
+	return new GsDtGenVecIter<VEC_TYPE>( this, static_cast<int>( Val->Dbl() ) );
+}
+
+
+
+/****************************************************************
+**	Routine: GsDtGenVector<VEC_TYPE>::SubscriptFirst
+**	Returns: Iterator / GsErrNull
+**	Action : Return an iterator starting at Index
+****************************************************************/
+
+template<class VEC_TYPE>
+GsDt::Iterator *GsDtGenVector<VEC_TYPE>::SubscriptFirst(
+	IterationFlag	Flag		// Ignored
+)
+{
+	return new GsDtGenVecIter<VEC_TYPE>( this, 0 );
+}
+
+
+
+/****************************************************************
+**	Routine: GsDtGenVector<VEC_TYPE>::SubscriptReplace
+**	Returns: Iterator / GsErrNull
+**	Action : Return an iterator starting at Index
+****************************************************************/
+
+template<class VEC_TYPE>
+GsStatus GsDtGenVector<VEC_TYPE>::SubscriptReplace(
+	const GsDt		&Index,
+	GsDt			*NewValue,
+	GsCopyAction	Action
+)
+{
+	return GsDt::SubscriptReplace( Index, NewValue, Action );
+}
+
+
+
+/****************************************************************
+**	Routine: GsDtGenVector<VEC_TYPE>::SubscriptDelete
+**	Returns: GsStatus
+**	Action : Remove a value in a vector
+****************************************************************/
+
+template<class VEC_TYPE>
+GsStatus GsDtGenVector<VEC_TYPE>::SubscriptDelete(
+	const GsDt		&Index
+)
+{
+	return GsErr( ERR_UNSUPPORTED_OPERATION, "GsDtGenVector<VEC_TYPE>::SubscriptDelete, @" );
+}
+
+
+
+/****************************************************************
+**	Routine: GsDtGenVector<VEC_TYPE>::SubscriptAppend
+**	Returns: GsStatus
+**	Action : Append a value
+****************************************************************/
+
+template<class VEC_TYPE>
+GsStatus GsDtGenVector<VEC_TYPE>::SubscriptAppend(
+	GsDt			*NewValue,
+	GsCopyAction	Action
+)
+{
+	GsDt	*Val = NULL;
+
+	switch( Action )
+	{
+		case GS_NO_COPY:
+			Val = NewValue;
+			break;
+
+		case GS_COPY:
+		case GS_NO_COPY_NO_FREE:
+			Val = NewValue->Copy();
+			break;
+	}
+	assert( Val != NULL );
+
+	// FIX-This does not work because resize() ignores Val
+	if( !resize( size()+ 1, Val ))
+	{
+		// resize will eat Val if successful
+		if( Val != NewValue )
+			delete Val;
+		return GsErrMore( "GsDtGenVector<VEC_TYPE>::SubscriptAppend" );
+	}
+	return GS_OK;
+}
+
+template<class VEC_TYPE>
+void GsDtGenVector<VEC_TYPE>::StreamStore(
+	GsStreamOut	&Stream
+) const
+{
+	if( typename VEC_TYPE::GsDtType().typeId() > 0x7F000000 )
+	{
+	    CC_NS(std,ostringstream) Error;
+		Error << "@: Cannot stream " <<  typename VEC_TYPE::GsDtType().typeName() << ", it has a temporary Id." ;
+		GSX_THROW( GsXStreamWrite, Error.str() );
+	}
+
+	size_t Size = m_data->size();
+
+	GsStreamWriteCompactInt( Stream, 0x00 ); // Version
+
+	GsStreamWriteCompactInt( Stream, Size );
+
+	typename VEC_TYPE::const_iterator 
+			iter = m_data->begin(),
+			end  = m_data->end();
+
+	while( iter != end )
+	{
+	    typename GsDtTypeMap< typename VEC_TYPE::value_type >::GsDtType MyGsDt( *iter );
+		MyGsDt.StreamStore( Stream );
+		++iter;
+	}
+}
+
+
+template<class VEC_TYPE>
+void GsDtGenVector<VEC_TYPE>::StreamRead(
+	GsStreamIn	&Stream
+)
+{
+	UINT32 Version;
+	UINT32 Size;
+
+	GsStreamReadCompactInt( Stream, Version );
+	GsStreamReadCompactInt( Stream, Size );
+	
+	VEC_TYPE *RetVec = 
+			new VEC_TYPE( Size );
+
+	typename VEC_TYPE::iterator 
+			iter = RetVec->begin(),
+			end  = RetVec->end();
+
+	while( iter != end )
+	{
+	    typename GsDtTypeMap< typename VEC_TYPE::value_type >::GsDtType MyGsDt;
+		MyGsDt.StreamRead( Stream );
+		*iter = MyGsDt.data();
+		++iter;
+	}
+
+	m_data = RetVec;
+}
+
+CC_END_NAMESPACE
+
+#endif
+
+

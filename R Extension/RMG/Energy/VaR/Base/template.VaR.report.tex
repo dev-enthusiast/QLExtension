@@ -1,0 +1,65 @@
+\documentclass[letterpaper,10pt,landscape]{article} 
+\usepackage{longtable}
+\usepackage{color}
+\usepackage{graphicx} \usepackage{times}
+%% \usepackage[pdftex, pdftitle={},
+%%   pdfauthor={Adrian A. Dragulescu}, pdfpagemode={UseOutlines}, 
+%%   bookmarks, bookmarksopen,  pdfstartview={FitH}, colorlinks, 
+%%   linkcolor={blue}, citecolor={blue}, urlcolor={red}]{hyperref}
+				  
+%\renewcommand{\baselinestretch}{1.0}
+\textwidth       10.8in %178mm
+\oddsidemargin     0in
+  \advance\oddsidemargin by -1in
+  \advance\oddsidemargin by 0.1in
+\evensidemargin    0in
+  \advance\evensidemargin by -1in
+  \advance\evensidemargin by 0.1in
+\textheight        7.0in    % 9.75 is the max you can go
+\topmargin         0in
+  \advance\topmargin by -0.5in  % -0.5in the max you can go
+\headheight        0pt
+\headsep           0pt
+\topskip           0pt
+
+\begin{document}
+%--------------------------------------First Page----------------
+\begin{flushright}
+{\color{blue}\LARGE\bf{VaR Report}}
+\end{flushright}
+\rule{\textwidth}{1pt}
+
+\noindent
+As of date: _asOfDate \\
+Run time: _rundatetime \\
+Run name: _runname \\
+Running on:\\
+\hspace*{\parindent}Portfolios: _portfolios \\
+\hspace*{\parindent}Books: _books \\
+\hspace*{\parindent}Strategies: _strategies \\
+\hspace*{\parindent}Trades: _trades \\
+Historical dates window: _startdate - _enddate \\
+Live positions: _LivePositions \\
+Results saved in: _savereportsdir \\
+%% Start contract date: _start.contract.dt 
+%% End contract date: _end.contract.dt
+
+\begin{center}\input{var_summary}\end{center}
+
+%insert.var.tables.above
+%insert.cvar.tables.above
+%insert.ivar.tables.above
+%insert.corr.sensitivity.tables.above
+
+\end{document}
+
+%\input{var_by_market_year}
+
+
+%% \clearpage
+%% \begin{figure}
+%%  \centerline{
+%%  \includegraphics[width=0.75\linewidth]{Plots/monthly_VaR_\isoDate.pdf}}
+%% \end{figure}
+%% \input{Rtables/top10_monthlyVaR_\isoDate}
+

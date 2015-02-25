@@ -1,0 +1,7 @@
+/utils.R////*////
+/xlsAddSheet.R////*////
+/xlsDeleteSheet.R////*////
+/xlsReadSheet.R////*////
+/xlsRenameSheet.R////*////
+/xlsSetProperty.R////*////
+/xlsWriteSheet.R////*////

@@ -1,0 +1,3 @@
+[ODBC]
+DRIVER=Microsoft ODBC for Oracle
+SERVER=oracle-ptpdsp1.ceg.corp.net:1701/PTPDSP1.exelonds.com

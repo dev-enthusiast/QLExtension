@@ -1,0 +1,99 @@
+/****************************************************************
+**
+**	GSFUNCCONSTRAINT.HI	- 
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsquant/src/gsquant/GsFuncConstraint.hi,v 1.5 2001/11/27 22:46:44 procmon Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSQUANT_GSFUNCCONSTRAINT_HI )
+#define IN_GSQUANT_GSFUNCCONSTRAINT_HI
+
+#include <gsquant/GsFuncConstraint.h>
+#include <ccstream.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+/****************************************************************
+**	Class  : GsFuncConstraint
+**	Routine: GsFuncConstraint
+**	Returns: nothing
+**	Action : constructor
+****************************************************************/
+
+template< class Domain, class Range >
+GsFuncConstraint< Domain, Range >::GsFuncConstraint( Domain bound, Range target,
+													 GsFuncHandle< GsFuncHandle< Domain, Range >, Range > func)
+: m_bound( bound ), 
+  m_target( target ),
+  m_func( func )
+{
+}
+
+/****************************************************************
+**	Class  : GsFuncConstraint
+**	Routine: GsFuncConstraint
+**	Returns: nothing
+**	Action : copy constructor
+****************************************************************/
+
+template< class Domain, class Range >
+GsFuncConstraint< Domain, Range >::GsFuncConstraint( const GsFuncConstraint& other )
+: m_bound( other.m_bound ),
+  m_target( other.m_target ),
+  m_func( other.m_func )
+{
+}
+
+/****************************************************************
+**	Class  : GsFuncConstraint
+**	Routine: operator=
+**	Returns: GsFuncConstraint&
+**	Action : assignment operator
+****************************************************************/
+
+template< class Domain, class Range >
+GsFuncConstraint<Domain,Range >& GsFuncConstraint<Domain, Range>::operator=( const GsFuncConstraint<Domain, Range> & other )
+{
+	m_bound  = other.m_bound ;
+	m_target = other.m_target;
+	m_func   = other.m_func;
+	return  *this;
+}
+
+/****************************************************************
+**	Class  : GsFuncConstraint
+**	Routine: toString
+**	Returns: GsString
+**	Action : string description of class
+****************************************************************/
+
+template< class Domain, class Range >
+GsString GsFuncConstraint<Domain, Range>::toString() const { 
+	CC_OSTRSTREAM stream;	
+	stream << "GsFuncConstraint<" << m_bound << ":" << m_target << ">";
+	return CC_OSTRSTREAM_STR( stream );
+}
+
+template< class Domain, class Range >
+GsStreamMap* GsFuncConstraint< Domain, Range >::buildStreamMapper() const
+{
+	static GsStreamMap* MapCloner = GsStreamMap::find( "GsFuncConstraint" );
+	
+	if( !MapCloner )
+		GSX_THROW( GsXInvalidOperation, "GsFuncConstraint::buildStreamMapper - No GsStreamMap" );
+	
+	return MapCloner->clone( this );
+}
+
+CC_END_NAMESPACE
+
+
+#endif 
+
+
+
+
+

@@ -1,0 +1,1 @@
+matlabrunexe CleanUpDB('%1')

@@ -1,0 +1,283 @@
+/****************************************************************
+**
+**	PricerRepT.hi - definition of member functions for PricerRepT class
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Revision: 1.16 $
+**
+****************************************************************/
+
+#if !defined( IN_FXGRIDPRICERT_HI )
+#define IN_FXGRIDPRICERT_HI
+
+#include <qgrid/PricerRepT.h>
+#include <gsdt/GsDtDouble.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+template< class X > const X& PricerRepT< X >::TestRHSValidity( const PricerRep& rhs ) const
+{
+	TestValidity();
+
+	if( Type() != rhs.Type() )
+		GSX_THROW( GsXInvalidArgument, "PricerRepT::TestRHSValidity - types are not the same" );
+
+	const PricerRepT< X >& rhspricer = static_cast< const PricerRepT< X >& >( rhs );
+	if( m_time != rhspricer.m_time )
+		GSX_THROW( GsXInvalidArgument, "PricerRepT::TestRHSValidity - times are not the same" );
+
+	const BasePricer< X >* a = m_pricer.operator->();
+	const BasePricer< X >* b = rhspricer.m_pricer.operator->();
+
+	if( a != b )
+		GSX_THROW( GsXInvalidArgument, "PricerRepT::TestRHSValidity - grids use different pricers" );
+
+	return rhspricer.m_grid;
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator=( const PricerRep& rhs )
+{
+	if( rhs.Type() != Type() )
+		GSX_THROW( GsXInvalidArgument, "Pricers are of incompatible types" );
+	
+	const PricerRepT< X >& rhspricer = static_cast< const PricerRepT< X >& >( rhs );
+	m_pricer       = rhspricer.m_pricer;
+	m_grid         = rhspricer.m_grid;
+	m_time         = rhspricer.m_time;
+	m_KnockoutData = rhspricer.m_KnockoutData;
+	
+	return *this;
+}
+
+template< class X > void PricerRepT< X >::SetPayout( const GsFuncPiecewiseLinear& f, double Time )
+{
+	m_time = Time;
+	m_pricer->SetPayout( m_grid, f, Time );
+}
+
+template< class X > void PricerRepT< X >::SetPayout( double a, double Time )
+{
+	m_time = Time;
+	m_pricer->SetPayoutDbl( m_grid, a, Time );
+}
+
+template< class X > void PricerRepT< X >::StepBack( double Time )
+{
+	TestValidity();
+
+	int iSegment = m_KnockoutData.GetLHSContainingSegment( m_time );
+	while( Time < m_time  )
+	{
+		double t = m_KnockoutData.StartTime( iSegment );
+		const KnockoutData::Segment& Seg = m_KnockoutData.segment( iSegment );
+
+		if( t < Time )
+			t = Time;
+
+		double RebateTime = 0.;
+		if( Seg.LowerKO() != HUGE_VAL )
+			RebateTime = Seg.LowerRebateTime();
+		else if( Seg.UpperKO() != HUGE_VAL )
+			RebateTime = Seg.UpperRebateTime();
+		
+		if( Seg.UpperKO() != HUGE_VAL && RebateTime != Seg.UpperRebateTime() )
+			GSX_THROW( GsXInvalidArgument, "PricerRepT::StepBack - upper and lower rebate times are not the same" );
+		m_pricer->StepBack( m_grid, t, m_time, Seg.LowerKO(), Seg.UpperKO(), Seg.LowerRebate(), Seg.UpperRebate(), RebateTime );
+		m_time = t;
+		--iSegment;
+	}
+}
+
+template< class X > GsString PricerRepT< X >::ModelDescription() const
+{
+    return m_pricer->ModelDescription();
+}
+
+template< class X > PricerRep* PricerRepT< X >::Clone() const
+{
+    return new PricerRepT< X >( *this );
+}
+
+template< class X > void PricerRepT< X >::AddUpperKO( double KOLevel, double StartTime, double EndTime,
+                 double Rebate, double RebateTime )
+{
+	if( EndTime > 0. )
+	{
+		if( StartTime < 0. )
+			StartTime = 0.;
+		m_KnockoutData.AddUpperKnockout( KOLevel, StartTime, EndTime,
+										 Rebate, RebateTime );
+	}
+}
+
+template< class X > void PricerRepT< X >::AddLowerKO( double KOLevel, double StartTime, double EndTime,
+                 double Rebate, double RebateTime )
+{
+	if( EndTime > 0. )
+	{
+		if( StartTime < 0. )
+            StartTime = 0.;
+		m_KnockoutData.AddLowerKnockout( KOLevel, StartTime, EndTime,
+									 Rebate, RebateTime );
+	}							 
+}
+
+template< class X > void PricerRepT< X >::RemoveKnockouts()
+{
+	m_KnockoutData = KnockoutData();
+}
+
+template< class X > void PricerRepT< X >::SetRebateTime( double t )
+{
+	m_KnockoutData.SetRebateTime( t );
+}
+
+template< class X > double PricerRepT< X >::Price() const
+{
+	if( m_time != 0. )
+		GSX_THROW( GsXInvalidArgument, "PricerRepT::Price - grid time is not zero" );
+		
+	const KnockoutData::Segment& Seg = m_KnockoutData.segment( 0 );
+	
+	double RebateTime = 0.;
+	if( Seg.LowerKO() != HUGE_VAL )
+		RebateTime = Seg.LowerRebateTime();
+	else if( Seg.UpperKO() != HUGE_VAL )
+		RebateTime = Seg.UpperRebateTime();
+
+    return m_pricer->Price( m_grid, Seg.LowerKO(), Seg.UpperKO(), Seg.LowerRebate(),
+                            Seg.UpperRebate(), RebateTime );
+}
+
+template< class X > GsDt* PricerRepT< X >::Value() const
+{
+	const KnockoutData::Segment& Seg = m_KnockoutData.segment( m_time );
+	
+	double RebateTime = 0.;
+	if( Seg.LowerKO() != HUGE_VAL )
+		RebateTime = Seg.LowerRebateTime();
+	else if( Seg.UpperKO() != HUGE_VAL )
+		RebateTime = Seg.UpperRebateTime();
+
+    return m_pricer->Value( m_grid, m_time, Seg.LowerKO(), Seg.UpperKO(),
+				            Seg.LowerRebate(), Seg.UpperRebate(), RebateTime );
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator*=( double a )
+{
+	TestValidity();
+	m_pricer->MultiplyDbl( m_grid, a, m_time );
+	return *this;
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator+=( const PricerRep& rhs )
+{
+	const X& rhsgrid = TestRHSValidity( rhs );
+	m_pricer->AddGrids( m_grid, rhsgrid, m_time );
+	return *this;
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator+=( double a )
+{
+	TestValidity();
+	m_pricer->AddDbl( m_grid, a, m_time );
+	return *this;
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator+=( const GsFuncPiecewiseLinear& f )
+{
+	TestValidity();
+	m_pricer->AddPwl( m_grid, f, m_time );
+	return *this;
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator-=( const PricerRep& rhs )
+{
+	const X& rhsgrid = TestRHSValidity( rhs );
+	m_pricer->SubGrids( m_grid, rhsgrid, m_time );
+	return *this;
+}
+
+template< class X > void PricerRepT< X >::AddProduct( const PricerRep& rhspricer,
+                                                    const GsFuncPiecewiseLinear& f )
+{
+	const X& rhsgrid = TestRHSValidity( rhspricer );
+	m_pricer->AddProduct( m_grid, rhsgrid, f, m_time );
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator-=( const GsFuncPiecewiseLinear& f )
+{
+	TestValidity();
+	m_pricer->SubPwl( m_grid, f, m_time );
+	return *this;
+}
+
+template< class X > const PricerRep& PricerRepT< X >::operator*=( const GsFuncPiecewiseLinear& f )
+{
+	TestValidity();
+	m_pricer->Multiply( m_grid, f, m_time );
+	return *this;
+}
+
+template< class X > void PricerRepT< X >::Max( const PricerRep& rhs )
+{
+	const X& rhsgrid = TestRHSValidity( rhs );
+	m_pricer->MaxGrids( this->m_grid, rhsgrid, m_time );
+}
+
+template< class X > void PricerRepT< X >::Max( double a )
+{
+	TestValidity();
+	m_pricer->MaxDbl( this->m_grid, a, m_time );
+}
+
+template< class X > void PricerRepT< X >::Max( const GsFuncPiecewiseLinear& f )
+{
+	TestValidity();
+	m_pricer->MaxPwl( this->m_grid, f, m_time );
+}
+
+template< class X > void PricerRepT< X >::Min( const PricerRep& rhs )
+{
+	const X& rhsgrid = TestRHSValidity( rhs );
+	m_pricer->MinGrids( this->m_grid, rhsgrid, m_time );
+}
+
+template< class X > void PricerRepT< X >::Min( double a )
+{
+	TestValidity();
+	m_pricer->MinDbl( this->m_grid, a, m_time );
+}
+
+template< class X > void PricerRepT< X >::Min( const GsFuncPiecewiseLinear& f )
+{
+	TestValidity();
+	m_pricer->MinPwl( this->m_grid, f, m_time );
+}
+
+template< class X > double PricerRepT< X >::Time() const
+{
+	return m_time;
+}
+
+template< class X > GsDtDictionary* PricerRepT< X >::ToGsDt() const
+{
+	TestValidity();
+	GsDt* Grid = m_pricer->ToGsDt( m_grid, m_time );
+	GsDtDictionary* dict = new GsDtDictionary;
+	dict->Insert( "Time", new GsDtDouble( m_time ) );
+	dict->Insert( "Grid", Grid );
+	return dict;
+}
+
+template< class X > intptr_t PricerRepT< X >::Type() const
+{
+    static int x = 0;
+    return (intptr_t) &x;
+}
+
+CC_END_NAMESPACE
+
+#endif
+

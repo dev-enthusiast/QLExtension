@@ -1,0 +1,94 @@
+% VaRCheck2
+% Calculates 70-day historical daily VaR
+% price data from TSDB
+
+%[VaR, VaR_unitvolume] =
+%TempforStamos('prc_ng_TRZN6_non_phys','prc_ng_TRAZN1_phys','1Apr08','31Oct10', 300000, 0.0464, 0.03343+0.0019)
+%function [VaR, VaR_unitvolume] = TempforStamos(curve1, curve2, fwdStartDate, fwdEndDate, mthfixedVolume, fuelcharge, commodcharge)
+
+
+clear all
+
+% Input variables
+curve1         = 'prc_ng_TRZN6_non_phys'
+curve2         = 'prc_ng_TRAZN1_phys'
+fwdStartDate   = '1Apr08'
+fwdEndDate     = '31Oct10'
+mthfixedVolume = 300000
+fuelcharge     = 0.0464
+commodcharge   = 0.03343+0.0019
+
+startDate = today - 105;
+endDate   = today;
+ 
+fwdStartDate = datenum(fwdStartDate);                                       
+fwdEndDate   = datenum(fwdEndDate);                                           
+numFwdMths   = months(fwdStartDate,fwdEndDate); 
+ 
+% PRICES        *******************************************************************
+resdata1 = getHistTSDBPrices(startDate, endDate, curve1, fwdStartDate, fwdEndDate); % Delivery Point
+resdata2 = getHistTSDBPrices(startDate, endDate, curve2, fwdStartDate, fwdEndDate); % Receipt Point
+% For USA
+resdata2 = resdata2/(1-fuelcharge);
+% For CANADA
+%resdata2 = resdata2*(1+fuelcharge);
+
+figure; plot(resdata1'); title(curve1); xlabel('months'); ylabel('price'); hold on
+figure; plot(resdata2'); title(curve2); xlabel('months'); ylabel('price'); hold on
+ 
+% VOLUMES       *******************************************************************
+totalVolume = mthfixedVolume * (numFwdMths+1)
+ 
+% DISCOUNT FACTOR
+dateSeries = fwdStartDate;
+date = fwdStartDate;
+for i = 1:numFwdMths
+    date = eomdate(year(date),month(date))+1;
+    dateSeries = [dateSeries; date];
+end
+ 
+df = DiscountFactor(dateSeries);
+ 
+% strike = (resdata2/(1-fuelcharge)) - resdata2 + commodcharge;
+strike = commodcharge;
+
+mthVal = max(0,resdata1 - resdata2 - strike); 
+mthVal = mthVal .* repmat(df,size(resdata1,1),1);
+ 
+% VAR
+VaR = totalVolume * 4 * std(diff(mean(mthVal')))
+VaR_unitvolume = VaR/totalVolume
+
+%return;
+
+% % Function that gets 70-day historical prices from TSDB *************************************************************************
+% resdata = getHistTSDBPrices(startDate, endDate, curve, fwdStartDate, fwdEndDate)
+% 
+% numFwdMths = months(fwdStartDate,fwdEndDate);
+% 
+% % get yymm date and concatenate with curve name
+% Months = [0:numFwdMths];
+% datSeries = datevec(datemnth(fwdStartDate, Months)); 
+% yrSeries = num2str(datSeries(:,1));
+% yrSeries = yrSeries(:,3:4);
+%  
+% % need to make this code better but ok for now
+% mthSeries = datSeries(:,2);
+% mthSeries2 = [];
+% for i = 1:(numFwdMths+1)
+%     if mthSeries(i)<10
+%         mthChg = ['0' num2str(mthSeries(i))] ;
+%     else 
+%         mthChg = num2str(mthSeries(i));
+%     end
+%     mthSeries2 = [mthSeries2; mthChg];
+% end
+%       
+% names = cellstr([repmat(curve,numFwdMths+1,1) repmat('_',numFwdMths+1,1) yrSeries mthSeries2]);
+%  
+% resdata = [];
+% for i = 1:length(names)
+%    name = char(names(i));
+%     z = tsdbRead(name, startDate, endDate);
+%     resdata = [resdata z(:,2)];
+% end

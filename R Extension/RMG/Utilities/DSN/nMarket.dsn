@@ -1,0 +1,24 @@
+[ODBC]
+DRIVER=Oracle in OraHome90
+UID=dat_user
+TLO=O
+PFC=10
+FWC=F
+CSR=F
+MDI=Me
+MTS=F
+BAM=IfAllSuccessful
+FRL=Bi
+GDE=F
+RST=T
+LOB=T
+FDL=10
+FRC=10
+QTO=T
+FEN=T
+XSM=Default
+EXC=F
+APA=T
+DBA=W
+DBQ=nmkttxnp
+SERVER=nmkttxnp

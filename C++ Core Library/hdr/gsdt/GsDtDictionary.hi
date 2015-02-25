@@ -1,0 +1,198 @@
+/****************************************************************
+**
+**	GSDTDICTIONARY.HI	- 
+**
+**	Copyright 1999 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsdtlite/src/gsdt/GsDtDictionary.hi,v 1.1 2001/01/26 17:09:58 johnsoc Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSDT_GSDTDICTIONARY_HI )
+#define IN_GSDT_GSDTDICTIONARY_HI
+
+
+#include <gsdt/base.h>
+#include <gsdt/GsDtDictionary.h>
+#include <gsdt/GsDtTypeMap.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+/****************************************************************
+**	Routine: GsDtDictionaryElementWithDtType
+**	Returns: value at the element
+**	Action : A helper function for getting values out of Dictionaries.
+**           Nobody other than GsDtDictionaryElement() should ever
+**           call this, which is why it is OK for it to be here in
+**			 a .hi file.  It exists so that the default implementation
+**			 of GsDtDictionaryElement() and the specialized versions
+**			 for base types that lack a T::GsDtType can share this
+**			 common code.
+****************************************************************/
+
+template< class T, class DtT >
+void GsDtDictionaryElementWithDtType(
+	const GsDtDictionary &Dict, 
+	const GsString &Tag,
+	const T * &ReturnValue,
+	const DtT *
+)
+{
+	GsDtDictionary::ConstEntry
+			Entry = Dict.Lookup( Tag );
+
+	if( !Entry || !Entry->m_Value )
+		ReturnValue = NULL;
+	else
+	{
+		const GsDt
+				*Elem = static_cast< GsDt * const >( Entry->m_Value );
+
+		const DtT
+				*Result = DtT::Cast( Elem );
+
+		ReturnValue = Result ? &( Result->data() ) : NULL;
+	}
+}	
+
+
+
+/****************************************************************
+**	Routine: GsDtDictionaryElementDt
+**	Returns: value at the element
+**	Action : A helper function like the above, for types that are
+**			 GsDt-derived.
+****************************************************************/
+
+template< class T >
+void GsDtDictionaryElementDt(
+	const GsDtDictionary &Dict, 
+	const GsString &Tag,
+	const T * &ReturnValue
+)
+{
+	GsDtDictionary::ConstEntry
+			Entry = Dict.Lookup( Tag );
+
+	if( !Entry || !Entry->m_Value )
+		ReturnValue = NULL;
+	else
+	{
+		const GsDt
+				*Elem = static_cast< GsDt * const >( Entry->m_Value );
+
+		const T
+				*Result = T::Cast( Elem );
+
+		ReturnValue = Result;
+	}
+}	
+
+
+
+/****************************************************************
+**	Routine: GsDtDictionaryElement
+**	Returns: value at the element or NULL if no such element or bad type.
+**	Action : get the element value
+****************************************************************/
+
+template< class T >
+void GsDtDictionaryElement(
+	const GsDtDictionary &Dict, 
+	const GsString &Tag,
+	const T * &ReturnValue
+)
+{
+	const typename GsDtTypeMap<T>::GsDtType 
+			*Result = NULL;
+
+	GsDtDictionaryElementWithDtType( Dict, Tag, ReturnValue, Result );
+}
+
+
+/****************************************************************
+**	Routine: GsDtDictionary::GsDtDictionaryRequiredElement
+**	Returns: value at the element or exception
+**	Action : get the element value, throw an exception if not available
+****************************************************************/
+
+template <class T>
+void GsDtDictionaryRequiredElement( 
+	const GsDtDictionary &Dict, 
+	const GsString &Tag,
+	const T * &ReturnValue,
+	const GsString &CustomErrorMsg
+)
+{
+	GsDtDictionaryElementWithDtType( Dict, Tag,
+			ReturnValue, static_cast< const typename GsDtTypeMap<T>::GsDtType * >( NULL ) );
+
+	if( !ReturnValue )
+		GSX_THROW( GsXInvalidArgument, CustomErrorMsg + GsString( "\nTag '" ) + Tag + GsString( "' not in dictionary or of wrong type." ) );
+}
+
+
+/****************************************************************
+**	Routine: GsDtDictionaryElementSet
+**	Returns: void/exception
+**	Action : set the value of the element to a vector
+****************************************************************/
+
+template< class T >
+void GsDtDictionaryElementSet(
+	GsDtDictionary &Dict, 
+	const GsString &Tag, 
+	const T &Value
+)
+{
+	Dict.Insert( Tag, new typename GsDtTypeMap<T>::GsDtType( Value ) );
+}
+
+
+// A macro for the common specialization case when the thing we are 
+// pulling out is actually a GsDt, like a GsDtArray or GsDtDictionary.
+
+#define GSDT_DICTIONARY_ELEMENT_SPECIALIZE_GSDT( EXPORT, GsDtT )			\
+																			\
+template<> EXPORT															\
+void GsDtDictionaryElement< GsDtT >(										\
+	const GsDtDictionary &Dict,												\
+	const GsString &Tag,													\
+	const GsDtT * &ReturnValue												\
+)																			\
+{																			\
+	GsDtDictionaryElementDt( Dict, Tag, ReturnValue );						\
+}																			\
+																			\
+template<> EXPORT															\
+void GsDtDictionaryRequiredElement< GsDtT >(								\
+	const GsDtDictionary &Dict,												\
+	const GsString &Tag,													\
+	const GsDtT * &ReturnValue,												\
+	const GsString  &CustomErrorMsg											\
+)																			\
+{																			\
+	GsDtDictionaryElementDt( Dict, Tag, ReturnValue );						\
+																			\
+	if( !ReturnValue )														\
+		GSX_THROW(   GsXInvalidArgument, 									\
+					 CustomErrorMsg + GsString( "Tag '" ) + Tag				\
+				   + GsString( "' not in dictionary or of wrong type." ) );	\
+																			\
+}																			\
+																			\
+template<> EXPORT															\
+void GsDtDictionaryElementSet< GsDtT >(										\
+	GsDtDictionary &Dict,													\
+	const GsString &Tag,													\
+	const GsDtT &Value														\
+)																			\
+{																			\
+	Dict.Insert( Tag, Value.Copy() );										\
+}
+
+
+CC_END_NAMESPACE
+
+#endif 

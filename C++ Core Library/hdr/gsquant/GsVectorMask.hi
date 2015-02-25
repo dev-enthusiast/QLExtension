@@ -1,0 +1,119 @@
+/****************************************************************
+**
+**	GSVECTORMASK.HI	- 
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsquant/src/gsquant/GsVectorMask.hi,v 1.2 2000/05/08 20:41:16 singhki Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSQUANT_GSVECTORMASK_HI )
+#define IN_GSQUANT_GSVECTORMASK_HI
+
+#include <gsquant/GsVectorMask.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+/****************************************************************
+**	Routine: GsVectorMaskCompressTemplate
+**	Returns: Compressed vector
+**	Action : Compress a vector, undoing the effects of GsVectorMaskCompress
+****************************************************************/
+
+template< class VT >
+VT GsVectorMaskCompressTemplate(
+	const VT &Input, 			// Input vector
+	const GsUnsignedVector &Mask	// Mask
+)
+{
+	VT
+			Results( Input.size() );
+
+	typename VT::iterator
+			Result = Results.begin();
+
+	typename VT::const_iterator
+			Elem    = Input.begin(),
+			ElemEnd = Input.end();
+
+	GsUnsignedVector::const_iterator
+			MaskElem    = Mask.begin(),
+			MaskElemEnd = Mask.end();
+
+	while( Elem < ElemEnd )
+	{
+		if( ( MaskElem < MaskElemEnd ) && *MaskElem++ )
+			*Result++ = *Elem;
+		
+		++Elem;
+	}			
+
+	Results.resize( Result - Results.begin() );
+	
+	return Results;
+}
+
+
+
+/****************************************************************
+**	Routine: GsVectorMaskExpandTemplate
+**	Returns: Expanded vector
+**	Action : Expand a vector, undoing the effects of GsVectorMaskCompress
+****************************************************************/
+
+template< class VT >
+VT GsVectorMaskExpandTemplate(
+	const VT &Input, 				// Input vector
+	const GsUnsignedVector &Mask,	// Mask
+	const VT &Defaults				// Default values 
+)
+{
+	if( Defaults.size() != Mask.size() )
+		GSX_THROW( GsXInvalidArgument, "GsVectorMaskExpandTemplate(): Defualts must be the same size as Mask" );
+
+	VT
+			Results( Defaults.size() );
+
+	typename VT::iterator
+			Result    = Results.begin(),
+			ResultEnd = Results.end();
+
+	typename VT::const_iterator
+			Elem    = Input.begin(),
+			ElemEnd = Input.end();
+
+	GsUnsignedVector::const_iterator
+			MaskElem    = Mask.begin();
+
+	typename VT::const_iterator
+			Default    = Defaults.begin();
+
+	while( Result != ResultEnd )
+	{
+		if( *MaskElem++ )
+		{
+			if( Elem != ElemEnd )
+				*Result = *Elem++;
+			else
+				GSX_THROW( GsXInvalidArgument, "GsVectorMaskExpandTemplate(): Input not large enough to fill all masked locations." );
+		}	
+		else
+			*Result = *Default;
+
+		++Default;
+		++Result;
+	}
+
+	if( Elem != ElemEnd )
+		GSX_THROW( GsXInvalidArgument, "GsVectorMaskExpandTemplate(): Not all elems referenced." );	   
+
+	return Results;
+}
+
+
+
+CC_END_NAMESPACE
+
+#endif 

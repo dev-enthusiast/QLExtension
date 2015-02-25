@@ -1,0 +1,51 @@
+# Things you might want to change
+
+# options(papersize="a4")
+# options(editor="notepad")
+# options(pager="internal")
+
+# to prefer Compiled HTML help
+#options(chmhelp=TRUE)                # commented out by AAD
+
+# to prefer HTML help
+# options(htmlhelp=TRUE)
+
+# .Library.site <- file.path(chartr("\\", "/", R.home()), "site-library")
+
+# added by AAD on 31-Oct-2007
+options(stringsAsFactors=FALSE)
+
+if( !file.exists("I:/") )
+{
+    command = "net use I: \\\\ceg\\cerapps /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("P:/") )
+{
+    command = "net use P: \\\\ceg\\Yams /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("T:/") )
+{
+    command = "net use T: \\\\ceg\\tsdb /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("V:/") )
+{
+    command = "net use V: \\\\ceg\\EntApps /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+if( !file.exists("Y:/") )
+{
+    command = "net use Y: \\\\ceg\\build /PERSISTENT:NO"
+    system(command, show.output.on.console=FALSE)
+}
+
+#Added to ensure DSN connections function correctly.
+Sys.setenv( PATH=paste( "V:\\oracle\\ora90\\bin", Sys.getenv("PATH"), sep=";" ) )
+
+cat("Finished Reading Rprofile.site\n\n")

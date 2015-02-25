@@ -1,0 +1,187 @@
+\documentclass[letterpaper,12pt]{article} 
+\usepackage{epsfig}\usepackage{color} 
+\usepackage{graphicx} \usepackage{times}
+\usepackage{longtable}
+				  
+\renewcommand{\baselinestretch}{1.5}
+\textwidth       178mm
+\oddsidemargin     0in
+  \advance\oddsidemargin by -1in
+  \advance\oddsidemargin by 19mm
+\evensidemargin    0in
+  \advance\evensidemargin by -1in
+  \advance\evensidemargin by 19mm
+\textheight        9.25in     %   9.75in is the max
+\topmargin         0in
+  \advance\topmargin by -0.0in  % -0.5in the max you can go
+\headheight        0pt
+\headsep           0pt
+\topskip           0pt
+
+
+\newcommand{\MarketLoc}{PWXCT}
+\newcommand{\Bucket}{5x16}
+
+\begin{document}
+%--------------------------------------First Page----------------
+\begin{figure}
+%\epsfig{file=s:/Risk/Software/Latex/logoCPS.eps, width=0.60\linewidth} 
+\includegraphics[width=0.50\linewidth]{s:/Risk/Software/Latex/logoCECG.pdf}
+\hfill
+\raisebox{1.6cm}{
+  \parbox{7.5cm}{
+  \begin{flushright}
+    {\color{blue}\Large{\scshape Risk Management Group}}
+  \end{flushright}}}
+\end{figure}
+
+\vspace*{0.5in}
+\begin{center}
+\LARGE\bf{Analysis of NEPOOL and NYPP Illiguid Curves marked by Regression}
+\end{center}
+\begin{center}
+                               Curves Included \\
+                               \MarketLoc \Bucket \\
+                   
+\end{center}
+\begin{center}
+   Wang YU
+\end{center}
+\begin{center}
+  \small{Version {\bf A}, edited by WYU on \today}
+\end{center}
+\vspace*{1in}
+
+%=================================================================
+\newpage
+\input{RMG_Regression_\MarketLoc 2x16H}  
+
+\newpage
+\input{SecDB_Regression_\MarketLoc 2x16H} 
+  
+\newpage
+\input{Diff_RMG_SecDB_Regression_\MarketLoc 2x16H}
+
+
+\newpage
+\input{RMG_Regression_\MarketLoc 7x8}  
+
+\newpage
+\input{SecDB_Regression_\MarketLoc 7x8} 
+
+\newpage
+\input{Diff_RMG_SecDB_Regression_\MarketLoc 7x8}
+
+\newpage
+\input{RMG_Regression_\MarketLoc 5x16}  
+\newpage
+\input{SecDB_Regression_\MarketLoc 5x16}   
+\newpage
+\input{Diff_RMG_SecDB_Regression_\MarketLoc 5x16}
+
+\newpage
+\input{FutPrices_\MarketLoc \Bucket}
+
+\clearpage
+\begin{figure}
+  \includegraphics[width=1\linewidth]{FutPrices_\MarketLoc \Bucket .pdf}
+\end{figure}
+
+%=================================================================
+\clearpage
+\begin{figure}
+\vspace*{-2\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jan5x16.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Feb5x16.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Mar5x16.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Apr5x16.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc May5x16.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jun5x16.pdf}}
+\end{figure}
+
+\begin{figure}
+\vspace*{-2\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jul5x16.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Aug5x16.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Sep5x16.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Oct5x16.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Nov5x16.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Dec5x16.pdf}}
+\end{figure}
+
+\begin{figure}
+\vspace*{-2\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jan2x16H.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Feb2x16H.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Mar2x16H.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Apr2x16H.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc May2x16H.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jun2x16H.pdf}}
+\end{figure}
+
+\begin{figure}
+\vspace*{-2\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jul2x16H.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Aug2x16H.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Sep2x16H.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Oct2x16H.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Nov2x16H.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Dec2x16H.pdf}}
+\end{figure}
+
+\begin{figure}
+\vspace*{-2\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jan7x8.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Feb7x8.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Mar7x8.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Apr7x8.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc May7x8.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jun7x8.pdf}}
+\end{figure}
+
+\begin{figure}
+\vspace*{-2\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Jul7x8.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Aug7x8.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Sep7x8.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Oct7x8.pdf}}
+\vspace*{-\baselineskip}
+\centerline{ 
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Nov7x8.pdf}
+  \includegraphics[width=0.50\linewidth]{\MarketLoc Dec7x8.pdf}}
+\end{figure}
+
+%----------------------------------------------------------------------------
+
+\clearpage                                                            
+
+\end{document}
+

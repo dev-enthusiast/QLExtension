@@ -1,0 +1,6 @@
+\documentclass[landscape]{report}
+\begin{document}
+<<fig=TRUE, height=8, width=10, pdf=TRUE, echo=FALSE, include = FALSE, label = mapGraphic, results=tex>>=
+	WeatherPositions$plotUSMap(reportData[["Trading"]], reportData[["PM"]])
+@
+\end{document}

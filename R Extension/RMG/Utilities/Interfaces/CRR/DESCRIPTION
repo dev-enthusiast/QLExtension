@@ -1,0 +1,11 @@
+Package: CRR
+Type: Package
+Title: A reboot for multi ISO congestion tools
+Version: 0.1.45
+Date: 2014-10-09
+Author: Adrian Dragulescu
+Maintainer: Adrian Dragulescu <adrian.dragulescu@constellation.com>
+Depends: R (>= 2.6.0), CEGbase, SecDb, reshape, zoo, RODBC 
+Description: A collections of functions for FTR selection, portfolio construction, and risk management.
+License: CEG
+

@@ -1,0 +1,712 @@
+// -*-c++-*-
+/****************************************************************
+**
+**	collision_hash_table - Templated hash
+**
+**	Copyright 1999 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/extension/src/extension/collision_hash,v 1.14 2011/05/09 20:36:12 khodod Exp $
+**
+****************************************************************/
+
+#ifndef IN_EXTENSION_COLLISION_HASH_H
+#define IN_EXTENSION_COLLISION_HASH_H
+
+#include <extension/functional>
+#include <extension/hash_fun>
+
+#include <new>        // for in-place new
+#include <algorithm>  // for std::swap, std::lower_bound
+#include <functional> // for std::equal_to
+#include <ostream>    // for std::ostream and std::endl
+#include <utility>    // for std::pair
+#include <iterator>   // for std::forward_iterator_tag
+#include <memory>     // for std::allocator
+
+#include <vector>
+#include <ccstl.h>
+#include <arrowkludge.h>
+
+#include <math.h> // for sqrt
+
+CC_BEGIN_NAMESPACE( extension )
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+		class collision_hash_table;
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+		class collision_hash_iterator;
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+		class collision_hash_const_iterator;
+
+static const int collision_hash_num_primes = 30;
+static const unsigned long collision_hash_prime_list[collision_hash_num_primes] =
+{
+	13ul,         29ul,
+	53ul,         97ul,         193ul,       389ul,       769ul,
+	1543ul,       3079ul,       6151ul,      12289ul,     24593ul,
+	49157ul,      98317ul,      196613ul,    393241ul,    786433ul,
+	1572869ul,    3145739ul,    6291469ul,   12582917ul,  25165843ul,
+	50331653ul,   100663319ul,  201326611ul, 402653189ul, 805306457ul,
+	1610612741ul, 3221225473ul, 4294967291ul
+};
+
+inline unsigned long collision_hash_next_prime(unsigned long n)
+{
+	unsigned long const* first = collision_hash_prime_list;
+	unsigned long const* last = collision_hash_prime_list + collision_hash_num_primes;
+	unsigned long const* pos = CC_NS(std,lower_bound)( first, last, n );
+	return pos == last ? *(last - 1) : *pos;
+}
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+class collision_hash_iterator
+{
+public:
+	typedef collision_hash_table<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> hash_t;
+	typedef collision_hash_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> iterator;
+	typedef collision_hash_const_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> const_iterator;
+
+	typedef CC_NS(std,forward_iterator_tag) iterator_category;
+	typedef TValue value_type;
+	typedef ptrdiff_t difference_type;
+	typedef size_t size_type;
+	typedef TValue& reference;
+	typedef TValue* pointer;
+
+private:
+	hash_t* m_hash;
+	value_type* m_pos;
+
+	friend class collision_hash_const_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>;
+
+public:
+	collision_hash_iterator( hash_t* ht, value_type* pos ) : m_hash( ht ), m_pos( pos ) {}
+	collision_hash_iterator() : m_hash( 0 ), m_pos( 0 ) {}
+
+	reference operator*() const { return *m_pos; }
+
+#if CC_COMPILER==CC_COMPILER_SW42
+	arrowReturnKludge<TValue>::type operator->() const { return &(operator*()); }
+#else
+	pointer operator->() const { return &(operator*()); }
+#endif
+
+	iterator& operator++();
+	iterator operator++(int) { collision_hash_iterator ret( *this ); ++ret; return ret; }
+
+	bool operator==(iterator const& it ) const { return m_pos == it.m_pos; }
+	bool operator!=(iterator const& it ) const { return m_pos != it.m_pos; }
+};
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+class collision_hash_const_iterator
+{
+public:
+	typedef collision_hash_table<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> hash_t;
+	typedef collision_hash_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> iterator;
+	typedef collision_hash_const_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> const_iterator;
+
+	typedef CC_NS(std,forward_iterator_tag) iterator_category;
+	typedef TValue value_type;
+	typedef ptrdiff_t difference_type;
+	typedef size_t size_type;
+	typedef TValue const& reference;
+	typedef TValue const* pointer;
+
+private:
+	hash_t const* m_hash;
+	value_type const* m_pos;
+
+public:
+	collision_hash_const_iterator( hash_t const* ht, value_type const* pos ) : m_hash( ht ), m_pos( pos ) {}
+	collision_hash_const_iterator( iterator const& src ) : m_hash( src.m_hash ), m_pos( src.m_pos ) {}
+	collision_hash_const_iterator() : m_pos( 0 ) {}
+
+	reference operator*() const { return *m_pos; }
+
+#if CC_COMPILER==CC_COMPILER_SW42
+	arrowReturnKludge<TValue>::const_type operator->() const { return &(operator*()); }
+#else
+	pointer operator->() const { return &(operator*()); }
+#endif
+
+	const_iterator& operator++();
+	const_iterator operator++(int) { collision_hash_const_iterator ret( *this ); ++ret; return ret; }
+
+	bool operator==(const_iterator const& it ) const { return m_pos == it.m_pos; }
+	bool operator!=(const_iterator const& it ) const { return m_pos != it.m_pos; }
+};
+
+template<class TValue>
+struct collision_hash_usability
+{
+	collision_hash_usability()
+	: chain_mean( 0. ), chain_sigma( 0. ),
+	  chain_longest( 0 ), longest_chain_start( 0 )
+	{}
+
+	double chain_mean, chain_sigma;
+
+	long chain_longest;
+
+	TValue* longest_chain_start;
+};
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+class collision_hash_table
+{
+public:
+	typedef TKey key_type;
+	typedef TValue value_type;
+	typedef THashFn hasher;
+	typedef TEqualKey key_equal;
+
+	typedef size_t size_type;
+	typedef ptrdiff_t difference_type;
+	typedef value_type* pointer;
+	typedef value_type const* const_pointer;
+	typedef value_type& reference;
+	typedef value_type const& const_reference;
+	typedef TAlloc allocator_type;
+
+	hasher hash_funct() const { return m_hash; }
+	key_equal key_eq() const  { return m_equals; }
+	TAlloc allocator_get() const { return TAlloc(); }
+
+protected:
+	typedef typename std::vector< TValue, TAlloc > rep_t;
+	typedef typename std::vector< TValue, TAlloc >::iterator rep_iterator_t;
+	typedef typename std::vector< TValue, TAlloc >::const_iterator rep_const_iterator_t;
+
+	hasher       m_hash;
+	key_equal    m_equals;
+	TExtractKey  m_get_key;
+	rep_t        m_table;
+
+	value_type m_null;
+	value_type m_deleted;
+
+	size_type m_resize_count;
+	size_type m_size;
+	size_type m_key_count;
+	size_type m_delete_count;
+
+	key_type m_null_key;
+	key_type m_deleted_key;
+
+	friend class collision_hash_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>;
+	friend class collision_hash_const_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>;
+
+public:
+	typedef collision_hash_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> iterator;
+	typedef collision_hash_const_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc> const_iterator;
+
+	collision_hash_table( size_type n,
+						  value_type null,
+						  value_type deleted,
+						  hasher const& hf,
+						  key_equal const& ke )
+	:
+	m_hash( hf ),
+	m_equals( ke ),
+	//m_get_key,( TExtractKey() ),
+	m_null( null ),
+	m_deleted( deleted ),
+	m_key_count( 0 ),
+	m_delete_count( 0 ),
+
+	m_null_key( m_get_key( null )),
+	m_deleted_key( m_get_key( deleted ))
+	{
+		m_size = collision_hash_next_prime( n );
+		m_resize_count = ( m_size * 3 ) / 4;
+	}
+
+	void swap( collision_hash_table& rhs )
+	{
+		CC_NS(std,swap)( m_hash,         rhs.m_hash         );
+		CC_NS(std,swap)( m_equals,       rhs.m_equals       );
+		CC_NS(std,swap)( m_get_key,      rhs.m_get_key      );
+		m_table.swap( rhs.m_table );
+		CC_NS(std,swap)( m_null,         rhs.m_null         );
+		CC_NS(std,swap)( m_deleted,      rhs.m_deleted      );
+		CC_NS(std,swap)( m_resize_count, rhs.m_resize_count );
+		CC_NS(std,swap)( m_delete_count, rhs.m_delete_count );
+		CC_NS(std,swap)( m_null_key,     rhs.m_null_key     );
+		CC_NS(std,swap)( m_deleted_key,  rhs.m_deleted_key  );
+	}
+
+	// default copy constructor
+	// default destructor
+	// default assignment operator
+
+	size_type bucket( key_type const& key ) const
+	{
+		return m_hash( key ) % m_size;
+	}
+
+	const_iterator find( key_type const& key ) const
+	{
+		rep_const_iterator_t it = m_table.begin();
+		if( it == m_table.end() ) return end();
+		for( it += bucket( key ); !is_null( *it ); )
+		{
+			if( m_equals( m_get_key( *it ), key ) )
+				return const_iterator( this, &(*it) );
+			if( ++it == m_table.end() )
+				it = m_table.begin();
+		}
+		return end();
+	}
+
+	iterator find( key_type const& key )
+	{
+		rep_iterator_t it = m_table.begin();
+		if( it == m_table.end() ) return end();
+
+		for( it += bucket( key ); !is_null( *it ); )
+		{
+			if( m_equals( m_get_key( *it ), key ) )
+				return iterator( this, &(*it) );
+			if( ++it == m_table.end() )
+				it = m_table.begin();
+		}
+		return end();
+	}
+
+	iterator find_or_insert( value_type const& obj )
+	{
+		init();
+
+		if( need_to_resize( m_key_count + 1 ) )
+			resize();
+
+		key_type key = m_get_key( obj );
+
+		rep_iterator_t insert_pos( m_table.end() );
+		rep_iterator_t it = m_table.begin() + val_bucket( obj );
+		while( !is_null( *it ) )
+		{
+			if( is_deleted( *it ) )
+				insert_pos = it;
+			else if( m_equals( m_get_key( *it ), key ) )
+				return iterator( this, &(*it) );
+			if( ++it == m_table.end() )
+				it = m_table.begin();
+		}
+		++m_key_count;
+		if( insert_pos == m_table.end() )
+			insert_pos = it;
+		else
+			--m_delete_count;
+
+		whack( *insert_pos, obj );
+		return iterator( this, &(*insert_pos) );
+	}
+
+	CC_NS(std,pair)<iterator,bool> insert_unique( value_type const& obj )
+	{
+		if( need_to_resize( m_key_count + 1 ) )
+			resize();
+		return insert_unique_no_resize( obj );
+	}
+
+	CC_NS(std,pair)<iterator,bool> insert_unique_no_resize( value_type const& obj )
+	{
+		init();
+
+		rep_iterator_t insert_pos( m_table.end() );
+		rep_iterator_t it = m_table.begin() + val_bucket( obj );
+		while( !m_equals( m_get_key( *it ), m_get_key( m_null ) ) )
+		{
+			if( m_equals( m_get_key( *it ), m_get_key( m_deleted ) ) )
+				insert_pos = it;
+			else if( m_equals( m_get_key( *it ), m_get_key( obj ) ) )
+				return CC_NS(std,pair)<iterator,bool>( iterator( this, &(*it) ), false );
+			if( ++it == m_table.end() )
+				it = m_table.begin();
+		}
+		++m_key_count;
+		if( insert_pos == m_table.end() )
+			insert_pos = it;
+		else
+			--m_delete_count;
+
+		whack( *insert_pos, obj );
+		return CC_NS(std,pair)<iterator,bool>( iterator( this, &(*insert_pos) ), true );
+	}
+
+	size_type erase( key_type const& key )
+	{
+		init();
+
+		rep_iterator_t it = m_table.begin() + bucket( key );
+		size_type n = 0;
+		while( !is_null( *it ) )
+		{
+			if( m_equals( m_get_key( *it ), key ) )
+			{
+				whack( *it, m_deleted );
+				++m_delete_count;
+				--m_key_count;
+				++n;
+			}
+			if( ++it == m_table.end() )
+				it = m_table.begin();
+		}
+
+		bool more = true;
+		while( more )					// hit null, walk back clearing deleted flags
+		{
+			if( it == m_table.begin() )
+				it = m_table.end() - 1;
+			else
+				--it;
+
+			more = is_deleted( *it );
+			if( more )
+			{
+				whack( *it, m_null );
+				--m_delete_count;
+			}
+		}
+		return n;
+	}
+
+	iterator begin() { return iterator( this, first_non_empty_no_wrap( m_table.begin() ) ); }
+	iterator end() { return iterator( 0, 0 ); }
+
+	const_iterator begin() const { return const_iterator( this, first_non_empty_no_wrap( m_table.begin() ) ); }
+	const_iterator end() const { return const_iterator( 0, 0 ); }
+
+	bool empty() const { return size() == 0;}
+
+	size_type size() const { return m_key_count; }
+	size_type max_size() const { return m_table.size(); }
+
+	collision_hash_usability<TValue> statistics();
+
+protected:
+
+	void init()
+	{
+		if( m_table.empty() )
+			m_table.insert( m_table.end(), m_size, m_null );
+	}
+
+	rep_iterator_t first_non_empty_iter_no_wrap( rep_iterator_t it )
+	{
+		while( ( it != m_table.end() ) && ( !is_value( *it ))) ++it;
+		return it;
+	}
+
+	rep_const_iterator_t first_non_empty_iter_no_wrap( rep_const_iterator_t it ) const
+	{
+		while( ( it != m_table.end() ) && ( !is_value( *it ))) ++it;
+		return it;
+	}
+
+	value_type* first_non_empty_no_wrap( rep_iterator_t it )
+	{
+		rep_iterator_t ret = first_non_empty_iter_no_wrap( it );
+		return (ret == m_table.end() ? 0 : &(*ret));
+	}
+
+	value_type const* first_non_empty_no_wrap( rep_const_iterator_t it ) const
+	{
+		rep_const_iterator_t ret = first_non_empty_iter_no_wrap( it );
+		return (ret == m_table.end() ? 0 : &(*ret));
+	}
+
+	static void whack( value_type& old_val, value_type const& new_val )
+	{
+		old_val.~TValue();
+		new( &old_val ) value_type( new_val );
+	}
+
+	bool need_to_resize( int new_size ) const
+	{
+		return new_size + m_delete_count > m_resize_count;
+	}
+
+	size_type val_bucket( value_type const& val ) const // cannot just overload bucket as value_type and key_type may be aliases
+	{
+		return bucket( m_get_key( val ));
+	}
+
+	bool is_null(    value_type const& val ) const { return m_equals( m_get_key( val ), m_null_key    );}
+	bool is_deleted( value_type const& val ) const { return m_equals( m_get_key( val ), m_deleted_key );}
+	bool is_value(   value_type const& val ) const { key_type key = m_get_key( val ); return !( m_equals( key, m_null_key ) || m_equals( key, m_deleted_key ));}
+
+	void resize()
+	{
+		m_size = collision_hash_next_prime( m_size + 1 );
+		m_resize_count = ( m_size * 3 ) / 4;
+		m_delete_count = 0;
+
+		rep_t new_table( m_size, m_null );
+		for( rep_iterator_t it = m_table.begin(); it != m_table.end(); ++it )
+		{
+			if( is_value( *it ))
+			{
+				rep_iterator_t new_pos = new_table.begin() + val_bucket( *it );
+				for( ; !is_null( *new_pos ); )
+				{
+					if( ++new_pos == new_table.end() )
+						new_pos = new_table.begin();
+				}
+				whack( *new_pos, *it );
+			}
+		}
+		m_table.swap( new_table );
+	}
+};
+
+#ifdef CC_NO_TEMPLATE_DEFAULTS
+template<class TKey, class TValue, class THashFn, class TEqualKey, class TAlloc >
+#else
+template<class TKey, class TValue, class THashFn = CC_NS(extension,GsHash)<TKey>, class TEqualKey = CC_NS(std,equal_to)<TKey>, class TAlloc = CC_NS(std,allocator)< TValue > >
+#endif
+class collision_hash_map
+{
+private:
+	typedef CC_NS(extension,select_1st)< CC_NS(std,pair)< TKey, TValue > > extract_key;
+	typedef collision_hash_table< CC_NS(std,pair)<TKey,TValue >, TKey, THashFn, extract_key, TEqualKey, 
+								  CC_NS(std,allocator)< CC_NS(std,pair)< TKey,TValue > > > rep_t;
+
+	rep_t m_rep;
+
+public:
+	typedef typename rep_t::key_type key_type;
+	typedef TValue data_type;
+	typedef TValue mapped_type;
+	typedef typename rep_t::value_type value_type;
+	typedef typename rep_t::hasher hasher;
+	typedef typename rep_t::key_equal key_equal;
+  
+	typedef typename rep_t::size_type size_type;
+	typedef typename rep_t::difference_type difference_type;
+	typedef typename rep_t::pointer pointer;
+	typedef typename rep_t::const_pointer const_pointer;
+	typedef typename rep_t::reference reference;
+	typedef typename rep_t::const_reference const_reference;
+
+	typedef typename rep_t::iterator iterator;
+	typedef typename rep_t::const_iterator const_iterator;
+	
+	typedef typename rep_t::allocator_type allocator_type;
+
+	hasher hash_funct() const { return m_rep.hash_funct(); }
+	key_equal key_eq() const { return m_rep.key_eq(); }
+	//allocator_type get_allocator() const { return m_rep.get_allocator(); }
+
+public:
+	collision_hash_map( value_type null, value_type deleted ) : m_rep( 8, null, deleted, hasher(), key_equal() )
+	{}
+
+	collision_hash_map( size_t n, value_type null, value_type deleted ) : m_rep( n, null, deleted, hasher(), key_equal() )
+	{}
+
+	size_type size() const { return m_rep.size(); }
+	size_type max_size() const { return m_rep.max_size(); }
+	bool empty() const { return m_rep.empty(); }
+
+	iterator begin() { return m_rep.begin(); }
+	iterator end() { return m_rep.end(); }
+	const_iterator begin() const { return m_rep.begin(); }
+	const_iterator end() const { return m_rep.end(); }
+
+	CC_NS(std,pair)<iterator,bool> insert( value_type const& obj ) { return m_rep.insert_unique( obj ); }
+
+	iterator find( key_type const& key ) { return m_rep.find( key ); }
+	const_iterator find( key_type const& key ) const { return m_rep.find( key ); }
+
+	TValue& operator[]( key_type const& key )
+	{
+		return m_rep.find_or_insert( value_type( key, TValue() ) )->second;
+	}
+
+	size_type erase( key_type const& key ) { return m_rep.erase( key ); }
+
+	collision_hash_usability<value_type> statistics() { return m_rep.statistics(); }
+};
+
+
+#ifdef CC_NO_TEMPLATE_DEFAULTS
+template<class TValue, class THashFn, class TEqualKey, class TAlloc >
+#else
+template<class TValue, class THashFn = CC_NS(extension,GsHash)<TValue>, class TEqualKey = CC_NS(std,equal_to)<TValue>, class TAlloc = CC_NS(std,allocator)< TValue > >
+#endif
+class collision_hash_set
+{
+private:
+	typedef collision_hash_table<TValue, TValue, THashFn, CC_NS(extension,identity)<TValue>, TEqualKey, TAlloc> rep_t;
+
+	rep_t m_rep;
+
+public:
+	typedef typename rep_t::key_type key_type;
+	typedef TValue data_type;
+	typedef TValue mapped_type;
+	typedef typename rep_t::value_type value_type;
+	typedef typename rep_t::hasher hasher;
+	typedef typename rep_t::key_equal key_equal;
+  
+	typedef typename rep_t::size_type size_type;
+	typedef typename rep_t::difference_type difference_type;
+	typedef typename rep_t::pointer pointer;
+	typedef typename rep_t::const_pointer const_pointer;
+	typedef typename rep_t::reference reference;
+	typedef typename rep_t::const_reference const_reference;
+
+	typedef typename rep_t::iterator iterator;
+	typedef typename rep_t::const_iterator const_iterator;
+	
+	typedef typename rep_t::allocator_type allocator_type;
+
+	hasher hash_funct() const { return m_rep.hash_funct(); }
+	key_equal key_eq() const { return m_rep.key_eq(); }
+	//allocator_type get_allocator() const { return m_rep.get_allocator(); }
+
+public:
+	collision_hash_set( key_type null, key_type deleted ) : m_rep( 8, null, deleted, hasher(), key_equal() )
+	{}
+
+	collision_hash_set( size_t n, key_type null, key_type deleted ) : m_rep( n, null, deleted, hasher(), key_equal() )
+	{}
+
+	size_type size() const { return m_rep.size(); }
+	size_type max_size() const { return m_rep.max_size(); }
+	bool empty() const { return m_rep.empty(); }
+
+	iterator begin() { return m_rep.begin(); }
+	iterator end() { return m_rep.end(); }
+	const_iterator begin() const { return m_rep.begin(); }
+	const_iterator end() const { return m_rep.end(); }
+
+	CC_NS(std,pair)<iterator,bool> insert( value_type const& obj ) { return m_rep.insert_unique( obj ); }
+
+	iterator find( key_type const& key ) { return m_rep.find( key ); }
+	const_iterator find( key_type const& key ) const { return m_rep.find( key ); }
+
+	size_type erase( key_type const& key ) { return m_rep.erase( key ); }
+
+	collision_hash_usability<TValue> statistics() { return m_rep.statistics(); }
+};
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+collision_hash_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>&
+collision_hash_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>::operator++()
+{
+	do
+	{
+		if( ++m_pos == &(*m_hash->m_table.end()) )
+		{
+			m_pos = 0;
+			break;
+		}
+	}
+	while( !m_hash->is_value( *m_pos ));
+
+	return *this;
+}
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+collision_hash_const_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>&
+collision_hash_const_iterator<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>::operator++()
+{
+	do
+	{
+		if( ++m_pos == &(*m_hash->m_table.end()) )
+		{
+			m_pos = 0;
+			break;
+		}
+	}
+	while( !m_hash->is_value( *m_pos ));
+
+	return *this;
+}
+
+template<class TValue, class TKey, class THashFn, class TExtractKey, class TEqualKey, class TAlloc >
+collision_hash_usability<TValue> collision_hash_table<TValue,TKey,THashFn,TExtractKey,TEqualKey,TAlloc>::statistics()
+{
+	collision_hash_usability<TValue> usability;
+
+	if( m_key_count <= 1 )
+		return usability;
+
+	double chain_sum = 0.;
+	rep_iterator_t it;
+	for( it = first_non_empty_iter_no_wrap( m_table.begin() ); it != m_table.end(); it = first_non_empty_iter_no_wrap( it+1 ) )
+	{
+		long actual_bucket = (long)( it - m_table.begin() );
+		long best_bucket = (long) val_bucket( *it );
+
+		long chain_length = ( actual_bucket - best_bucket + (long) m_size ) % (long) m_size;
+		chain_sum += chain_length;
+
+		if( chain_length > usability.chain_longest )
+			usability.chain_longest = chain_length;
+	}
+
+	usability.chain_mean = chain_sum / m_key_count;
+
+	chain_sum = 0.;
+	for( it = first_non_empty_iter_no_wrap( m_table.begin() ); it != m_table.end(); it = first_non_empty_iter_no_wrap( it+1 ) )
+	{
+		if( !is_value( *it ))
+			continue;
+
+		long actual_bucket = (long)( it - m_table.begin() );
+		long best_bucket = (long) val_bucket( *it );
+
+		long chain_length = ( actual_bucket - best_bucket + (long) m_size ) % (long) m_size;
+
+		if( chain_length == usability.chain_longest )
+			usability.longest_chain_start = &(*it);
+		chain_sum = ( best_bucket + m_size - actual_bucket ) % m_size;
+	}
+
+	usability.chain_sigma = sqrt( chain_sum / ( m_key_count - 1 ));
+	return usability;
+}
+
+template< class TValue >
+		CC_NS(std,ostream)& operator<<( CC_NS(std,ostream)& os, collision_hash_usability<TValue> const& usability )
+{
+	os << "longest chain: " << usability.chain_longest << std::endl;
+	os << "mean chain: " << usability.chain_mean << std::endl;
+	os << "chain sigma: " << usability.chain_sigma << std::endl;
+	return os;
+}
+
+CC_END_NAMESPACE
+
+#ifdef CC_NO_TEMPLATE_DEFAULTS
+#define COLLISION_HASH_ALLOC(T)	, allocator
+#else
+#define COLLISION_HASH_ALLOC(T)
+#endif
+
+#define COLLISION_HASH_MAP( K, V )				                                      \
+             CC_NS(extension,collision_hash_map)< K, V, CC_NS(extension,GsHash)< K >, \
+             CC_NS(std,equal_to)< K > COLLISION_HASH_ALLOC(V) >
+#define COLLISION_HASH_MAP_H( K, V, H )			                                      \
+             CC_NS(extension,collision_hash_map)< K, V, H,                            \
+             CC_NS(std,equal_to)< K > COLLISION_HASH_ALLOC(V) >
+#define COLLISION_HASH_MAP_H_C( K, V, H, C )	                                      \
+             CC_NS(extension,collision_hash_map)< K, V, H, C COLLISION_HASH_ALLOC(V) >
+
+#define COLLISION_HASH_SET( K )     			                                      \
+             CC_NS(extension,collision_hash_set)< K, CC_NS(extension,GsHash)< K >,    \
+             CC_NS(std,equal_to)< K > COLLISION_HASH_ALLOC(K) >
+#define COLLISION_HASH_SET_H( K, H )   			                                      \
+             CC_NS(extension,collision_hash_set)< K, H,                               \
+             CC_NS(std,equal_to)< K > COLLISION_HASH_ALLOC(K) >
+#define COLLISION_HASH_SET_H_C( K, H, C )		                                      \
+             CC_NS(extension,collision_hash_set)< K, H, C COLLISION_HASH_ALLOC(K) >
+
+#endif

@@ -1,0 +1,202 @@
+\documentclass[letterpaper,12pt]{article} 
+\usepackage{epsfig}\usepackage{color} 
+\usepackage{graphicx} \usepackage{times}
+%% \usepackage[pdftex, pdftitle={},
+%%    pdfauthor={Adrian A. Dragulescu}, pdfpagemode={UseOutlines}, 
+%%    bookmarks, bookmarksopen,  pdfstartview={FitH}, colorlinks, 
+%%    linkcolor={blue}, citecolor={blue}, urlcolor={red}]{hyperref}
+				  
+\renewcommand{\baselinestretch}{1.5}
+\textwidth       178mm
+\oddsidemargin     0in
+  \advance\oddsidemargin by -1in
+  \advance\oddsidemargin by 19mm
+\evensidemargin    0in
+  \advance\evensidemargin by -1in
+  \advance\evensidemargin by 19mm
+\textheight        9.25in     %   9.75in is the max
+\topmargin         0in
+  \advance\topmargin by -0.0in  % -0.5in the max you can go
+\headheight        0pt
+\headsep           0pt
+\topskip           0pt
+
+
+\newcommand{\dealname}{DDDDD }
+\newcommand{\airport}{AAAAA}
+\begin{document}
+%--------------------------------------First Page----------------
+\begin{figure}
+%\epsfig{file=s:/Risk/Software/Latex/logoCPS.eps, width=0.60\linewidth} 
+\includegraphics[width=0.50\linewidth]{s:/Risk/Software/Latex/logoCECG.pdf}
+\hfill
+\raisebox{1.6cm}{
+  \parbox{7.5cm}{
+  \begin{flushright}
+    {\color{blue}\Large{\scshape Risk Management Group}}
+  \end{flushright}}}
+\end{figure}
+
+\vspace*{0.5in}
+\begin{center}
+\LARGE\bf{Analysis of \dealname load}
+\end{center}
+\begin{center}
+   Adrian A.\ Dr\u{a}gulescu
+\end{center}
+\begin{center}
+  \small{Version {\bf A}, edited by AAD on \today}
+\end{center}
+\vspace*{1in}
+
+%=================================================================
+
+\newpage
+
+\input{Rtables/hist.load.month}    % Historical totals by month
+\input{Rtables/tlp.load.month}      % TLP forecast by month
+\input{Rtables/fload.TLP.RMG.month}% TLP and RMG total load forecast by month
+
+\begin{center}
+\begin{figure}
+  \includegraphics[width=\linewidth]{Plots/histload_trend.pdf}
+\end{figure}
+\input{Rtables/trendReg}
+\end{center}
+
+%----------------------------------------------------------------------------
+\begin{figure}
+  \includegraphics[width=0.95\linewidth]{Plots/tlpload_minmax.pdf}
+  \caption{Monthly load in MWh for the first 12 months of the deal.
+  Filled blue circles: TLP forecast. Open red circles: weather
+  normalized forecast produced by RMG. Solid blocks: minumum and
+  maximum load of the RMG load calculated from 44 years of realized
+  temperatures.  A small min-max interval for a particular month
+  indicates that the particular month is not sensitive to
+  temperature. \label{Fig:tlpload_minmax}}
+\end{figure}
+%----------------------------------------------------------------------------
+\begin{figure}
+  \includegraphics[width=0.95\linewidth]{Plots/pdfHS+tlp.pdf}
+  \caption{Load forecasts for the first 12 months of the load term.
+  The TLP forecast (blue) and the RMG forecast (red).  The fringes
+  under the plot, represent the 12 months loads calculated with 44
+  years of historical temperatures.  The solid curve is a smooth
+  estimate of the probability density of the first 12 months load.}
+\end{figure}
+%----------------------------------------------------------------------------
+\begin{figure}
+  \includegraphics[width=0.95\linewidth]{Plots/histload_violin.pdf}
+  \caption{Violin plot of detrended historical \dealname hourly load.
+  For each month the width of the filled shape is proportional to the
+  probability density of the hourly load in that month.  The points
+  represent the historical mean hourly load for each month. }
+\end{figure}
+%----------------------------------------------------------------------------
+\begin{figure}
+  \includegraphics[angle=90,width=0.95\linewidth]{Plots/histload_hour_WD.pdf}
+\end{figure}
+\begin{figure}
+  \includegraphics[angle=90,width=0.95\linewidth]{Plots/histload_hour_WE.pdf}
+\end{figure}
+%----------------------------------------------------------------------------
+\begin{figure}
+  \includegraphics[width=0.95\linewidth]{Plots/rmg_load_slope.pdf}
+  \caption{The slope of the linear regression of daily load vs.\ daily
+   temperature as used by the RMG load model.  The plots compare the
+   sensitivity to temperature of different months.}
+\end{figure}
+%----------------------------------------------------------------------------
+\begin{figure}
+  \includegraphics[width=0.95\linewidth]{Plots/rmg_load_sd.pdf}
+  \caption{The standard deviation of residuals from the monthly
+  regressions between the daily load and daily temperature as used by
+  the RMG load model.  The plots show the scale of intrinsic
+  variability in the daily load after the temperature dependence has
+  been removed.  The information contained in these two plots is
+  complementary to that shown in Fig.\ \ref{Fig:tlpload_minmax}.  }
+\end{figure}
+%----------------------------------------------------------------------------
+\clearpage                                                              %VLRVLR
+\begin{figure}                                                          %VLRVLR
+  \includegraphics[angle=90,width=0.95\linewidth]{Plots/violin_vlr.pdf} %VLRVLR
+\end{figure}                                                            %VLRVLR
+\input{Rtables/vlr_quantiles}                                           %VLRVLR
+
+
+\end{document}
+
+%% \begin{figure}
+%%   \includegraphics[angle=90,width=0.95\linewidth]{Plots/histload_day_1998.pdf}
+%% \end{figure}
+%% \begin{figure}
+%%   \includegraphics[angle=90,width=0.95\linewidth]{Plots/histload_day_1999.pdf}
+%% \end{figure}
+%% \begin{figure}
+%%   \includegraphics[angle=90,width=0.95\linewidth]{Plots/histload_day_2000.pdf}
+%% \end{figure}
+%% \begin{figure}
+%%   \includegraphics[angle=90,width=0.95\linewidth]{Plots/histload_day_2001.pdf}
+%% \end{figure}
+%% \begin{figure}
+%%   \includegraphics[angle=90,width=0.95\linewidth]{Plots/histload_day_2002.pdf}
+%% \end{figure}
+
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %                        WEEKDAYS
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %-----------------------------------------------------------------
+%% \begin{figure}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--1.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--2.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--3.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--4.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--5.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--6.pdf}}
+%% \end{figure}
+%% %-----------------------------------------------------------------
+%% \begin{figure}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--7.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--8.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--9.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--10.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--11.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WD--12.pdf}}
+%% \end{figure}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %                        WEEKENDS
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %-----------------------------------------------------------------
+%% \begin{figure}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--1.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--2.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--3.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--4.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--5.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--6.pdf}}
+%% \end{figure}
+%% %-----------------------------------------------------------------
+%% \begin{figure}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--7.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--8.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--9.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--10.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--11.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--12.pdf}}
+%% \end{figure}
+

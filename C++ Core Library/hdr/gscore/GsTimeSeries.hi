@@ -1,0 +1,283 @@
+/****************************************************************
+**
+**	gscore/GsTimeSeries.hi	- 
+**
+**	Copyright 1999 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsdate/src/gscore/GsTimeSeries.hi,v 1.17 2013/08/23 17:01:40 khodod Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSCORE_GSTIMESERIES_HI )
+#define IN_GSCORE_GSTIMESERIES_HI
+
+#include	<algorithm>
+#include	<ccstream.h>
+#include	<stdio.h>
+#include	<gscore/GsTimeSeries.h>
+#include	<gscore/GsTsHandle.h>
+#include	<gscore/GsException.h>
+
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+
+template <class _T>
+GsString GsTimeSeriesToString(
+	const _T& Value
+)
+{
+	return Value.toString();
+}
+
+inline GsString GsTimeSeriesToString(
+	const GsString& Value
+)
+{
+	return Value;
+}
+
+inline GsString GsTimeSeriesToString(
+	const GsDouble& Value
+)
+{
+	CC_OSTRSTREAM
+			ostr;
+
+	ostr << Value;
+
+	return ostr.str();
+}
+
+inline GsString GsTimeSeriesToString(
+	const GsInteger& Value
+)
+{
+	CC_OSTRSTREAM
+			ostr;
+
+	ostr << Value;
+
+	return ostr.str();
+}
+
+
+
+/*
+** Out-Of-Line Template methods
+*/
+
+template <class _T>
+GsTimeSeriesNode<_T>::~GsTimeSeriesNode()
+{
+}
+
+
+#if 0
+template <class _T>
+GsTimeSeries<_T>::GsTimeSeries(
+	GsTimeSeries<_T>::size_type N
+) :	m_Data(N)
+{
+}
+#endif
+
+
+template <class _T>
+GsTimeSeries<_T>::GsTimeSeries(
+	size_t N
+) :	m_Data(N)
+{
+}
+
+
+template <class _T>
+GsTimeSeries<_T>::GsTimeSeries(
+	const GsDateVector& Dates
+) :	m_Data(0)
+{
+	dates(Dates);
+}
+
+
+template <class _T>
+GsTimeSeries<_T>::GsTimeSeries(
+	const GsTimeSeries<_T>& Rhs
+) :	m_Data( Rhs.m_Data )
+{
+}
+
+
+template <class _T>
+GsTimeSeries<_T>::~GsTimeSeries()
+{
+}
+
+template <class _T>
+GsString GsTimeSeries<_T>::toString() const
+{
+	CC_OSTRSTREAM   
+			ostr;
+
+	const_iterator	
+			Iter = begin(),
+			End = end();
+
+	ostr << typeName() << ":[";
+
+	for( ; Iter != End; Iter++ )
+	{
+		if( Iter != begin() )
+			ostr << ',';
+		ostr << "\n  ";
+		ostr << (*Iter).date().toString() << "\t\t" << GsTimeSeriesToString((*Iter).value());
+	}
+	ostr << "\n]";
+	return CC_OSTRSTREAM_STR( ostr );
+}
+
+
+template <class _T>
+typename GsTimeSeries< _T >::node_type&
+GsTimeSeries< _T >::atErrIndex(
+	size_type Index
+) const
+{
+	char	Buf[ 128 ];
+	sprintf( Buf, "GsTimeSeries::at( %d ), Len=%d",
+			 (int) Index, (int) size());
+	GSX_THROW( GsXBadIndex, Buf );
+
+	static node_type BogusNode;
+	return BogusNode;
+}
+
+
+template <class _T>
+typename GsTimeSeries<_T>::node_type&
+GsTimeSeries<_T>::atErr(
+	const GsDate& Date
+) const
+{
+	char	Buf[ 128 ];
+	sprintf( Buf, "GsTimeSeries::at( %s )", Date.toString().c_str() );
+	GSX_THROW( GsXBadIndex, Buf );
+
+	// FIX-I don't know why I need this kludge to force instantiation of the other atErr() function
+//	return atErr( (size_type) 0 );
+
+	static node_type BogusNode;
+	return BogusNode;
+}
+
+
+template <class _T>
+void GsTimeSeries<_T>::dates(
+	const GsDateVector& Dates
+)
+{
+	// FIX-MSVC5.0 requires the second argument to get past template instantiation issues
+	m_Data.resize( 0, node_type() );
+
+	GsDateVector::const_iterator
+			DIter = Dates.begin(),
+			DEnd = Dates.end();
+
+	for( ; DIter != DEnd; DIter++ )
+		insert( *DIter, GsTimeSeries<_T>::value_type() );
+}
+
+template <class _T>
+GsDateVector GsTimeSeries<_T>::dates() const
+{
+	GsDateVector Dates( size() );
+	GsDateVector::iterator
+			DIter = Dates.begin(),
+			DEnd = Dates.end();
+
+	const_iterator Iter = begin();
+	for( ; DIter != DEnd; DIter++, Iter++ )
+		(*DIter) = (*Iter).date();
+	
+	return Dates;
+}
+
+template <class _T>
+typename GsTimeSeries< _T >::node_type& 
+GsTimeSeries<_T>::at(const GsDate& Date)
+{
+	node_type TestObj( Date );
+	// FIX-Is this a linear search?
+	iterator Iter = CC_NS(std,lower_bound)( begin(), end(), TestObj );
+	if( Iter != end() && *Iter == TestObj )
+		return *Iter;
+	else
+		return atErr( Date );
+}
+
+template <class _T>
+const typename GsTimeSeries< _T >::node_type&
+GsTimeSeries<_T>::at(const GsDate& Date) const
+{
+	node_type TestObj( Date );
+	const_iterator Iter = CC_NS(std,lower_bound)( begin(), end(), TestObj );
+	if( Iter != end() && *Iter == TestObj )
+		return *Iter;
+	else
+		return atErr( Date );
+}
+
+// Duplicate date is treated as 'replace value at date'.
+template <class _T>
+void GsTimeSeries<_T>::insert( const GsDate& Date, const typename GsTimeSeries<_T>::value_type& Value )
+{
+	node_type InsertObj( Date, Value );
+	iterator 
+			End = end(),
+			Iter = CC_NS(std,lower_bound)( begin(), End, InsertObj );
+
+	if( Iter != End )
+	{
+		if( *Iter == InsertObj )
+			(*Iter).value() = Value;
+		else	
+			m_Data.insert( Iter, InsertObj );
+	}	
+	else	
+		m_Data.insert( Iter, InsertObj );
+}
+
+template <class T>
+GsString GsTsHandle<T>::toString() const
+{
+	return this->m_rep->getPtr() ? this->m_rep->getPtr()->toString() : GsString( "NULL" );
+}
+
+
+#define GS_TIMESERIES_INSTANTIATE_NO_GSDT(_Project_,_Type_) \
+	template class EXPORT_CLASS_##_Project_ GsTsHandle< _Type_ >; \
+	template class EXPORT_CLASS_##_Project_ GsTimeSeriesNode< GsTsHandle< _Type_ > >; \
+	template class EXPORT_CLASS_##_Project_ GsTimeSeries< GsTsHandle< _Type_ > >; \
+	\
+	template<> const char *GsTimeSeries< GsTsHandle< _Type_ > >::typeName() \
+	{ \
+		return #_Type_ "TimeSeries"; \
+	}
+
+
+#define GS_TIMESERIES_INSTANTIATE(_Project_,_Type_) \
+	GS_TIMESERIES_INSTANTIATE_NO_GSDT(_Project_,_Type_)	\
+	\
+	template class EXPORT_CLASS_##_Project_ GsDtGeneric< GsTimeSeries< GsTsHandle< _Type_ > > >; \
+	template class EXPORT_CLASS_##_Project_ AdExpandVector<  GsTsHandle< _Type_ > >; \
+	template class EXPORT_CLASS_##_Project_ GsDtGeneric< AdExpandVector< GsTsHandle< _Type_ > > >;
+
+// FIX-This version should be removed, since the GS_TIMESERIES name prefix is better
+#define INSTANTIATE_TIMESERIES_TEMPLATES(_Project_,_Type_) \
+	GS_TIMESERIES_INSTANTIATE(_Project_,_Type_)
+
+
+CC_END_NAMESPACE
+#endif
+

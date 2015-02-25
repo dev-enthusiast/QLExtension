@@ -1,0 +1,13 @@
+
+ * Seems like R NULL is not mapped to SecDb Null.  Dan, can you take a
+   look? -- AAD 7/26/2012  I have a workaround by using evaluateSlang,
+   but it would be nice if it worked. 
+
+  require(SecDb)
+
+  SecDBLib  <- "_Lib Elex Strip Addin Fns"
+  SecDBFun  <- "ElecStrip::BalmoDlyPrices"
+  res <- secdb.invoke(SecDBLib, SecDBFun, Sys.Date(), "NEPOOL", "CT",
+    NULL, NULL, 0.0)  # the second NULL gets mapped to 0!
+
+ 

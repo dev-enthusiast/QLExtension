@@ -1,0 +1,368 @@
+/****************************************************************
+**
+**	GSFUNCARITHCONST.HI	- 
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsfunc/src/gscore/GsFuncArithConst.hi,v 1.2 2000/04/07 17:09:15 vengrd Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSFUNC_GSFUNCARITHCONST_HI )
+#define IN_GSFUNC_GSFUNCARITHCONST_HI
+
+#include <gscore/GsFuncArithConst.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+
+/****************************************************************
+**	Class  : GsFuncTimesConst 
+**	Routine: GsFuncTimesConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncTimesConst< DomainAndRange, CoeffT >::GsFuncTimesConst(
+	CoeffT Coefficient 
+) : m_Coefficient( Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncTimesConst 
+**	Routine: GsFuncTimesConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncTimesConst< DomainAndRange, CoeffT >::GsFuncTimesConst(
+	const GsFuncTimesConst< DomainAndRange, CoeffT > &Other
+) : GsFunc< DomainAndRange, DomainAndRange >( Other ),
+	m_Coefficient( Other.m_Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncTimesConst 
+**	Routine: ~GsFuncTimesConst
+**	Returns: nothing
+**	Action : Destructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncTimesConst< DomainAndRange, CoeffT >::~GsFuncTimesConst(
+)
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncTimesConst 
+**	Routine: operator= 
+**	Returns: *this with new values
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncTimesConst< DomainAndRange, CoeffT > &GsFuncTimesConst< DomainAndRange, CoeffT >::operator=(
+	const GsFuncTimesConst< DomainAndRange, CoeffT > &rhs
+)
+{
+	GsFunc< DomainAndRange, DomainAndRange >::operator=( rhs );
+	
+	m_Coefficient = rhs.m_Coefficient;
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncTimesConst 
+**	Routine: operator() 
+**	Returns: Result of the function
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+DomainAndRange GsFuncTimesConst< DomainAndRange, CoeffT >::operator()(
+	DomainAndRange Arg
+) const
+{
+	return Arg * m_Coefficient;
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncPlusConst 
+**	Routine: GsFuncPlusConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncPlusConst< DomainAndRange, CoeffT >::GsFuncPlusConst(
+	CoeffT Coefficient 
+) : m_Coefficient( Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncPlusConst 
+**	Routine: GsFuncPlusConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncPlusConst< DomainAndRange, CoeffT >::GsFuncPlusConst(
+	const GsFuncPlusConst< DomainAndRange, CoeffT > &Other
+) : GsFunc< DomainAndRange, DomainAndRange >( Other ),
+	m_Coefficient( Other.m_Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncPlusConst 
+**	Routine: ~GsFuncPlusConst
+**	Returns: nothing
+**	Action : Destructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncPlusConst< DomainAndRange, CoeffT >::~GsFuncPlusConst(
+)
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncPlusConst 
+**	Routine: operator= 
+**	Returns: *this with new values
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncPlusConst< DomainAndRange, CoeffT > &GsFuncPlusConst< DomainAndRange, CoeffT >::operator=(
+	const GsFuncPlusConst< DomainAndRange, CoeffT > &rhs
+)
+{
+	GsFunc< DomainAndRange, DomainAndRange >::operator=( rhs );
+	
+	m_Coefficient = rhs.m_Coefficient;
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncPlusConst 
+**	Routine: operator() 
+**	Returns: Result of the function
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+DomainAndRange GsFuncPlusConst< DomainAndRange, CoeffT >::operator()(
+	DomainAndRange Arg
+) const
+{
+	return Arg + m_Coefficient ;
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncMinusConst 
+**	Routine: GsFuncMinusConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncMinusConst< DomainAndRange, CoeffT >::GsFuncMinusConst(
+	CoeffT Coefficient 
+) : m_Coefficient( Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncMinusConst 
+**	Routine: GsFuncMinusConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncMinusConst< DomainAndRange, CoeffT >::GsFuncMinusConst(
+	const GsFuncMinusConst< DomainAndRange, CoeffT > &Other
+) : GsFunc< DomainAndRange, DomainAndRange >( Other ),
+	m_Coefficient( Other.m_Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncMinusConst 
+**	Routine: ~GsFuncMinusConst
+**	Returns: nothing
+**	Action : Destructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncMinusConst< DomainAndRange, CoeffT >::~GsFuncMinusConst(
+)
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncMinusConst 
+**	Routine: operator= 
+**	Returns: *this with new values
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncMinusConst< DomainAndRange, CoeffT > &GsFuncMinusConst< DomainAndRange, CoeffT >::operator=(
+	const GsFuncMinusConst< DomainAndRange, CoeffT > &rhs
+)
+{
+	GsFunc< DomainAndRange, DomainAndRange >::operator=( rhs );
+	
+	m_Coefficient = rhs.m_Coefficient;
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncMinusConst 
+**	Routine: operator() 
+**	Returns: Result of the function
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+DomainAndRange GsFuncMinusConst< DomainAndRange, CoeffT >::operator()(
+	DomainAndRange Arg
+) const
+{
+	return Arg - m_Coefficient ;
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncDivConst 
+**	Routine: GsFuncDivConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncDivConst< DomainAndRange, CoeffT >::GsFuncDivConst(
+	CoeffT Coefficient 
+) : m_Coefficient( Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncDivConst 
+**	Routine: GsFuncDivConst
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncDivConst< DomainAndRange, CoeffT >::GsFuncDivConst(
+	const GsFuncDivConst< DomainAndRange, CoeffT > &Other
+) : GsFunc< DomainAndRange, DomainAndRange >( Other ),
+	m_Coefficient( Other.m_Coefficient )
+{	
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncDivConst 
+**	Routine: ~GsFuncDivConst
+**	Returns: nothing
+**	Action : Destructor
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncDivConst< DomainAndRange, CoeffT >::~GsFuncDivConst(
+)
+{
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncDivConst 
+**	Routine: operator= 
+**	Returns: *this with new values
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+GsFuncDivConst< DomainAndRange, CoeffT > &GsFuncDivConst< DomainAndRange, CoeffT >::operator=(
+	const GsFuncDivConst< DomainAndRange, CoeffT > &rhs
+)
+{
+	GsFunc< DomainAndRange, DomainAndRange >::operator=( rhs );
+	
+	m_Coefficient = rhs.m_Coefficient;
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : GsFuncDivConst 
+**	Routine: operator() 
+**	Returns: Result of the function
+**	Action : 
+****************************************************************/
+
+template< class DomainAndRange, class CoeffT >
+DomainAndRange GsFuncDivConst< DomainAndRange, CoeffT >::operator()(
+	DomainAndRange Arg
+) const
+{
+	return Arg / m_Coefficient ;
+}
+
+
+
+
+
+CC_END_NAMESPACE
+
+#endif 

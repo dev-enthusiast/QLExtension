@@ -1,0 +1,30 @@
+# Condor file to get some statistics on the price sims.
+# for now calculate only the standard deviations
+# 
+ 
+#Begin Standard Header 
+JobName = REPORT_PRICE_SIMS
+LogHeader = $(JobName).$(Cluster).$(Process).$$(Machine)
+ 
+input = \\ceg\cershare\All\Risk\Software\R\prod\Models\Price\ForwardCurve\Network\lib.reports.SimPrices.R
+output = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).out
+error = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).error
+log = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\dagLog.log
+executable = $ENV(SystemRoot)\system32\cmd.exe
+arguments = /Q /C \\ceg\cershare\All\Risk\Software\R\prod\Utilities\Environment\Condor\RunR.bat
+ 
+transfer_executable = False
+should_transfer_files = No
+getenv = True
+EnvSettings = TMP=C:\temp TEMP=C:\temp
+run_as_owner = true
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net" 
+Universe = vanilla
+#on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)
+#InitialDir = H:\user\R\RMG\Energy\VaR\Overnight\condorOutput
+ 
+# Begin individual job section
+environment = "$(EnvSettings)"
+
+Queue
+

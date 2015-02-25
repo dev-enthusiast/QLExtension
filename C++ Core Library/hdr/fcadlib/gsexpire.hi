@@ -1,0 +1,97 @@
+/****************************************************************
+**
+**	gsexpire.hi	- File containing gsexcel expiration date
+**				  Should only be included by gsexcel.cpp
+**
+**				  This has been done to enable expiration date
+**				  to be altered without requiring gsexcel.cpp to
+**				  be prodverred.
+**
+**	Copyright 2001 - Goldman, Sachs & Co. - New York
+**
+**	$Log: gsexpire.hi,v $
+**	Revision 1.20  2004/09/30 17:18:43  vodzaj
+**	Add 6 months to the expiration.  iBug #16278
+**
+**	Revision 1.19  2004/04/08 15:36:32  vodzaj
+**	update expiration
+**	
+**	Revision 1.18  2003/11/13 18:30:07  vodzaj
+**	Update expiration
+**	
+**	Revision 1.17  2003/07/08 18:39:39  colemj
+**	Updated expiration
+**	
+**	Revision 1.16  2003/01/24 15:45:52  colemj
+**	Updated expiration
+**	
+**	Revision 1.15  2002/09/06 23:04:52  colemj
+**	Updated expiration
+**	
+**	Revision 1.14  2002/06/17 15:24:01  colemj
+**	Updated expiration
+**	
+**	Revision 1.13  2002/04/05 17:31:11  colemj
+**	Push out expiration by 12 weeks
+**	
+**	Revision 1.12  2002/02/21 03:32:41  colemj
+**	Updated Expiration
+**	
+**	Revision 1.11  2001/11/27 21:41:48  procmon
+**	Reverted to CPS_SPLIT.
+**	
+**	Revision 1.9  2001/10/11 12:37:09  averir
+**	Updated expiration
+**	
+**	Revision 1.8  2001/09/10 10:40:42  averir
+**	Updated expiration
+**	
+**	Revision 1.7  2001/08/09 10:03:38  averir
+**	Updated expiration
+**	
+**	Revision 1.6  2001/06/18 11:21:47  averir
+**	Updated expiration
+**	
+**	Revision 1.5  2001/05/22 09:22:06  averir
+**	Updated expiration
+**	
+**	Revision 1.4  2001/05/11 10:49:37  averir
+**	Updated expiration
+**	
+**	Revision 1.3  2001/04/25 15:37:19  averir
+**	Updated expiration
+**	
+**	Revision 1.2  2001/04/04 16:53:32  averir
+**	Removed GSCVSID line
+**	
+**	Revision 1.1  2001/04/04 10:48:31  averir
+**	Include file to set expiration date without changing gsexcel.cpp
+**	
+**	
+**
+****************************************************************/
+
+#if defined( BUILDING_GSEXCEL )
+
+#if !defined( IN_FCADLIB_GSEXPIRE_HI )
+
+/*
+**	Expire the DLL after some amount of time.
+*/
+
+// None of these except ExpirationWeek should have to be edited.  It
+// should be kept between 9 and 12 weeks out from the install.  The
+// versions item in the Goldman menu can be used to verify the
+// expiration date.  Updating it every four weeks should always keep
+// it in range.
+
+
+// Expire this many weeks into Y2K.
+
+static unsigned	
+		ExpirationWeek = 275;
+
+
+#endif	// IN_FCADLIB_GSEXPIRE_HI
+
+#endif	// BUILDING_GSEXCEL

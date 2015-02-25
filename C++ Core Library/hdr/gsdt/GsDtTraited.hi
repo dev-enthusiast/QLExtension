@@ -1,0 +1,449 @@
+/****************************************************************
+**
+**	gsdt/GsDtTraited.hi	- Generic traited 'smart-pointer' base class
+**
+**	Copyright 1998 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsdtlite/src/gsdt/GsDtTraited.hi,v 1.5 2001/11/27 22:45:02 procmon Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSDT_GSDTTRAITED_HI )
+#define IN_GSDT_GSDTTRAITED_HI
+
+#include <ccstream.h>
+#include <heapinfo.h>
+#include <gsdt/GsDtTraited.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+template< class T, class R, class S, class I >
+const GsDtTraited< T, R, S, I >* GsDtTraited< T, R, S, I >::Cast( const GsDt* Obj )
+{
+	if( Obj && Obj->isKindOf( GsDtTraited< T, R, S, I >::staticType() ))
+		return (const GsDtTraited< T, R, S, I >*) Obj;
+	CastErr( GsDtTraited< T, R, S, I >::staticType(), Obj );
+	return NULL;
+}
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >* GsDtTraited< T, R, S, I >::Cast( GsDt *Obj )
+{
+	return (GsDtTraited< T, R, S, I >*)Cast( (const GsDt*) Obj );
+}
+
+template< class T, class R, class S, class I >
+const GsDtTraited< T, R, S, I >& GsDtTraited< T, R, S, I >::Cast( const GsDt& Obj )
+{
+	const GsDtTraited< T, R, S, I >* Ptr = GsDtTraited< T, R, S, I >::Cast( &Obj );
+	if( !Ptr )
+		GSX_THROW( GsXBadCast, GsErrGetString() );
+	return *Ptr;
+}
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >& GsDtTraited< T, R, S, I >::Cast( GsDt& Obj )
+{
+	GsDtTraited< T, R, S, I >* Ptr = GsDtTraited< T, R, S, I >::Cast( &Obj );
+	if( !Ptr )
+		GSX_THROW( GsXBadCast, GsErrGetString() );
+	return *Ptr;
+}
+
+template< class T, class R, class S, class I >
+T *GsDtTraited< T, R, S, I >::makeCopy( const T& data )
+{
+	return new T( data );
+}
+
+template< class T, class R, class S, class I >
+int GsDtTraited< T, R, S, I >::compareSame( const T& lhs, const T& rhs )
+{
+	if( &lhs > &rhs )
+		return 1;
+	else if( &lhs == &rhs )
+		return 0;
+	else
+		return -1;
+}
+
+template< class T, class R, class S, class I >
+GsStatus GsDtTraited< T, R, S, I >::BinaryOpAssignSame( GSDT_BINOP Op, const GsDt &Other )
+{
+	// This default implementation fails with an appropriate error message
+	return GsDt::BinaryOpAssignSame( Op, Other );
+}
+
+
+// Specialize isTrue() if your type should respond to if( T )
+//
+// Potential specialization:
+//	template< class T, class R, class S, class I >
+//	bool isTrue( const T& data )
+//	{
+//		return data != 0;
+//	}
+
+template< class T, class R, class S, class I >
+bool GsDtTraited< T, R, S, I >::isTrue( const T& data )
+{
+	return true;
+}
+
+
+
+// Specialize IsValid() if your type has an error sentinel
+//
+// Potential specialization:
+//	template< class T, class R, class S, class I >
+//	bool IsValid( const T& data )
+//	{
+//		return data.ptr() != NULL;
+//	}
+
+template< class T, class R, class S, class I >
+bool GsDtTraited< T, R, S, I >::IsValid( const T& data )
+{
+	return true;
+}
+
+
+
+// Specialize MathOperateOnAll() if your type contains doubles.
+
+template< class T, class R, class S, class I >
+GsDt *GsDtTraited< T, R, S, I >::MathOperateOnAll( GsFuncHandle<double, double> Func ) const
+{
+	GsErr( ERR_UNSUPPORTED_OPERATION, "%s: MathOperateOnAll(), @", rtti::typeName() );
+	return NULL;	
+}
+
+
+
+// Specialize Evaluate() if your type is a functional form
+
+template< class T, class R, class S, class I >
+GsDt *GsDtTraited< T, R, S, I >::Evaluate( const GsDtArray &Args ) const
+{
+	GsErr( ERR_UNSUPPORTED_OPERATION, "%s: Evaluate(), @", rtti::typeName() );
+	return NULL;	
+}
+
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::RegisterOps
+**	Returns: void
+**	Action : register any ops for this class.  Provided so that
+**			 specific instantiations can specialize to get the
+**			 ops they want.
+****************************************************************/
+
+template< class T, class R, class S, class I >
+void GsDtTraited< T, R, S, I >::RegisterOps() const
+{
+}
+
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::myTypeName
+**	Returns: GsString
+**	Action : Specialise to an appropriate typename
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsString GsDtTraited< T, R, S, I >::myTypeName()
+{
+	return GsString( "GsDt<" + GsString( rtti::typeName() ) + ">" );
+}
+
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::initType
+**	Returns: GsType*
+**	Action : initType is not intended to be specialized.
+**			 Initialize the type in one out-of-line function to
+**			 make sure staticType gets initialized properly.
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsType* GsDtTraited< T, R, S, I >::initType() CC_NOTHROW
+{
+	static GsType *staticType = 0;
+
+	if( !staticType )
+	{
+		GsDtTraited< T, R, S, I > 
+				*EmptyInstance;
+
+		// FIX-This should really only be a call to LookupOrCreate(), but
+		// FIX-due to templates possibly being instantiated in multiple
+		// FIX-libraries, the following 2-level initialization is used.
+		GsString Name = myTypeName();
+		staticType = GsType::Lookup( Name.c_str() );
+		if( !staticType )
+		{
+			staticType = GsType::LookupOrCreate( Name.c_str() );
+			staticType->attach( EmptyInstance = new GsDtTraited< T, R, S, I > );
+			EmptyInstance->RegisterOps();
+		}
+	}
+
+	return staticType;
+}
+
+
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::ctor
+**	Returns: ctors
+**	Action : 
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >::GsDtTraited()
+:	m_data( NULL )
+{
+}
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >::GsDtTraited(
+	T*				NewData,
+	GsCopyAction	Action
+) :	m_data( NewData )
+{
+	if( NewData && Action != GS_NO_COPY )
+		m_data = makeCopy( NewData );
+}
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >::GsDtTraited(
+	const T& NewData
+) :	m_data( makeCopy( NewData ))
+{
+}
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >::GsDtTraited(
+	const GsDtTraited< T, R, S, I >& Other
+) :	m_data( makeCopy( Other.m_data ))
+{
+}
+
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >& GsDtTraited< T, R, S, I >::operator=(
+	const GsDtTraited< T, R, S, I >& Other
+)
+{
+	if( m_data )
+		delete m_data;
+	m_data = makeCopy( Other.m_data );
+	return *this;
+}
+
+
+template< class T, class R, class S, class I >
+GsDtTraited< T, R, S, I >::~GsDtTraited()
+{
+	delete m_data;
+}
+
+
+template< class T, class R, class S, class I >
+void GsDtTraited< T, R, S, I >::releaseData()
+{
+	m_data = NULL;
+}
+
+template< class T, class R, class S, class I >
+GsDt* GsDtTraited< T, R, S, I >::CopyDeep() const
+{
+	return new GsDtTraited< T, R, S, I >( m_data, GS_COPY );
+}
+
+template< class T, class R, class S, class I >
+GsDt* GsDtTraited< T, R, S, I >::CopyShallow() const
+{
+	return CopyDeep();
+}
+
+template< class T, class R, class S, class I >
+int GsDtTraited< T, R, S, I >::CompareSame( const GsDt& Other ) const
+{
+	const GsDtTraited< T, R, S, I >* OPtr 
+			= GsDtTraited< T, R, S, I >::Cast( &Other );
+
+	if( m_data == OPtr->m_data )
+		return 0;
+	if( m_data && !OPtr->m_data )
+		return 1;
+	if( !m_data && OPtr->m_data )
+		return -1;
+	return compareSame( *m_data, *OPtr->m_data );
+}
+
+template< class T, class R, class S, class I >
+FcHashCode GsDtTraited< T, R, S, I >::HashQuick() const
+{
+	return GsDt::HashQuick();
+}
+
+//template< class T, class R, class S, class I >
+//GsStatus GsDtTraited< T, R, S, I >::BinaryOpAssignSame( GSDT_BINOP Op, const GsDt &Other );
+
+template< class T, class R, class S, class I >
+GsBool GsDtTraited< T, R, S, I >::Truth() const
+{
+	return m_data && isTrue( *m_data );
+}
+
+template< class T, class R, class S, class I >
+GsBool GsDtTraited< T, R, S, I >::IsValid() const
+{
+	return m_data && IsValid( *m_data );
+}
+
+template< class T, class R, class S, class I >
+GsString GsDtTraited< T, R, S, I >::toString() const
+{
+	if( m_data )
+		return rtti::toString( *m_data );
+	return staticType().name() + ": NULL";
+}
+
+// Things from GSDT_DECLARE_COMMON
+template< class T, class R, class S, class I >
+GsType& GsDtTraited< T, R, S, I >::staticType()
+{
+	return *initType();
+}
+
+
+template< class T, class R, class S, class I >
+const GsType& GsDtTraited< T, R, S, I >::type() const
+{
+	return *initType();
+}
+
+
+template< class T, class R, class S, class I >
+bool GsDtTraited< T, R, S, I >::isKindOf(
+	const GsType& Type
+) const
+{
+	// Check my type, then check my parent's type
+	return *initType() == Type || GsDt::isKindOf( Type );
+}
+
+template< class T, class R, class S, class I >
+void GsDtTraited< T, R, S, I >::StreamStore(
+	GsStreamOut	&Stream
+) const
+{
+	CC_OSTRSTREAM Error;
+	Error << "@: StreamStore - " << type().name();
+	GSX_THROW( GsXUnsupported, CC_OSTRSTREAM_STR( Error ) );
+}
+
+
+template< class T, class R, class S, class I >
+void GsDtTraited< T, R, S, I >::StreamRead(
+	GsStreamIn	&Stream
+)
+{
+	CC_OSTRSTREAM Error;
+	Error << "@: StreamRead - " << type().name();
+	GSX_THROW( GsXUnsupported, CC_OSTRSTREAM_STR( Error ) );
+}
+
+template< class T, class R, class S, class I >
+size_t GsDtTraited< T, R, S, I >::GetMemUsage(
+) const
+{
+	return GetGsHeapMemSize( this );
+}
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::Subscript
+**	Returns: GsDt::Iterator *
+**	Action : Index an element
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsDt::Iterator *GsDtTraited< T, R, S, I >::Subscript(
+	const GsDt &Index
+)
+{
+	return subscript::Subscript( *this, Index );
+}
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::SubscriptFirst
+**	Returns: GsDt::Iterator *
+**	Action : Index an element
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsDt::Iterator *GsDtTraited< T, R, S, I >::SubscriptFirst(
+	IterationFlag Flag
+)
+{
+	return subscript::SubscriptFirst( *this, Flag );
+}
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::SubscriptReplace
+**	Returns: GsStatus
+**	Action : Replace an element
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsStatus GsDtTraited< T, R, S, I >::SubscriptReplace( const GsDt &Index, GsDt *NewValue, GsCopyAction Action )
+{
+	return subscript::SubscriptReplace( *this, Index, NewValue, Action );
+}
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::SubscriptDelete
+**	Returns: GsStatus
+**	Action : Delete an element
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsStatus GsDtTraited< T, R, S, I >::SubscriptDelete( const GsDt &Index )
+{
+	return subscript::SubscriptDelete( *this, Index );
+}
+
+/****************************************************************
+**	Routine: GsDtTraited< T, R, S, I >::SubscriptAppend
+**	Returns: GsStatus
+**	Action : Appen an element
+****************************************************************/
+
+template< class T, class R, class S, class I >
+GsStatus GsDtTraited< T, R, S, I >::SubscriptAppend( GsDt *NewValue, GsCopyAction Action )
+{
+	return subscript::SubscriptAppend( *this, NewValue, Action );
+}
+
+template< class T, class R, class S, class I >
+size_t GsDtTraited< T, R, S, I >::GetSize(
+) const
+{
+	return 0;
+}
+
+template< class T, class R, class S, class I >
+GsStatus GsDtTraited< T, R, S, I >::callMemberFn(
+	const char *memberName, GsDt *Args[], int nArgs, GsDt *&RetValue 
+)
+{
+	GsErr( ERR_UNSUPPORTED_OPERATION, "GsDtTraited<%s>: callMemberFn(), @", rtti::typeName() );
+	return GS_ERR;
+}
+
+
+CC_END_NAMESPACE
+#endif

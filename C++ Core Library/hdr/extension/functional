@@ -1,0 +1,226 @@
+// -*-c++-*-
+/****************************************************************
+**
+**	functional	- functional operators which are not in
+**  the standard. For a few they may be implemented
+**  spottily on some compilers; in that case we make do.
+**
+**	Copyright 2001 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/extension/src/extension/functional,v 1.10 2012/06/11 15:33:08 e19351 Exp $
+**
+****************************************************************/
+
+#ifndef IN_EXTENSION_X_H
+#define IN_EXTENSION_X_H
+
+#include <functional>
+
+#if CC_COMPILER==CC_COMPILER_SW42
+#define typename
+#endif
+
+CC_BEGIN_NAMESPACE( extension )
+
+/****************************************************************
+** Class	   : select_1st 
+** Description : select_1st is a unary operator on a pair which
+**               returns the first element of the pair. It is 
+**               similar to select1st which exists in some 
+**               STL impls, but not in the standard. The reason
+**               it has the hideous name with the _ is that, 
+**               surprise, RW decided in <map> to define
+**               select1st as a two template function, with
+**               the pair and type. We don't need that but
+**               to compile on solaris, where there are no NSs,
+**               we need the alternate name. Grunk
+****************************************************************/
+
+template< class T_ >
+struct select_1st :
+	CC_NS( std, unary_function )< T_, typename T_::first_type >
+{
+	typename T_::first_type& operator()(T_& t) const { return t.first; }
+	typename T_::first_type const& operator()(T_ const& t) const { return t.first; }
+};
+
+/****************************************************************
+** Class	   : select_2nd 
+** Description : select_2nd is a unary operator on a pair which
+**               returns the second element of the pair. See
+**               select_1st for comments.
+****************************************************************/
+template< class T_ >
+struct select_2nd :
+	CC_NS( std, unary_function )< T_, typename T_::second_type >
+{
+	typename T_::second_type& operator()(T_& t) const { return t.second; }
+	typename T_::second_type const& operator()(T_ const& t) const { return t.second; }
+};
+
+
+/****************************************************************
+** Class	   : bind_func_1stof1_t
+** Description : bind_func_1stof1_t is a generator which is created
+**               by binding a unary operator to a value. That 
+**               is if you have oper( foo ), and a foo x,
+**               you can create an oper2() which is the result
+**               of oper( x ). You usuall don't use this but
+**               rather use the bind_func convenience 
+**               function
+****************************************************************/
+
+template <class Oper>
+struct bind_func_1stof1_t 
+{
+protected:
+	Oper m_op;
+	typename Oper::argument_type m_value;
+
+public:
+	// generators define result_type
+	typedef typename Oper::result_type result_type;
+
+	// Constructor copies the operator and value
+	bind_func_1stof1_t( Oper const& x, typename Oper::argument_type const& y ) :
+	m_op( x ), m_value( y ) {}
+
+	// operator() dispatches to the unary operator I hold
+	result_type operator()()       { return m_op( m_value ); }
+	result_type operator()() const { return m_op( m_value ); }
+};
+
+/****************************************************************
+**	Routine: bind_func
+**	Returns: bind_func_1stof1_t<Oper>
+**	Action : A convenience function to create an operator
+**           object.
+****************************************************************/
+
+template <class Oper, class T>
+inline bind_func_1stof1_t<Oper> bind_func( Oper const& oper, T const& x )
+{
+	return bind_func_1stof1_t<Oper>( oper, x );
+}
+
+/****************************************************************
+** Class	   : bind_func_1stof1_v_t
+** Description : kludge for lack of proper void function return
+**               rules or even partial specialization
+**               bind_func_1stof1_v_t is a generator which is created
+**               by binding a unary operator to a value. That 
+**               is if you have oper( foo ), and a foo x,
+**               you can create an oper2() which is the result
+**               of oper( x ). You usuall don't use this but
+**               rather use the bind_func convenience 
+**               function
+****************************************************************/
+
+template <class Oper>
+struct bind_func_1stof1_v_t 
+{
+protected:
+	Oper m_op;
+	typename Oper::argument_type m_value;
+
+public:
+	// generators define result_type
+	typedef void result_type;
+
+	// Constructor copies the operator and value
+	bind_func_1stof1_v_t( Oper const& x, typename Oper::argument_type const& y ) :
+	m_op( x ), m_value( y ) {}
+
+	// operator() dispatches to the unary operator I hold
+	result_type operator()()       { m_op( m_value ); }
+	result_type operator()() const { m_op( m_value ); }
+};
+
+/****************************************************************
+**	Routine: bind_func_v
+**	Returns: bind_func_1stof1_v_t<Oper>
+**	Action : kludge for sucky compilers that lack proper void
+**           return rules or partial specialization.
+**           A convenience function to create an operator
+**           object.
+****************************************************************/
+
+template <class Oper, class T>
+inline bind_func_1stof1_v_t<Oper> bind_func_v( Oper const& oper, T const& x )
+{
+	return bind_func_1stof1_v_t<Oper>( oper, x );
+}
+
+/***************************************************************
+ * mem_fun kludges for VC6/sw4.2
+ ***************************************************************/
+
+template<class Obj>
+class mem_fun_v_t : public CC_NS(std,unary_function)<Obj*, void>
+{
+public:
+	explicit mem_fun_v_t(void (Obj::*p)()) : m_p(p) {}
+	void operator()(Obj* obj) const { ((obj->*m_p)()); }
+private:
+	void (Obj::*m_p)();
+};
+
+template<class Obj>
+class mem_fun_c_v_t : public CC_NS(std,unary_function)<Obj const*, void>
+{
+public:
+	explicit mem_fun_c_v_t(void (Obj::*p)() const) : m_p(p) {}
+	void operator()(Obj const* obj) const { ((obj->*m_p)()); }
+private:
+	void (Obj::*m_p)() const;
+};
+
+template<class Obj, class Arg>
+class mem_fun1_v_t : public CC_NS(std,binary_function)<Obj*, Arg, void>
+{
+public:
+	explicit mem_fun1_v_t(void (Obj::*p)(Arg)) : m_p(p) {}
+	void operator()(Obj* obj, Arg a) const { ((obj->*m_p)(a)); }
+private:
+	void (Obj::*m_p)(Arg);
+};
+
+template<class Obj, class Arg>
+class mem_fun1_c_v_t : public CC_NS(std,binary_function)<Obj const*, Arg, void>
+{
+public:
+	explicit mem_fun1_c_v_t(void (Obj::*p)(Arg) const) : m_p(p) {}
+	void operator()(Obj* obj, Arg a) const { ((obj->*m_p)(a)); }
+private:
+	void (Obj::*m_p)(Arg) const;
+};
+
+template<class Obj, class Arg>
+		inline mem_fun1_v_t<Obj, Arg> mem_fun_v(void (Obj::*p)(Arg)) { return (mem_fun1_v_t<Obj, Arg>( p )); }
+template<class Obj, class Arg>
+		inline mem_fun1_c_v_t<Obj, Arg> mem_fun_v(void (Obj::*p)(Arg) const) { return (mem_fun1_c_v_t<Obj, Arg>( p ));}
+template<class Obj>
+		inline mem_fun_v_t<Obj> mem_fun_v(void (Obj::*p)()) { return (mem_fun_v_t<Obj>(p));}
+template<class Obj>
+		inline mem_fun_c_v_t<Obj> mem_fun_v(void (Obj::*p)() const) { return mem_fun_c_v_t<Obj>( p );}
+
+template< class T_ >
+struct identity : public CC_NS(std,unary_function)<T_,T_>
+{
+  const T_& operator()(const T_& x) const { return x; }
+};
+
+template <class _Tp>
+inline void gs_destroy(_Tp* _pointer) {
+  _pointer->~_Tp();
+}
+
+template <class _T1, class _T2>
+inline void gs_construct(_T1* _p, const _T2& _value) {
+  new (_p) _T1(_value);
+}
+
+
+CC_END_NAMESPACE // extension
+
+#endif

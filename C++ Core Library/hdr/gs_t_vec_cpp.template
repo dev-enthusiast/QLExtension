@@ -1,0 +1,508 @@
+@{Cmt}
+@{Cmt}	Depends on gscore/gs_t_vec.h
+@{Cmt}
+@{Cmt}	$Log: gs_t_vec_cpp.template,v $
+@{Cmt}	Revision 1.24  2001/11/27 22:40:25  procmon
+@{Cmt}	Reverted to CPS_SPLIT.
+@{Cmt}
+@{Cmt}	Revision 1.20  2000/07/27 09:41:33  vengrd
+@{Cmt}	Work around for linux gcc internal compiler error.
+@{Cmt}	
+@{Cmt}	Revision 1.19  1999/10/26 01:14:20  gribbg
+@{Cmt}	Use CC_OSTRSTREAM_STR
+@{Cmt}	
+@{Cmt}	Revision 1.18  1999/10/19 21:41:30  gribbg
+@{Cmt}	SW4 compat: fix namespace fix
+@{Cmt}	
+@{Cmt}	Revision 1.17  1999/10/19 21:36:12  gribbg
+@{Cmt}	SW4 compat: fix namespaces
+@{Cmt}	
+@{Cmt}	Revision 1.16  1999/08/11 18:10:52  nauntm
+@{Cmt}	fix, I think
+@{Cmt}	
+@{Cmt}	Revision 1.15  1999/08/04 12:13:03  vengrd
+@{Cmt}	copy() for use with GsHandleCopyOnWrite which now requires it
+@{Cmt}	
+@{Cmt}	Revision 1.14  1999/08/02 22:45:14  tsoucp
+@{Cmt}	added cbegin cend crbegin crend and prevent iterator invalidation in V whose args are type iterator
+@{Cmt}	
+@{Cmt}	Revision 1.13  1999/06/23 17:15:17  tsoucp
+@{Cmt}	 ref counting in gs_t_vec_ template files and operator * in GsVector
+@{Cmt}	
+@{Cmt}	Revision 1.12  1999/04/13 11:59:13  gribbg
+@{Cmt}	Add support for Hdr dir to GenVectorClass
+@{Cmt}	
+@{Cmt}	Revision 1.11  1999/03/23 04:34:42  gribbg
+@{Cmt}	Output proper string for empty vector
+@{Cmt}	
+@{Cmt}	Revision 1.10  1999/03/19 21:44:16  gribbg
+@{Cmt}	BugFix: fix distance function
+@{Cmt}	
+@{Cmt}	Revision 1.9  1999/03/18 16:34:15  gribbg
+@{Cmt}	Change GsString to inherit from string.
+@{Cmt}	Various other fixes to increase Solaris portability.
+@{Cmt}	
+@{Cmt}	Revision 1.8  1999/01/23 00:31:38  gribbg
+@{Cmt}	Improve toString
+@{Cmt}	
+@{Cmt}	Revision 1.7  1998/12/30 20:20:52  hammet
+@{Cmt}	change "delete" to "delete []".
+@{Cmt}	
+@{Cmt}	Revision 1.6  1998/12/28 21:46:17  vengrd
+@{Cmt}	Cleanup for initial unix build
+@{Cmt}	
+@{Cmt}	Revision 1.5  1998/12/04 20:18:22  gribbg
+@{Cmt}	Use const_iterator in vector constructor
+@{Cmt}	
+@{Cmt}	Revision 1.4  1998/10/13 22:39:14  gribbg
+@{Cmt}	Cleanup vector classes
+@{Cmt}	
+@{Cmt}
+@{Cmt}  This file is used to generate the vector class source files
+@{Cmt}
+@{Param}HdrName		- The name of the header file being generated
+@{Param}HdrNameUC	- HdrName in uppercase with _ for /
+@{Param}SrcName		- The name of the source file being produced
+@{Param}Base		- The base name of the element class
+@{Define}ClassV		@{Class}Vector
+@{Define}ClassVRep	@{Class}VectorRep
+@{Define}ClassRI	@{Class}VecRevIter
+@{Define}ClassCRI   @{Class}VecConstRevIter
+#define GSCVSID "@{CVSHeader}"
+/****************************************************************
+**
+**	@{SrcName} - The @{Class} class implementation
+**
+**	Copyright @{Year} - Goldman, Sachs & Co. - New York
+**
+**	GenInfo
+**		Year		- @{Year}
+**      SrcName		- @{SrcName}
+**      HdrName		- @{HdrName}
+**
+****************************************************************/
+
+#define	BUILDING_@{ProjectUC}
+#include	<portable.h>
+#include	<@{HdrName}>
+#include	<ccstream.h>
+#include	<algorithm>
+
+// Really should CC_NO_STD_NAMESPACE
+#ifdef CC_NO_NAMESPACES
+#define GS_STD
+#else
+#define GS_STD std
+#endif
+
+CC_BEGIN_NAMESPACE( Gs )
+CC_USING_NAMESPACE( std );
+
+@{ClassVRep}::~@{ClassVRep}()
+{
+delete [] m_begin;
+}
+
+@{ClassVRep}::@{ClassVRep}(size_t n)
+{
+m_begin = new @{Class}[n];
+m_max = m_begin + n;
+m_end = m_max;
+}
+
+@{ClassVRep}::@{ClassVRep}(size_t n,const value_type& v)
+{
+m_begin = new @{Class}[n];
+m_max = m_begin + n;
+m_end = m_max;
+fill_n(m_begin,n,v);
+}
+
+@{ClassVRep}::@{ClassVRep}(
+const_iterator	begin,
+const_iterator	end
+)
+:	m_begin(0),
+m_end(0),
+m_max(0)
+{
+insert(m_begin,begin,end);
+}
+
+@{ClassVRep}::@{ClassVRep}(const @{ClassVRep}& other)
+{
+m_begin = new @{Class}[other.size()];
+m_max = m_begin+other.size();
+m_end = GS_STD::copy(other.begin(),other.end(),m_begin);
+}
+
+// Assignment
+@{ClassVRep}& @{ClassVRep}::operator = (const @{ClassVRep}& other)
+{
+if (this != &other)
+{
+if (other.size() < capacity())
+{
+GS_STD::copy(other.m_begin,other.m_end,m_begin);
+m_end = m_begin + other.size();
+}
+else
+{
+delete [] m_begin;
+size_t OtherSize = other.size();
+m_begin = new @{Class}[OtherSize];
+m_max = m_begin + OtherSize;
+m_end = GS_STD::copy(other.m_begin,other.m_end,m_begin);
+}
+}
+return *this;
+}
+
+// List Operations
+@{Class} *@{ClassVRep}::insert(iterator p, const value_type& x)
+{
+size_type offset = p-m_begin;
+insert(p,1,x);
+return m_begin+offset;
+}
+@{Class} *@{ClassVRep}::insert(iterator p)
+{
+size_type offset = p-m_begin;
+value_type x;
+insert(p,1,x);
+return m_begin+offset;
+}
+
+
+
+
+void @{ClassVRep}::insert(iterator p, size_type n, const value_type& x)
+{
+if (size_type( m_max - m_end ) < n)
+{
+size_type new_cap = size() + (n < size() ? size() : n);
+iterator new_begin = new @{Class}[new_cap];
+iterator new_p = GS_STD::copy(m_begin, p, new_begin);
+fill_n(new_p, n,x);
+GS_STD::copy(p, m_end, new_p+n);
+m_end = new_begin + size() + n;
+m_max = new_begin+new_cap;
+delete [] m_begin;
+m_begin = new_begin;
+}
+else if (size_type( m_end - p ) < n)
+{
+GS_STD::copy(p,m_end,p+n);
+fill_n(m_end, n-(m_end-p), x);
+fill(p,m_end,x);
+m_end += n;
+}
+else if (0<n)
+{
+GS_STD::copy(m_end-n, m_end, m_end);
+copy_backward(p, m_end-n, m_end);
+fill(p, p+n, x);
+m_end += n;
+}
+}
+
+inline size_t distance (
+@{ClassVRep}::const_iterator a,
+@{ClassVRep}::const_iterator b
+)
+{
+return b-a;
+}
+
+void @{ClassVRep}::insert(iterator p, const_iterator first, const_iterator last)
+{
+size_type m = distance(first,last);
+if ( size_type( m_max - m_end ) < m)
+{
+size_type n = size() + (m < size() ? size() : m);
+iterator new_begin = new @{Class}[n];
+iterator new_p = GS_STD::copy(m_begin,p,new_begin);
+new_p = GS_STD::copy(first,last,new_p);
+delete [] m_begin;
+m_max = new_begin+m;
+m_end = new_begin+size()+m;
+m_begin = new_begin;
+}
+else if ( size_type( m_end - p ) < m)
+{
+GS_STD::copy(p, m_end, p+m);
+GS_STD::copy(first+(m_end-p), last, m_end);
+GS_STD::copy(first, first+(m_end-p), p);
+m_end += m;
+}
+else if (0 < m)
+{
+GS_STD::copy(m_end-m, m_end,m_end);
+copy_backward(p, m_end-m, m_end);
+GS_STD::copy(first,last,p);
+m_end += m;
+}
+}
+
+void @{ClassVRep}::erase(iterator p)
+{
+GS_STD::copy(p+1,m_end,p);
+--m_end;
+}
+
+@{Class} *@{ClassVRep}::erase(iterator first, iterator last)
+{
+m_end = GS_STD::copy(last,m_end,first);
+return first;
+}
+
+// Other Operations
+void @{ClassVRep}::reserve(size_type n)
+{
+if (capacity() < n)
+{
+iterator new_begin = new @{Class}[n];
+GS_STD::copy(m_begin,m_end,new_begin);
+delete [] m_begin;
+m_max = new_begin+n;
+m_end = new_begin+size();
+m_begin = new_begin;
+}
+}
+
+void @{ClassVRep}::resize( size_type n, const value_type& x )
+{
+if( size() < n)
+insert( end(), n - size(), x );
+else if( n < size() )
+erase( m_begin+n, m_end );
+}
+void @{ClassVRep}::resize( size_type n )
+{
+if (size() < n)
+{
+value_type	x;
+insert( end(), n - size(), x);
+}
+else if (n < size())
+erase( m_begin + n, m_end );
+}
+
+bool @{ClassVRep}::operator==(const @{ClassVRep}& x) const
+{
+return (size()==x.size() && equal(m_begin,m_end,x.m_begin));
+}
+
+bool @{ClassVRep}::operator<(const @{ClassVRep}& x) const
+{
+return lexicographical_compare( m_begin, m_end, x.m_begin, x.m_end );
+}
+
+@{ClassV}::@{ClassV}():
+GsHandleCopyOnWrite<@{ClassVRep}>( new @{ClassVRep}() )
+{
+}
+
+@{ClassV}::@{ClassV}(size_t n ):
+GsHandleCopyOnWrite<@{ClassVRep}>( new @{ClassVRep}( n ) )
+{
+}
+
+@{ClassV}::@{ClassV}(size_t n, const value_type &x):
+GsHandleCopyOnWrite<@{ClassVRep}>( new @{ClassVRep}( n, x ) )
+{}
+
+@{ClassV}::@{ClassV}(const_iterator begin, const_iterator end):
+GsHandleCopyOnWrite<@{ClassVRep}>( new @{ClassVRep}( begin, end ) )
+{}
+
+@{ClassV}::@{ClassV}(const @{ClassV} &other):
+GsHandleCopyOnWrite<@{ClassVRep}>( other )
+{}
+
+@{ClassV}& @{ClassV}::operator = (const @{ClassV}& x )
+{
+GsHandleCopyOnWrite<@{ClassVRep}>::operator =( x );
+
+return *this;
+}
+
+@{ClassV}::reference @{ClassV}::operator [] (int n) 
+{ 
+singleUnshareableRep(); 
+
+return ( *m_rep )[ n ]; 
+}
+
+@{ClassV}::reference @{ClassV}::front() 
+{ 
+singleUnshareableRep(); 
+
+return m_rep->front(); 
+}
+
+@{ClassV}::reference @{ClassV}::back() 
+{ 
+singleUnshareableRep(); 
+return m_rep->back(); 
+}
+
+@{ClassV}::iterator @{ClassV}::begin() 
+{ 
+singleUnshareableRep(); 
+return m_rep->begin(); 
+}
+
+@{ClassV}::iterator @{ClassV}::end() 
+{ 
+singleUnshareableRep(); 
+return m_rep->end(); 
+}
+
+@{ClassV}::reverse_iterator @{ClassV}::rbegin() 
+{ 
+singleUnshareableRep(); 
+return m_rep->rbegin(); 
+}
+
+@{ClassV}::reverse_iterator @{ClassV}::rend()
+{ 
+singleUnshareableRep(); 
+return m_rep->rend(); 
+}
+
+void @{ClassV}::push_back( const value_type &x ) 
+{ 
+singleShareableRep(); 
+m_rep->push_back( x ); 
+}
+
+void @{ClassV}::pop_back() 
+{ 
+  singleShareableRep(); 
+  m_rep->pop_back(); 
+}
+
+@{ClassV}::iterator @{ClassV}::insert( iterator p ) 
+{ 
+  size_t offset = p - m_rep->begin();
+  singleUnshareableRep(); 
+  iterator newP = m_rep->begin() + offset;
+
+  return m_rep->insert( newP ); 
+}
+@{ClassV}::iterator @{ClassV}::insert( iterator p, const value_type &x ) 
+{ 
+  size_t offset = p - m_rep->begin();
+  singleUnshareableRep(); 
+  iterator newP = m_rep->begin() + offset;
+
+  return m_rep->insert( newP, x ); 
+}
+
+void @{ClassV}::insert( iterator p, size_type n, const value_type &x)
+{ 
+  size_t offset = p - m_rep->begin();
+  singleShareableRep(); 
+  iterator newP = m_rep->begin() + offset;
+
+  m_rep->insert( newP, n, x ); 
+}
+
+void @{ClassV}::insert( iterator p, const_iterator first, const_iterator last )
+{ 
+  size_t offset = p - m_rep->begin();
+  singleShareableRep(); 
+  iterator newP = m_rep->begin() + offset;
+
+  m_rep->insert( newP, first, last ); 
+}
+
+void @{ClassV}::erase( iterator p) 
+{ 
+  size_t offset = p - m_rep->begin();	
+  singleShareableRep(); 
+  iterator newP = m_rep->begin() + offset;
+
+  m_rep->erase( newP ); 
+}
+
+@{ClassV}::iterator @{ClassV}::erase( iterator first, iterator last )
+{ 
+  size_t firstOffset = first - m_rep->begin();	
+  size_t lastOffset = last - m_rep->begin();
+  singleUnshareableRep(); 
+  iterator newFirst = m_rep->begin() + firstOffset;
+  iterator newLast = m_rep->begin() + lastOffset;
+
+  return m_rep->erase( newFirst, newLast ); 
+}
+
+void @{ClassV}::clear() 
+{ 
+  singleShareableRep(); 
+  m_rep->clear(); 
+}
+
+void @{ClassV}::reserve( size_type n ) 
+{ 
+  singleShareableRep(); 
+  m_rep->reserve( n ); 
+}
+
+void @{ClassV}::resize( size_type n ) 
+{ 
+  singleShareableRep(); 
+  m_rep->resize( n ); 
+}
+
+void @{ClassV}::resize( size_type n, const value_type &x )	
+{ 
+  singleShareableRep(); m_rep->resize( n, x ); 
+}
+
+/****************************************************************
+**	Routine: toString
+**	Returns: @{Class} as a string
+**	Action : TypeName + all the elements as strings
+****************************************************************/
+
+GsString @{ClassV}::toString() const
+{
+	bool			First = true;
+	CC_OSTRSTREAM   ostr;
+	const_iterator	last = end();
+	const_iterator	cur;
+
+	ostr << typeName() << ":[";
+	for( cur = begin(); cur != last; cur++ )
+	{
+		if( !First )
+		ostr << ',';
+		ostr << "\n  ";
+		First = false;
+		ostr << *cur;
+	}
+	ostr << "\n]";
+	return GsString( CC_OSTRSTREAM_STR( ostr ) );
+}
+
+/****************************************************************
+**	Routine: compare
+**	Returns: -1, 0, 1 ala strcmp
+**	Action : Compare to @{ClassV} objects
+****************************************************************/
+
+int @{ClassV}::compare(
+    const @{ClassV}&	Other
+) const
+{
+	if( *this == Other )
+	return 0;
+	if( *this > Other )
+	return 1;
+	return -1;
+}
+
+CC_END_NAMESPACE
+

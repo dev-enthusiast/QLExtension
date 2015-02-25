@@ -1,0 +1,20 @@
+2.0.0 - Took over John Scillieri.  Seems like Sys.setenv(tz="") no longer needed
+
+Release Notes
+1.9.5 - Remove some TSDB TZ issues. Update to newest Secdb.dll
+1.9.4 - Update code to point to prod version of add slang scripts. 
+1.9.3 - Fix calculator.get.deltas to return empty data.frame and load I dll if S drive library is nto found
+1.9.2 - Update getBucketMask to better filter on POSIXct's
+1.9.1 - Fix time zone bug in tsdb.readCurve
+1.9.0 - Add secdb.readDeltas and support for GCurves.
+1.8.1 - No longer map drives on library load. It's assumed now that they're available.
+1.8.0 - Add some tsdb, calculator & fx convenience functions. 
+1.7.0 - Support for Time types in SecDb and added time bucketing functions
+1.6.0 - Support for Matrix types in SecDb
+1.5.0 - Support for SecDb calculators
+1.4.5 - Fix tsdb read crash.
+1.4.4 - Fixed the load failure under Condor, it was a path problem.
+1.4.3 - Trying to fix bug that causes library load failure under Condor
+1.4.2 - Fixed bug that would cause the library to crash when run under Condor.
+1.4.1 - Enabled Debug Printing of Arguments, Disabled By Default
+1.4.0 - Added support for SecDb structures and arrays as arguments to secdb.invoke (as R Lists). Removed FPU warning when loading library. Fixed NULL handling bug.

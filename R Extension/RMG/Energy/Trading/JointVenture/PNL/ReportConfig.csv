@@ -1,0 +1,82 @@
+id,portfolio,ROW_SPEC,COLUMN_SPEC
+1,Structured Spread Portfolio,Zone G Peak,2008
+1,Structured Spread Portfolio,NEPOOL Peak,2008
+2,Structured Spread Portfolio,Zone G Off-Peak,2008
+2,Structured Spread Portfolio,NEPOOL Off-Peak,2008
+3,Structured Spread Portfolio,Zone G Peak,2011
+3,Structured Spread Portfolio,NEPOOL Peak,2011
+4,Structured Spread Portfolio,Zone G Peak,2009
+4,Structured Spread Portfolio,Zone J Peak,2009
+4,Structured Spread Portfolio,NG Nymex,2009
+5,Structured Spread Portfolio,NG Nymex,2009
+6,Structured Spread Portfolio,NG Nymex,2010
+7,Structured Spread Portfolio,PJM Peak,2010
+7,Structured Spread Portfolio,Zone A Peak,2010
+8,Structured Spread Portfolio,NEPOOL Peak,2009
+9,Structured Spread Portfolio,NEPOOL Peak,2010
+10,Structured Spread Portfolio,NEPOOL Off-Peak,2010
+1,East Term Portfolio,PJM Peak,Oct 08
+2,East Term Portfolio,PJM Peak,Nov 08
+3,East Term Portfolio,PJM Peak,Dec 08
+4,East Term Portfolio,PJM Peak,FG 09
+5,East Term Portfolio,PJM Peak,KM 09
+6,East Term Portfolio,PJM Peak,NQ 09
+7,East Term Portfolio,PJM Peak,Q4 09
+8,East Term Portfolio,PJM Peak,2010
+9,East Term Portfolio,Zone A Peak,Q4 08
+10,East Term Portfolio,Zone A Peak,2009
+11,East Term Portfolio,Zone A Off-Peak,2009
+12,East Term Portfolio,Zone A Off-Peak,2010
+13,East Term Portfolio,PJM Off-Peak,Q4 08
+14,East Term Portfolio,PJM Off-Peak,2009
+15,East Term Portfolio,PJM Off-Peak,2010
+16,East Term Portfolio,PJM Off-Peak,2011
+17,East Term Portfolio,PJM Off-Peak,2012
+18,East Term Portfolio,NG Nymex,2009
+19,East Term Portfolio,NG Nymex,2010
+20,East Term Portfolio,NG Nymex,2011
+21,East Term Portfolio,NEPOOL Peak,2009
+1,East Strategies Portfolio,Zone G Peak,2008
+1,East Strategies Portfolio,Zone A Peak,2008
+1,East Strategies Portfolio,Zone C Peak,2008
+2,East Strategies Portfolio,Zone G Off-Peak,2008
+2,East Strategies Portfolio,Zone A Off-Peak,2008
+2,East Strategies Portfolio,Zone C Off-Peak,2008
+3,East Strategies Portfolio,Zone G Peak,2009
+3,East Strategies Portfolio,Zone C Peak,2009
+4,East Strategies Portfolio,Zone G Off-Peak,2009
+4,East Strategies Portfolio,Zone C Off-Peak,2009
+5,East Strategies Portfolio,Zone C Peak,2010
+5,East Strategies Portfolio,Zone A Peak,2010
+6,East Strategies Portfolio,Zone C Off-Peak,2010
+6,East Strategies Portfolio,Zone A Off-Peak,2010
+7,East Strategies Portfolio,Zone C Peak,2011
+7,East Strategies Portfolio,Zone A Peak,2011
+8,East Strategies Portfolio,Zone C Off-Peak,2011
+8,East Strategies Portfolio,Zone A Off-Peak,2011
+9,East Strategies Portfolio,Zone C Peak,2012
+9,East Strategies Portfolio,Zone A Peak,2012
+10,East Strategies Portfolio,Zone C Off-Peak,2012
+10,East Strategies Portfolio,Zone A Off-Peak,2012
+11,East Strategies Portfolio,Zone H Peak,2010
+11,East Strategies Portfolio,Zone G Peak,2010
+12,East Strategies Portfolio,Zone H Off-Peak,2010
+12,East Strategies Portfolio,Zone G Off-Peak,2010
+13,East Strategies Portfolio,Zone H Peak,2011
+13,East Strategies Portfolio,Zone G Peak,2011
+14,East Strategies Portfolio,Zone H Off-Peak,2011
+14,East Strategies Portfolio,Zone G Off-Peak,2011
+15,East Strategies Portfolio,Zone H Peak,2012
+15,East Strategies Portfolio,Zone G Peak,2012
+16,East Strategies Portfolio,Zone H Off-Peak,2012
+16,East Strategies Portfolio,Zone G Off-Peak,2012
+17,East Strategies Portfolio,Zone J Peak,2008
+18,East Strategies Portfolio,Zone J Peak,2009
+19,East Strategies Portfolio,Zone J Off-Peak,2008
+20,East Strategies Portfolio,Zone J Off-Peak,2009
+21,East Strategies Portfolio,Zone G Peak,2009
+21,East Strategies Portfolio,Zone A Peak,2009
+21,East Strategies Portfolio,Zone C Peak,2009
+22,East Strategies Portfolio,Zone G Off-Peak,2009
+22,East Strategies Portfolio,Zone A Off-Peak,2009
+22,East Strategies Portfolio,Zone C Off-Peak,2009

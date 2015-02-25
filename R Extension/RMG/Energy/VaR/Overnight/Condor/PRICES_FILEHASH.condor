@@ -1,0 +1,43 @@
+# Condor file to split the hPrices.yyyy-mm-dd.RData into the
+# corresponding historical files in the filehash. 
+# 
+ 
+#Begin Standard Header 
+JobName = PRICES_FILEHASH
+LogHeader = $(JobName).$(Cluster).$(Process).$$(Machine)
+ 
+input = \\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\overnightPriceJobFilehash.R
+output = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).out
+error = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).error
+log = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\dagLog.log
+executable = $ENV(SystemRoot)\system32\cmd.exe
+arguments = /Q /C \\ceg\cershare\All\Risk\Software\R\prod\Utilities\Environment\Condor\RunR.bat
+ 
+transfer_executable = False
+should_transfer_files = No
+getenv = True
+EnvSettings = TMP=C:\temp TEMP=C:\temp
+run_as_owner = true
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net" 
+Universe = vanilla
+#on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)
+#InitialDir = H:\user\R\RMG\Energy\VaR\Overnight\condorOutput
+ 
+# Begin individual job section
+environment = "R_BLOCK=$(block) $(EnvSettings)"
+
+# Default block size is 500 curves.  When we have more than 3000
+# curves, add an extra block below... 
+block = '1'
+Queue
+block = '2'
+Queue
+block = '3'
+Queue
+block = '4'
+Queue
+block = '5'
+Queue
+block = '6'
+Queue
+

@@ -1,0 +1,37 @@
+JobName = OvernightSetup
+
+LogHeader = $(JobName).$(Cluster).$(Process).$$(Machine)
+
+input = \\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\overnightSetupJob.R
+output = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).out
+Error = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).error
+log = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\OvernightSetup.log
+
+executable = $ENV(SystemRoot)\system32\cmd.exe
+arguments = /Q /C \\ceg\cershare\All\Risk\Software\R\prod\Utilities\Environment\Condor\RunR.bat
+
+transfer_executable = False
+should_transfer_files = No
+getenv = True
+environment = "TMP=C:\temp TEMP=C:\temp"
+run_as_owner = true
+Universe = vanilla
+
+# Run between 4 am and 8 am
+# ClockMin is the time since midnight in minutes
+# Clock day is Sun-Sat as integers from 0-6
+TimeIsOK = ( (ClockMin >= 240 && ClockMin <= 480) && (ClockDay > 0 && ClockDay < 6) )
+
+# Use the files system and don't run on the last machine you ran on
+# This prevents failed jobs from running again on a bad machine.
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net" && (stringListMember(Machine, LastRemoteHost, "@") =!= TRUE)
+
+# If the job runs for more than X seconds, remove it
+maxRunTime = 900
+periodic_remove = JobStatus == 2 && ( (RemoteWallClockTime - CumulativeSuspensionTime) > $(maxRunTime) )
+
+# Send me email about completion status
+notify_user=john.scillieri@constellation.com
+notification=Always
++EmailAttributes = "RemoteHost, In"
+Queue 

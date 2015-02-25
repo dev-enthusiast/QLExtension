@@ -1,0 +1,249 @@
+/****************************************************************
+**
+**	GSFUNCALGEBRA.HI	- 
+**
+**	Copyright 1999 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsfunc/src/gscore/GsFuncAlgebra.hi,v 1.8 2004/10/26 20:44:56 khodod Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSFUNCALGEBRA_HI )
+#define IN_GSFUNCALGEBRA_HI
+
+#include <gscore/GsFunc.h>
+#include <gscore/GsFuncHandle.h>
+#include <gscore/GsFuncAlgebra.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+template <class Domain, class Range>
+class OpPlusFuncFunc : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	GsFuncHandle<Domain, Range> m_G;
+public:
+	OpPlusFuncFunc( const GsFuncHandle<Domain, Range>& f, const GsFuncHandle<Domain, Range>& g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) + m_G(d); }
+};
+
+template <class Domain, class Range>
+class OpPlusFuncValue : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	Range m_G;
+public:
+	OpPlusFuncValue( const GsFuncHandle<Domain, Range>& f, Range g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) + m_G; }
+};
+
+template <class Domain, class Range>
+class OpPlusValueFunc : public GsFunc< Domain, Range >
+{
+	Range m_G;
+	GsFuncHandle<Domain, Range> m_F;
+public:
+	OpPlusValueFunc( Range g, const GsFuncHandle<Domain, Range>& f ) : m_G( g ), m_F( f ) {}
+	Range operator()(Domain d) const { return m_G + m_F(d); }
+};
+
+
+
+
+template <class Domain, class Range>
+class OpMinusFuncFunc : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	GsFuncHandle<Domain, Range> m_G;
+public:
+	OpMinusFuncFunc( const GsFuncHandle<Domain, Range>& f, const GsFuncHandle<Domain, Range>& g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) - m_G(d); }
+};
+
+template <class Domain, class Range>
+class OpMinusFuncValue : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	Range m_G;
+public:
+	OpMinusFuncValue( const GsFuncHandle<Domain, Range>& f, Range g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) - m_G; }
+};
+
+template <class Domain, class Range>
+class OpMinusValueFunc : public GsFunc< Domain, Range >
+{
+	Range m_G;
+	GsFuncHandle<Domain, Range> m_F;
+public:
+	OpMinusValueFunc( Range g, const GsFuncHandle<Domain, Range>& f ) : m_G( g ), m_F( f ) {}
+	Range operator()(Domain d) const { return m_G - m_F(d); }
+};
+
+
+template <class Domain, class Range>
+class OpMultiFuncFunc : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	GsFuncHandle<Domain, Range> m_G;
+public:
+	OpMultiFuncFunc( const GsFuncHandle<Domain, Range>& f, const GsFuncHandle<Domain, Range>& g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) * m_G(d); }
+};
+
+template <class Domain, class Range>
+class OpMultiFuncValue : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	Range m_G;
+public:
+	OpMultiFuncValue( const GsFuncHandle<Domain, Range>& f, Range g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) * m_G; }
+};
+
+template <class Domain, class Range>
+class OpMultiValueFunc : public GsFunc< Domain, Range >
+{
+	Range m_G;
+	GsFuncHandle<Domain, Range> m_F;
+public:
+	OpMultiValueFunc( Range g, const GsFuncHandle<Domain, Range>& f ) : m_G( g ), m_F( f ) {}
+	Range operator()(Domain d) const { return m_G * m_F(d); }
+};
+
+template <class Domain, class Range>
+class OpDivFuncFunc : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	GsFuncHandle<Domain, Range> m_G;
+public:
+	OpDivFuncFunc( const GsFuncHandle<Domain, Range>& f, const GsFuncHandle<Domain, Range>& g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) / m_G(d); }
+};
+
+template <class Domain, class Range>
+class OpDivFuncValue : public GsFunc< Domain, Range >
+{
+	GsFuncHandle<Domain, Range> m_F;
+	Range m_G;
+public:
+	OpDivFuncValue( const GsFuncHandle<Domain, Range>& f, Range g ) : m_F( f ), m_G( g ) {}
+	Range operator()(Domain d) const { return m_F(d) / m_G; }
+};
+
+template <class Domain, class Range>
+class OpDivValueFunc : public GsFunc< Domain, Range >
+{
+	Range m_G;
+	GsFuncHandle<Domain, Range> m_F;
+public:
+	OpDivValueFunc( Range g, const GsFuncHandle<Domain, Range>& f ) : m_G( g ), m_F( f ) {}
+	Range operator()(Domain d) const { return m_G / m_F(d); }
+};
+
+
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+		operator+( const GsFuncHandle<Domain, Range> &f, 
+				   const GsFuncHandle<Domain, Range> &g )
+{
+	return new OpPlusFuncFunc< Domain, Range >( f, g );
+}
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator+( const GsFuncHandle<Domain, Range> &f, Range m )
+{
+	return new OpPlusFuncValue< Domain, Range >( f, m );
+}
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator+( Range m, const GsFuncHandle<Domain, Range> &f )
+{
+	return new OpPlusValueFunc< Domain, Range >( m, f );
+}
+
+
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+		operator-( const GsFuncHandle<Domain, Range> &f, 
+				   const GsFuncHandle<Domain, Range> &g )
+{
+	return new OpMinusFuncFunc< Domain, Range >( f, g );
+}
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator-( const GsFuncHandle<Domain, Range> &f, Range m )
+{
+	return new OpMinusFuncValue< Domain, Range >( f, m );
+}
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator-( Range m, const GsFuncHandle<Domain, Range> &f )
+{
+	return new OpMinusValueFunc< Domain, Range >( m, f );
+}
+
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator*( const GsFuncHandle<Domain, Range> &f, 
+			   const GsFuncHandle<Domain, Range> &g )
+{
+	return new OpMultiFuncFunc< Domain, Range >( f, g );
+}
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator*( const GsFuncHandle<Domain, Range> &f, Range m )
+{
+	return new OpMultiFuncValue< Domain, Range >( f, m );
+}
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator*( Range m, const GsFuncHandle<Domain, Range> &f )
+{
+	return new OpMultiValueFunc< Domain, Range >( m, f );
+}
+
+
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator/( const GsFuncHandle<Domain, Range> &f, 
+			   const GsFuncHandle<Domain, Range> &g )
+{
+	return new OpDivFuncFunc< Domain, Range >( f, g );
+}
+
+
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator/( const GsFuncHandle<Domain, Range> &f, Range m )
+{
+	return new OpDivFuncValue< Domain, Range >( f, m );
+}
+
+template <class Domain, class Range>
+GsFuncHandle<Domain, Range> 
+	operator/( Range m, const GsFuncHandle<Domain, Range> &f )
+{
+	return new OpDivValueFunc< Domain, Range >( m, f );
+}
+
+
+
+
+
+CC_END_NAMESPACE
+
+#endif 
+
+

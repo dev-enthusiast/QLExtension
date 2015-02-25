@@ -1,0 +1,10 @@
+Package: CEGxls
+Type: Package
+Title: XLS manipulation routines
+Version: 0.1.1
+Date: 2012-02-12
+Author: Adrian Dragulescu
+Maintainer: Adrian Dragulescu <adrian.dragulescu@constellation.com>
+Description: XLS manipulation routines
+License: CEG
+

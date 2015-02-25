@@ -1,0 +1,95 @@
+/* $Header: /home/cvs/src/gsbase/src/gscore/base.h,v 1.25 2001/11/27 22:41:12 procmon Exp $ */
+/****************************************************************
+**
+**	gscore/base.h	- Basic core datatype stuff
+**
+**	Copyright 1998 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsbase/src/gscore/base.h,v 1.25 2001/11/27 22:41:12 procmon Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSCORE_BASE_H )
+#define IN_GSCORE_BASE_H
+
+/*
+**	Usage of EXPORT macros
+**	EXPORT_C	- export this function/variable in the extern "C" scope
+**	EXPORT_CPP	- export this function/variable in the extern 'mangled' scope
+**	EXPORT_CLASS- export this class in the extern 'mangled' scope
+**
+**	BUILDING_GSCORE should only be defined by code being built for the GSCORE DLL
+*/
+
+#ifdef BUILDING_GSBASE
+#define EXPORT_C_GSBASE		EXPORT_C_EXPORT
+#define EXPORT_CPP_GSBASE	EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSBASE	EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSBASE		EXPORT_C_IMPORT
+#define EXPORT_CPP_GSBASE	EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSBASE	EXPORT_CLASS_IMPORT
+#endif
+
+#ifdef BUILDING_GSDATE
+#define EXPORT_C_GSDATE		EXPORT_C_EXPORT
+#define EXPORT_CPP_GSDATE	EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSDATE	EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSDATE		EXPORT_C_IMPORT
+#define EXPORT_CPP_GSDATE	EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSDATE	EXPORT_CLASS_IMPORT
+#endif
+
+#ifdef BUILDING_GSTSDB
+#define EXPORT_C_GSTSDB		EXPORT_C_EXPORT
+#define EXPORT_CPP_GSTSDB	EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSTSDB	EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSTSDB		EXPORT_C_IMPORT
+#define EXPORT_CPP_GSTSDB	EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSTSDB	EXPORT_CLASS_IMPORT
+#endif
+
+#ifdef BUILDING_GSDATERW
+#define EXPORT_C_GSDATERW		EXPORT_C_EXPORT
+#define EXPORT_CPP_GSDATERW		EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSDATERW	EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSDATERW		EXPORT_C_IMPORT
+#define EXPORT_CPP_GSDATERW		EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSDATERW	EXPORT_CLASS_IMPORT
+#endif
+
+#ifdef BUILDING_GSDATESDB
+#define EXPORT_C_GSDATESDB		EXPORT_C_EXPORT
+#define EXPORT_CPP_GSDATESDB	EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSDATESDB	EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSDATESDB		EXPORT_C_IMPORT
+#define EXPORT_CPP_GSDATESDB	EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSDATESDB	EXPORT_CLASS_IMPORT
+#endif
+
+#ifdef BUILDING_GSCURVE
+#define EXPORT_C_GSCURVE		EXPORT_C_EXPORT
+#define EXPORT_CPP_GSCURVE		EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSCURVE	EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSCURVE		EXPORT_C_IMPORT
+#define EXPORT_CPP_GSCURVE		EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSCURVE	EXPORT_CLASS_IMPORT
+#endif
+
+#ifdef BUILDING_GSFUNC
+#define EXPORT_C_GSFUNC		EXPORT_C_EXPORT
+#define EXPORT_CPP_GSFUNC	EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSFUNC	EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSFUNC		EXPORT_C_IMPORT
+#define EXPORT_CPP_GSFUNC	EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSFUNC	EXPORT_CLASS_IMPORT
+#endif
+
+#endif
+

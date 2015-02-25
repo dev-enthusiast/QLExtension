@@ -1,0 +1,65 @@
+#=============================================================================================================================
+# Overnight.dag
+
+ 
+#=============================================================================================================================
+# Define each job name -> job file mapping
+# JOB "Name" "Submit File"
+
+#JOB PricesFilehash 					\\NAS-OMF-01\cpsshare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\PRICES_FILEHASH.condor  
+#JOB PRICES_FILEHASH_CHECK 				\\NAS-OMF-01\cpsshare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\PRICES_FILEHASH_CHECK.condor  
+
+JOB GenerateVaRJob1 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR.condor   
+JOB VaRCalculation1 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR_PORTFOLIOS.condor  
+JOB VaRCheckStatus1 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR_CHECK_STATUS.condor
+  
+JOB GenerateVaRJob2 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR.condor   
+JOB VaRCalculation2 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR_PORTFOLIOS.condor  
+JOB VaRCheckStatus2 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR_CHECK_STATUS.condor  
+
+JOB GenerateVaRJob3 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR.condor   
+JOB VaRCalculation3 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR_PORTFOLIOS.condor  
+JOB VaRCheckStatus3 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Condor\VAR_CHECK_STATUS.condor  
+
+JOB overnightOptimizer 					\\ceg\cershare\All\Risk\Software\R\prod\Energy\VaR\Overnight\Optimizer\Condor\overnightOptimizer.condor  
+
+
+#=============================================================================================================================
+# Set up the dependencies
+# PARENT "Job Name 1" "Job Name N" CHILD "Dep. Job Name 1" "Dep. Job Name N"
+
+#PARENT PricesFilehash                       CHILD PRICES_FILEHASH_CHECK
+
+PARENT GenerateVaRJob1		   				CHILD VaRCalculation1       
+PARENT VaRCalculation1             			CHILD VaRCheckStatus1
+PARENT VaRCheckStatus1		   				CHILD GenerateVaRJob2
+PARENT GenerateVaRJob2	  	   				CHILD VaRCalculation2
+PARENT VaRCalculation2             			CHILD VaRCheckStatus2
+PARENT VaRCheckStatus2		   				CHILD GenerateVaRJob3
+PARENT GenerateVaRJob3		   				CHILD VaRCalculation3
+PARENT VaRCalculation3            			CHILD VaRCheckStatus3
+
+PARENT VaRCheckStatus3  					CHILD overnightOptimizer 
+
+
+#=============================================================================================================================
+# How much to retry each job on failure
+# RETRY "Job Name" "Number of Retries Before Failure"
+
+RETRY GenerateVaRJob1 1
+RETRY VaRCalculation1 1
+RETRY VaRCheckStatus1 1
+RETRY GenerateVaRJob2 1
+RETRY VaRCalculation2 1
+RETRY VaRCheckStatus2 1
+RETRY GenerateVaRJob3 1
+RETRY VaRCalculation3 1
+RETRY VaRCheckStatus3 1
+
+
+#=============================================================================================================================
+# Produce the .dot file to view with graphviz
+# UPDATE tells it to create a new .dot file everytime
+# the execution state changes
+
+DOT Overnight.DAG.dot UPDATE

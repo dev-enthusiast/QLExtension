@@ -1,0 +1,5 @@
+[ODBC]
+DRIVER=Microsoft ODBC for Oracle
+UID=tlpops
+SERVER=tlpp
+

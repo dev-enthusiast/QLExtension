@@ -1,0 +1,11 @@
+Package: SecDb
+Title: SecDb R/C++ interface library
+Version: 2.0.1
+Date: 2010-12-20
+Author: John Scillieri <john.scillieri@constellation.com>
+Maintainer: John Scillieri <john.scillieri@constellation.com>
+Description: SecDb to R/C++ interface class library. The SecDb library maps data types betweeen R and SecDb, providing support for securities, curves, vectors, arrays, matrices, etc. It also allows for execution of arbitrary Slang code and calling functions found within SecDb libraries. It implements some Tsdb functionality as well as SecDb calculator support.
+Depends: R (>= 2.0.0)
+SystemRequirements: Windows, SecDb
+License: Private
+

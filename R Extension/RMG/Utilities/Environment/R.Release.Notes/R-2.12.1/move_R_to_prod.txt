@@ -1,0 +1,77 @@
+Notes on R computing environment at CEG
+(h:/user/R/RMG/Environment/R.Release.Notes/R-2.12.1/move_R_to_prod.txt)
+Adrian Dragulescu, Feb-2012
+
+CEG IT has invested effort to make R a fully supported application
+inside CEG on par with other supported scripting technologies (Matlab,
+Python, etc.)  The actual R help support inside CEG is still provided
+by only a few individuals, but any CEG employee can now use R and
+benefit from it's good SecDb integration.
+
+As a regular user, all you need to do is to make a shortcut to
+i:/R/2-12.1/bin/i386/Rgui.exe on your desktop and you are ready to
+go.  To investigate the CEG developed packages, issue a help.start() and
+navigate at packages.  You should find, CEGbase, SecDb, PM, etc. 
+Use your favorite R editor and happy coding. 
+
+The rest of the document applies to R developers as opposed to the
+casual R user.  
+
+Before you can use the new infrastructure, try the following from a
+cmd window.
+1) > mapdev
+2) > makeuser -update
+3) > mapuser
+4) > mapprod
+If no errors reported, continue.
+
+The new architecture supports a proper software development cycle.
+You have a user area where you do your development and testing.  The
+code gets promoted every night into a dev area.  Finally there is a
+prod area corresponding to the production area.  When you are in the
+user area, you use your local code from "H:/user/R/" folder.  When you
+are in the prod area you will use code from "I:/ja/Rsoft/lib/", etc. 
+
+By default, Rgui will start into the prod area.  To launch the Rgui
+into a different area, start a cmd and do: 
+> mapuser
+> Rgui
+
+The package CEGbase contains functionality to move between development
+areas.  For example, from the R Console:
+> require(CEGbase)
+> getroot()   # shows location of the prod scripts
+> mapuser()   # map me to the user area
+> getroot()   # now you're using the local scripts
+
+As a consequence of moving to the new architecture, your code should
+require CEGbase at the top, and NOT contain fixed path references to
+scripts.  For example, if you used to have something like this in your
+script
+  source("H:/user/R/RMG/Energy/mySuperDuperLibrary.R"), 
+you need to replace it with 
+  source("R/RMG/Energy/mySuperDuperLibrary.R").
+Behind the scenes, the source function has been redefined in the
+package CEGbase to prepend the right environment you are in.  Another
+construct that will work is to do 
+  source(paste(getroot(), "R/RMG/Energy/mySuperDuperLibrary.R", sep="")).
+If full path references are left in your code pointing to the user
+area, it is guaranteed the your procmon job will fail. 
+Also, remember not to leave mapuser() or similar scattered in your
+scripts if you intend them for production.  It's best to force
+yourself to type it by hand, or start the RGui directly in the area
+you need as explained above.
+
+
+
+TODO: 
+
+FIXME:
+
+  o  We really need to fix source to work with variables too.  For
+  example users can have source(x) where x points to their H drive. 
+  prodver needs to change the strings in the file not relying on
+  source. 
+
+DONE:
+

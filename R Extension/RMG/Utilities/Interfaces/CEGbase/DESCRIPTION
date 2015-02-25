@@ -1,0 +1,10 @@
+Package: CEGbase
+Type: Package
+Title: A collection of utility functions for CEG
+Version: 0.2.15
+Date: 2013-01-09
+Author: John Scillieri, Adrian Dragulescu
+Maintainer: Adrian Dragulescu <adrian.dragulescu@constellation.com>
+Description: A collections of utility functions for CEG
+License: CEG
+

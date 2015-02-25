@@ -1,0 +1,52 @@
+/DeltaArchive.R/1.1/Mon Apr  7 12:36:11 2008//
+/DistroToEmailMap.csv/1.36/Thu Jul  7 18:34:01 2011//
+/Get.ModelingBooksnPortfolios.R/1.1/Tue Jun 16 15:39:54 2009//
+/OOTools.R/1.4/Tue Mar 17 15:26:06 2009//
+/Procmon.R/1.4/Wed Feb 27 16:06:59 2008//
+/RLogger.R/1.6/Tue Apr  7 11:22:43 2009//
+/RetrieveMatlabChanges.r/1.2/Tue Mar 17 15:26:06 2009//
+/SmartTimer.R/1.1/Thu Jul 26 15:40:19 2007//
+/TradeInfo.R/1.6/Tue Jan  8 18:48:01 2008//
+/bookMapping.R/1.1/Fri Mar 14 20:45:14 2008//
+/bookMappingCPSPROD.R/1.4/Tue Jan  8 18:48:01 2008//
+/bookMappingCPSUAT.r/1.2/Tue Jan  8 18:48:01 2008//
+/daysInMonth.R/1.2/Fri Aug  1 19:51:20 2008//
+/delete.R/1.1/Wed Sep  5 20:29:31 2007//
+/discountFactorUSD.R/1.1/Fri Aug  1 14:08:06 2008//
+/dollar.R/1.7/Mon Jun  2 14:15:56 2008//
+/download.Web.R/1.1/Tue Jul 12 14:16:09 2005//
+/easyOutliers.R/1.1/Thu May 10 20:20:41 2007//
+/eps2pdf.R/1.1/Mon May  9 19:23:10 2005//
+/extractDeltaVega.R/1.3/Tue Jan  8 18:48:01 2008//
+/extractDeltaVegaA.R/1.3/Tue Jan  8 18:48:01 2008//
+/extractOptionsPositions.R/1.1/Fri Mar 23 20:49:50 2007//
+/futCurve.R/1.2/Fri Sep 23 21:12:38 2005//
+/get.SecDB.books.R/1.2/Thu Feb 16 20:08:42 2006//
+/get.pm.books.R/1.7/Fri Mar 14 18:44:55 2008//
+/getCurveID.R/1.1/Thu Oct 20 21:24:32 2005//
+/lib.excel.functions.R/1.6/Tue Mar 17 15:26:06 2009//
+/lib.matlab.to.SecDB.R/1.6/Fri Apr 28 17:11:05 2006//
+/load.R/1.4/Thu Jul 17 17:03:27 2008//
+/loadFutureCurves.r/1.1/Thu Nov 16 16:45:15 2006//
+/loadPortfolio.r/1.1/Thu Nov 16 16:45:16 2006//
+/mkdir.R/1.2/Thu May 31 17:27:32 2007//
+/read.EEI.R/1.2/Tue Apr 26 12:25:44 2011//
+/read.deltas.from.CPSPROD.R/1.3/Tue Mar  6 16:16:02 2007//
+/read.pdf.R/1.7/Wed Feb 11 22:27:38 2015//
+/sendIM.R/1.4/Mon Apr  6 12:19:51 2009//
+/sendemail.R/1.14/Tue Mar  4 21:34:27 2008//
+/tablePlot.R/1.3/Tue Mar 17 15:26:06 2009//
+/tsdbRead.R/1.3/Mon May 16 17:58:20 2005//
+/tsdbRead.SecDB.Loop.R/1.1/Mon Jul 18 16:02:10 2005//
+/tsdbRead.SecDB.R/1.3/Wed Sep  7 15:44:44 2005//
+/write.xls.R/1.12/Tue Mar 17 15:26:06 2009//
+D/DSN////
+D/Database////
+D/Environment////
+D/Graphics////
+D/Interfaces////
+D/Math////
+D/Packages////
+D/Reporting////
+D/SecDb////
+D/TLP////

@@ -1,0 +1,58 @@
+/****************************************************************
+**
+**	gssymexpr/base.h	- 
+**
+**	Copyright 1999 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gssymexpr/src/gssymexpr/base.h,v 1.5 2001/11/27 22:47:49 procmon Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSSYMEXPR_BASE_H )
+#define IN_GSSYMEXPR_BASE_H
+
+
+/*
+**	GSSYMEXPR - 
+*/
+
+#ifdef BUILDING_GSSYMEXPR
+#define EXPORT_C_GSSYMEXPR			EXPORT_C_EXPORT
+#define EXPORT_CPP_GSSYMEXPR			EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSSYMEXPR		EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSSYMEXPR			EXPORT_C_IMPORT
+#define EXPORT_CPP_GSSYMEXPR			EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSSYMEXPR		EXPORT_CLASS_IMPORT
+#endif
+
+
+
+/*
+**	GSSYMEXPRE - 
+*/
+
+#ifdef BUILDING_GSSYMEXPRE
+#define EXPORT_C_GSSYMEXPRE			EXPORT_C_EXPORT
+#define EXPORT_CPP_GSSYMEXPRE			EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_GSSYMEXPRE		EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_GSSYMEXPRE			EXPORT_C_IMPORT
+#define EXPORT_CPP_GSSYMEXPRE			EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_GSSYMEXPRE		EXPORT_CLASS_IMPORT
+#endif
+
+#ifdef BUILDING_X_GSSYMEXPR
+#define EXPORT_C_X_GSSYMEXPR			EXPORT_C_EXPORT
+#define EXPORT_CPP_X_GSSYMEXPR			EXPORT_CPP_EXPORT
+#define EXPORT_CLASS_X_GSSYMEXPR		EXPORT_CLASS_EXPORT
+#else
+#define EXPORT_C_X_GSSYMEXPR			EXPORT_C_IMPORT
+#define EXPORT_CPP_X_GSSYMEXPR			EXPORT_CPP_IMPORT
+#define EXPORT_CLASS_X_GSSYMEXPR		EXPORT_CLASS_IMPORT
+#endif
+
+
+
+#endif
+

@@ -1,0 +1,126 @@
+\documentclass[letterpaper,12pt]{article} 
+\usepackage{epsfig}\usepackage{color} 
+\usepackage{graphicx} \usepackage{times}
+%% \usepackage[pdftex, pdftitle={},
+%%    pdfauthor={Adrian A. Dragulescu}, pdfpagemode={UseOutlines}, 
+%%    bookmarks, bookmarksopen,  pdfstartview={FitH}, colorlinks, 
+%%    linkcolor={blue}, citecolor={blue}, urlcolor={red}]{hyperref}
+				  
+\renewcommand{\baselinestretch}{1.5}
+\textwidth       178mm
+\oddsidemargin     0in
+  \advance\oddsidemargin by -1in
+  \advance\oddsidemargin by 19mm
+\evensidemargin    0in
+  \advance\evensidemargin by -1in
+  \advance\evensidemargin by 19mm
+\textheight        9.25in     %   9.75in is the max
+\topmargin         0in
+  \advance\topmargin by -0.0in  % -0.5in the max you can go
+\headheight        0pt
+\headsep           0pt
+\topskip           0pt
+
+
+\newcommand{\unitname}{UUUUU }
+\newcommand{\asofdate}{AAAAA}
+\begin{document}
+%--------------------------------------First Page----------------
+\begin{figure}
+%\epsfig{file=s:/Risk/Software/Latex/logoCPS.eps, width=0.60\linewidth} 
+\includegraphics[width=0.50\linewidth]{s:/Risk/Software/Latex/logoCECG.pdf}
+\hfill
+\raisebox{1.6cm}{
+  \parbox{7.5cm}{
+  \begin{flushright}
+    {\color{blue}\Large{\scshape Risk Management Group}}
+  \end{flushright}}}
+\end{figure}
+
+\vspace*{0.5in}
+\begin{center}
+\LARGE\bf{Analysis of \unitname unit}
+\end{center}
+\begin{center}
+   Adrian A.\ Dr\u{a}gulescu
+\end{center}
+\begin{center}
+  \small{TLP data presented in this document are from \asofdate.}
+\end{center}
+\vspace*{1in}
+
+%=================================================================
+
+\clearpage
+\begin{figure}
+  \centerline{\includegraphics[width=0.8\linewidth]{Plots/pdf_gm.pdf}}
+\end{figure}
+\begin{figure}
+  \centerline{\includegraphics[width=0.8\linewidth]{Plots/cdf_gm.pdf}}
+\end{figure}
+\input{Rtables/gm}
+
+%% \clearpage
+%% \input{Rtables/net_peak}
+%% \input{Rtables/net_offpeak}
+%----------------------------------------------------------------------------
+\clearpage
+\begin{figure}
+  \centerline{\includegraphics[width=0.8\linewidth]{Plots/revenues.pdf}}
+\end{figure}
+\input{Rtables/revenues}
+%----------------------------------------------------------------------------
+\clearpage
+\begin{figure}
+  \centerline{\includegraphics[width=0.8\linewidth]{Plots/costs.pdf}}
+\end{figure}
+\input{Rtables/costs}
+
+%----------------------------------------------------------------------------
+\clearpage
+\begin{figure}
+  \centerline{\includegraphics[width=0.80\linewidth]{Plots/tlp_avg_prices.pdf}}
+  \caption{Avegrage TLP prices by month.}
+\end{figure}
+%\input{Rtables/tlp_avg_prices}
+
+%% \clearpage
+%% \begin{figure}
+%%   \centerline{\includegraphics[width=0.80\linewidth]{Plots/price_offpeak.pdf}}
+%%   \caption{Distribution of offpeak TLP yearly prices.}
+%% \end{figure}
+%% \input{Rtables/price_offpeak}
+
+
+
+\end{document}
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %                        WEEKENDS
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %-----------------------------------------------------------------
+%% \begin{figure}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--1.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--2.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--3.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--4.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--5.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--6.pdf}}
+%% \end{figure}
+%% %-----------------------------------------------------------------
+%% \begin{figure}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--7.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--8.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--9.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--10.pdf}}
+%% \centerline{ 
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--11.pdf}
+%% \includegraphics[width=0.45\linewidth]{Plots/LT--WE--12.pdf}}
+%% \end{figure}
+

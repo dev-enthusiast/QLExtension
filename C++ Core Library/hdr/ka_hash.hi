@@ -1,0 +1,79 @@
+/****************************************************************
+**
+**	ka_hash.hi	- Templated hash
+**
+**	Copyright 1999 - Goldman, Sachs & Co. - New York
+**
+**	$Log: ka_hash.hi,v $
+**	Revision 1.2  2000/03/16 20:45:39  singhki
+**	Added KAHashMap, allocated table sizes as powers of 2
+**
+**	Revision 1.1  1999/11/05 18:12:53  singhki
+**	added hash statistics and use prime sizes
+**	
+**
+****************************************************************/
+
+#include <ka_hash.h>
+
+template<class TKey, class THashFunc, class TCompare>
+		double KAHashKey<TKey, THashFunc, TCompare>::Statistics(
+			HASH_USABILITY *Usability
+		)
+{
+	TKey	*Ptr;
+			
+	unsigned long
+			ChainLength;
+
+	long
+			ActualBucket,
+			BestBucket;
+			
+	double	ChainSum = 0.0,
+			Usable;
+			
+	Usability->ChainLongest	= 0;
+	Usability->ChainMean	= 0.0;
+	Usability->ChainSigma	= 0.0;
+
+	if( KeyCount <= 1 )
+		return( 1.0 );
+
+	for( Ptr = Table + Size - 1; Ptr >= Table; --Ptr )
+	{
+		if( *Ptr == KeyDeleted || *Ptr == KeyNull )
+			continue;
+
+		ActualBucket = long( Ptr - Table );
+		BestBucket = long( GetHash( *Ptr ));
+
+		ChainLength = ( BestBucket + Size - ActualBucket ) % Size;
+		ChainSum += ChainLength;
+
+		if( ChainLength > Usability->ChainLongest )
+			Usability->ChainLongest = ChainLength;
+	}
+
+	Usability->ChainMean = ChainSum / KeyCount;
+	ChainSum = 0.0;
+
+	for( Ptr = Table + Size - 1; Ptr >= Table; --Ptr )
+	{
+		if( *Ptr == KeyDeleted || *Ptr == KeyNull )
+			continue;
+
+		ActualBucket = long( Ptr - Table );
+		BestBucket = GetHash( *Ptr );
+
+		ChainLength = ( BestBucket + Size - ActualBucket ) % Size;
+
+		ChainSum += ( ChainLength - Usability->ChainMean ) * ( ChainLength - Usability->ChainMean );
+	}
+
+	Usability->ChainSigma = sqrt( ChainSum / ( KeyCount - 1 ));
+
+	Usable = ( Usability->ChainMean + Usability->ChainSigma ) * 0.01;
+	return( Usable > 1.0 ? 0.0 : 1.0 - Usable );
+}
+

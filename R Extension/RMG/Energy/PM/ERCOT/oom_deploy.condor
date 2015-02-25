@@ -1,0 +1,32 @@
+# Condor file to do some ERCOT magic.
+ 
+#Begin Standard Header 
+JobName = ERCOT_OOM_DEPLOY
+LogHeader = $(JobName).$(Cluster).$(Process).$$(Machine)
+ 
+input = \\ceg\cershare\All\Risk\Software\R\prod\Energy\PM\ERCOT\oom_deploy.R
+output = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).out
+error = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).error
+log = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\dagLog.log
+executable = $ENV(SystemRoot)\system32\cmd.exe
+arguments = /Q /C \\ceg\cershare\All\Risk\Software\R\prod\Utilities\Environment\Condor\RunR.bat
+ 
+transfer_executable = False
+should_transfer_files = No
+getenv = True
+EnvSettings = TMP=C:\temp TEMP=C:\temp
+run_as_owner = true
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net" 
+Universe = vanilla
+#on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)
+#InitialDir = H:\user\R\RMG\Energy\VaR\Overnight\condorOutput
+
+# Send me email about completion status
+notify_user=lori.simpson@constellation.com
+notification=Always
++EmailAttributes = "RemoteHost, In"
+ 
+# Begin individual job section
+environment = " $(EnvSettings)"
+
+Queue

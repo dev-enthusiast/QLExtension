@@ -1,0 +1,67 @@
+/****************************************************************
+**
+**	HASH_FUN	- 
+**
+**	Copyright 2001 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/extension/src/extension/hash_fun,v 1.2 2012/06/22 16:31:33 e19351 Exp $
+**
+****************************************************************/
+
+#ifndef IN_EXTENSION_HASH_FUN
+#define IN_EXTENSION_HASH_FUN
+
+#include <string>
+
+CC_BEGIN_NAMESPACE( extension )
+
+template <class T>
+struct GsHash {};
+
+inline size_t sgi_string_hash( char const* s )
+{
+    size_t h = 0; 
+    for ( ; *s; ++s)
+        h = 5 * h + *s;
+    return h;
+}
+
+template<> struct GsHash<char*>
+{
+    size_t operator()(char* b) const { return sgi_string_hash(b); }
+};
+
+template<> struct GsHash<char const*>
+{
+    size_t operator()(char const* b) const { return sgi_string_hash(b); }
+};
+
+template<> struct GsHash< std::string >
+{
+    size_t operator()(std::string const& b) const
+    {
+        return sgi_string_hash(b.c_str());
+    }
+};
+
+#define GSHASH_SIMPLE_TYPE( T ) \
+            template<> struct GsHash< T > \
+            { \
+                size_t operator()( T b ) const { return size_t( b ); } \
+            }
+
+GSHASH_SIMPLE_TYPE( char );
+GSHASH_SIMPLE_TYPE( unsigned char );
+GSHASH_SIMPLE_TYPE( signed char );
+GSHASH_SIMPLE_TYPE( short );
+GSHASH_SIMPLE_TYPE( unsigned short );
+GSHASH_SIMPLE_TYPE( int );
+GSHASH_SIMPLE_TYPE( unsigned int );
+GSHASH_SIMPLE_TYPE( long );
+GSHASH_SIMPLE_TYPE( unsigned long );
+
+#undef GSHASH_SIMPLE_TYPE
+
+CC_END_NAMESPACE
+
+#endif 

@@ -1,0 +1,188 @@
+#Begin Standard Header 
+ 
+input = \\ceg\cershare\All\Risk\Software\R\prod\Energy\Systems\CER\VLR\SimpleAggregate.R
+output = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\SimpleAggregate.$(Cluster).$(Process).out
+error = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\SimpleAggregate.$(Cluster).$(Process).error
+log = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\SimpleAggregate.log
+
+executable = $ENV(SystemRoot)\system32\cmd.exe
+arguments = /Q /C \\ceg\cershare\All\Risk\Software\R\prod\Utilities\Environment\Condor\RunR.bat
+ 
+transfer_executable = False
+should_transfer_files = No
+getenv = True
+EnvSettings = TMP=C:\temp TEMP=C:\temp
+run_as_owner = True
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net"
+#maxRunTime = 900
+#periodic_remove = JobStatus == 2 && ( (RemoteWallClockTime - CumulativeSuspensionTime) > $(maxRunTime) )
+Universe = vanilla
+ 
+# Begin individual job section
+environment = "INPUT_PATH=$(INPUT_PATH) $(EnvSettings)"
+ 
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BANGORHY.C000.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BANGORHY.C002.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BANGORHY.C003.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BANGORHY.C006.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BANGORHY.E046.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BOSTED.B2.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BOSTED.E7.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BOSTED.G6.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.BOSTED.G8.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CELCO.62.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CELCO.70.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CLP.30.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CLP.35.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CLP.39.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CLP.40.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CLP.41.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CLP.57.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CLP.58.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.IGS-P-TOU.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.IGS-S.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.IGS-S-TOU.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.LGS-P-TOU.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.LGS-S-TOU.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.LGS-ST-TOU.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.MGS-P.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.MGS-S.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.CMPCO.MGS-S-TOU.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.COMCO.24.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.COMCO.84.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.FGE.G3.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.GSECO.G1.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.GSECO.G2.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.MECO.G1.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.MECO.G2.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.MECO.S1.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.NARRAG.G02.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.NARRAG.G3.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.NARRAG.G62.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.NARRAG.X01.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.NHEC.SKI.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.PSNH.GV.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.PSNH.LG.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.UES.G-1.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.UES.G1.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.UES.G2.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.UI.GSD.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.UI.GST.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.UI.LPT.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.UI.SL-GS.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.WMECO.G0.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.WMECO.G2.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.WMECO.PR.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.WMECO.T0.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.WMECO.T2.RData'
+Queue
+
+INPUT_PATH='//nas-msw-07/rmgapp/VLR Data/load.6.WMECO.T4.RData'
+Queue
+

@@ -1,0 +1,17 @@
+project,name,addresses.on.success,addresses.on.fail
+,default,adrian.dragulescu; haibin.sun,
+,optimizer.east.power.trading.portfolio,adrian.dragulescu; haibin.sun,
+,optimizer.rmg.risk.uk.pm.and.betl.portfolio,haibin.sun; peng.wu; vladimir.gorny;,
+MPE,all,haibin.sun; peng.wu; adrian.dragulescu;,adrian.dragulescu; haibin.sun
+,run.one.VaR.R,adrian.dragulescu; haibin.sun,
+,cvar,adrian.dragulescu; haibin.sun,
+,r_developers,peng.wu; haibin.sun; adrian.dragulescu; ankur.salunkhe; nicholas.burroughs,adrian.dragulescu
+,EODVolReport.R,peng.wu; haibin.sun; jeffrey.addison; luis.garcia; william.b.hamilton,
+,RmSysVols.R,peng.wu; haibin.sun; luis.garcia; william.b.hamilton,
+,PNL,peng.wu; haibin.sun; drew.dabrowski; justyn.thompson,
+,CollateralStress,haibin.sun; peng.wu; murteza.haidri; ankur.salunkhe; olufunmilayo.omole; Joann.Kitchen;Jessica.Patino,
+,CollateralSigmaUpdate,haibin.sun; peng.wu; murteza.haidri; ankur.salunkhe; olufunmilayo.omole; Joann.Kitchen;Jessica.Patino,
+,UnflaggedBookReport,peng.wu; haibin.sun; julie.vishnyakov; chelsea.mackay,peng.wu
+,daily_PnL_AAD,"adrian.dragulescu, kieran.coe",adrian.dragulescu
+,st_outage_report,adrian.dragulescu; kevin.telford; hang.wang,
+,dailyDieselPriceMaine,elaine.lotito; john.waire; brenda.powell; vikram.krishnaswamy; deral.danis; rujun.hu; ashutosh.tiwari,

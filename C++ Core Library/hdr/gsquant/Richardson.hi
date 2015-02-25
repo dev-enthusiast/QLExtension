@@ -1,0 +1,66 @@
+/****************************************************************
+**
+**	Richardson.hi	- Richardson iteration
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Log: Richardson.hi,v $
+**	Revision 1.1  2000/08/15 19:04:28  lowthg
+**	Added Richardson iteration
+**
+****************************************************************/
+
+#if !defined( IN_RICHARDSON_HI )
+#define IN_RICHARDSON_HI
+
+#include <gsquant/Richardson.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+template < class Matrix, class Vector, class Preconditioner, class Real >
+int IR(
+	const Matrix&		  A,
+	Vector&				  x,
+	const Vector&		  b,
+    const Preconditioner& M,
+	int&			      max_iter,
+	Real&				  tol
+)
+{
+    Real resid;
+    Vector z;
+
+    Real normb = norm(b);
+    Vector r = b - A*x;
+
+    if (normb == 0.0) 
+        normb = 1;
+    
+    if ((resid = norm(r) / normb) <= tol)
+	{
+        tol = resid;
+        max_iter = 0;
+        return 0;
+    }
+    
+    for (int i = 1; i <= max_iter; i++)
+	{
+        z = M.solve(r);
+        x += z;
+        r = b - A * x;
+        
+        if ((resid = norm(r) / normb) <= tol)
+		{
+            tol = resid;
+            max_iter = i;
+            return 0;
+        }
+    }
+
+    tol = resid;
+    return 1;
+}
+
+CC_END_NAMESPACE
+#endif
+

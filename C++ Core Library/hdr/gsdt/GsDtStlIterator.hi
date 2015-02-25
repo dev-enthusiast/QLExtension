@@ -1,0 +1,158 @@
+/****************************************************************
+**
+**	GsDtStlIterator.hi	- 
+**
+**	Copyright 2001 - Goldman, Sachs & Co. - New York
+**
+**	$Log: GsDtStlIterator.hi,v $
+**	Revision 1.8  2001/11/27 22:45:01  procmon
+**	Reverted to CPS_SPLIT.
+**
+**	Revision 1.2  2001/06/15 18:28:57  johnsoc
+**	Linux patches
+**	
+**	Revision 1.1  2001/06/15 15:11:11  johnsoc
+**	Traitable GsDts
+**	
+**
+****************************************************************/
+
+#ifndef IN_GSDTLITE_GSDTSTLITERATOR_HI
+#define IN_GSDTLITE_GSDTSTLITERATOR_HI
+
+#include <portable.h>
+#include <gsdt/GsDtTypeMap.h>
+#include <gsdt/GsDtStlTraits.h>
+#include <gsdt/GsDtStlIterator.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+template< class T >
+GsDtDefaultStlIterator< T >::GsDtDefaultStlIterator( typename GsDtTypeMap< T >::GsDtType *t )
+:m_Underlying( t ),
+ m_CurVal( NULL )
+{
+	m_Begin = t->data().begin();
+	m_Iter  = t->data().begin();
+	m_End   = t->data().end();
+}
+
+template< class T >
+GsDtDefaultStlIterator< T >::GsDtDefaultStlIterator( const GsDtDefaultStlIterator< T > &Other )
+:m_Underlying( Other.m_Underlying ),
+ m_Begin( Other.m_Begin ),
+ m_End( Other.m_End ),
+ m_Iter( Other.m_Iter ),
+ m_CurVal( Other.m_CurVal )
+{
+}
+
+template< class T >
+GsDtDefaultStlIterator< T >::~GsDtDefaultStlIterator()
+{
+	if( m_CurVal )
+	{
+		delete m_CurVal;
+		m_CurVal = NULL;
+	}
+}
+
+template< class T >
+GsDt::Iterator *GsDtDefaultStlIterator< T >::Copy()
+{
+	return new GsDtDefaultStlIterator( *this );
+}
+
+template< class T >
+GsDt *GsDtDefaultStlIterator< T >::BaseValue()
+{
+	return m_Underlying;
+}
+
+template< class T >
+GsDt *GsDtDefaultStlIterator< T >::CurrentKey()
+{
+	return NULL;
+}
+
+template< class T >
+const GsDt *GsDtDefaultStlIterator< T >::CurrentValue()
+{
+	if( m_CurVal )
+	{
+		delete m_CurVal;
+		m_CurVal = NULL;
+	}
+
+	if( m_Iter != m_End )
+		return new (typename GsDtTypeMap< typename T::value_type >::GsDtType)( *m_Iter );
+
+	return NULL;
+}
+
+template< class T >
+GsDt *GsDtDefaultStlIterator< T >::ModifyValueBegin()
+{
+	return NULL;
+}
+
+template< class T >
+GsStatus GsDtDefaultStlIterator< T >::ModifyValueEnd()
+{
+	return GS_ERR;
+}
+
+template< class T >
+GsStatus GsDtDefaultStlIterator< T >::Replace( GsDt *Val, GsCopyAction Action )
+{
+	typedef typename GsDtTypeMap< typename T::value_type >::GsDtType GsDtType;
+
+	CC_OSTRSTREAM Stream;
+
+	if( m_Iter == m_End )
+	{
+		Stream <<  "Can't replace, iterator has passed the end of the container";
+		GSX_THROW( GsXInvalidOperation, CC_OSTRSTREAM_STR( Stream ) );
+		return GS_ERR;
+	}
+
+	typename GsDtTypeMap< typename T::value_type >::GsDtType
+			*MyVal = GsDtType::Cast( Val );
+
+	if( !MyVal )
+	{
+		Stream <<  "Argument is not of type: " << GsDtType::staticType().name();
+		GSX_THROW( GsXInvalidArgument, CC_OSTRSTREAM_STR( Stream ) );
+		return GS_ERR;
+	}
+
+	*m_Iter = MyVal->data();
+
+	return GS_OK;
+}
+
+template< class T >
+GsBool GsDtDefaultStlIterator< T >::More()
+{
+	if( m_Iter != m_End )
+		return GsBool( true );
+	else
+		return GsBool( false );
+}
+
+template< class T >
+void GsDtDefaultStlIterator< T >::Next()
+{
+	if( m_Iter != m_End )
+		++m_Iter;
+}
+
+template< class T >
+GsDt::Iterator &GsDtDefaultStlIterator< T >::operator=( const GsDt::Iterator &Rhs )
+{
+	return new GsDtDefaultStlIterator( Rhs );
+}
+
+CC_END_NAMESPACE
+
+#endif

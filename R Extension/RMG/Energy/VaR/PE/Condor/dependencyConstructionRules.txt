@@ -1,0 +1,4 @@
+jobNames[grep("AllFuelReferenceCurves", jobNames)];jobNames[grep("^(WTI|COL|FCO|NGReference)", jobNames)]
+jobNames[grep("^(NGReference|COL|WTI)", jobNames)];jobNames[grep("^ElecMarketReference", jobNames)]
+jobNames[grep("^NGReference", jobNames)];jobNames[grep("^NGCurves", jobNames)]
+jobNames[grep("^ElecMarketReference", jobNames)];jobNames[grep("^PW", jobNames)]

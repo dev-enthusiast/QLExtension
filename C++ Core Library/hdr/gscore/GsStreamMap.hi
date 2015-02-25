@@ -1,0 +1,97 @@
+/****************************************************************
+**
+**	GSSTREAMMAP.HI	- 
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsbase/src/gscore/GsStreamMap.hi,v 1.4 2001/11/27 22:41:08 procmon Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSBASE_GSSTREAMMAP_HI )
+#define IN_GSBASE_GSSTREAMMAP_HI
+
+#include <gscore/GsStreamMap.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+template< class T >
+GsStreamMapT< T >::GsStreamMapT( const GsStreamMapT< T > & Other, const void* Data) 
+: GsStreamMap( Other ) ,
+  m_Out( Other.m_Out ),
+  m_In( Other.m_In )
+{
+	if( Data ) // Override
+		m_Out =  reinterpret_cast< const T* >( Data );
+
+}
+
+template< class T >
+GsStreamMapT< T >::GsStreamMapT() 
+: GsStreamMap( ) ,
+  m_Out( NULL ),
+  m_In( NULL )
+{
+}
+
+template< class T >
+GsStreamMapT< T > & GsStreamMapT< T >::operator=( const GsStreamMapT< T > &Rhs )
+{
+	if( &Rhs != this )
+	{
+		GsStreamMap::operator=( Rhs );
+		m_Out = Rhs.m_Out;
+		m_In = Rhs.m_In;
+	}
+	return *this;
+}
+
+
+template< class T >
+void * GsStreamMapT<T>::getInObject() const 
+{ 
+	return ( void * )m_In;
+}
+
+template< class T >
+void GsStreamMapT< T >::doStreamStore( GsStreamOut& Stream )
+{
+	GSX_THROW( GsXNotImplemented, "GsStreamMapT - doStreamStore" );
+}
+
+
+template< class T >
+void GsStreamMapT< T >::doStreamRead( GsStreamIn& Stream )
+{
+	GSX_THROW( GsXNotImplemented, "GsStreamMapT - doStreamRead" );
+}
+
+
+/****************************************************************
+**	Class  : GsStreamMapT 
+**	Routine: clone 
+**	Returns: clone of self
+**	Action : 
+****************************************************************/
+
+template< class T >
+GsStreamMap* GsStreamMapT< T >::clone(
+	const void* Data
+) const
+{
+	return new GsStreamMapT< T >( *this, Data );
+}
+
+template< class T >
+const char* GsStreamMapT< T >::typeName(
+) 
+{
+	GSX_THROW( GsXNotImplemented, "GsStreamMapT< T >::typeName not specialized" );
+	return "";
+}
+
+CC_END_NAMESPACE
+
+#endif 
+

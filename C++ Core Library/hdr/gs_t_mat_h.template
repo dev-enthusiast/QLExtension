@@ -1,0 +1,152 @@
+@{Cmt}
+@{Cmt}  This file is used to generate the matrix class header files
+@{Cmt}	Copyright 1998 - Goldman, Sachs & Co. - New York
+@{Cmt}
+@{Cmt}
+@{Cmt}	$Log: gs_t_mat_h.template,v $
+@{Cmt}	Revision 1.5  2001/11/27 22:40:25  procmon
+@{Cmt}	Reverted to CPS_SPLIT.
+@{Cmt}
+@{Cmt}	Revision 1.3  1999/03/02 16:38:06  vengrd
+@{Cmt}	use STL lower_bound (binary search)
+@{Cmt}	
+@{Cmt}	Revision 1.2  1999/02/16 22:55:52  vengrd
+@{Cmt}	added iterators
+@{Cmt}	
+@{Cmt}	Revision 1.1  1999/02/16 21:07:07  vengrd
+@{Cmt}	initial rev
+@{Cmt}	
+@{Cmt}
+@{Param}HdrName		- The name of the header file being generated
+@{Param}HdrNameUC	- HdrName in uppercase with _ for /
+@{Param}SrcName		- The name of the source file being produced
+@{Param}Base		- The base name of the element class
+@{Define}ClassM		@{Class}Matrix
+@{Define}ClassV		@{Class}Vector
+/****************************************************************
+**
+**	@{HdrName}	- Header for @{Class}
+**
+**	Copyright @{Year} - Goldman, Sachs & Co. - New York
+**
+****************************************************************/
+
+
+#if ! defined(IN_@{HdrNameUC})
+#define IN_@{HdrNameUC}
+
+#include <gscore/@{Class}.h>
+#include <gscore/@{ClassV}.h>
+#include <gscore/GsMatrix.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+/*
+**	Classes declared in this header
+*/
+
+class @{ClassM};
+
+
+/*
+**  class @{ClassM}
+*/
+
+class EXPORT_CLASS_@{ProjectUC} @{ClassM}
+{
+public:
+	typedef @{Class} index_type;
+	typedef size_t size_type;
+
+	// Iterator and reference come right out of the matrix inside.
+	typedef GsMatrix::iterator iterator;
+	typedef GsMatrix::const_iterator const_iterator;
+	typedef GsMatrix::reference reference;		
+
+	// Constructors
+	@{ClassM}() : m_IndexVector(), m_DataMatrix() {}
+
+	@{ClassM}( const @{ClassV} &rhs, size_t Cols = 0 ) : m_IndexVector( rhs ), m_DataMatrix( rhs.size(), Cols ) {}
+
+	@{ClassM}( const @{ClassM} &rhs ) : m_IndexVector( rhs.m_IndexVector ), m_DataMatrix( rhs.m_DataMatrix ) {}
+
+	// Destructor
+	~@{ClassM}() {};
+
+	// Assignment
+	@{ClassM} &operator=(const @{ClassM}&);
+
+	// Element Access
+	reference operator() ( index_type Row, size_t Col );
+	double operator() ( index_type Row, size_t Col ) const;
+
+	// Iterators
+	iterator		begin()				{ return m_DataMatrix.begin(); }
+	const_iterator	begin() const		{ return m_DataMatrix.begin(); }
+	iterator		end()				{ return m_DataMatrix.end();   }
+	const_iterator	end() const			{ return m_DataMatrix.end();   }
+
+	// Get the vector of row indices.
+	const @{ClassV} &RowIndices() const { return m_IndexVector; }
+
+private:
+
+	@{ClassV}
+		m_IndexVector;
+
+	GsMatrix
+		m_DataMatrix;
+
+	// Convert an index to a row number in m_DataMatrix;
+	size_t IndexToRowNum( index_type Row ) const;
+	
+};	
+
+
+
+/****************************************************************
+**	Class  : @{ClassM} 
+**	Routine: operator() 
+**	Returns: Reference to element.
+**	Action : Index into the array.
+****************************************************************/
+
+inline @{ClassM}::reference @{ClassM}::operator()(
+	index_type Row,
+	size_t Col
+)
+{
+	size_t	RowNum = IndexToRowNum( Row );
+
+	return m_DataMatrix( RowNum, Col ); 
+}
+
+
+
+/****************************************************************
+**	Class  : @{ClassM} 
+**	Routine: operator() 
+**	Returns: value of an element.
+**	Action : Index into the array.
+****************************************************************/
+
+inline double @{ClassM}::operator()(
+	index_type Row,
+	size_t Col
+) const
+{
+	size_t	RowNum = IndexToRowNum( Row );
+
+	return m_DataMatrix( RowNum, Col ); 
+}
+
+
+
+CC_END_NAMESPACE
+
+#endif /* defined(IN_@{HdrNameUC}) */
+
+@{Cmt} Local Variables: ***
+@{Cmt} mode:c++ ***
+@{Cmt} End: ***

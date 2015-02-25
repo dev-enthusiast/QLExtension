@@ -1,0 +1,13 @@
+# Document code breaks in R 2.8.1 vs R 2.6.1 
+#
+
+ - 2.8.1 is timezone aware.  This is great for DST issues we had
+ before.  However, after loading the SecDb package, a lot of warnings
+ get generated when using POSIXct, POSIXlt objects.  SOLUTION: set the
+ system tz to "" after loading the SecDb package.  No adverse effects
+ were found.  (e47187)
+ > require(SecDb)
+ > Sys.setenv(TZ="")
+
+
+

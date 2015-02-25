@@ -1,0 +1,4 @@
+[ODBC]
+DRIVER=Microsoft ODBC for Oracle
+UID=stratdatread
+SERVER=CPSPROD

@@ -1,0 +1,130 @@
+#ifndef EXTENSION_HASH_MAP
+#define EXTENSION_HASH_MAP
+
+/****************************************************************
+**
+**	hash_map	- 
+**
+**	Copyright 2001 - Goldman, Sachs & Co. - New York
+**
+**	$Log: hash_map,v $
+**	Revision 1.18  2015/02/05 14:33:18  e19351
+**	Preliminary support for VC12 (VS2013) compiler on Windows.
+**	AWR: #362066
+**
+**	Revision 1.17  2012/06/22 16:31:33  e19351
+**	Add support for VC10's hash_map. Will get rid of some build errors, but as
+**	soon as VC6 is gone, so is hash_map (should use std::unordered_map).
+**	AWR: #177555
+**
+**	Revision 1.16  2011/05/09 20:13:46  khodod
+**	Slight formatting changes.
+**	AWR: #177463
+**
+**	Revision 1.15  2011/01/28 17:36:27  khodod
+**	Changes for the latest GCC compiler.
+**	AWR: #177463
+**
+**	Revision 1.14  2004/10/12 23:01:28  khodod
+**	Merged SW6 fixes from NYC.
+**
+**
+****************************************************************/
+
+#include <string>
+
+#include <extension/hash_fun>
+
+// THIS FILE SHOULD GO AWAY.
+// All instances of hash_map should be replaced by the standard library's
+// implementation (unordered_map), instead of the various proprietary
+// implementations we attempt to abstract over here.
+
+#ifdef _MSC_VER
+
+#include <hash_map>
+#include <hash_set>
+
+// MSVC's HASH_MAP uses a different interface
+template< class Key, class Hasher = extension::GsHash< Key >, class Traits = std::less< Key > >
+class msvc_hash_compare : public stdext::hash_compare< Key, Traits >
+{
+public:
+	size_t operator( )( const Key& k ) const {
+		return mHasher( k );
+	}
+	
+	// Why is this necessary? Who knows. It should be inherited, but it breaks MSVC's hash_map
+	// when it's not explicitly stated.
+	bool operator()( const Key& key1, const Key& key2 ) const {
+		return stdext::hash_compare< Key, Traits >::operator()( key1, key2 );
+	}
+	
+private:
+	Hasher mHasher;
+};
+
+#define CC_STL_HASH_SET( K )                   \
+           stdext::hash_set< K, msvc_hash_compare< K > >
+#define CC_STL_HASH_SET_H( K, H )              \
+           stdext::hash_set< K, msvc_hash_compare< K, H > >
+#define CC_STL_HASH_SET_H_C( K, H, C )         \
+           stdext::hash_set< K, msvc_hash_compare< K, H, C > >
+
+#define CC_STL_HASH_MULTISET( K )              \
+           stdext::hash_multiset< K, msvc_hash_compare< K > >
+#define CC_STL_HASH_MULTISET_H( K, H )         \
+           stdext::hash_multiset< K, msvc_hash_compare< K, H > >
+#define CC_STL_HASH_MULTISET_H_C( K, H, C )    \
+           stdext::hash_multiset< K, msvc_hash_compare< K, H, C > >
+
+#define CC_STL_HASH_MAP( K, V )                \
+           stdext::hash_map< K, V, msvc_hash_compare< K > >
+#define CC_STL_HASH_MAP_H( K, V, H )           \
+           stdext::hash_map< K, V, msvc_hash_compare< K, H > >
+#define CC_STL_HASH_MAP_H_C( K, V, H, C )      \
+           stdext::hash_map< K, V, msvc_hash_compare< K, H, C > >
+
+#define CC_STL_HASH_MULTIMAP( K, V )           \
+           stdext::hash_multimap< K, V, msvc_hash_compare< K > > 
+#define CC_STL_HASH_MULTIMAP_H( K, V, H )      \
+           stdext::hash_multimap< K, V, msvc_hash_compare< K, H > >
+#define CC_STL_HASH_MULTIMAP_H_C( K, V, H, C ) \
+           stdext::hash_multimap< K, V, msvc_hash_compare< K, H, C > >
+
+#elif defined( __GNUC__ )
+
+#include <ext/hash_map>
+#include <ext/hash_set>
+
+#define CC_STL_HASH_SET( K )                   \
+           __gnu_cxx::hash_set< K, extension::GsHash< K >, std::equal_to< K > >
+#define CC_STL_HASH_SET_H( K, H )              \
+           __gnu_cxx::hash_set< K, H, std::equal_to< K > >
+#define CC_STL_HASH_SET_H_C( K, H, C )         \
+           __gnu_cxx::hash_set< K, H, C > 
+
+#define CC_STL_HASH_MULTISET( K )              \
+           __gnu_cxx::hash_multiset< K, extension::GsHash< K >, std::equal_to< K > >
+#define CC_STL_HASH_MULTISET_H( K, H )         \
+           __gnu_cxx::hash_multiset< K, H, std::equal_to< K > >
+#define CC_STL_HASH_MULTISET_H_C( K, H, C )    \
+           __gnu_cxx::hash_multiset< K, H, C >
+
+#define CC_STL_HASH_MAP( K, V )                \
+           __gnu_cxx::hash_map< K, V, extension::GsHash< K >, std::equal_to< K > >
+#define CC_STL_HASH_MAP_H( K, V, H )           \
+           __gnu_cxx::hash_map< K, V, H, std::equal_to< K > >
+#define CC_STL_HASH_MAP_H_C( K, V, H, C )      \
+           __gnu_cxx::hash_map< K, V, H, C >
+
+#define CC_STL_HASH_MULTIMAP( K, V )           \
+           __gnu_cxx::hash_multimap< K, V, extension::GsHash< K >, std::equal_to< K > > 
+#define CC_STL_HASH_MULTIMAP_H( K, V, H )      \
+           __gnu_cxx::hash_multimap< K, V, H, std::equal_to< K > >
+#define CC_STL_HASH_MULTIMAP_H_C( K, V, H, C ) \
+           __gnu_cxx::hash_multimap< K, V, H, C >
+
+#endif
+
+#endif // EXTENSION_HASH_MAP

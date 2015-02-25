@@ -1,0 +1,59 @@
+# A Template R 2.5 Job File To Submit to Condor. 
+#
+# NOTE: Network drive paths must be specified of the form -
+#   \\NAS-OMF-01\cpsshare\All\Risk\...
+# You CAN NOT use drive letters for network drives. 
+
+
+# The name of the job you're running.  Used to label log files.
+JobName = PMPortfolioAnalysis
+
+
+#This is the standard prefix for each log file
+LogHeader = $(JobName).$(Cluster).$(Process).$$(Machine)
+
+
+# Path to the Rscript executable
+executable = $ENV(SystemRoot)\system32\cmd.exe
+
+
+# Tell Rscript to run in the vanilla universe, accept the input file
+# from standard in, and then pass the asOfDate as an argument to the script.
+# Any arguments should go after the '-' that follows '--vanilla'
+arguments = /Q /C \\ceg\cershare\All\Risk\Software\R\prod\Utilities\Environment\Condor\RunR.bat
+
+
+# The R file to run (passed as standard input using the '-' flag above)
+input = \\ceg\cershare\All\Risk\Software\R\prod\Energy\Trading\PriceAnalysis\overnightPriceAnalysisReport.R
+output = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).out
+Error = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).error
+log = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\PMPriceAnalysis.log
+
+
+# R Specific Settings That Enable It To Work In Condor
+transfer_executable = False
+should_transfer_files = No
+getenv = True
+environment = "TMP=C:\temp TEMP=C:\temp"
+run_as_owner = true
+Universe = vanilla
+
+# This says only run when ( (the time is between 7pm and 8am) and (it's a work day) )
+# ClockMin is the number of minutes since midnight
+# Clock day is Sun-Sat as integers from 0-6
+# Change this to match your specific requirements (i.e. run after 3am)
+# and then add it to the requirements line below by adding the condition: "&& $(TimeIsOK)"
+#TimeIsOK = ( (ClockMin < 480 || ClockMin >= 1140) && (ClockDay > 0 && ClockDay < 6) )
+
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net" 
+
+
+# Enable this to resubmit the job on failure... USE WITH CARE!
+#on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)
+
+# Enable this to place all your condor log information into one folder.
+# The folder MUST exist prior to running Condor.
+#InitialDir = condorOutput
+
+# Queue up the job
+Queue

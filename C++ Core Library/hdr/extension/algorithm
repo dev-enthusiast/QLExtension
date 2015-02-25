@@ -1,0 +1,54 @@
+// -*-c++-*-
+/****************************************************************
+**
+**	algorithm - extensions to STL algorithms
+**
+**	Copyright 2001 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/extension/src/extension/algorithm,v 1.2 2001/09/05 22:29:50 simpsk Exp $
+**
+****************************************************************/
+
+
+#ifndef IN_EXTENSION_ALRORITHM_H
+#define IN_EXTENSION_ALRORITHM_H
+
+
+CC_BEGIN_NAMESPACE( extension )
+
+template <class _ForwardIter>
+bool is_sorted(_ForwardIter __first, _ForwardIter __last)
+{
+	if (__first == __last)
+		return true;
+
+	_ForwardIter __next = __first;
+	for (++__next; __next != __last; __first = __next, ++__next) {
+		if (*__next < *__first)
+			return false;
+	}
+
+	return true;
+}
+
+
+template <class _ForwardIter, class _StrictWeakOrdering>
+bool is_sorted(_ForwardIter __first, _ForwardIter __last,
+               _StrictWeakOrdering __comp)
+{
+	if (__first == __last)
+		return true;
+
+	_ForwardIter __next = __first;
+	for (++__next; __next != __last; __first = __next, ++__next) {
+		if (__comp(*__next, *__first))
+			return false;
+	}
+
+	return true;
+}
+
+
+CC_END_NAMESPACE // extension
+
+#endif

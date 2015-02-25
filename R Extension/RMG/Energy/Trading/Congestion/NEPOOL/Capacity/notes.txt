@@ -1,0 +1,44 @@
+Location of Stephen's NCPC Forecast calculation
+\\Exelonds.com\cershare\Market\Northeast Region\NEPOOL\Capacity Mark Nepool\NRCP Forecasts.xlsx
+
+Location of Kevin's calculation of Reserve Margins
+S:\All\Structured Risk\NEPOOL\Ancillary Services\Monthly Ancillary Updates\FCM Capacity\SecDb Reserve MArgin
+
+
+We also mark the RTEG:
+\\CEG\CERShare\All\Structured Risk\NEPOOL\Ancillary Services\Monthly Ancillary Updates\FCM Capacity\RTEG Marks
+
+
+A spreadsheet with all the capacity deals: 
+S:\All\Structured Risk\NEPOOL\Ancillary Services\Monthly Ancillary Updates\FCM Capacity\CCG Unit Positions 3-12-2012.xlsx
+
+
+In S:\Data\NEPOOL\RawData\OldZips\Rpt_201006, you can find file with
+FCM Capacity Load Obligation Settlement Detail Report:
+SD_FCMCLOSTLDTL_000050027_2010060100_20100710110735.CSV
+
+
+ICAP requirement = Peak Load Contribution (PLC) * Reserve Margin 
+
+Nice boxed documentation of calculations.  In NEPOOL website search "calculation
+summaries"!
+http://www.iso-ne.com/support/tech/rpt_descriptions/calculation_summaries/fcm_charges_calc_sum.pdf
+
+
+SecDb notes:l
+------------
+In "Bal Close PWR Nepool Load" container 
+you have "Locations" Value Type.  
+Component [8]  EFOR
+	  [11] FCMLD 
+	  [12] FCMADJ
+Reserve Margin = FCMADJ/(FCMLD*(1-EFORD))
+If F6 on the container, you can see all the components
+F1, Contracts has the months that are kept in the container.
+
+
+went to trade PAS9CE4, found the load entitlement: ELLE 1019934616
+
+Dollar Price, Dollar Value, Leaves, F6,
+found leaf 76, security "EPHY PWR ROPNEP 31Oct14 HMF 0"
+got to children "NRBY PWR NEPO 31Oct14  00 ZUM 0"

@@ -1,0 +1,559 @@
+/****************************************************************
+**
+**	GSHASH.HI	-
+**
+**	Copyright 1998 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsbase/src/gscore/GsHash.hi,v 1.17 2004/11/29 23:48:04 khodod Exp $
+**
+****************************************************************/
+
+#if !defined( IN_GSHASH_HI )
+#define IN_GSHASH_HI
+
+#include <gscore/GsHash.h>
+#include <gscore/GsException.h>
+
+CC_BEGIN_NAMESPACE(Gs)
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: GsHashMap
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+GsHashMap< KeyT, ValueT, HashFunctor, Compare >::GsHashMap(
+	unsigned long InitialSize
+) :
+    m_NodeSentinal( KeyT(), ValueT(),
+					&m_NodeSentinal, &m_NodeSentinal,
+					&m_NodeSentinal, &m_NodeSentinal )
+{
+	Initialize( InitialSize );
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: GsHashMap
+**	Returns: nothing
+**	Action : Initializes the HashMap from an array of KeyValues
+**			 FIX- This should really take a pointer, but that
+**			 seems to kill VC5.0 so I had to make it a reference
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+GsHashMap< KeyT, ValueT, HashFunctor, Compare >::GsHashMap(
+	const typename GsHashMap< KeyT, ValueT, HashFunctor, Compare >::KeyValueStruct	&Pairs,
+	unsigned long															NumPairs
+) :
+    m_NodeSentinal( KeyT(), ValueT(),
+					&m_NodeSentinal, &m_NodeSentinal,
+					&m_NodeSentinal, &m_NodeSentinal )
+{
+	const GsHashMap< KeyT, ValueT, HashFunctor, Compare >::KeyValueStruct
+			*InitialPairs = &Pairs;
+
+	Initialize( NumPairs );
+	while( NumPairs-- > 0 )
+	{
+		Insert( InitialPairs->m_Key, InitialPairs->m_Value );
+		++InitialPairs;
+	}
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: Initialize
+**	Returns: void
+**	Action : constructs a hash map
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+void GsHashMap< KeyT, ValueT, HashFunctor, Compare >::Initialize(
+	unsigned long InitialSize
+)
+{
+	InternalNodeP
+			*NodePtr,
+			*LastNodePtr;
+
+	m_Size 		= GsHashNextSize( InitialSize );
+	m_Buckets 	= new InternalNodeP[ m_Size ];
+
+	m_NumElements 			  = 0;
+	m_MaxElementsBeforeGrowth = m_Size;
+
+	m_NodeSentinal.m_AllNext 		= &m_NodeSentinal;
+	m_NodeSentinal.m_AllPrevious 	= &m_NodeSentinal;
+
+	for( NodePtr = m_Buckets, LastNodePtr = m_Buckets + m_Size; NodePtr < LastNodePtr;  NodePtr++ )
+		*NodePtr = &m_NodeSentinal;
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap 
+**	Routine: GsHashMap
+**	Returns: nothing
+**	Action : Constructor
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+GsHashMap< KeyT, ValueT, HashFunctor, Compare >::GsHashMap(
+	const GsHashMap< KeyT, ValueT, HashFunctor, Compare > &rhs
+) :
+	m_NodeSentinal( KeyT(), ValueT(),
+					&m_NodeSentinal, &m_NodeSentinal,
+					&m_NodeSentinal, &m_NodeSentinal )
+{
+	CopyFromRhs( rhs );
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: Destroy
+**	Returns: nothing
+**	Action : Free up memory
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+void GsHashMap< KeyT, ValueT, HashFunctor, Compare >::Destroy(
+)
+{
+	Iterator
+			Begin = this->Begin(),
+			End = this->End();
+
+	// Deleting begin will increment it to the next usable value.
+	while( Begin != End )
+		Begin.Delete( );
+
+	delete [] m_Buckets;
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: ~GsHashMap
+**	Returns: nothing
+**	Action : Destructor
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+GsHashMap< KeyT, ValueT, HashFunctor, Compare >::~GsHashMap(
+)
+{
+    Destroy();
+}
+
+
+/****************************************************************
+**	Class  : GsHashMap 
+**	Routine: operator=
+**	Returns: object with new vals
+**	Action : Assingment operator
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+GsHashMap< KeyT, ValueT, HashFunctor, Compare > &GsHashMap< KeyT, ValueT, HashFunctor, Compare >::operator=(
+	const GsHashMap< KeyT, ValueT, HashFunctor, Compare > &rhs
+) 
+{
+	if( this != &rhs )
+	{
+		Destroy();
+		
+		CopyFromRhs( rhs );
+	}
+
+	return *this;
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap 
+**	Routine: operator==
+**	Returns: are they equal?
+**	Action : comparison operator
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+bool GsHashMap< KeyT, ValueT, HashFunctor, Compare >::operator==(
+	const GsHashMap< KeyT, ValueT, HashFunctor, Compare > &rhs
+) const
+{
+	// Quick checks for common obvious cases.
+
+	if( this == &rhs )
+		return true;
+
+	if( size() != rhs.size() )
+		return false;
+
+	// Now iterate
+
+	ConstIterator
+			Elem = rhs.Begin(),
+			End  = rhs.End();
+
+	
+	while( Elem != End )
+	{
+		ConstEntry 
+				FoundEntry = Lookup( Elem->m_Key );
+
+		if( !FoundEntry || ( FoundEntry->m_Value != Elem->m_Value ) )
+			return false;
+
+		++Elem;
+	}
+
+	return true;
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap 
+**	Routine: CopyFromRhs
+**	Returns: object with new vals
+**	Action : Helper for assignment operator and copy constructor
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+void GsHashMap< KeyT, ValueT, HashFunctor, Compare >::CopyFromRhs(
+	const GsHashMap< KeyT, ValueT, HashFunctor, Compare > &rhs
+) 
+{	
+    m_NodeSentinal = InternalNode( KeyT(), ValueT(),
+								   &m_NodeSentinal, &m_NodeSentinal,
+								   &m_NodeSentinal, &m_NodeSentinal );
+
+	InternalNodeP
+			*NodePtr,
+			*LastNodePtr;
+
+	m_Size 		= rhs.m_Size;
+	m_Buckets 	= new InternalNodeP[ m_Size ];
+
+	m_NumElements 			  = 0;
+	m_MaxElementsBeforeGrowth = rhs.m_MaxElementsBeforeGrowth;
+
+	m_NodeSentinal.m_AllNext 		= &m_NodeSentinal;
+	m_NodeSentinal.m_AllPrevious 	= &m_NodeSentinal;
+
+	for( NodePtr = m_Buckets, LastNodePtr = m_Buckets + m_Size; NodePtr < LastNodePtr;  NodePtr++ )
+		*NodePtr = &m_NodeSentinal;
+
+	ConstIterator
+			Elem = rhs.Begin(),
+			End  = rhs.End();
+
+	while( Elem != End )
+	{
+		Insert( Elem->m_Key, Elem->m_Value );
+		++Elem;
+	}
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: Insert
+**	Returns: Success
+**	Action : Insert a new Key/Value pair into the hash table.
+**			 Error occurs if pair with the given key is already
+**			 present.
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+typename GsHashMap< KeyT, ValueT, HashFunctor, Compare >::InternalNodeP 
+GsHashMap< KeyT, ValueT, HashFunctor, Compare >::Insert(
+	const KeyT &Key,
+	const ValueT &Value
+)
+{
+	unsigned long
+			Index;
+
+	InternalNodeP
+			Node;
+
+
+	Index = m_Hash( Key ) % m_Size;
+
+	// It should not already be there.
+
+	for( Node = m_Buckets[ Index ]; &m_NodeSentinal != Node; Node = Node->m_BucketNext )
+		if( Compare()( Node->m_KeyValue.m_Key, Key ) )
+			GSX_THROW( GsXBadIndex, "GsHashMap already contains key,  Cannot insert again." );
+
+	// We may need to expand the table.
+
+	if( ++m_NumElements > m_MaxElementsBeforeGrowth )
+	{
+		Resize( m_Size + 1 );
+
+		Index = m_Hash( Key ) % m_Size;
+	}
+
+	return( m_Buckets[ Index ] = new InternalNode( Key, Value,
+												   m_Buckets[ Index ], &m_NodeSentinal,
+												   m_NodeSentinal.m_AllNext, &m_NodeSentinal ) );
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: LookupWithHash
+**	Returns: Success
+**	Action :
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+typename GsHashMap< KeyT, ValueT, HashFunctor, Compare >::Entry 
+GsHashMap< KeyT, ValueT, HashFunctor, Compare >::LookupWithHash(
+	const KeyT &Key,
+	unsigned long Hash
+)
+{
+	unsigned long
+			Index;
+
+	InternalNodeP
+			Node;
+
+	Index = Hash % m_Size;
+
+	for( Node = m_Buckets[ Index ]; &m_NodeSentinal != Node; Node = Node->m_BucketNext )
+		if( Compare()( Node->m_KeyValue.m_Key, Key ) )
+			return Entry( this, Node );
+
+	return Entry();
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: LookupWithHash
+**	Returns: Success
+**	Action :
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+typename GsHashMap< KeyT, ValueT, HashFunctor, Compare >::ConstEntry 
+GsHashMap< KeyT, ValueT, HashFunctor, Compare >::LookupWithHash(
+	const KeyT &Key,
+	unsigned long Hash
+) const
+{
+	unsigned long
+			Index;
+
+	InternalNodeP
+			Node;
+
+	Index = Hash % m_Size;
+
+	for( Node = m_Buckets[ Index ]; &m_NodeSentinal != Node; Node = Node->m_BucketNext )
+		if( Compare()( Node->m_KeyValue.m_Key, Key ) )
+			return ConstEntry( this, Node );
+
+	return ConstEntry();
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: InitializeBucket
+**	Returns: Success
+**	Action :
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+void GsHashMap< KeyT, ValueT, HashFunctor, Compare >::InitializeBucket(
+	const KeyT &Key,
+	InternalNode *next
+)
+{
+	unsigned long
+			Index = Hash( Key ) % m_Size;
+	m_Buckets[ Index ] = next;
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: Resize
+**	Returns: Success
+**	Action :
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+void GsHashMap< KeyT, ValueT, HashFunctor, Compare >::Resize(
+	unsigned long NewSize
+)
+{
+	unsigned long
+			NewIndex;
+
+	InternalNodeP
+			*NodePtr,
+			*LastNodePtr,
+			*NewBuckets;
+
+
+	NewSize = GsHashNextSize( NewSize );
+	if( !NewSize )
+		GSX_THROW( GsXLengthError, "GsHashMap exceeds maximum size" );
+
+	NewBuckets = new InternalNodeP[ NewSize ];
+	if( NULL == NewBuckets )
+		GSX_THROW( GsXLengthError, "Out of memory resizing GsHashMap" );
+
+	for( NodePtr = NewBuckets, LastNodePtr = NewBuckets + NewSize; NodePtr < LastNodePtr;  NodePtr++ )
+		*NodePtr = &m_NodeSentinal;
+
+	Iterator
+			Elem = this->Begin(),
+			End  = this->End(),
+			Next = Elem;
+
+	while( Elem != End )
+	{
+		NewIndex = m_Hash( Elem->m_Key ) % NewSize;
+
+		Next = Elem;
+		++Next;
+
+		Elem.m_Node->m_BucketPrevious 				= &m_NodeSentinal;
+		Elem.m_Node->m_BucketNext 					= NewBuckets[ NewIndex ];
+		NewBuckets[ NewIndex ]->m_BucketPrevious 	= Elem.m_Node;
+		NewBuckets[ NewIndex ] 						= Elem.m_Node;
+
+		Elem = Next;
+	}
+
+	m_Size = NewSize;
+	m_MaxElementsBeforeGrowth = NewSize;
+
+	delete [] m_Buckets;
+
+	m_Buckets = NewBuckets;
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: operator[]
+**	Returns: Value associated with a given key.
+**	Action : If nothing is associated with the key, an associated
+**			 value is created using the default constructor.
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+ValueT &GsHashMap< KeyT, ValueT, HashFunctor, Compare >::operator[](
+	const KeyT &Key
+)
+{
+	Entry
+			FoundEntry;
+
+	if( !( FoundEntry = Lookup( Key ) ) )
+	{
+		Insert( Key, ValueT() );
+		if( !( FoundEntry = Lookup( Key ) ) )
+			GSX_THROW( GsXNotFound, "Unable to find entry in GsHash." );
+	}
+
+	return FoundEntry.m_Node->m_KeyValue.m_Value;
+}
+
+
+
+/****************************************************************
+**	Class  : GsHashMap
+**	Routine: operator[]
+**	Returns: Value associated with a given key.
+**	Action : If nothing is associated with the key, an associated
+**			 value is created using the default constructor.
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+const ValueT &GsHashMap< KeyT, ValueT, HashFunctor, Compare >::operator[](
+	const KeyT &Key
+) const
+{
+	ConstEntry
+			FoundEntry;
+
+	if( !( FoundEntry = Lookup( Key ) ) )
+		GSX_THROW( GsXNotFound, "Unable to find entry in GsHash." );
+
+	return FoundEntry.m_Node->m_KeyValue.m_Value;
+}
+
+
+#if 0
+
+// FIX - For some reason VC5.0 will not properly instatiate this if it
+// is defined here instead of in the class declaration above.  If this
+// can be resolved, then the version up there can be removed.
+
+/****************************************************************
+**	Class  : GsHashMap::Entry
+**	Routine: Delete
+**	Returns: Success
+**	Action : Delete the item referenced by the given iterator
+**			 and replace it with the next iterator (the one that
+**			 the prefix ++ operator would return).
+****************************************************************/
+
+template<class KeyT, class ValueT, class HashFunctor, class Compare >
+void GsHashMap< KeyT, ValueT, HashFunctor, Compare >::Entry::Delete(
+)
+{
+	if ( m_Node->m_BucketPrevious == &m_HashMap->m_NodeSentinal ) 
+		m_HashMap->InitializeBucket( m_Node->m_KeyValue.m_Key, m_Node->m_BucketNext );
+
+	m_Node->m_BucketPrevious->m_BucketNext = m_Node->m_BucketNext;
+	m_Node->m_BucketNext->m_BucketPrevious = m_Node->m_BucketPrevious;
+
+	m_Node->m_AllPrevious->m_AllNext = m_Node->m_AllNext;
+	m_Node->m_AllNext->m_AllPrevious = m_Node->m_AllPrevious;
+
+	delete m_Node;
+	
+	m_Node = NULL;
+}
+
+#endif
+
+
+
+CC_END_NAMESPACE
+
+
+#endif
+
+
+
+

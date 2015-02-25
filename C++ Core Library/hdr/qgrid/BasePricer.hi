@@ -1,0 +1,181 @@
+/****************************************************************
+**
+**	BasePricer.hi	- definition of member functions for BasePricer class
+**
+**	Copyright 2000 - Goldman, Sachs & Co. - New York
+**
+**	$Revision: 1.13 $
+**
+****************************************************************/
+
+#if !defined( IN_BASEPRICER_HI )
+#define IN_BASEPRICER_HI
+
+#include <qgrid/BasePricer.h>
+#include <qgrid/Pricer.h>
+#include <qgrid/PricerRepT.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+template< class X > Pricer* BasePricer< X >::CreatePricer() const
+{
+	return new Pricer( new PricerRepT< X >( copy() ) );
+}
+
+template< class X > Pricer* BasePricer< X >::ConvertToPricer()
+{
+	return new Pricer( new PricerRepT< X >( this ) );
+}
+
+template< class X > BasePricer< X >* BasePricer< X >::copy() const
+{
+	GSX_THROW( GsXInvalidOperation, "copy undefined - cannot duplicate the BasePricer" );
+	return 0;
+}
+
+template< class X > void BasePricer< X >::SetPayout( X& Grid, const GsFuncPiecewiseLinear& f, double Time ) const
+{
+	GSX_THROW( GsXInvalidArgument, "BasePricer::SetPayout - function not defined" );
+}
+
+template< class X > void BasePricer< X >::StepBack( X& Grid, double s, double Time, double LowerKO, double UpperKO,
+							  double LowerRebate, double UpperRebate, double RebateTime ) const
+{
+	GSX_THROW( GsXInvalidArgument, "BasePricer::StepBack - function not defined" );
+}
+
+template< class X > double BasePricer< X >::Price( const X& Grid, double LowerKO, double UpperKO, double LowerRebate,
+												   double UpperRebate, double RebateTime ) const
+{
+	if( LowerKO != HUGE_VAL || UpperKO != HUGE_VAL )
+		GSX_THROW( GsXInvalidArgument, "BasePricer::Price - cannot price with knockouts" );
+	return  Price( Grid );
+}
+
+template< class X > double BasePricer< X >::Price( const X& Grid ) const
+{
+	GSX_THROW( GsXInvalidArgument, "BasePricer::Price - function not defined" );
+	return 0.;
+}
+
+template< class X > void BasePricer< X >::Multiply( X& Grid, const GsFuncPiecewiseLinear& f, double Time ) const
+{
+	GSX_THROW( GsXInvalidArgument, "BasePricer::Multiply - function not defined" );
+}
+
+template< class X > void BasePricer< X >::MaxDbl( X& Grid, double a, double Time ) const
+{
+	GSX_THROW( GsXInvalidArgument, "BasePricer::MaxGrid - function not defined" );
+}
+
+template< class X > GsString BasePricer< X >::ModelDescription() const
+{
+	return GsString( "No description" );
+}
+
+template< class X > GsDt* BasePricer< X >::ToGsDt( const X& grid, double Time ) const
+{
+	return new GsDtString( "Conversion to GsDt is not defined for this type of pricer" );
+}
+
+template< class X > void BasePricer< X >::MultiplyDbl( X& Grid, double a, double Time ) const
+{
+	Grid *= a;
+}
+
+template< class X > void BasePricer< X >::AddDbl( X& Grid, double a, double Time ) const
+{
+	Grid += a;
+}
+
+template< class X > void BasePricer< X >::AddGrids( X& Grid, const X& Grid2, double Time ) const
+{
+	Grid += Grid2;
+}
+
+template< class X > void BasePricer< X >::SubGrids( X& Grid, const X& Grid2, double Time ) const
+{
+	Grid -= Grid2;
+}
+
+template< class X > void BasePricer< X >::AddProduct( X& Grid, const X& RHSGrid, const GsFuncPiecewiseLinear& f,
+									 double Time ) const
+{
+	X TempGrid = RHSGrid;
+	Multiply( TempGrid, f, Time );
+	AddGrids( Grid, TempGrid, Time );
+}
+
+template< class X > GsDt* BasePricer< X >::Value( const X& Grid, double Time, double LowerKO,
+                                                  double UpperKO, double LowerRebate, double UpperRebate,
+												  double RebateTime ) const
+{
+	if( Time != 0. )
+		GSX_THROW( GsXInvalidArgument, "BasePricer::Value - grid time is not zero" );
+		
+	return new GsDtDouble( Price( Grid, LowerKO, UpperKO, LowerRebate, UpperRebate, RebateTime ));
+}												  
+
+template< class X > void BasePricer< X >::SetPayoutDbl( X& Grid, double a, double Time ) const
+{
+	double Temp = 0.;
+	
+	GsFuncPiecewiseLinear f( 0., 0., &Temp, &a, 1 );
+	SetPayout( Grid, f, Time );
+}
+
+template< class X > void BasePricer< X >::AddPwl( X& Grid, const GsFuncPiecewiseLinear& f, double Time ) const
+{
+	X TempGrid;
+	SetPayout( TempGrid, f, Time );
+	AddGrids( Grid, TempGrid, Time );
+}
+
+template< class X > void BasePricer< X >::SubPwl( X& Grid, const GsFuncPiecewiseLinear& f, double Time ) const
+{
+	X TempGrid;
+	SetPayout( TempGrid, f, Time );
+	SubGrids( Grid, TempGrid, Time );
+}
+
+template< class X > void BasePricer< X >::MaxGrids( X& Grid, const X& Grid2, double Time ) const
+{
+	SubGrids( Grid, Grid2, Time );
+	MaxDbl( Grid, 0., Time );
+	AddGrids( Grid, Grid2, Time );
+}
+
+template< class X > void BasePricer< X >::MaxPwl( X& Grid, const GsFuncPiecewiseLinear& f, double Time ) const
+{
+	X Grid2 = Grid;
+	SetPayout( Grid2, f, Time );
+	MaxGrids( Grid, Grid2, Time );
+}
+
+template< class X > void BasePricer< X >::MinDbl( X& Grid, double a, double Time ) const
+{
+	MultiplyDbl( Grid, -1., Time );
+	MaxDbl( Grid, -a, Time );
+	MultiplyDbl( Grid, -1., Time );
+}
+
+template< class X > void BasePricer< X >::MinGrids( X& Grid, const X& Grid2, double Time ) const
+{
+	SubGrids( Grid, Grid2, Time );
+	MinDbl( Grid, 0., Time );
+	AddGrids( Grid, Grid2, Time );
+}
+
+template< class X > void BasePricer< X >::MinPwl( X& Grid, const GsFuncPiecewiseLinear& f, double Time ) const
+{
+	X Grid2 = Grid;
+	SetPayout( Grid2, f, Time );
+	MinGrids( Grid, Grid2, Time );
+}
+
+template< class X > BasePricer< X >::~BasePricer() {}
+
+CC_END_NAMESPACE
+
+#endif
+

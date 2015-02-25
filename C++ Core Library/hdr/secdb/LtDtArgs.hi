@@ -1,0 +1,26 @@
+/****************************************************************
+**
+**	gsdt/GsLtDtArgs.hi	- explict stuff for addArgs
+**
+**	Copyright 1998 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/secdb/src/secdb/LtDtArgs.hi,v 1.2 2001/02/21 10:25:12 johnsoc Exp $
+**
+****************************************************************/
+
+#if !defined( IN_LTSECDB_LTDTARGS_HI )
+#define IN_LTSECDB_LTDTARGS_HI
+
+#include <secdb/LtDtArgs.h>
+#include <gscore/types.h>
+#include <gscore/gsdt_fwd.h>
+#include <gsdt/GsDtDate.h>
+#include <gsdt/x_gsdt.h> // For GsDtFromDtValue(...)
+
+CC_BEGIN_NAMESPACE( Gs )
+
+// Nothing 
+
+CC_END_NAMESPACE
+
+#endif

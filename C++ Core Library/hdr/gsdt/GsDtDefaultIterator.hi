@@ -1,0 +1,83 @@
+/****************************************************************
+**
+**	GSDTDEFAULTITERATOR.HI 
+**
+**	Copyright 2001 - Goldman, Sachs & Co. - New York
+**
+**	$Header: /home/cvs/src/gsdtlite/src/gsdt/GsDtDefaultIterator.hi,v 1.4 2001/11/27 22:44:59 procmon Exp $
+**
+****************************************************************/
+
+#ifndef IN_GSDTLITE_GSDTDEFAULTITERATOR_HI
+#define IN_GSDTLITE_GSDTDEFAULTITERATOR_HI
+
+#include <gsdt/base.h>
+#include <gsdt/GsDtDefaultIterator.h>
+
+CC_BEGIN_NAMESPACE( Gs )
+
+
+template< class T >
+GsDtDefaultIterator< T >::GsDtDefaultIterator( const GsDt::Iterator &Other )
+{
+}
+
+template< class T >
+GsDtDefaultIterator< T >::~GsDtDefaultIterator()
+{
+}
+
+template< class T >
+GsDt::Iterator *GsDtDefaultIterator< T >::Copy()
+{
+}
+
+template< class T >
+GsDt *GsDtDefaultIterator< T >::BaseValue()
+{
+}
+
+template< class T >
+GsDt *GsDtDefaultIterator< T >::CurrentKey()
+{
+}
+
+template< class T >
+const GsDt *GsDtDefaultIterator< T >::CurrentValue()
+{
+}
+
+template< class T >
+GsDt *GsDtDefaultIterator< T >::ModifyValueBegin()
+{
+}
+
+template< class T >
+GsStatus GsDtDefaultIterator< T >::ModifyValueEnd()
+{
+}
+
+template< class T >
+GsStatus GsDtDefaultIterator< T >::Replace( GsDt *Val, GsCopyAction Action )
+{
+}
+
+template< class T >
+GsBool GsDtDefaultIterator< T >::More()
+{
+}
+
+template< class T >
+void GsDtDefaultIterator< T >::Next()
+{
+}
+
+template< class T >
+GsDt::Iterator &GsDtDefaultIterator< T >::operator=( const GsDt::Iterator &Rhs )
+{
+}
+
+
+CC_END_NAMESPACE
+
+#endif 

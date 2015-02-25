@@ -1,0 +1,19 @@
+/Condor Install List.xls////*////
+/Condor Intro.doc////*////
+/Condor Setup With R.doc////*////
+/CondorUtilities.R////*////
+/DAGCreator.R////*////
+/GenerateCondorFile.R////*////
+/PoolHealth.R////*////
+/R25JobTemplate.txt////*////
+/R26JobTemplate.txt////*////
+/R26Test.R////*////
+/R26Test.condor////*////
+/Rprofile.site////*////
+/RunR.bat////*////
+/RunR_SAll.bat////*////
+/batch.condor.queue.bat////*////
+/condor_config.default.client////*////
+/ora9018.exe////*////
+/standardJobTemplate.txt////*////
+/utilities.Condor.R////*////

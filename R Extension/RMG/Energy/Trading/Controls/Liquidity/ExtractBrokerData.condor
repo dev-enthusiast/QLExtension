@@ -1,0 +1,45 @@
+JobName = ExtractBrokerData
+
+LogHeader = $(JobName).$(Cluster).$(Process).$$(Machine)
+
+input = \\ceg\cershare\All\Risk\Software\R\prod\Energy\Trading\Controls\Liquidity\ExtractBrokerData.R
+output = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).out
+Error = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\$(LogHeader).error
+log = \\ceg\cershare\All\Risk\Reports\VaR\prod\CondorNightlyLogs\ExtractBrokerData.log
+
+executable = $ENV(SystemRoot)\system32\cmd.exe
+arguments = /Q /C \\ceg\cershare\All\Risk\Software\R\prod\Utilities\Environment\Condor\RunR.bat
+
+transfer_executable = False
+should_transfer_files = No
+getenv = True
+run_as_owner = true
+Universe = vanilla
+
+# Use the files system and don't run on the last machine you ran on
+# This prevents failed jobs from running again on a bad machine.
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net" && (stringListMember(Machine, LastRemoteHost, "@") =!= TRUE) 
+
+# If the job runs for more than X seconds, remove it
+maxRunTime = 300
+periodic_remove = JobStatus == 2 && ( (RemoteWallClockTime - CumulativeSuspensionTime) > $(maxRunTime) )
+
+# Only remove the job if it exits with a code = 3. 
+on_exit_remove = (ExitBySignal == False) && (ExitCode == 3)
+
+# Send me email about completion status
+notify_user=john.scillieri@constellation.com ranjan.dashora@constellation.com pavan.devulapalli@constellation.com
+notification=Always
++EmailAttributes = "RemoteHost, In"
+
+# read in the proper environment variables
+EnvSettings = TMP=C:\temp TEMP=C:\temp
+environment = "broker=$(broker) commodity=$(commodity) $(EnvSettings)"
+
+broker = 'ICE'
+
+commodity = 'gas'
+Queue
+
+commodity = 'power'
+Queue

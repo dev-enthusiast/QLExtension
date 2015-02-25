@@ -1,0 +1,74 @@
+# A Template Job File To Submit to Condor. 
+#
+# NOTE: Network drive paths must be specified of the form -
+#   \\NAS-OMF-01\cpsshare\All\Risk\...
+# You CAN NOT use drive letters for network drives.  
+
+# The name of the job you're running.  Used to label log files.
+JobName = YourJobName 
+
+# The executable you'd like to run 
+Executable = Path To Executable
+
+# Any arguments the specified executable requires
+# You Can Also Use The Variables $(InputFile) $(OutputFile) specified below.
+Arguments = Program Arguments 
+
+# The naming prefix for our log files. None of this is required, you can
+# shorten it if you like, but it makes finding and sorting your log files a
+# whole lot easier.  
+LogPrefix = $(JobName).$(Cluster).$(Process).$$(Machine)
+
+# Where are our log files written.  This is also the base directory where
+# condor searches for files if absolute paths aren't used. If this is not
+# specified, the initialdir defaults to the directory where the user typed
+# condor_submit
+InitialDir = condorOutput
+
+# What input and output files should the program use, as well as the error and
+# log file names.  None of these are required but are strongly encouraged.  
+InputFile = \\ceg\cershare\All\inputfile.txt
+OutputFile = $(LogPrefix).out
+Error = $(LogPrefix).error
+Log = $(LogPrefix).log
+
+# Should Condor transfer the executable?  If it's available on all machines,
+# set this to false to save network bandwidth and remedy DLL issues.
+transfer_executable = False
+
+# These settings tell Condor to use the shared file system instead of
+# transferring all input, output and log files across the network.
+# Comment these out to enable the default settings. 
+should_transfer_files = No
+Requirements = UidDomain == "Ceg.Corp.Net" && FileSystemDomain == "Ceg.Corp.Net" 
+
+# These settings tell Condor to copy the user's environment before executing
+# the program on the remote machine.  It then tells Condor to run the job as
+# the user submitting the job and not a NULL account
+# (which may not have permission to access certain files)
+getenv = True
+run_as_owner = true
+
+# This tells Condor that the job we're running has not been relinked and must
+# be handled accordingly.  Don't change this unless you know what it means.
+Universe = vanilla
+
+# This says to resubmit the job to the pool if it did not exit cleanly.  
+# This is commented out because it can cause your job to execute forever if the 
+# program it executes is incorrectly written.  USE THIS WITH CARE!!!!
+#on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)
+
+# 'environment' specifies any specific environment variables we'd like passed
+# to the program prior to execution.  It is not required.  
+environment = "x=variable yWithSpaces='Variable with spaces'"
+
+# Queue up copies of the job, each with a separate process number.
+# 
+# Any changes made between queue commands will affect the subsequent run.
+# Examples of things you would change include environment variables,
+# initial directories, arguments to the program, input file names, etc.
+Queue
+
+Queue
+
+Queue

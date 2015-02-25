@@ -1,0 +1,52 @@
+\documentclass[landscape]{report}
+\usepackage{rotating}
+\setlength{\topmargin}{-0.5in}
+\pagestyle{empty}
+\begin{document}
+
+
+\title{Daily Weather Position Report}
+\maketitle
+
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+
+<<echo=FALSE, results=hide>>=
+library(xtable)
+source("S:/All/Risk/Software/R/prod/Projects/Weather_Position_Report/WeatherPositions.R")
+reportData <- WeatherPositions$generateReport(Sys.Date() - 1)
+@
+
+
+\begin{small}
+<<echo=FALSE, results=tex>>= 
+WeatherPositions$outputLatexBook(reportData, "TradingByBook")
+@
+\end{small}
+
+\clearpage
+
+\begin{small}
+<<echo=FALSE, results=tex>>= 
+WeatherPositions$outputLatex(reportData, "Trading")
+@
+\end{small}
+
+\clearpage
+
+\begin{small}
+<<echo=FALSE, results=tex>>=
+WeatherPositions$outputLatexBook(reportData, "PMByBook")
+@
+\end{small}
+
+\clearpage
+
+\begin{small}
+<<echo=FALSE, results=tex>>=
+WeatherPositions$outputLatex(reportData, "PM")
+@
+\end{small}
+
+\end{document}

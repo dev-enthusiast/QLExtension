@@ -1,0 +1,20 @@
+/Condor Install List.xls/1.18/Tue Apr  7 19:28:22 2009/-kb/
+/Condor Intro.doc/1.5/Tue Jan 13 17:31:28 2009/-kb/
+/Condor Setup With R.doc/1.5/Tue Jan  8 21:50:46 2008/-kb/
+/CondorUtilities.R/1.6/Tue Mar 17 15:26:05 2009//
+/DAGCreator.R/1.5/Thu Aug 30 19:27:38 2007//
+/GenerateCondorFile.R/1.10/Tue Mar 17 15:26:05 2009//
+/PoolHealth.R/1.2/Tue Mar 17 15:26:06 2009//
+/R25JobTemplate.txt/1.3/Fri May 25 13:38:24 2007//
+/R26JobTemplate.txt/1.2/Tue Mar 17 15:26:06 2009//
+/R26Test.R/1.6/Tue Mar 17 15:26:06 2009//
+/R26Test.condor/1.4/Tue Mar 17 15:26:06 2009//
+/Rprofile.site/1.2/Tue Mar 17 15:26:06 2009//
+/RunR.bat/1.3/Tue Mar 17 15:26:06 2009//
+/RunR_SAll.bat/1.2/Tue Mar 17 15:26:06 2009//
+/batch.condor.queue.bat/1.1/Mon Aug 27 22:21:05 2007//
+/condor_config.default.client/1.2/Tue Apr  7 18:35:58 2009//
+/ora9018.exe/1.1/Fri Apr 27 16:33:14 2007/-kb/
+/standardJobTemplate.txt/1.2/Tue Mar 17 15:26:06 2009//
+/utilities.Condor.R/1.2/Mon Aug 27 22:20:38 2007//
+D

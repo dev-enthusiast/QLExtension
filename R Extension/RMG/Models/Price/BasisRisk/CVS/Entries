@@ -1,0 +1,17 @@
+/calculate.zonal.risk.R/1.3/Fri Feb 23 19:14:47 2007//
+/main.basis.risk.R/1.8/Fri Feb 23 19:14:47 2007//
+/make.pdf.R/1.2/Thu Jul  7 13:24:39 2005//
+/plot.spreads.R/1.1/Thu Jul  7 13:24:40 2005//
+/read.positions.R/1.6/Fri Feb 23 19:14:47 2007//
+/read.positions.from.db.R/1.4/Fri Feb 23 19:14:47 2007//
+/read.zonal.LMP.R/1.7/Fri Feb 23 19:14:47 2007//
+/report.risk.R/1.5/Fri Feb 23 19:14:47 2007//
+/sample.2D.table.R/1.3/Tue Jul 19 19:27:58 2005//
+/sample.from.1D.R/1.2/Tue May 10 22:06:58 2005//
+/set.parms.model.R/1.8/Fri Feb 23 19:14:47 2007//
+/simulate.spread.bySeason.R/1.5/Tue Aug 30 17:17:23 2005//
+/simulate.spreads.R/1.3/Tue Aug 30 17:17:23 2005//
+/table.spreads.R/1.2/Mon Aug  8 17:30:41 2005//
+/template.BasisAnalysis.tex/1.2/Fri Feb 23 19:14:47 2007//
+D/Custom.Runs////
+D/Historical.Analysis////
