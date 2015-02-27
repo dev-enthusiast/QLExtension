@@ -325,9 +325,6 @@
     <Filter Include="methods\finitedifferences\utilities">
       <UniqueIdentifier>{be723df5-2e58-41de-8071-8d2e2f62410a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="secdb">
-      <UniqueIdentifier>{0527e1b5-b782-407a-959f-e636fcc60a85}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ql\methods\all.hpp">
@@ -3904,9 +3901,6 @@
     <ClInclude Include="ql\math\interpolations\sviinterpolation.hpp">
       <Filter>math\interpolations</Filter>
     </ClInclude>
-    <ClInclude Include="ql\secdb\sdbInterface.h">
-      <Filter>secdb</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ql\methods\montecarlo\brownianbridge.cpp">
@@ -6268,9 +6262,6 @@
     <ClCompile Include="ql\math\randomnumbers\primitivepolynomials.cpp" />
     <ClCompile Include="ql\termstructures\volatility\svi.cpp">
       <Filter>termstructures\volatility</Filter>
-    </ClCompile>
-    <ClCompile Include="ql\secdb\sdbInterface.cpp">
-      <Filter>secdb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

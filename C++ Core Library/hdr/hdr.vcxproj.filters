@@ -1,0 +1,2789 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="datatype">
+      <UniqueIdentifier>{ea1fa05d-5c49-444a-81e6-2799ffbb6ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extension">
+      <UniqueIdentifier>{1af57b17-5c34-4287-bfd3-a5eb97825ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fcadlib">
+      <UniqueIdentifier>{c8e4768d-92d8-4961-ae81-d81e7ac26f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fiblack">
+      <UniqueIdentifier>{2d576e4f-9b61-47c0-9a32-88f64d52cfc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fiinstr">
+      <UniqueIdentifier>{4a689ea0-b67c-40fa-9189-ddaee2281fc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fimathrecipes">
+      <UniqueIdentifier>{36540327-ed72-409e-a442-1fa9069c67ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="form">
+      <UniqueIdentifier>{f95e66fe-7079-42c7-a786-e6490a7f2bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fqtsdb">
+      <UniqueIdentifier>{aa8a3092-1db8-469c-8b50-3360ee8de935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gscore">
+      <UniqueIdentifier>{235b6c2d-dc1e-4ed2-9510-799aab9dcd31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsdb">
+      <UniqueIdentifier>{4d9ef6d2-f681-49bf-847c-fac2ae92356b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsdt">
+      <UniqueIdentifier>{bc62c541-8bc6-4d8c-949b-b714c3d59b49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsl">
+      <UniqueIdentifier>{32ca5416-457d-4dd2-b932-b2680f8e1621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsparse">
+      <UniqueIdentifier>{b672230c-f546-42fc-b4e5-3113d7f93b9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsquant">
+      <UniqueIdentifier>{9d5a11f1-fbef-4a68-96fb-0fdd9f23df3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsrand">
+      <UniqueIdentifier>{9e571dfe-0dd6-46d6-8ec2-6d861f165552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gssymexpr">
+      <UniqueIdentifier>{31e5669a-9953-4f87-9bda-00ef9d3752cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsthread">
+      <UniqueIdentifier>{2d94b5aa-8f16-41e1-9b6d-ce9c506d8cb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gsutil">
+      <UniqueIdentifier>{b7c1d9e6-a4f3-4412-bd28-2b858f70089f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ioskludge">
+      <UniqueIdentifier>{9434fdfe-20d0-43a2-8a1e-806417f19048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="javaglue">
+      <UniqueIdentifier>{11d6f237-a46f-4265-8302-5baeb1d1d04b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni">
+      <UniqueIdentifier>{21717ff1-adf8-4113-91e1-3603127c5d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kool_ade">
+      <UniqueIdentifier>{9765674b-afce-494e-ba26-9b3ac6c1a0df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ltaddin">
+      <UniqueIdentifier>{ad8918e3-7f98-4df9-a69a-d786f8f8e38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ltsecdb">
+      <UniqueIdentifier>{c7ebd2a6-8d8e-42a0-9351-2bec99b5b476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ltslang">
+      <UniqueIdentifier>{2830f5ab-a145-4e85-ac75-43a67e30fec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable">
+      <UniqueIdentifier>{786df7aa-1ca3-411d-b1f5-5ac35f85e9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pyglue">
+      <UniqueIdentifier>{6646603d-0065-42eb-8720-46329cae3155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="qgrid">
+      <UniqueIdentifier>{24248b82-5f3a-4ebe-80d3-3cb8b46704b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rtsdb">
+      <UniqueIdentifier>{77bde843-1cb9-415f-ab71-ad3d03b58517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="secdb">
+      <UniqueIdentifier>{ef0b179b-b657-41b6-815d-b360de67f074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="secserv">
+      <UniqueIdentifier>{7191fe1b-753a-4ff0-85f3-ce53bd354149}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="secview">
+      <UniqueIdentifier>{1cb1d374-3794-4d93-8132-660cb4c2534b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shadow">
+      <UniqueIdentifier>{5be10e30-954c-42fb-81ea-4924b6168d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="slang_addins">
+      <UniqueIdentifier>{c94065af-ae36-4cc9-989d-71bdc7dfb500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="window">
+      <UniqueIdentifier>{bceb8f35-acac-42c8-a28f-1725c410e94f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\tao">
+      <UniqueIdentifier>{3fc612ce-edca-442a-99f9-dbcdbd9107ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shadow\nt">
+      <UniqueIdentifier>{93c38b6e-1c71-4287-823d-daea39fef4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="secdbinterface">
+      <UniqueIdentifier>{b64d68cf-4c5d-4143-a947-cebda6f9c462}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pyglue.h" />
+    <ClInclude Include="pyufo.h" />
+    <ClInclude Include="cfgio.h" />
+    <ClInclude Include="logwrite.h" />
+    <ClInclude Include="qstring.h" />
+    <ClInclude Include="token.h" />
+    <ClInclude Include="ntgraph.h" />
+    <ClInclude Include="udb.h" />
+    <ClInclude Include="x_userdb.h" />
+    <ClInclude Include="files.h" />
+    <ClInclude Include="giflib.h" />
+    <ClInclude Include="metal.h" />
+    <ClInclude Include="oz.h" />
+    <ClInclude Include="monte.h" />
+    <ClInclude Include="tone.h" />
+    <ClInclude Include="dialgwin.h" />
+    <ClInclude Include="dialog.h" />
+    <ClInclude Include="glb.h" />
+    <ClInclude Include="glbsecdb.h" />
+    <ClInclude Include="glbwin.h" />
+    <ClInclude Include="3ddata.h" />
+    <ClInclude Include="socklib.h" />
+    <ClInclude Include="sockmsg.h" />
+    <ClInclude Include="udp.h" />
+    <ClInclude Include="gxplot.h" />
+    <ClInclude Include="2ddata.h" />
+    <ClInclude Include="gxgraph.h" />
+    <ClInclude Include="gd.h" />
+    <ClInclude Include="gdfonts.h" />
+    <ClInclude Include="gx.h" />
+    <ClInclude Include="gx_x.h" />
+    <ClInclude Include="power.h" />
+    <ClInclude Include="commod.h" />
+    <ClInclude Include="index.h" />
+    <ClInclude Include="libor.h" />
+    <ClInclude Include="satyr.h" />
+    <ClInclude Include="tap.h" />
+    <ClInclude Include="tapskey.h" />
+    <ClInclude Include="ufo.h" />
+    <ClInclude Include="ufochild.h" />
+    <ClInclude Include="q_new.h" />
+    <ClInclude Include="q_onefac.h" />
+    <ClInclude Include="supermkt.h" />
+    <ClInclude Include="supervf.h" />
+    <ClInclude Include="volvec.h" />
+    <ClInclude Include="ztcurve.h" />
+    <ClInclude Include="br2f_ut.h" />
+    <ClInclude Include="dtzdata.h" />
+    <ClInclude Include="q_br2f.h" />
+    <ClInclude Include="q_br2f_d.h" />
+    <ClInclude Include="q_br2f_x.h" />
+    <ClInclude Include="q_gab.h" />
+    <ClInclude Include="q_hodgdn.h" />
+    <ClInclude Include="mkt.h" />
+    <ClInclude Include="mktcalc.h" />
+    <ClInclude Include="slogroup.h" />
+    <ClInclude Include="average.h" />
+    <ClInclude Include="spot.h" />
+    <ClInclude Include="spotkout.h" />
+    <ClInclude Include="spottrad.h" />
+    <ClInclude Include="dtalloc.h" />
+    <ClInclude Include="dtneteff.h" />
+    <ClInclude Include="trade.h" />
+    <ClInclude Include="jar.h" />
+    <ClInclude Include="of_book.h" />
+    <ClInclude Include="sectsdb.h" />
+    <ClInclude Include="x_tsdb.h" />
+    <ClInclude Include="dtole.h" />
+    <ClInclude Include="dynafns.h" />
+    <ClInclude Include="excelfns.h" />
+    <ClInclude Include="xl_slang.h" />
+    <ClInclude Include="x_oci.h" />
+    <ClInclude Include="x_output.h" />
+    <ClInclude Include="x_sheet.h" />
+    <ClInclude Include="x_ufo.h" />
+    <ClInclude Include="dtfunc.h" />
+    <ClInclude Include="slangdbg.h" />
+    <ClInclude Include="slangfnc.h" />
+    <ClInclude Include="x_cfunc.h" />
+    <ClInclude Include="x_file.h" />
+    <ClInclude Include="crypt.h" />
+    <ClInclude Include="q_knockout.h" />
+    <ClInclude Include="q_parisian.h" />
+    <ClInclude Include="q_payoff.h" />
+    <ClInclude Include="q_prop.h" />
+    <ClInclude Include="gnu_getopt.h" />
+    <ClInclude Include="gridpricer_base.h" />
+    <ClInclude Include="q_compound.h" />
+    <ClInclude Include="q_exer.h" />
+    <ClInclude Include="q_grid.h" />
+    <ClInclude Include="q_storage.h" />
+    <ClInclude Include="TibSdbCvt.h" />
+    <ClInclude Include="DtValueMatlabCvt.h" />
+    <ClInclude Include="ociengine.h" />
+    <ClInclude Include="sdbInterface.h" />
+    <ClInclude Include="gnf_mc.h" />
+    <ClInclude Include="gnf_q.h" />
+    <ClInclude Include="qc_afrw.h" />
+    <ClInclude Include="qc_q.h" />
+    <ClInclude Include="qc_ut.h" />
+    <ClInclude Include="gnf_afrw.h" />
+    <ClInclude Include="gnf_clb.h" />
+    <ClInclude Include="sq_bskt.h" />
+    <ClInclude Include="secsync.h" />
+    <ClInclude Include="editinfo.h" />
+    <ClInclude Include="gsd.h" />
+    <ClInclude Include="secedit.h" />
+    <ClInclude Include="secpick.h" />
+    <ClInclude Include="secview.h" />
+    <ClInclude Include="weditor.h" />
+    <ClInclude Include="wgenpick.h" />
+    <ClInclude Include="whexdump.h" />
+    <ClInclude Include="x_trace.h" />
+    <ClInclude Include="subdb.h" />
+    <ClInclude Include="vtreg.h" />
+    <ClInclude Include="sve.h" />
+    <ClInclude Include="meanrev.h" />
+    <ClInclude Include="mrintern.h" />
+    <ClInclude Include="tssym.h" />
+    <ClInclude Include="tssymfmt.h" />
+    <ClInclude Include="q_wingmc.h" />
+    <ClInclude Include="stvol.h" />
+    <ClInclude Include="gobarg.h" />
+    <ClInclude Include="gobview.h" />
+    <ClInclude Include="q_fit.h" />
+    <ClInclude Include="gob.h" />
+    <ClInclude Include="gob_base.h" />
+    <ClInclude Include="slang_validate.h" />
+    <ClInclude Include="secloop.h" />
+    <ClInclude Include="secnode.h" />
+    <ClInclude Include="secnodei.h" />
+    <ClInclude Include="secobj.h" />
+    <ClInclude Include="secprof.h" />
+    <ClInclude Include="sectrace.h" />
+    <ClInclude Include="sectrans.h" />
+    <ClInclude Include="secver.h" />
+    <ClInclude Include="sq_arg.h" />
+    <ClInclude Include="secdbcc.h" />
+    <ClInclude Include="secdrive.h" />
+    <ClInclude Include="secdrv.h" />
+    <ClInclude Include="secdt.h" />
+    <ClInclude Include="secerror.h" />
+    <ClInclude Include="secexpr.h" />
+    <ClInclude Include="secfile.h" />
+    <ClInclude Include="secindex.h" />
+    <ClInclude Include="dtptr.h" />
+    <ClInclude Include="sdb_base.h" />
+    <ClInclude Include="sdb_enum.h" />
+    <ClInclude Include="sdb_int.h" />
+    <ClInclude Include="sdb_meta.h" />
+    <ClInclude Include="sdbchild.h" />
+    <ClInclude Include="sdbdbset.h" />
+    <ClInclude Include="sdbn_inl.h" />
+    <ClInclude Include="sdbnprof.h" />
+    <ClInclude Include="secdb.h" />
+    <ClInclude Include="sf_window.h" />
+    <ClInclude Include="tsdbst.h" />
+    <ClInclude Include="tsdbtab.h" />
+    <ClInclude Include="tsdbudp.h" />
+    <ClInclude Include="tsdbupdt.h" />
+    <ClInclude Include="turbo.h" />
+    <ClInclude Include="manyfile.h" />
+    <ClInclude Include="merge.h" />
+    <ClInclude Include="newsym.h" />
+    <ClInclude Include="trseries.h" />
+    <ClInclude Include="tsdb_int.h" />
+    <ClInclude Include="tsdbcrv.h" />
+    <ClInclude Include="tsdbfmt.h" />
+    <ClInclude Include="tsdbprot.h" />
+    <ClInclude Include="q_volopt.h" />
+    <ClInclude Include="q_volswp.h" />
+    <ClInclude Include="q_weird.h" />
+    <ClInclude Include="q_wrap.h" />
+    <ClInclude Include="quant.h" />
+    <ClInclude Include="q_swap3.h" />
+    <ClInclude Include="q_swap4.h" />
+    <ClInclude Include="q_tree.h" />
+    <ClInclude Include="q_tridag.h" />
+    <ClInclude Include="q_trivar.h" />
+    <ClInclude Include="q_twofac.h" />
+    <ClInclude Include="q_varqty.h" />
+    <ClInclude Include="q_vctfns.h" />
+    <ClInclude Include="q_vol.h" />
+    <ClInclude Include="q_smile.h" />
+    <ClInclude Include="q_sprdko.h" />
+    <ClInclude Include="q_stdopt.h" />
+    <ClInclude Include="q_string.h" />
+    <ClInclude Include="q_stvol.h" />
+    <ClInclude Include="q_svbond.h" />
+    <ClInclude Include="q_swap.h" />
+    <ClInclude Include="q_swap2.h" />
+    <ClInclude Include="q_range.h" />
+    <ClInclude Include="q_rate.h" />
+    <ClInclude Include="q_runavg.h" />
+    <ClInclude Include="q_setup.h" />
+    <ClInclude Include="q_shout.h" />
+    <ClInclude Include="q_newlkb.h" />
+    <ClInclude Include="q_nofm.h" />
+    <ClInclude Include="q_oilopt.h" />
+    <ClInclude Include="q_paris.h" />
+    <ClInclude Include="q_pknock.h" />
+    <ClInclude Include="q_pkodc.h" />
+    <ClInclude Include="q_prodop.h" />
+    <ClInclude Include="q_quanto.h" />
+    <ClInclude Include="q_ran1.h" />
+    <ClInclude Include="q_mulcom.h" />
+    <ClInclude Include="q_mulddk.h" />
+    <ClInclude Include="q_muldko.h" />
+    <ClInclude Include="q_mulfok.h" />
+    <ClInclude Include="q_multfo.h" />
+    <ClInclude Include="q_nearby.h" />
+    <ClInclude Include="q_newfo.h" />
+    <ClInclude Include="q_metop2.h" />
+    <ClInclude Include="q_metopq.h" />
+    <ClInclude Include="q_metopt.h" />
+    <ClInclude Include="q_misc.h" />
+    <ClInclude Include="q_month.h" />
+    <ClInclude Include="q_mrmtl.h" />
+    <ClInclude Include="q_mrtrig.h" />
+    <ClInclude Include="q_libko.h" />
+    <ClInclude Include="q_lkb3.h" />
+    <ClInclude Include="q_lme.h" />
+    <ClInclude Include="q_lnprob.h" />
+    <ClInclude Include="q_long.h" />
+    <ClInclude Include="q_mc.h" />
+    <ClInclude Include="q_mem.h" />
+    <ClInclude Include="q_knock.h" />
+    <ClInclude Include="q_koavg.h" />
+    <ClInclude Include="q_kogen.h" />
+    <ClInclude Include="q_lake.h" />
+    <ClInclude Include="q_ld.h" />
+    <ClInclude Include="q_fwdopt.h" />
+    <ClInclude Include="q_fwdpt2.h" />
+    <ClInclude Include="q_garch.h" />
+    <ClInclude Include="q_gasdev.h" />
+    <ClInclude Include="q_impstk.h" />
+    <ClInclude Include="q_impvol.h" />
+    <ClInclude Include="q_interp.h" />
+    <ClInclude Include="q_jump.h" />
+    <ClInclude Include="q_edconv.h" />
+    <ClInclude Include="q_either.h" />
+    <ClInclude Include="q_energy.h" />
+    <ClInclude Include="q_error.h" />
+    <ClInclude Include="q_fade.h" />
+    <ClInclude Include="q_fadeko.h" />
+    <ClInclude Include="q_fadeoutmc.h" />
+    <ClInclude Include="q_fft.h" />
+    <ClInclude Include="q_fwd.h" />
+    <ClInclude Include="q_fwdfwd.h" />
+    <ClInclude Include="q_cphedg.h" />
+    <ClInclude Include="q_crank.h" />
+    <ClInclude Include="q_crank2.h" />
+    <ClInclude Include="q_creunk.h" />
+    <ClInclude Include="q_crmath.h" />
+    <ClInclude Include="q_crsvol.h" />
+    <ClInclude Include="q_cvafns.h" />
+    <ClInclude Include="q_date.h" />
+    <ClInclude Include="q_dublko.h" />
+    <ClInclude Include="q_brent.h" />
+    <ClInclude Include="q_choose.h" />
+    <ClInclude Include="q_cmkwz.h" />
+    <ClInclude Include="q_cmplex.h" />
+    <ClInclude Include="q_cn.h" />
+    <ClInclude Include="q_contop.h" />
+    <ClInclude Include="q_conv.h" />
+    <ClInclude Include="q_corrko.h" />
+    <ClInclude Include="q_cox.h" />
+    <ClInclude Include="q_base.h" />
+    <ClInclude Include="q_baskop.h" />
+    <ClInclude Include="q_bimax.h" />
+    <ClInclude Include="q_binkod.h" />
+    <ClInclude Include="q_binlkb.h" />
+    <ClInclude Include="q_binorm.h" />
+    <ClInclude Include="q_bizarr.h" />
+    <ClInclude Include="q_black.h" />
+    <ClInclude Include="q_black2.h" />
+    <ClInclude Include="q_amgrid.h" />
+    <ClInclude Include="q_amort.h" />
+    <ClInclude Include="q_amort2.h" />
+    <ClInclude Include="q_amort3.h" />
+    <ClInclude Include="q_amortm.h" />
+    <ClInclude Include="q_anders.h" />
+    <ClInclude Include="q_avg.h" />
+    <ClInclude Include="q_avgfut.h" />
+    <ClInclude Include="minimization.h" />
+    <ClInclude Include="q_3fac.h" />
+    <ClInclude Include="q_accfwd.h" />
+    <ClInclude Include="q_amerko.h" />
+    <ClInclude Include="sq_crvfn.h" />
+    <ClInclude Include="n_pwlfun.h" />
+    <ClInclude Include="n_quaopt.h" />
+    <ClInclude Include="n_tensor.h" />
+    <ClInclude Include="n_term.h" />
+    <ClInclude Include="n_vctrin.h" />
+    <ClInclude Include="newton.h" />
+    <ClInclude Include="num.h" />
+    <ClInclude Include="qenums.h" />
+    <ClInclude Include="qtypes.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="n_crank.h" />
+    <ClInclude Include="n_cumnor.h" />
+    <ClInclude Include="n_error.h" />
+    <ClInclude Include="n_gaussp.h" />
+    <ClInclude Include="n_layers.h" />
+    <ClInclude Include="n_lu.h" />
+    <ClInclude Include="n_matrix.h" />
+    <ClInclude Include="n_mulfok.h" />
+    <ClInclude Include="n_nrarr.h" />
+    <ClInclude Include="marquard.h" />
+    <ClInclude Include="n_adi.h" />
+    <ClInclude Include="n_aiarr.h" />
+    <ClInclude Include="n_base.h" />
+    <ClInclude Include="n_cn.h" />
+    <ClInclude Include="n_consts.h" />
+    <ClInclude Include="form.h" />
+    <ClInclude Include="nt_event.h" />
+    <ClInclude Include="wexcept.h" />
+    <ClInclude Include="wfkeys.h" />
+    <ClInclude Include="wi.h" />
+    <ClInclude Include="window.h" />
+    <ClInclude Include="wkeys.h" />
+    <ClInclude Include="wlocks.h" />
+    <ClInclude Include="wmenu.h" />
+    <ClInclude Include="werrors.h" />
+    <ClInclude Include="wevent.h" />
+    <ClInclude Include="regex.h" />
+    <ClInclude Include="xregex2.h" />
+    <ClInclude Include="clip.h" />
+    <ClInclude Include="gmt.h" />
+    <ClInclude Include="autofver.h" />
+    <ClInclude Include="skipliko.h" />
+    <ClInclude Include="skiplist.h" />
+    <ClInclude Include="avgsamp.h" />
+    <ClInclude Include="dtdb.h" />
+    <ClInclude Include="tcurve.h" />
+    <ClInclude Include="datatype.h" />
+    <ClInclude Include="dtcolumn.h" />
+    <ClInclude Include="dtcore.h" />
+    <ClInclude Include="dterr.h" />
+    <ClInclude Include="dtformat.h" />
+    <ClInclude Include="dtoci.h" />
+    <ClInclude Include="dtodbc.h" />
+    <ClInclude Include="dttcurve.h" />
+    <ClInclude Include="auto_ptr_array.h" />
+    <ClInclude Include="strtok.h" />
+    <ClInclude Include="trap.h" />
+    <ClInclude Include="kool_yap.h" />
+    <ClInclude Include="logging.h" />
+    <ClInclude Include="maparea.h" />
+    <ClInclude Include="mempool.h" />
+    <ClInclude Include="mstream.h" />
+    <ClInclude Include="outform.h" />
+    <ClInclude Include="round.h" />
+    <ClInclude Include="sema.h" />
+    <ClInclude Include="gsbase_exception.h" />
+    <ClInclude Include="hash.h" />
+    <ClInclude Include="heap.h" />
+    <ClInclude Include="heapinfo.h" />
+    <ClInclude Include="hexdump.h" />
+    <ClInclude Include="jathread.h" />
+    <ClInclude Include="ka_base.h" />
+    <ClInclude Include="ka_hash.h" />
+    <ClInclude Include="kool_ade.h" />
+    <ClInclude Include="dynalink.h" />
+    <ClInclude Include="err.h" />
+    <ClInclude Include="err_base.h" />
+    <ClInclude Include="fileapp.h" />
+    <ClInclude Include="glob.h" />
+    <ClInclude Include="gs2exception.h" />
+    <ClInclude Include="ansiputs.h" />
+    <ClInclude Include="arg.h" />
+    <ClInclude Include="bstream.h" />
+    <ClInclude Include="clex.h" />
+    <ClInclude Include="code_ver.h" />
+    <ClInclude Include="date.h" />
+    <ClInclude Include="time_base.h" />
+    <ClInclude Include="timezone.h" />
+    <ClInclude Include="port_int.h" />
+    <ClInclude Include="portable.h" />
+    <ClInclude Include="punix.h" />
+    <ClInclude Include="pwin32.h" />
+    <ClInclude Include="sdb_math.h" />
+    <ClInclude Include="tcpip.h" />
+    <ClInclude Include="ccmain.h" />
+    <ClInclude Include="ccstl.h" />
+    <ClInclude Include="ccstream.h" />
+    <ClInclude Include="console.h" />
+    <ClInclude Include="dllver.h" />
+    <ClInclude Include="happy.h" />
+    <ClInclude Include="happyaud.h" />
+    <ClInclude Include="arrowkludge.h" />
+    <ClInclude Include="cccomp.h" />
+    <ClInclude Include="ccconf.h" />
+    <ClInclude Include="heapagnt.h" />
+    <ClInclude Include="shmalloc.h" />
+    <ClInclude Include="smrtheap.h" />
+    <ClInclude Include="smrtheap.hpp" />
+    <ClInclude Include="xlcall.h" />
+    <ClInclude Include="datatype\base.h">
+      <Filter>datatype</Filter>
+    </ClInclude>
+    <ClInclude Include="datatype\SelfDescStream.h">
+      <Filter>datatype</Filter>
+    </ClInclude>
+    <ClInclude Include="extension\auto_ptr_array.h">
+      <Filter>extension</Filter>
+    </ClInclude>
+    <ClInclude Include="extension\compressed_stream.h">
+      <Filter>extension</Filter>
+    </ClInclude>
+    <ClInclude Include="extension\GsNoCopy.h">
+      <Filter>extension</Filter>
+    </ClInclude>
+    <ClInclude Include="extension\GsRefCountedPtr.h">
+      <Filter>extension</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adexcel.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adexcellog.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adexcelsup.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdExpandArg.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdExpandArgBase.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdExpandData.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdGetArgByType.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adgetmap.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adhandle.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adlib.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdMissingArg.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adrdate.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdRetArgByType.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adslang.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdUsageReporting.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\adxlmain.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\AdXlMessage.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\autoarg.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\autoarggsdt.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\base.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\ExcelValue.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\gsexcel.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fcadlib\xlcall.h">
+      <Filter>fcadlib</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\base.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\dist.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlack.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlackBinaryWrapper.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlackCalcs.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlackLognormal.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlackNormal.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlackNormalAbsorbing.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlackShiftedLognormal.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqBlackTunnel.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqSmileBsBetaCorr.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqSmileHeston.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqSmileHestonZero.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqSmileMerton.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqVolCurveConstraint.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqVolCurveConstraintGen.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\FqVolCurveInterp.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiblack\norm.h">
+      <Filter>fiblack</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\base.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\FiDateStrip.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\FiDateStripGen.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsAccrualRateAnnuity.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsAnnuityRate.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsFuncAnnuity.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsFuncCashflowPV.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsFuncFixedIndex.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsFuncParCouponIndex.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsFuncSimpleIndex.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsPriceAnnuity.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsRateAnnuity.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fiinstr\GsRDateAnnuity.h">
+      <Filter>fiinstr</Filter>
+    </ClInclude>
+    <ClInclude Include="fimathrecipes\complex.h">
+      <Filter>fimathrecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="fimathrecipes\fimathrecipesExport.h">
+      <Filter>fimathrecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="fimathrecipes\nr.h">
+      <Filter>fimathrecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="fimathrecipes\nrcomplex.h">
+      <Filter>fimathrecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="fimathrecipes\nrutil.h">
+      <Filter>fimathrecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="form\base.h">
+      <Filter>form</Filter>
+    </ClInclude>
+    <ClInclude Include="fqtsdb\base.h">
+      <Filter>fqtsdb</Filter>
+    </ClInclude>
+    <ClInclude Include="fqtsdb\tsslang.h">
+      <Filter>fqtsdb</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\AdVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\base.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\err.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsAssert.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCalendar.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCFunc.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCFuncHandle.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCombinators.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCTime.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCTimeCurve.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCTimeVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsCurriedFunc.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDate.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDateBuilder.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDateEnums.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDateGen.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDateGenRep.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDateMatrix.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDateVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDayCount.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDayCounter.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDayCountISDA.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDayCountISDAVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDayCountVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDaysPerUnitTerm.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDblBuffer.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDiscountCurve.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDouble.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDoubleMatrix.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDoubleVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\gsdt_fwd.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsDynaLink.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsEnum.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsEnumInfo.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsException.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFactory.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFirstDayOfNextMonthIIDC.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFixedPeriodTermFormula.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsForwardFXCurve.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFunc.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncAlgebra.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncApply.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncArithConst.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncCombo.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncCompose.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncConst.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncConvertType.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncCtor.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncCubic.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncDateAxis.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncDirSumRange.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncDot.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncDotDisjoint.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncEnumerated.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncFindRoot.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncGenPPIntegral.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncHandle.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncImplicit.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncInvert.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncLine.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncLogLine.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncMath.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncMemberFunc.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncNoParams.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncPair.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncPiecewise.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncPiecewisePoly.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncPiecewisePolyIntegral.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncPoly.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncQuad.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncRamp.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncRestriction.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncSample.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncSpecial.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncTimeAxis.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFunctor.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncUtil.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncVectorDouble.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsFuncWindow.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsGregorianYearPerTerm.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsHandle.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsHash.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsHashForward.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsHashFromString.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsHolidaySchedule.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsHolidayScheduleRep.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsIndexCurve.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsInteger.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsIntegerVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsInvalidIncrementedDateConvention.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsISDA30DayCounter.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsISDA30EDayCounter.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsLastDayOfMonthIIDC.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsMatrix.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsMemPoolPerClass.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsMonthIncrementingMethod.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsMultiDoubleTimeSeries.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsNextBusinessDay.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsNextBusinessDaySameMonth.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsNoCopy.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsNonPeriodicTermFormula.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsNoRounding.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsNthDayOfNextMonthIIDC.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsObserver.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPeriod.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPreserveDayOfMonth.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPreserveDayOfMonthAndEndOfMonth.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPreserveDayOfMonthAndLastBusDayOfMonth.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPreserveWeekdayOfMonth.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPreviousBusinessDay.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPSA30DayCounter.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPTime.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPTimeCalc.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsPTimeVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDate.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateAdd.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateCurve.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateDate.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateDateCached.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateDateGen.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateDateWithDateGen.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateDefaultDateGen.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateFix.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateImp.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateIter.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateLazyDate.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDatePeriod.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDatePeriodWithDateGen.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateRange.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateRangeStub.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateRDate.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateRDatePeriod.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateRDatePeriodWithDateGen.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateSeries.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateVecCached.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRDateVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRefCount.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRefCountedPtr.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsRoundingConvention.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSIA30DayCounter.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSIATermFormula.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSolarYearPerTerm.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsStream.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsStreamBStream.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsStreamMap.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsString.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsStringVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSubject.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSymbol.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSymbolVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSymDate.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsSymDateVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTensor.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTensorRep.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTermCalc.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTermCalcRep.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTermFormula.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsThread.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsThreadComputation.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsThrow.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTime.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTimeDiff.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTimeSeries.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTimeSeriesAddins.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTsdb.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTsHandle.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsTypedVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsUnsigned.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsUnsignedVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsVariablePeriodTermFormula.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsVectorVector.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsVolatilityCurve.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsXEval.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsXHs.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\GsXImplementation.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gscore\types.h">
+      <Filter>gscore</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdb\base.h">
+      <Filter>gsdb</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdb\GsDb.h">
+      <Filter>gsdb</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdb\GsXDb.h">
+      <Filter>gsdb</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\base.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\dttypes.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\Enums.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\FormatInfo.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDt.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtAny.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtArray.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtCast.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtCtors.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtDate.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtDayCount.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtDayCountISDA.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtDefaultIterator.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtDefaultTraits.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtDictionary.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtDouble.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtError.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtExceptionInfo.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtFromDtValue.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtFunc.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtFuncHandle.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtGeneric.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtGenVecIter.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtGenVector.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtMatrix.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtNull.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtRDate.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtRDateIter.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtStlIterator.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtStlTraits.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtStream.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtString.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtSymbol.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtSymDate.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtTensor.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtTime.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtToDtValue.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtTraited.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtTraits.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtTypedVector.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtTypeMap.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtuBinaryFunc.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtuBinaryOp.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsDtVector.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsFcStream.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\GsType.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\macros.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\op.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\sup.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\x_gsdt.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsdt\x_gsdtfunccall.h">
+      <Filter>gsdt</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_blas.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_blas_types.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_complex_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_complex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_complex_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_block_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_bspline.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_cblas.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_cdf.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_chebyshev.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_check_range.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_combination.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_complex.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_complex_math.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_const.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_const_cgs.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_const_cgsm.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_const_mks.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_const_mksa.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_const_num.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_deriv.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_dft_complex.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_dft_complex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_dht.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_diff.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_eigen.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_errno.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fft.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fft_complex.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fft_complex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fft_halfcomplex.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fft_halfcomplex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fft_real.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fft_real_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_fit.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_heapsort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_histogram.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_histogram2d.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_ieee_utils.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_inline.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_integration.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_interp.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_linalg.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_machine.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_math.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_complex_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_complex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_complex_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_matrix_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_message.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_min.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_minmax.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_mode.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_monte.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_monte_miser.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_monte_plain.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_monte_vegas.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_multifit.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_multifit_nlin.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_multimin.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_multiroots.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_multiset.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_nan.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_ntuple.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_odeiv.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_odeiv2.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permutation.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_complex_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_complex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_complex_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_complex_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_complex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_complex_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_permute_vector_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_poly.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_pow_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_precision.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_qrng.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_randist.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_rng.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_roots.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_airy.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_bessel.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_clausen.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_coulomb.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_coupling.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_dawson.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_debye.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_dilog.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_elementary.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_ellint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_elljac.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_erf.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_exp.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_expint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_fermi_dirac.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_gamma.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_gegenbauer.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_hyperg.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_laguerre.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_lambert.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_legendre.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_log.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_mathieu.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_pow_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_psi.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_result.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_synchrotron.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_transport.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_trig.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sf_zeta.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_siman.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sort_vector_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_specfunc.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_spline.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_statistics_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sum.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_sys.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_test.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_types.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_char.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_complex.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_complex_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_complex_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_complex_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_float.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_int.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_long.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_long_double.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_short.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_uchar.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_uint.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_ulong.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_vector_ushort.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_version.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_wavelet.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsl\gsl_wavelet2d.h">
+      <Filter>gsl</Filter>
+    </ClInclude>
+    <ClInclude Include="gsparse\base.h">
+      <Filter>gsparse</Filter>
+    </ClInclude>
+    <ClInclude Include="gsparse\GsBasicRegExLexerImp.h">
+      <Filter>gsparse</Filter>
+    </ClInclude>
+    <ClInclude Include="gsparse\GsLexer.h">
+      <Filter>gsparse</Filter>
+    </ClInclude>
+    <ClInclude Include="gsparse\GsLexerImp.h">
+      <Filter>gsparse</Filter>
+    </ClInclude>
+    <ClInclude Include="gsparse\GsRDateParser.h">
+      <Filter>gsparse</Filter>
+    </ClInclude>
+    <ClInclude Include="gsparse\GsRegEx.h">
+      <Filter>gsparse</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\base.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\BiConjGrad.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\BiConjGradStab.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\ConjGrad.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\ConjGradSquared.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\Constants.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\CurveUtil.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\DateUtil.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\DictionaryUtil.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\ElemFns.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\Enums.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\EnumUtil.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\Gs1DLayers.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\Gs1DLayersExp.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFormatUtils.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncConstraint.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncDateToContinuous.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncFindRoot.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncFourierSeries.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncGenPPIntegral.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncMiscTest.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncPiecewiseLinear.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncPiecewisePoly.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncPiecewisePolyIntegral.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncPiecewisePolyInterp.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncSolverCFR.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncSolverSmooth.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncSpecial.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncUtil.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncVectorCurry.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsFuncVectorRange.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsHierarchicalGrid.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsHierarchicalGridExp.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsHierarchy.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsHierarchyExp.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsHierarchyIterator.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsHistogram.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsStats.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsStrIntLookup.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsVectorMask.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\GsVectorUtils.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\IMLMatrix.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\IterativeMethods.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\LtSwapUFOSupport.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\matutil.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\QuasiMinRes.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\Richardson.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\TensorMisc.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\toeplitzsolver.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\transdistribution.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\VectorFns.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsquant\VectorMatrixUtil.h">
+      <Filter>gsquant</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\base.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsAbsGauss.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsRand.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsRandGauss.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsRandGaussCorrelated.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsRandGaussCorrelatedAntithetic.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsRandPathGen.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsRandUniform.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\GsRandUniformRange.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gsrand\randomutil.h">
+      <Filter>gsrand</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\base.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsDtSymbolicExpression.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsDtSymbolicVariableAssignment.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsDtSymbolicVariableAssignmentIter.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsHashFuncSymbolicVariable.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicConstant.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicExpression.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicExpressionAPI.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicExpressionRep.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicExpressionVector.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicOp.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicVariableAssignment.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicVariableNameAndArgs.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicVariableNameAndArgsVector.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicVariableRep.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\GsSymbolicWeightedSum.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gssymexpr\LtSwapUFOSymExprAPI.h">
+      <Filter>gssymexpr</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\backward.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\bind.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\gsthread_base.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\maker.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\priority_queue.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\resource_queue.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\synch.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\syncing_ostream.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\thread.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\thread_iterator.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\thread_mirror.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\thread_prim.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsthread\thread_util.h">
+      <Filter>gsthread</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\base.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\DOMOutput.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\GsSystemMonitor.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\gsxml.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\GsXmlDOMWrapper.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\GsXmlTree.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\GsXmlUtils.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="gsutil\Xerces.h">
+      <Filter>gsutil</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\fstream.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\iomanip.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\ios.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\iostream.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\local.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\streamb.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\strstrea.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="ioskludge\strstream.h">
+      <Filter>ioskludge</Filter>
+    </ClInclude>
+    <ClInclude Include="javaglue\base.h">
+      <Filter>javaglue</Filter>
+    </ClInclude>
+    <ClInclude Include="javaglue\java_api.h">
+      <Filter>javaglue</Filter>
+    </ClInclude>
+    <ClInclude Include="javaglue\java_portable.h">
+      <Filter>javaglue</Filter>
+    </ClInclude>
+    <ClInclude Include="javaglue\javaglue.h">
+      <Filter>javaglue</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_applet_Applet02.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_applet_Applet03.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_applet_SecDbApplet.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_applet_SecDbThread.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_console_Console.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_console_Console_ConsolePanel.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_console_Console_ConsoleThread.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_glue_DTValue.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_glue_SecDbInterface.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_glue_SecViewOutputStream.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_glue_SlangInterface.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_jufo_JufoManager.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\com_gs_secdb_ProfileView_ProfileAnalyzer.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="kool_ade\processinfo.h">
+      <Filter>kool_ade</Filter>
+    </ClInclude>
+    <ClInclude Include="ltaddin\base.h">
+      <Filter>ltaddin</Filter>
+    </ClInclude>
+    <ClInclude Include="ltaddin\LtSecurityDuplicate.h">
+      <Filter>ltaddin</Filter>
+    </ClInclude>
+    <ClInclude Include="ltaddin\LtSwapCurve.h">
+      <Filter>ltaddin</Filter>
+    </ClInclude>
+    <ClInclude Include="ltaddin\LtSwapMoneyMarketInfo.h">
+      <Filter>ltaddin</Filter>
+    </ClInclude>
+    <ClInclude Include="ltaddin\LtVolConstraintInGraph.h">
+      <Filter>ltaddin</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\base.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\LtAddinDate.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\LtDtArgs.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\LtFuncs.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\LtObjHnd.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\LtSdbWherePredicate.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\LtSecDbObj.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltsecdb\TypeConstructors.h">
+      <Filter>ltsecdb</Filter>
+    </ClInclude>
+    <ClInclude Include="ltslang\base.h">
+      <Filter>ltslang</Filter>
+    </ClInclude>
+    <ClInclude Include="ltslang\ExLtSlang.h">
+      <Filter>ltslang</Filter>
+    </ClInclude>
+    <ClInclude Include="ltslang\LtSlang.h">
+      <Filter>ltslang</Filter>
+    </ClInclude>
+    <ClInclude Include="ltslang\LtSlangAddin.h">
+      <Filter>ltslang</Filter>
+    </ClInclude>
+    <ClInclude Include="ltslang\x_ltslang.h">
+      <Filter>ltslang</Filter>
+    </ClInclude>
+    <ClInclude Include="portable\corba.h">
+      <Filter>portable</Filter>
+    </ClInclude>
+    <ClInclude Include="portable\corba_naming.h">
+      <Filter>portable</Filter>
+    </ClInclude>
+    <ClInclude Include="portable\corba_poa.h">
+      <Filter>portable</Filter>
+    </ClInclude>
+    <ClInclude Include="portable\tao\CosNaming.h">
+      <Filter>portable\tao</Filter>
+    </ClInclude>
+    <ClInclude Include="pyglue\base.h">
+      <Filter>pyglue</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\adlib.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\AndersenPricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\AverageRateGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\AverageRateGridExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\AverageRatePricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\AverageRatePricerExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\base.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\BasePricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\BSPricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\BSPricerExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\BSPricerFourier.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\BSPricerFourierExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\carpet.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\CreatePricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\DVPricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\DVPricerExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\enums.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\Examples.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\ForwardFD.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\FourierGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\FullGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\FullGridExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\FX1DGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\FXHandle.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\FXSpGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\FXVolSurface.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\GridOps.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\GsDtPricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\GsFuncDKOGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\HestonCoeffs.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\KnockoutData.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\KnockoutSegment.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\LayeredGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\LocalVols.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\PiecewiseLinearFn.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\PiecewiseLinearFnExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\Pricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\Pricer1DGrid.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\PricerExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\PricerRep.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\PricerRepT.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\QFadeInBaseball.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\QFadeInKO.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\QFadeOutDiscKO.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\QGridConversions.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\QGridTimeSteps.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\SimpleVec.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\SVPricer.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\SVPricerExp.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\TimeSliceFn2D.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="qgrid\useful.h">
+      <Filter>qgrid</Filter>
+    </ClInclude>
+    <ClInclude Include="rtsdb\base.h">
+      <Filter>rtsdb</Filter>
+    </ClInclude>
+    <ClInclude Include="rtsdb\rtsdb.h">
+      <Filter>rtsdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\async_result.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\base.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\compile_graph.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\GsNodeValues.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\LtDtArgs.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\LtSecDbObj.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\sdb_exception.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\SdbSelfDesc.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\SecDbCompiledGraph.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\SecDbGenericTraceFunc.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\SecDbTraceContext.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\SecDbTraceStack.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdb\slang_util.h">
+      <Filter>secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\secserv.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\srv_indx.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\srv_io.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\srv_perf.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\srv_pkt.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\srv_sync.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\srv_tmap.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secserv\srv_tran_part.h">
+      <Filter>secserv</Filter>
+    </ClInclude>
+    <ClInclude Include="secview\base.h">
+      <Filter>secview</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow\nt\dirent.h">
+      <Filter>shadow\nt</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow\nt\strings.h">
+      <Filter>shadow\nt</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow\nt\unistd.h">
+      <Filter>shadow\nt</Filter>
+    </ClInclude>
+    <ClInclude Include="slang_addins\GsFuncSlang.h">
+      <Filter>slang_addins</Filter>
+    </ClInclude>
+    <ClInclude Include="window\base.h">
+      <Filter>window</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbinterface\sdbInterface.h">
+      <Filter>secdbinterface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="secdbinterface\sdbInterface.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="hdr.i" />
+  </ItemGroup>
+</Project>

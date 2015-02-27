@@ -104,6 +104,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Applications\Test\T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiquidityStress", "Applications\LiquidityStress\LiquidityStress.csproj", "{6E471BE2-EB11-40A4-A300-DE494A68A439}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hdr", "C++ Core Library\hdr\hdr.vcxproj", "{D715AD30-02CE-44A4-9405-1C9B4928A1E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug (static runtime)|Any CPU = Debug (static runtime)|Any CPU
@@ -506,6 +508,38 @@ Global
 		{6E471BE2-EB11-40A4-A300-DE494A68A439}.Release|Win32.Build.0 = Release|x86
 		{6E471BE2-EB11-40A4-A300-DE494A68A439}.Release|x64.ActiveCfg = Release|Any CPU
 		{6E471BE2-EB11-40A4-A300-DE494A68A439}.Release|x86.ActiveCfg = Release|Any CPU
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|Any CPU.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|Mixed Platforms.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|Mixed Platforms.Build.0 = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|Win32.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|Win32.Build.0 = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|x64.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|x86.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug (static runtime)|x86.Build.0 = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|Win32.Build.0 = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|x64.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|x86.ActiveCfg = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Debug|x86.Build.0 = Debug|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|Any CPU.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|Mixed Platforms.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|Mixed Platforms.Build.0 = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|Win32.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|Win32.Build.0 = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|x64.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|x86.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release (static runtime)|x86.Build.0 = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|Win32.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|Win32.Build.0 = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|x64.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|x86.ActiveCfg = Release|Win32
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -513,6 +547,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{AD0A27DA-91DA-46A2-ACBD-296C419ED3AA} = {B3D31958-AA36-4847-911A-74D5286CF777}
 		{A613045C-34AF-4706-AA3C-730C92524F74} = {B3D31958-AA36-4847-911A-74D5286CF777}
+		{D715AD30-02CE-44A4-9405-1C9B4928A1E3} = {B3D31958-AA36-4847-911A-74D5286CF777}
 		{8AEE1C6A-8896-41B5-8D98-B8B5F55061FF} = {84D03523-F85A-4FCD-B5B9-BB31CAF2B5E2}
 		{21183104-9963-4D4F-B7E8-C8A6169FD053} = {84D03523-F85A-4FCD-B5B9-BB31CAF2B5E2}
 		{928F98EE-7D50-457F-9304-A6818DCF1079} = {84D03523-F85A-4FCD-B5B9-BB31CAF2B5E2}
