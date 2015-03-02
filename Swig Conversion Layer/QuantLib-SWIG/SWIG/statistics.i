@@ -51,6 +51,8 @@ class Statistics {
     Real kurtosis() const;
     Real min() const;
     Real max() const;
+	Real percentile(Real y) const;
+	Real topPercentile(Real y) const;
     // Modifiers
     void reset();
     void add(Real value, Real weight = 1.0);

@@ -23,6 +23,12 @@ namespace CurveBuilder
             res = linear.call(0.0);
             res = linear.call(3.5);
 
+            QuantLib.GaussianPathGenerator gs;
+            QuantLib.GaussianMultiPathGenerator gms;
+            StochasticProcessArray sa;
+            StochasticProcessVector sv = new StochasticProcessVector(100);
+            QuantLib.StochasticProcess sp = new GeometricBrownianMotionProcess(1.1, 0, .2);
+
             // input strikes
             double[] strikes = new double[31];
             strikes[0] = 0.03; strikes[1] = 0.032; strikes[2] = 0.034;

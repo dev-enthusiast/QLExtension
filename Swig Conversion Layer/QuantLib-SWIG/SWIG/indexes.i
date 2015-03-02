@@ -77,6 +77,7 @@ class Index {
     Real fixing(const Date& fixingDate,
                 bool forecastTodaysFixing = false) const;
     void addFixing(const Date& fixingDate, Rate fixing);
+	void clearFixings();
 };
 
 %template(Index) boost::shared_ptr<Index>;

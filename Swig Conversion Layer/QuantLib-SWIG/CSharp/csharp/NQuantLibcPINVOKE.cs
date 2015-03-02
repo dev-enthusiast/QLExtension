@@ -8699,6 +8699,9 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_HullWhite_discount")]
   public static extern double HullWhite_discount(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_HullWhite_discountBond")]
+  public static extern double HullWhite_discountBond(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, double jarg3, double jarg4);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_HullWhite")]
   public static extern void delete_HullWhite(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -11345,6 +11348,15 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_getCovariance")]
   public static extern global::System.IntPtr getCovariance(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Path__SWIG_0")]
+  public static extern global::System.IntPtr new_Path__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_Path__SWIG_1")]
+  public static extern global::System.IntPtr new_Path__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Path_timeGrid")]
+  public static extern global::System.IntPtr Path_timeGrid(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Path_length")]
   public static extern uint Path_length(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -11372,8 +11384,11 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_delete_SamplePath")]
   public static extern void delete_SamplePath(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_GaussianPathGenerator")]
-  public static extern global::System.IntPtr new_GaussianPathGenerator(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, uint jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, bool jarg5);
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_GaussianPathGenerator__SWIG_0")]
+  public static extern global::System.IntPtr new_GaussianPathGenerator__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, uint jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, bool jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_new_GaussianPathGenerator__SWIG_1")]
+  public static extern global::System.IntPtr new_GaussianPathGenerator__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, bool jarg4);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_GaussianPathGenerator_next")]
   public static extern global::System.IntPtr GaussianPathGenerator_next(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -11806,6 +11821,12 @@ class NQuantLibcPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Statistics_max")]
   public static extern double Statistics_max(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Statistics_percentile")]
+  public static extern double Statistics_percentile(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Statistics_topPercentile")]
+  public static extern double Statistics_topPercentile(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Statistics_reset")]
   public static extern void Statistics_reset(global::System.Runtime.InteropServices.HandleRef jarg1);

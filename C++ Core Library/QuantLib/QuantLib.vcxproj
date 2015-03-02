@@ -1102,6 +1102,8 @@
     <ClInclude Include="ql\pricingengines\vanilla\fdhestonhullwhitevanillaengine.hpp" />
     <ClInclude Include="ql\pricingengines\vanilla\fdhestonvanillaengine.hpp" />
     <ClInclude Include="ql\pricingengines\vanilla\fdsimplebsswingengine.hpp" />
+    <ClInclude Include="ql\risk\all.hpp" />
+    <ClInclude Include="ql\risk\stochasticprocesspcaarray.hpp" />
     <ClInclude Include="ql\termstructures\all.hpp" />
     <ClInclude Include="ql\termstructures\bootstraperror.hpp" />
     <ClInclude Include="ql\termstructures\bootstraphelper.hpp" />
@@ -2103,6 +2105,7 @@
     <ClCompile Include="ql\pricingengines\vanilla\fdhestonhullwhitevanillaengine.cpp" />
     <ClCompile Include="ql\pricingengines\vanilla\fdhestonvanillaengine.cpp" />
     <ClCompile Include="ql\pricingengines\vanilla\fdsimplebsswingengine.cpp" />
+    <ClCompile Include="ql\risk\stochasticprocesspcaarray.cpp" />
     <ClCompile Include="ql\termstructures\defaulttermstructure.cpp" />
     <ClCompile Include="ql\termstructures\inflationtermstructure.cpp" />
     <ClCompile Include="ql\termstructures\volatility\svi.cpp" />
@@ -2501,6 +2504,17 @@
     <ClCompile Include="ql\stochasticprocess.cpp" />
     <ClCompile Include="ql\termstructure.cpp" />
     <ClCompile Include="ql\timegrid.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\Swig Conversion Layer\QuantLib-SWIG\SWIG\quantlib.i">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">echo Invoking SWIG...
+echo on
+..\..\..\swigwin\swig.exe -csharp -c++ -outdir "..\..\Swig Conversion Layer\QuantLib-SWIG\CSharp\csharp" -namespace QuantLib -o "..\..\Swig Conversion Layer\QuantLib-SWIG\CSharp\cpp\quantlib_wrap.cpp" "..\..\Swig Conversion Layer\QuantLib-SWIG\SWIG\quantlib.i"
+echo off</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">quantlib_wrap.cpp</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

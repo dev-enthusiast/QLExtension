@@ -40,6 +40,20 @@ public class Path : global::System.IDisposable {
     }
   }
 
+  public Path(TimeGrid timeGrid, QlArray values) : this(NQuantLibcPINVOKE.new_Path__SWIG_0(TimeGrid.getCPtr(timeGrid), QlArray.getCPtr(values)), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public Path(TimeGrid timeGrid) : this(NQuantLibcPINVOKE.new_Path__SWIG_1(TimeGrid.getCPtr(timeGrid)), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public TimeGrid timeGrid() {
+    TimeGrid ret = new TimeGrid(NQuantLibcPINVOKE.Path_timeGrid(swigCPtr), false);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public uint length() {
     uint ret = NQuantLibcPINVOKE.Path_length(swigCPtr);
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();

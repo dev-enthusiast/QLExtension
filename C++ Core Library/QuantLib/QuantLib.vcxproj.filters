@@ -325,6 +325,9 @@
     <Filter Include="methods\finitedifferences\utilities">
       <UniqueIdentifier>{be723df5-2e58-41de-8071-8d2e2f62410a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="risk">
+      <UniqueIdentifier>{86463a7b-63fd-4722-a9bd-4240b25d3c1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ql\methods\all.hpp">
@@ -3901,6 +3904,12 @@
     <ClInclude Include="ql\math\interpolations\sviinterpolation.hpp">
       <Filter>math\interpolations</Filter>
     </ClInclude>
+    <ClInclude Include="ql\risk\all.hpp">
+      <Filter>risk</Filter>
+    </ClInclude>
+    <ClInclude Include="ql\risk\stochasticprocesspcaarray.hpp">
+      <Filter>risk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ql\methods\montecarlo\brownianbridge.cpp">
@@ -6263,5 +6272,11 @@
     <ClCompile Include="ql\termstructures\volatility\svi.cpp">
       <Filter>termstructures\volatility</Filter>
     </ClCompile>
+    <ClCompile Include="ql\risk\stochasticprocesspcaarray.cpp">
+      <Filter>risk</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\Swig Conversion Layer\QuantLib-SWIG\SWIG\quantlib.i" />
   </ItemGroup>
 </Project>

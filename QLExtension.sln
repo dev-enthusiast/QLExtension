@@ -66,7 +66,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swig", "Swig", "{8AEE1C6A-8
 		Swig Conversion Layer\QuantLib-SWIG\SWIG\rounding.i = Swig Conversion Layer\QuantLib-SWIG\SWIG\rounding.i
 		Swig Conversion Layer\QuantLib-SWIG\SWIG\sampledcurve.i = Swig Conversion Layer\QuantLib-SWIG\SWIG\sampledcurve.i
 		Swig Conversion Layer\QuantLib-SWIG\SWIG\scheduler.i = Swig Conversion Layer\QuantLib-SWIG\SWIG\scheduler.i
-		Swig Conversion Layer\QuantLib-SWIG\SWIG\secdb.i = Swig Conversion Layer\QuantLib-SWIG\SWIG\secdb.i
 		Swig Conversion Layer\QuantLib-SWIG\SWIG\settings.i = Swig Conversion Layer\QuantLib-SWIG\SWIG\settings.i
 		Swig Conversion Layer\QuantLib-SWIG\SWIG\shortratemodels.i = Swig Conversion Layer\QuantLib-SWIG\SWIG\shortratemodels.i
 		Swig Conversion Layer\QuantLib-SWIG\SWIG\statistics.i = Swig Conversion Layer\QuantLib-SWIG\SWIG\statistics.i

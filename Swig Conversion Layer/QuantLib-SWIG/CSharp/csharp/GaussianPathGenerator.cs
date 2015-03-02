@@ -40,7 +40,11 @@ public class GaussianPathGenerator : global::System.IDisposable {
     }
   }
 
-  public GaussianPathGenerator(StochasticProcess1D process, double length, uint steps, GaussianRandomSequenceGenerator rsg, bool brownianBridge) : this(NQuantLibcPINVOKE.new_GaussianPathGenerator(StochasticProcess1D.getCPtr(process), length, steps, GaussianRandomSequenceGenerator.getCPtr(rsg), brownianBridge), true) {
+  public GaussianPathGenerator(StochasticProcess1D process, double length, uint steps, GaussianRandomSequenceGenerator rsg, bool brownianBridge) : this(NQuantLibcPINVOKE.new_GaussianPathGenerator__SWIG_0(StochasticProcess1D.getCPtr(process), length, steps, GaussianRandomSequenceGenerator.getCPtr(rsg), brownianBridge), true) {
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public GaussianPathGenerator(StochasticProcess1D process, TimeGrid timeGrid, GaussianRandomSequenceGenerator rsg, bool brownianBridge) : this(NQuantLibcPINVOKE.new_GaussianPathGenerator__SWIG_1(StochasticProcess1D.getCPtr(process), TimeGrid.getCPtr(timeGrid), GaussianRandomSequenceGenerator.getCPtr(rsg), brownianBridge), true) {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 

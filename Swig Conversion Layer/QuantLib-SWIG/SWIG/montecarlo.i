@@ -48,8 +48,9 @@ class Path {
     #if defined(SWIGPYTHON) || defined(SWIGRUBY)
     %rename(__len__) length;
     #endif
-  private:
-    Path();
+  public:
+    Path(const TimeGrid& timeGrid, const Array& values = Array());
+	const TimeGrid& timeGrid() const;
   public:
     Size length() const;
     Real value(Size i) const;
@@ -115,6 +116,15 @@ class GaussianPathGenerator {
             boost::shared_ptr<StochasticProcess1D> process1d =
                 boost::dynamic_pointer_cast<StochasticProcess1D>(process);
             return new GaussianPathGenerator(process1d,length,steps,
+                                             rsg,brownianBridge);
+        }
+		GaussianPathGenerator(const StochasticProcess1DPtr& process,
+                              const TimeGrid& timeGrid,
+                              const GaussianRandomSequenceGenerator& rsg,
+                              bool brownianBridge) {
+            boost::shared_ptr<StochasticProcess1D> process1d =
+                boost::dynamic_pointer_cast<StochasticProcess1D>(process);
+            return new GaussianPathGenerator(process1d,timeGrid,
                                              rsg,brownianBridge);
         }
     }

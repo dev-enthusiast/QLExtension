@@ -57,6 +57,12 @@ public class HullWhite : ShortRateModel {
     return ret;
   }
 
+  public double discountBond(double now, double maturity, double rate) {
+    double ret = NQuantLibcPINVOKE.HullWhite_discountBond(swigCPtr, now, maturity, rate);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

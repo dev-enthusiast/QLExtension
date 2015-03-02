@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 
+using QuantLib;
+
 namespace Test
 {
     /// <summary>
@@ -37,6 +39,29 @@ namespace Test
                 var a = row[0];
                 var b = row[1];
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Date asofDate = new Date((int)DateTime.Today.ToOADate());
+            double a = 0.0464041, sigma = 0.00579912;
+
+            YieldTermStructure ts = new FlatForward(asofDate, 0.04875825, new Actual365Fixed());
+            QuantLib.Calendar calendar = new UnitedStates();
+            Date TDate = calendar.advance(asofDate, 2, TimeUnit.Years);
+            Schedule fixedschedule = new Schedule(asofDate, TDate, new Period(Frequency.Semiannual), calendar, BusinessDayConvention.ModifiedFollowing, BusinessDayConvention.ModifiedFollowing,
+                DateGeneration.Rule.Forward, true);
+            Schedule floatschedule = new Schedule(asofDate, TDate, new Period(Frequency.Quarterly), calendar, BusinessDayConvention.ModifiedFollowing, BusinessDayConvention.ModifiedFollowing,
+                DateGeneration.Rule.Forward, true);
+            RelinkableYieldTermStructureHandle yieldhandle = new RelinkableYieldTermStructureHandle(ts);
+            IborIndex index = new IborIndex("USDLIB3M", new Period(Frequency.Quarterly), 0, new USDCurrency(), calendar, BusinessDayConvention.ModifiedFollowing, true, new Actual365Fixed(), yieldhandle);
+            index.forwardingTermStructure();
+            VanillaSwap swap = new VanillaSwap(_VanillaSwap.Type.Payer, 1000, fixedschedule, 0.03, new Actual365Fixed(), floatschedule, index, 0.0, new Actual365Fixed());
+            InstrumentVector portfolio = new InstrumentVector();
+            portfolio.Add(swap);
+            CEGLib.RiskHullWhiteSimulationEngine engine = new CEGLib.RiskHullWhiteSimulationEngine(DateTime.Today, new YieldTermStructureHandle(ts), a, sigma, portfolio, index);
+            engine.SampleSize = 5;
+            engine.calculate();
         }
     }
 }

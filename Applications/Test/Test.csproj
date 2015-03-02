@@ -35,7 +35,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\..\..\Output\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -117,6 +117,10 @@
     <ProjectReference Include="..\..\CSharp Extension\CEGLib\CEGLib.csproj">
       <Project>{7720778c-80f7-4004-8508-283bafa8f4e6}</Project>
       <Name>CEGLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Swig Conversion Layer\QuantLib-SWIG\CSharp\csharp\NQuantLib_vc11.csproj">
+      <Project>{928f98ee-7d50-457f-9304-a6818dcf1079}</Project>
+      <Name>NQuantLib_vc11</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

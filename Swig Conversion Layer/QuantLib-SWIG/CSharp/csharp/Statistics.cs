@@ -100,6 +100,18 @@ public class Statistics : global::System.IDisposable {
     return ret;
   }
 
+  public double percentile(double y) {
+    double ret = NQuantLibcPINVOKE.Statistics_percentile(swigCPtr, y);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public double topPercentile(double y) {
+    double ret = NQuantLibcPINVOKE.Statistics_topPercentile(swigCPtr, y);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public void reset() {
     NQuantLibcPINVOKE.Statistics_reset(swigCPtr);
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
