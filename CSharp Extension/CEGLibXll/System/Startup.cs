@@ -16,7 +16,7 @@ using ExcelDna.Logging;
 namespace CEGLibXll
 {
     [ComVisible(true)]
-    public class QLAddin : IExcelAddIn
+    public class Startup : IExcelAddIn
     {
         public void AutoOpen()
         {

@@ -19,7 +19,7 @@ namespace CEGLibXll
 {
     [ComVisible(true)]
     //[ClassInterface(ClassInterfaceType.AutoDispatch)]
-    public class QLRibbon : ExcelRibbon
+    public class RibbonMenu : ExcelRibbon
     {
         public static SynchronizationContext syncContext_;
         #region Event Handler
@@ -54,7 +54,7 @@ namespace CEGLibXll
 
             Xl.Range rg = xlApp.ActiveCell;
 
-            String cellName = QLUtil.ExcelColumnIndexToName(rg.Column) + rg.Row;
+            String cellName = SystemUtil.ExcelColumnIndexToName(rg.Column) + rg.Row;
 
             Xl._Worksheet sheet = (Xl.Worksheet)xlApp.ActiveSheet;
             Xl.Range range = sheet.get_Range(cellName, System.Type.Missing);

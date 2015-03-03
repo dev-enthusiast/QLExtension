@@ -22,11 +22,11 @@ namespace CEGLibXll
             [ExcelArgument(Description = "initial parameters ")]double[] initials,
             [ExcelArgument(Description = "is parameters fixed? ")]object[] isfixed)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
@@ -73,7 +73,7 @@ namespace CEGLibXll
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
                 return "";
             }
         }
@@ -83,15 +83,15 @@ namespace CEGLibXll
         public static object cegGetSABRCalibratedParameters(
             [ExcelArgument(Description = "id of SABR model ")] string ObjectId)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
-                Xl.Range rng = QLUtil.getActiveCellRange();
+                Xl.Range rng = SystemUtil.getActiveCellRange();
                 SABRInterpolation option = OHRepository.Instance.getObject<SABRInterpolation>(ObjectId);
 
                 object[,] ret = new object[6,2];
@@ -106,8 +106,8 @@ namespace CEGLibXll
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
-                return "";
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                return e.Message;
             }
         }
 
@@ -116,21 +116,21 @@ namespace CEGLibXll
             [ExcelArgument(Description = "id of SABR model ")] string ObjectId,
             [ExcelArgument(Description = "x value ")]double x)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
-                Xl.Range rng = QLUtil.getActiveCellRange();
+                Xl.Range rng = SystemUtil.getActiveCellRange();
                 SABRInterpolation option = OHRepository.Instance.getObject<SABRInterpolation>(ObjectId);
                 return option.call(x);
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
                 return "";
             }
         }
@@ -146,11 +146,11 @@ namespace CEGLibXll
             [ExcelArgument(Description = "implied vols ")]double[] volatilities,
             [ExcelArgument(Description = "initial parameters ")]double[] initials)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
@@ -194,7 +194,7 @@ namespace CEGLibXll
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
                 return "";
             }
         }
@@ -204,15 +204,15 @@ namespace CEGLibXll
         public static object cegGetSVICalibratedParameters(
             [ExcelArgument(Description = "id of SVI model ")] string ObjectId)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
-                Xl.Range rng = QLUtil.getActiveCellRange();
+                Xl.Range rng = SystemUtil.getActiveCellRange();
                 SVIInterpolation option = OHRepository.Instance.getObject<SVIInterpolation>(ObjectId);
 
                 object[,] ret = new object[7,2];
@@ -228,7 +228,7 @@ namespace CEGLibXll
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
                 return "";
             }
         }
@@ -238,21 +238,21 @@ namespace CEGLibXll
             [ExcelArgument(Description = "id of SVI model ")] string ObjectId,
             [ExcelArgument(Description = "strik value ")]double x)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
-                Xl.Range rng = QLUtil.getActiveCellRange();
+                Xl.Range rng = SystemUtil.getActiveCellRange();
                 SVIInterpolation option = OHRepository.Instance.getObject<SVIInterpolation>(ObjectId);
                 return option.call(x);
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
                 return "";
             }
         }

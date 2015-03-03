@@ -24,11 +24,11 @@ namespace CEGLibXll
             [ExcelArgument(Description = "DayCounter ")]string daycounter,
             [ExcelArgument(Description = "Calendar ")]string calendar)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";            
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
@@ -48,9 +48,9 @@ namespace CEGLibXll
                 else
                     throw new Exception("Unknow option type");
 
-                QuantLib.Calendar cal = QLUtil.ConvertObject<QuantLib.Calendar>(calendar, "calendar");
-                QuantLib.DayCounter dc = QLUtil.ConvertObject<QuantLib.DayCounter>(daycounter, "daycounter");
-                QuantLib.Date maturitydate = QLUtil.ConvertObject<QuantLib.Date>(date, "date");
+                QuantLib.Calendar cal = Conversion.ConvertObject<QuantLib.Calendar>(calendar, "calendar");
+                QuantLib.DayCounter dc = Conversion.ConvertObject<QuantLib.DayCounter>(daycounter, "daycounter");
+                QuantLib.Date maturitydate = Conversion.ConvertObject<QuantLib.Date>(date, "date");
 
                 QuantLib.Date today = QuantLib.Settings.instance().getEvaluationDate();
                 QuantLib.Date settlementdate = today;           // T+2
@@ -86,7 +86,7 @@ namespace CEGLibXll
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
                 return "";
             }
         }
@@ -96,15 +96,15 @@ namespace CEGLibXll
             [ExcelArgument(Description = "id of option ")] string ObjectId,
             [ExcelArgument(Description = "Greek type ")]string gtype)
         {
-            if (QLUtil.CallFromWizard())
+            if (SystemUtil.CallFromWizard())
                 return "";
 
             string callerAddress = "";            
-            callerAddress = QLUtil.getActiveCellAddress();
+            callerAddress = SystemUtil.getActiveCellAddress();
 
             try
             {
-                Xl.Range rng = QLUtil.getActiveCellRange();
+                Xl.Range rng = SystemUtil.getActiveCellRange();
                 VanillaOption option = OHRepository.Instance.getObject<VanillaOption>(ObjectId);
                 switch(gtype.ToUpper())
                 {
@@ -126,7 +126,7 @@ namespace CEGLibXll
             }
             catch (Exception e)
             {
-                QLUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
                 return "";
             }
         }

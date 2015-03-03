@@ -20,12 +20,31 @@
             </group>
             <group id='functionGroup' label='CEGLibXll Functions'>
               <!--Menu Time-->
-              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXll1' label='Operation'>
-                <button id='Button1' label='My First Button' onAction='Function_Click'/>
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllTime' label='Time'>
+                <button id='cegTimeNow' label='cegTimeNow' onAction='Function_Click'/>
+                <button id='cegTimeToday' label='cegTimeToday' onAction='Function_Click'/>
+                <button id='cegTimeSetEvaluationDate' label='cegTimeSetEvaluationDate' onAction='Function_Click'/>
+                <button id='cegTimeYearFraction' label='cegTimeYearFraction' onAction='Function_Click'/>
+                <button id='cegTimeBusinessDaysBetween' label='cegTimeBusinessDaysBetween' onAction='Function_Click'/>
+                <button id='cegTimeIsBusinessDay' label='cegTimeYearFraction' onAction='Function_Click'/>
+                <button id='cegTimeAdjustDate' label='cegTimeAdjustDate' onAction='Function_Click'/>
+                <button id='cegTimeAdvanceDate' label='cegTimeAdvanceDate' onAction='Function_Click'/>
+                <button id='cegTimeSchedule' label='cegTimeSchedule' onAction='Function_Click'/>
               </menu>
-              <!--Menu 2 -->
-              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXll2' label='Time'>
-                <button id='Button2' label='My First Button' onAction='Function_Click'/>
+              <!--Menu Operation -->
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllOps' label='Operation'>
+                <button id='cegOpCheckCallFromWizard' label='cegOpCheckCallFromWizard' onAction='Function_Click'/>
+                <button id='cegOpCallerAddressControl' label='cegOpCallerAddressControl' onAction='Function_Click'/>
+                <button id='cegOpLibXllPath' label='cegOpLibXllPath' onAction='Function_Click'/>
+                <button id='cegOpGetEnumerationList' label='cegOpGetEnumerationList' onAction='Function_Click'/>
+                <button id='cegOpListObjects' label='cegOpListObjects' onAction='Function_Click'/>
+                <button id='cegOpObjectClassName' label='cegOpObjectClassName' onAction='Function_Click'/>
+                <button id='cegOpObjectCallerAddress' label='cegOpObjectCallerAddress' onAction='Function_Click'/>
+                <button id='cegOpObjectCreationTime' label='cegOpObjectCreationTime' onAction='Function_Click'/>
+                <button id='cegOpObjectUpdateTime' label='cegOpObjectUpdateTime' onAction='Function_Click'/>
+                <button id='cegOpLibXllBuildTime' label='cegOpLibXllBuildTime' onAction='Function_Click'/>
+                <button id='cegOpLibXllBuiltBy' label='cegOpLibXllBuiltBy' onAction='Function_Click'/>
+                <button id='cegOpVersion' label='cegOpVersion' onAction='Function_Click'/>
               </menu>
             </group>
             <group id='helpGroup' label='Help'>

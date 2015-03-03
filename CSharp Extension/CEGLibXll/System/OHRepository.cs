@@ -109,7 +109,7 @@ namespace CEGLibXll
             }
             catch (Exception e)
             {
-                QLUtil.logError(objID, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                SystemUtil.logError(objID, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
             }
             finally
             {
