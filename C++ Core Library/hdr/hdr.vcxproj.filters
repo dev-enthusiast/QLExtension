@@ -115,6 +115,12 @@
     <Filter Include="secdbinterface">
       <UniqueIdentifier>{b64d68cf-4c5d-4143-a947-cebda6f9c462}</UniqueIdentifier>
     </Filter>
+    <Filter Include="secdbsrc">
+      <UniqueIdentifier>{ded2ca59-0f04-403e-8c7b-e436603ca28b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="secdbsrc\secdb">
+      <UniqueIdentifier>{d3744b66-7312-4a2f-ab31-27ab1088f0ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pyglue.h" />
@@ -2777,10 +2783,415 @@
     <ClInclude Include="secdbinterface\sdbInterface.h">
       <Filter>secdbinterface</Filter>
     </ClInclude>
+    <ClInclude Include="secdbsrc\dtptr.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\of_test.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_base.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_dbug.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_enum.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_err.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_int.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_meta.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_pars.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdb_x.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdbchild.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdbdbset.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdbn_inl.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sdbnprof.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\seccomp.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\seccopy.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdbcc.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdrive.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdrv.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdt.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secerror.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secexpr.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secfile.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secindex.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secloop.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secnode.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secnodei.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secobj.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secprof.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sectrace.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sectrans.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secver.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\slang_validate.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\sq_arg.h">
+      <Filter>secdbsrc</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\async_result.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\base.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\compile_graph.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\GsNodeValues.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\LtDtArgs.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\LtSecDbObj.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\sdb_exception.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\SdbSelfDesc.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\SecDbCompiledGraph.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\SecDbGenericTraceFunc.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\SecDbTraceContext.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\SecDbTraceStack.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbsrc\secdb\slang_util.h">
+      <Filter>secdbsrc\secdb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="secdbinterface\sdbInterface.cpp">
       <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\conv.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\dtdb.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\dtds.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\dtptr.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\dtsec.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\dtseclst.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\dtslang.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\of_def.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\of_secdb.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\proflink.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_add.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_api.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_comp.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_copy.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_data.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_db.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_def.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_del.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_did.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_drv.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_enum.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_err.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_errd.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_eval.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_expr.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_file.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_get.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_getv.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_huge.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_indx.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_mem.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_meta.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_mk.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_obj.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_of.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_onum.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_pars.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_prof.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_ren.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_setv.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_trce.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_trn.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_trna.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_trni.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_un.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_uniq.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_updt.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_val.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_vd.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbdbset.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbndstr.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbnenum.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbnfind.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbnget.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbninit.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbninv.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbnprof.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\seccheck.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\seccomp.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\seccopy.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\secdel.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\secdoc.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\secexpr.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\secindex.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sq_arg.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sql_mk.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\test.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\x_base.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\x_exception.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\x_inc.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\x_op.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\x_slgsdt.c">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\async_result.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\compile_graph.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\diddle_scopes.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\GsNodeValues.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\LtDtArgs.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\LtSecDbObj.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdb_exception.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\sdbnode.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\SdbSelfDesc.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\SecDbGenericTraceFunc.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\SecDbTraceStack.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\slang_util.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\slang_validate.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\Templates.cpp">
+      <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbsrc\win_auth.cpp">
+      <Filter>secdbsrc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,9 @@
+;	$Revision: 1.1 $
+
+LIBRARY			SQL_DB
+DESCRIPTION		'SecDb Sql Driver'
+DATA			MULTIPLE NONSHARED
+PROTMODE
+EXPORTS
+				_SqlDrvDbInit
+

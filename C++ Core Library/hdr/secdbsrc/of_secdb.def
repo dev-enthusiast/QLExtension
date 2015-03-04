@@ -1,0 +1,8 @@
+;	$Revision: 1.4 $
+
+LIBRARY			OF_SECDB
+DESCRIPTION		'Security Database Global Object'
+DATA			MULTIPLE NONSHARED
+PROTMODE
+EXPORTS
+				_DbObjFuncSecDb

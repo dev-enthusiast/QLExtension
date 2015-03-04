@@ -1,0 +1,15 @@
+;	$Revision: 1.1 $
+
+LIBRARY			SECDRIVE
+DESCRIPTION		'Security Database Driver Functions'
+DATA			MULTIPLE NONSHARED
+PROTMODE
+EXPORTS
+				_SecDbDriverAddValue
+				_SecDbDriverIncremental
+				_SecDbDriverIncrementalFree
+				_SecDbDriverIndexIncremental
+				_SecDbDriverResolveInsert
+				_SecDbDriverShutdown
+				_SecDbDriverStartup
+				_SecDbDriverErrStartup

@@ -1,0 +1,328 @@
+# $Id: secdb.mki,v 1.51 2015/03/02 16:38:11 khodod Exp $
+# Makefile for secdb
+#
+PROJECT=secdb
+PROJECT_HDR_DIR += secdb
+
+include $(MF)/zlib.mak
+
+PUBLIC_LIBS += secdb secdrive
+
+PUBLIC_HDR += dtptr.h
+PUBLIC_HDR += sdb_base.h
+PUBLIC_HDR += sdb_enum.h
+PUBLIC_HDR += sdb_int.h
+PUBLIC_HDR += sdb_meta.h
+PUBLIC_HDR += sdbchild.h
+PUBLIC_HDR += sdbdbset.h
+PUBLIC_HDR += sdbn_inl.h
+PUBLIC_HDR += sdbnprof.h
+PUBLIC_HDR += secdb.h
+PUBLIC_HDR += secdbcc.h
+PUBLIC_HDR += secdrive.h
+PUBLIC_HDR += secdrv.h
+PUBLIC_HDR += secdt.h
+PUBLIC_HDR += secerror.h
+PUBLIC_HDR += secexpr.h
+PUBLIC_HDR += secfile.h
+PUBLIC_HDR += secindex.h
+PUBLIC_HDR += secloop.h
+PUBLIC_HDR += secnode.h
+PUBLIC_HDR += secnodei.h
+PUBLIC_HDR += secobj.h
+PUBLIC_HDR += secprof.h
+PUBLIC_HDR += sectrace.h
+PUBLIC_HDR += sectrans.h
+PUBLIC_HDR += secver.h
+PUBLIC_HDR += sq_arg.h
+PUBLIC_HDR += slang_validate.h
+
+PUBLIC_HDR += secdb/base.h
+PUBLIC_HDR += secdb/GsNodeValues.h
+PUBLIC_HDR += secdb/sdb_exception.h
+
+PUBLIC_HDR += secdb/LtDtArgs.h
+PUBLIC_HDR += secdb/LtDtArgs.hi
+PUBLIC_HDR += secdb/LtSecDbObj.h
+PUBLIC_HDR += secdb/SdbSelfDesc.h
+PUBLIC_HDR += secdb/async_result.h
+PUBLIC_HDR += secdb/slang_util.h
+PUBLIC_HDR += secdb/SecDbTraceContext.h
+PUBLIC_HDR += secdb/SecDbTraceStack.h
+PUBLIC_HDR += secdb/SecDbGenericTraceFunc.h
+PUBLIC_HDR += secdb/compile_graph.h
+PUBLIC_HDR += secdb/SecDbCompiledGraph.h
+
+CFILES-seccheck += seccheck.c
+
+LIB-seccheck += err_base
+LIB-seccheck += heapinfo
+LIB-seccheck += kool_ade
+LIB-seccheck += secdb
+
+obj := seccheck
+include $(MF)/public.mak
+
+CFILES-seccopy += seccopy.c
+
+LIB-seccopy += date
+LIB-seccopy += err_base
+LIB-seccopy += kool_ade
+LIB-seccopy += secdb
+
+obj := seccopy
+include $(MF)/public.mak
+
+CFILES-secdb.dll += dtdb.c
+CFILES-secdb.dll += dtds.c
+CFILES-secdb.dll += dtptr.c
+CFILES-secdb.dll += dtsec.c
+CFILES-secdb.dll += dtseclst.c
+CFILES-secdb.dll += dtslang.c
+CFILES-secdb.dll += of_def.c
+CFILES-secdb.dll += of_secdb.c
+CFILES-secdb.dll += sdb_add.c
+CFILES-secdb.dll += sdb_api.c
+CFILES-secdb.dll += sdb_comp.c
+CFILES-secdb.dll += sdb_copy.c
+CFILES-secdb.dll += sdb_data.c
+CFILES-secdb.dll += sdb_db.c
+CFILES-secdb.dll += sdb_def.c
+CFILES-secdb.dll += sdb_del.c
+CFILES-secdb.dll += sdb_did.c
+CFILES-secdb.dll += sdb_enum.c
+CFILES-secdb.dll += sdb_err.c
+CFILES-secdb.dll += sdb_eval.c
+CFILES-secdb.dll += sdb_expr.c
+CFILES-secdb.dll += sdb_file.c
+CFILES-secdb.dll += sdb_get.c
+CFILES-secdb.dll += sdb_getv.c
+CFILES-secdb.dll += sdb_huge.c
+CFILES-secdb.dll += sdb_indx.c
+CFILES-secdb.dll += sdb_mem.c
+CFILES-secdb.dll += sdb_meta.c
+CFILES-secdb.dll += sdb_obj.c
+CFILES-secdb.dll += sdb_of.c
+CFILES-secdb.dll += sdb_onum.c
+CFILES-secdb.dll += sdb_pars.c
+CFILES-secdb.dll += sdb_prof.c
+CFILES-secdb.dll += sdb_ren.c
+CFILES-secdb.dll += sdb_setv.c
+CFILES-secdb.dll += sdb_trce.c
+CFILES-secdb.dll += sdb_trn.c
+CFILES-secdb.dll += sdb_trna.c
+CFILES-secdb.dll += sdb_trni.c
+CFILES-secdb.dll += sdb_uniq.c
+CFILES-secdb.dll += sdb_updt.c
+CFILES-secdb.dll += sdb_val.c
+CFILES-secdb.dll += sdb_vd.c
+CFILES-secdb.dll += sdbdbset.c
+CFILES-secdb.dll += sdbndstr.c
+CPPFILES-secdb.dll += sdbnode.cpp
+CPPFILES-secdb.dll += slang_validate.cpp
+ifeq "$(COMPILER)" "MSC_WIN"
+CPPFILES-secdb.dll += win_auth.cpp
+endif
+CFILES-secdb.dll += sdbnenum.c
+CFILES-secdb.dll += sdbnfind.c
+CFILES-secdb.dll += sdbnget.c
+CFILES-secdb.dll += sdbninit.c
+CFILES-secdb.dll += sdbninv.c
+CFILES-secdb.dll += sdbnprof.c
+CFILES-secdb.dll += sq_arg.c
+CFILES-secdb.dll += x_base.c
+CFILES-secdb.dll += x_inc.c
+CFILES-secdb.dll += x_op.c
+CFILES-secdb.dll += x_exception.c
+CFILES-secdb.dll += x_slgsdt.c
+CPPFILES-secdb.dll += diddle_scopes.cpp
+CPPFILES-secdb.dll += compile_graph.cpp
+
+CPPFILES-secdb.dll += SdbSelfDesc.cpp
+CPPFILES-secdb.dll += GsNodeValues.cpp
+CPPFILES-secdb.dll += sdb_exception.cpp
+
+CPPFILES-secdb.dll += LtDtArgs.cpp
+CPPFILES-secdb.dll += LtSecDbObj.cpp
+CPPFILES-secdb.dll += Templates.cpp
+CPPFILES-secdb.dll += async_result.cpp
+CPPFILES-secdb.dll += slang_util.cpp
+CPPFILES-secdb.dll += SecDbTraceStack.cpp
+CPPFILES-secdb.dll += SecDbGenericTraceFunc.cpp
+
+
+LIB-secdb.dll += secdrive
+LIB-secdb.dll += code_ver
+LIB-secdb.dll += datatype
+LIB-secdb.dll += date
+LIB-secdb.dll += err_base
+LIB-secdb.dll += gmt
+LIB-secdb.dll += heapinfo
+LIB-secdb.dll += kool_ade
+LIB-secdb.dll += kool_yap
+LIB-secdb.dll += mempool
+LIB-secdb.dll += num
+LIB-secdb.dll += gsthread
+LIB-secdb.dll += skiplist
+LIB-secdb.dll += crypt
+LIB-secdb.dll += gsbase
+LIB-secdb.dll += code_ver
+LIB-secdb.dll += $(GSCORE)
+LIB-secdb.dll += $(GSDT)
+LIB-secdb.dll += x_gsdt
+LIB-secdb.dll += $(ZLIB_LIBS)
+ifeq "$(COMPILER)" "MSC_WIN"
+LIB-secdb.dll += wldap32
+LIB-secdb.dll += socklib
+endif
+
+obj := secdb.dll
+include $(MF)/public.mak
+
+CFILES-secgsdt.dll += conv.c
+
+LIB-secgsdt.dll += kool_ade
+LIB-secgsdt.dll += err_base
+LIB-secgsdt.dll += $(GSCORE)
+LIB-secgsdt.dll += $(GSDT)
+LIB-secgsdt.dll += x_gsdt
+LIB-secgsdt.dll += secdb
+obj := secgsdt.dll
+include $(MF)/public.mak
+
+CFILES-secdel += secdel.c
+
+LIB-secdel += err_base
+LIB-secdel += kool_ade
+LIB-secdel += secdb
+
+obj := secdel
+include $(MF)/public.mak
+
+CFILES-secdrive.dll += sdb_drv.c
+CFILES-secdrive.dll += sdb_errd.c
+
+LIB-secdrive.dll += err_base
+LIB-secdrive.dll += kool_ade
+LIB-secdrive.dll += mempool
+
+obj := secdrive.dll
+include $(MF)/public.mak
+
+CFILES-secexpr += secexpr.c
+
+LIB-secexpr += datatype
+LIB-secexpr += date
+LIB-secexpr += err_base
+LIB-secexpr += kool_ade
+LIB-secexpr += secdb
+LIB-secexpr += wevent
+LIB-secexpr += gsbase
+
+obj := secexpr
+include $(MF)/public.mak
+
+CFILES-secindex += secindex.c
+
+LIB-secindex += datatype
+LIB-secindex += err_base
+LIB-secindex += kool_ade
+LIB-secindex += secdb
+LIB-secindex += gsbase
+
+obj := secindex
+include $(MF)/public.mak
+
+
+
+DOC_SRC_FILES-secdb += sdb_add.c
+DOC_SRC_FILES-secdb += sdb_api.c
+DOC_SRC_FILES-secdb += sdb_comp.c
+DOC_SRC_FILES-secdb += sdb_copy.c
+DOC_SRC_FILES-secdb += sdb_data.c
+DOC_SRC_FILES-secdb += sdb_db.c
+DOC_SRC_FILES-secdb += sdb_def.c
+DOC_SRC_FILES-secdb += sdb_del.c
+DOC_SRC_FILES-secdb += sdb_did.c
+DOC_SRC_FILES-secdb += sdb_drv.c
+DOC_SRC_FILES-secdb += sdb_enum.c
+DOC_SRC_FILES-secdb += sdb_err.c
+DOC_SRC_FILES-secdb += sdb_errd.c
+DOC_SRC_FILES-secdb += sdb_file.c
+DOC_SRC_FILES-secdb += sdb_get.c
+DOC_SRC_FILES-secdb += sdb_getv.c
+DOC_SRC_FILES-secdb += sdb_indx.c
+DOC_SRC_FILES-secdb += sdb_mem.c
+DOC_SRC_FILES-secdb += sdb_obj.c
+DOC_SRC_FILES-secdb += sdb_of.c
+DOC_SRC_FILES-secdb += sdb_onum.c
+DOC_SRC_FILES-secdb += sdb_prof.c
+DOC_SRC_FILES-secdb += sdb_ren.c
+DOC_SRC_FILES-secdb += sdb_setv.c
+DOC_SRC_FILES-secdb += sdb_trce.c
+DOC_SRC_FILES-secdb += sdb_trn.c
+DOC_SRC_FILES-secdb += sdb_trna.c
+DOC_SRC_FILES-secdb += sdb_trni.c
+DOC_SRC_FILES-secdb += sdb_un.c
+DOC_SRC_FILES-secdb += sdb_uniq.c
+DOC_SRC_FILES-secdb += sdb_updt.c
+DOC_SRC_FILES-secdb += sdb_val.c
+DOC_SRC_FILES-secdb += sdb_vd.c
+
+DOCDRIVER-secdb.doc = funcdoc
+DOC_SRC_FILES-secdb.doc = $(DOC_SRC_FILES-secdb)
+DOCTEMPLATE-secdb.doc = secdb.doc
+obj := secdb.doc
+include $(MF)/public.mak
+
+DOCDRIVER-secdb.html = htmldoc
+DOC_SRC_FILES-secdb.html = $(DOC_SRC_FILES-secdb)
+DOCTEMPLATE-secdb.html = secdb.doc
+obj := secdb.html
+include $(MF)/public.mak
+
+
+
+DOCDRIVER-secdb_objects.doc = funcdoc
+DOC_SRC_FILES-secdb_objects.doc = $(DOC_SRC_FILES-secdb_objects)
+DOCTEMPLATE-secdb_objects.doc = secobj.doc
+obj := secdb_objects.doc
+include $(MF)/public.mak
+
+DOCDRIVER-secdb_objects.html = htmldoc
+DOC_SRC_FILES-secdb_objects.html = $(DOC_SRC_FILES-secdb_objects)
+DOCTEMPLATE-secdb_objects.html = secobj.doc
+obj := secdb_objects.html
+include $(MF)/public.mak
+
+
+DOC_SRC_FILES-slang_api += sdb_eval.c
+DOC_SRC_FILES-slang_api += sdb_expr.c
+
+DOCDRIVER-slang_api.doc = funcdoc
+DOC_SRC_FILES-slang_api.doc = $(DOC_SRC_FILES-slang_api)
+DOCTEMPLATE-slang_api.doc = slang.doc
+obj := slang_api.doc
+include $(MF)/public.mak
+
+DOCDRIVER-slang_api.html = htmldoc
+DOC_SRC_FILES-slang_api.html = $(DOC_SRC_FILES-slang_api)
+DOCTEMPLATE-slang_api.html = slang.doc
+obj := slang_api.html
+include $(MF)/public.mak
+
+
+
+DOCDRIVER-slang.doc = funcdoc
+DOC_SRC_FILES-slang.doc = $(DOC_SRC_FILES-slang)
+DOCTEMPLATE-slang.doc = sfunc.doc
+obj := slang.doc
+include $(MF)/public.mak
+
+DOCDRIVER-slang.html = htmldoc
+DOC_SRC_FILES-slang.html = $(DOC_SRC_FILES-slang)
+DOCTEMPLATE-slang.html = sfunc.doc
+obj := slang.html
+include $(MF)/public.mak
+
+C_LANG=cpp

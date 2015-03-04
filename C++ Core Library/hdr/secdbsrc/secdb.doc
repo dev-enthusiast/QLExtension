@@ -1,0 +1,3856 @@
+	  FUNCTION: SecDb - Security Database
+
+		  TAIL: SECDB - $Revision: 1.12 $ - $Date: 2001/05/17 09:50:28 $ - Copyright 1993 GS & Co.
+
+		 COVER: SecDb
+
+				Security
+
+				Database
+
+	SORT ORDER: 0.0
+
+	  FUNCTION: Table of Contents
+
+   DESCRIPTION: Introduction to SecDb
+				Header Files
+				Functions by Category
+				Quick Function Index
+
+	SORT ORDER: 0.1
+
+	  FUNCTION: Introduction to SecDb
+
+   DESCRIPTION: SecDb - Object Oriented Security Database
+
+				'Security' is a term that technically means 'a legal
+				representation of the right to receive prospective future
+				benefits under stated conditions' (Sharpe - Investments).
+				For the purposes of this system, the definition of a security
+				is taken to mean virtually anything, from stocks & bonds,
+				currency & currency crosses, to portfolios and reports.
+				The common thread for the information in the system is that
+				virtually everything has a price (actual, entered or
+				calculated).
+
+				SecDb was designed to make the storage, access and pricing of
+				different types of securities transparent to most applications.
+				A security can list its valuation methods and its children,
+				therefore it is not necessary for most applications to have any
+				knowledge of how a security derives its values.
+				
+				One of the most important reasons SecDb was created was to
+				simplify and speed-up security valuation.  SecDb has a built-in
+				facility that only calculates securities that need to be
+				calculated.  Values that are already computed are cached by
+				SecDb to increase calculation speed.  In addition to the 'make
+				facility', SecDb supports a set of functions that allow
+				security values to be temporarily overridden.  These 'diddle'
+				functions make writing what-if scenarios for any type of
+				security easy to do.  In addition to the what-if aspect of
+				diddles, calculated values suchs as deltas, gammas and thetas
+				can be computed for any type of security - the application
+				doesn't even have to know anything about the security!
+
+				Another important reason for creating SecDb was to allow new
+				securities to be added without having to rewrite existing
+				applications.  New types of securities can be added to SecDb by
+				creating a dynamic link library for the new security type, and
+				adding one line of information to a file that lists all of the
+				security types, their DLL's and their names.  This method of
+				adding new security types means that most (or all) of the
+				applications using SecDb would not require recompilation.
+				
+				Due to the way SecDb was designed - existing applications,
+				their databases and their pricing mechanisms can easily be
+				integrated into the system.
+
+				Built into SecDb is a security cache-controller which allows
+				multiple references to the same security to be resolved.  The
+				cache-controller also speeds up access because the physical
+				databases don't always have to be accessed.  Another part of
+				the cache-controller is called the deadpool.  The deadpool
+				buffers unreferenced securities to increase the speed of SecDb.
+
+	SORT ORDER: 2.0
+
+	  FUNCTION: Quick Function Index
+
+   DESCRIPTION: Function description:
+
+				SecDbAdd				- Add a security to a database
+				SecDbAttach				- Attach to a security-master database
+				SecDbChangeDiddle		- Change an existing diddle
+				SecDbChildEnumClose	   	- End enumeration of children
+				SecDbChildEnumFirst	   	- Start enum of a security's children
+				SecDbChildEnumNext	   	- Get the next child in the enumeration
+				SecDbClassEnumClose	   	- End enumeration of security classes
+				SecDbClassEnumFirst	   	- Start enumeration of security classes
+				SecDbClassEnumNext	   	- Get the next security class type
+				SecDbClassNameFromType	- Class name of a security type
+				SecDbClassTypeFromName	- Security type from a class name
+				SecDbDataTypeEnumClose 	- End enumeration of data types
+				SecDbDataTypeEnumFirst 	- Start the enumeration of data types
+				SecDbDataTypeEnumNext  	- Get the next data type
+				SecDbDbInfoEnumClose	- End enumeration of database info
+				SecDbDbInfoEnumFirst	- Start enumeration of database info
+				SecDbDbInfoEnumNext		- Get the next database info in enum
+				SecDbDbInfoFromDb		- Get database info from database
+				SecDbDbInfoFromName		- Get database info from database name
+				SecDbDeleteByName	   	- Delete a security from the system
+				SecDbDetach			   	- Detach a security-master database
+				SecDbDuplicate			- Copy a security into a new security
+				SecDbError				- Error handler (first error)
+				SecDbErrorMore			- Error handler (subsequent errors)
+				SecDbErrorStringFromNum	- Convert an error number to a string
+				SecDbFree			   	- Free a loaded security
+				SecDbGetByInference	   	- Load security by an inference rule
+				SecDbGetByName		   	- Load security into memory
+				SecDbGetDiskInfo		- Get disk info struct for a security
+				SecDbGetValue		   	- Retrieve a value (or pointer to data)
+				SecDbIncrementReference	- Increment an object's reference count
+				SecDbIndexAdd			- Add an index to a database
+				SecDbIndexAddPart		- Add a value type to an index
+				SecDbIndexAddClass		- Add a security class to an index
+				SecDbIndexClose			- Close indices
+				SecDbIndexDeleteClass	- Delete a class from an index
+				SecDbIndexDestroy		- Destroy an index
+				SecDbIndexEnumClose		- End enumeration of indices
+				SecDbIndexEnumFirst		- Get the first index
+				SecDbIndexEnumNext		- Get the next index
+				SecDbIndexFromName		- Retrieve an index from the index name
+				SecDbIndexGet			- Get a security name from an index
+				SecDbIndexNew			- Create a new index structure
+				SecDbIndexPosCompare	- Compare index positions
+				SecDbIndexPosCopy		- Copy index positions
+				SecDbIndexPosCreate		- Create an index position structure
+				SecDbIndexPosDestroy	- Destroy an index position structure
+				SecDbIndexPosGetValue	- Get values from an index position
+				SecDbIndexPosSetValue	- Set values within an index position
+				SecDbInferredName		- Retrieve implied name of a security
+				SecDbInitialize		   	- Initialize security database system
+				SecDbIsEqual			- Determine if two securities are equal
+				SecDbMessage			- Message handler
+				SecDbNameLookup			- Lookup security name with criteria
+				SecDbNameUsed		   	- Check if security name already exists
+				SecDbNew			   	- Create a new security
+				SecDbNewLoad		   	- Load new security after its been set
+				SecDbObjectEnumClose	- End enumeration of cached objects
+				SecDbObjectEnumFirst	- Start enumeration of cached objects
+				SecDbObjectEnumNext		- Get the next cached object
+				SecDbReload				- Reload previously loaded securities
+				SecDbRemoveCachedValue 	- Remove a cached value from a security
+				SecDbRemoveDiddle	   	- Remove a diddle from a security
+				SecDbRemoveFromDeadPool	- Remove a security from the deadpool
+				SecDbRename			   	- Rename a security
+				SecDbSearchPathAppend	- Append db to search path
+				SecDbSearchPathDelete	- Delete db from search path
+				SecDbSearchPathGet		- Current search path
+				SecDbSearchPathSet		- Change search path
+				SecDbSetDiddle		   	- Override a value for a security
+				SecDbSetValue		   	- Set a value (or data) for a security
+				SecDbShutdown			- Standard SecDb shutdown function
+				SecDbStartup			- Standard SecDb startup function
+				SecDbStatistics		   	- Retrieve SecDb statistics
+				SecDbTransAbort			- Abort transaction
+				SecDbTransBegin			- Begin transaction
+				SecDbTransCommit		- Commit transaction
+				SecDbTransFree			- Free transaction list
+				SecDbTransLogDetail		- Get transaction detail for header
+				SecDbTransLogHeader		- Get transaction header
+				SecDbTransLogLast		- Get the last transaction number
+				SecDbUniqueID		   	- Retrieve a unique identifier
+				SecDbUpdate			   	- Update an existing security
+				SecDbUpdateIncremental	- Incremental update/add to a security
+				SecDbValidateEnumClose	- End enumeration of validation info
+				SecDbValidateEnumFirst	- Start enumeration of validation info
+				SecDbValidateEnumNext	- Get the next validation info
+				SecDbValidateEnumRewind - Go back to first item in enumeration
+				SecDbValueFlags			- Get Value flags for a value type
+				SecDbValueNameFromType 	- Retrieve the name of a value type
+				SecDbValueTypeEnumClose	- End enumeration of value types
+				SecDbValueTypeEnumFirst	- Start the enumeration of value types
+				SecDbValueTypeEnumNext 	- Get the next value type
+				SecDbValueTypeFromName 	- Value type name into a value type
+
+	  FUNCTION: Functions by Category
+
+   DESCRIPTION:	Object Management:		 		System Functions:				
+				------------------		 		-----------------
+					SecDbAdd				 		SecDbAttach
+					SecDbDeleteByName		 		SecDbDetach
+					SecDbDuplicate			 		SecDbDbInfoEnumClose
+					SecDbFree				 		SecDbDbInfoEnumFirst
+					SecDbGetByName			 		SecDbDbInfoEnumNext
+					SecDbGetByInference				SecDbDbInfoFromDb
+					SecDbGetDiskInfo				SecDbDbInfoFromName
+					SecDbIncrementReference			SecDbError
+					SecDbInferredName		 		SecDbErrorMore
+					SecDbIsEqual			 		SecDbErrorStringFromNum
+					SecDbNameLookup			 		SecDbInitialize
+					SecDbNameUsed			 		SecDbMessage
+					SecDbNew						SecDbShutdown
+					SecDbNewLoad					SecDbStartup
+					SecDbObjectEnumClose			SecDbStatistics
+					SecDbObjectEnumFirst		
+					SecDbObjectEnumNext			Object Validation:
+					SecDbUpdate					------------------
+					SecDbUpdateIncremental			SecDbValidateEnumClose
+					SecDbReload						SecDbValidateEnumFirst
+					SecDbRemoveFromDeadPool			SecDbValidateEnumNext
+					SecDbRename						SecDbValidateEnumRewind
+												
+				Object Valuation:				Data Type Functions:
+				-----------------				--------------------
+					SecDbGetValue					SecDbDataTypeEnumFirst
+					SecDbSetValue					SecDbDataTypeEnumNext
+					SecDbSetDiddle					SecDbDataTypeEnumClose
+					SecDbChangeDiddle
+					SecDbRemoveDiddle			Child Enumeration:		
+					SecDbRemoveCachedValue		------------------		
+					SDB_SET_VALUE_PARAMS			SecDbChildEnumClose
+													SecDbChildEnumFirst
+				Value Type Functions:				SecDbChildEnumNext	
+				---------------------			
+					SecDbValueFlags				Index Functions:			
+					SecDbValueNameFromType 		----------------			
+					SecDbValueTypeEnumClose			SecDbIndexNew			
+					SecDbValueTypeEnumFirst			SecDbIndexFromName	
+					SecDbValueTypeEnumNext 			SecDbIndexAdd	
+					SecDbValueTypeFromName 			SecDbIndexAddPart	
+													SecDbIndexAddClass
+				Security Type Functions:			SecDbIndexClose
+				------------------------			SecDbIndexDeleteClass
+					SecDbClassNameFromType			SecDbIndexDestroy
+					SecDbClassEnumNext				SecDbIndexGet
+					SecDbClassEnumClose				SecDbIndexPosCompare
+					SecDbClassEnumFirst	  			SecDbIndexPosCopy
+					SecDbClassTypeFromName 		   	SecDbIndexPosCreate
+												   	SecDbIndexPosDestroy
+						   							SecDbIndexPosGetValue
+						   							SecDbIndexPosSetValue
+						   							SecDbIndexEnumClose
+				Transaction Functions:				SecDbIndexEnumFirst
+				----------------------				SecDbIndexEnumNext
+					SecDbTransFree				
+					SecDbTransLogDetail			Search Paths:
+					SecDbTransLogHeader	   		--------------	
+					SecDbTransLogLast				SecDbSearchPathAppend
+					SecDbTransAbort					SecDbSearchPathDelete
+					SecDbTransBegin					SecDbSearchPathGet
+					SecDbTransCommit				SecDbSearchPathSet
+					
+	SORT ORDER: 2.0
+
+	  FUNCTION: Header Files
+
+   DESCRIPTION:	File			Description
+				---------------------------------------------------------
+				secdb.h		 	Main SecDb include file
+				secdrive.h		Database server/driver linked functions
+				secdrv.h		Database driver include file
+				secerror.h	 	Error codes
+				secexpr.h	 	Slang API related include file
+				secfile.h		SecDb server-based file I/O
+				secindex.h	 	Index related include file
+				secnode.h		SecDb calculation tree nodes
+				secobj.h	 	Used for building objects
+				secprof.h		Slang profiler API
+				sectrace.h		SecDb run-time trace API
+				sectrans.h		Transaction log API
+
+	SORT ORDER: 2.0
+
+	  FUNCTION: SecDbAdd
+
+   DESCRIPTION: SecDbAdd adds a security to a security database.
+
+				The SecDbAdd function is most commonly used after a call
+				to SecDbNew.
+
+				When a security is initially created by using the SecDbNew
+				function, it only exists in memory inside the security cache.
+				The SecDbAdd function stores a copy of the security in a
+				database.
+				
+				Security names must be unique within a database, the
+				SecDbNameUsed function can be used to determine if a name is
+				already used.  The SecDbUniqueID function returns a unique
+				identifier that can be used to build a unique security name.
+
+	  SEE ALSO: SecDbNew, SecDbNewLoad, SecDbUpdate, SecDbGetByInference,
+				SecDbNameUsed, SecDbRename, SecDbUpdateIncremental
+
+	   EXAMPLE: /*
+				**	Create an option add it to a database
+				*/
+
+					SDB_SEC_TYPE
+							SecTypeOption;
+
+					SDB_OBJECT
+							*SecPtr;
+
+
+					SecTypeOption = SecDbClassTypeFromName( "Option" );
+
+					SecPtr = SecDbNew(
+							"Test Option", 		// Security name
+							SecTypeOption, 		// Security type
+							SdbPublic );  		// Database
+
+					// Set values for:
+					//		Expiration Date
+					//		Expiration Location
+					//		Option Style
+					//		Option Type
+					//		Quantity Unit
+					//		Strike
+					//
+					// The above would be done using SecDbSetValue.
+
+					if( SecDbAdd( SecPtr ))
+						printf( "Created Test Security 1\n" );
+					else
+					{
+						printf( "Error, couldn't add security\n" );
+						printf( "ERROR TEXT: %s\n", ErrGetString() );
+					}
+
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbAttach
+
+   DESCRIPTION: SecDb can work with more that one database at a time.  This
+				makes it easier to copy objects from one database to another.
+				In addition, it allows local databases to be seamlessly
+				integrated with public databases.
+
+				The 'DbName' argument should correspond to the name of a
+				database within the database table specified by <t>database.dat</t>.
+				The <t>database.dat</t> file contains information about the type of
+				of the database (i.e. SQL, BTRIEVE, ...), where the database is
+				stored, etc.
+
+				SecDbDbInfoEnumFirst, SecDbInfoEnumNext and SecDbInfoEnumClose
+				functions can be used to obtain a list of databases.
+				The SecDbInfoFromID and SecDbInfoFromName functions can be used
+				to obtain information about a specific database.
+
+				SecDb maintains a linked list of databases.  In front of this
+				list of databases resides the cache controller.  The cache
+				controller keeps track of all loaded securities and resolves
+				multiple references to securities.  The deadpool works with
+				the cache controller to temporarily keep unreferenced
+				securities in memory, this acts to speed-up gets from SecDb.
+
+				'DeadPoolSize' indicates how large the object deadpool
+				should be.  The deadpool is a collection of objects that
+				are no longer being referenced.  The deadpool acts as a caching
+				mechanism to allow some securities to remain in memory after
+				all references to the security have been freed.
+
+				Databases should be detached using the SecDbDetach function
+				when they are no longer required.
+
+				Attach flags:
+
+					SDB_FRONT		- Place this database at the front of the
+									  list of databases.
+					SDB_BACK		- Place this database at the end of the
+									  list of databases.
+					SDB_READONLY	- Do not allow new securities to be created
+									  or existing securities to be updated or
+									  deleted.
+					SDB_READWRITE	- Allow new securities to be created, and
+									  old securities to be updated or deleted.
+
+	  SEE ALSO: SecDbStartup, SecDbDetach
+
+	   EXAMPLE: /*
+				**	Attach to the test security database
+				*/
+
+					SDB_DB_ID
+							SdbPublic;
+
+
+					SdbPublic = SecDbAttach(
+							"Default",
+							SDB_DEFAULT_DEADPOOL_SIZE,
+							SDB_FRONT | SDB_READWRITE );
+
+					if( -1 == SdbPublic )
+					{
+						fprintf( stderr, "Error: %s\n", ErrGetString() );
+						exit( 1 );
+					}
+
+	  FUNCTION: SecDbChangeDiddle
+
+   DESCRIPTION: SecDbChangeDiddle is used to change a diddle that was created
+				by SecDbSetDiddle.  It is an error to attempt to change a
+				diddle that has never been created or has already been removed.
+
+	  SEE ALSO: SecDbChangeDiddleWithArgs, SecDbSetDiddle, SecDbRemoveDiddle,
+				SecDbGetValue
+
+	   EXAMPLE: See example for SecDbSetDiddle
+
+	  FUNCTION: SecDbChangeDiddleWithArgs
+
+   DESCRIPTION: SecDbChangeDiddleWithArgs is used to change a diddle that was
+				created by SecDbSetDiddleWithArgs.  It is an error to attempt
+				to change a diddle that has never been created or has already
+				been removed.
+
+	  SEE ALSO: SecDbChangeDiddle, SecDbSetDiddleWithArgs,
+				SecDbRemoveDiddleWithArgs, SecDbGetValue, SecDbGetValueWithArgs
+
+	   EXAMPLE: See example for SecDbSetDiddleWithArgs
+
+	  FUNCTION: SecDbChildDescription
+
+   DESCRIPTION: SecDbChildDescription generates a string translation of the
+				information stored in a SDB_CHILD_LIST_ITEM structure.
+
+	  SEE ALSO: SecDbChildListInfo
+
+	  FUNCTION: SecDbChildEnumClose
+
+   DESCRIPTION: SecDbChildEnumClose closes (frees) the enumeration pointer
+				used by the SecDbChildEnumFirst and SecDbChildEnumNext
+				functions.
+
+	  SEE ALSO: SecDbChildEnumFirst, SecDbChildEnumNext
+
+	   EXAMPLE: See example for SecDbChildEnumFirst
+
+	  FUNCTION: SecDbChildEnumFirst
+
+   DESCRIPTION: Some values of a security rely on values of other securities.
+				These dependent values are refered to in SecDb as children.
+				Values that don't have children are refered to as leaves.
+
+				A portfolio of securities is a good way to describe how
+				children work.  The price of a portfolio consists of an
+				aggregate of the price of all of its children multiplied by
+				the quantity of each child.  Enumerating the first level
+				children of a portfolio yields a list of the portfolio's
+				components.  Since the children securities are themselves
+				capable of having children (e.g. an option needs spot prices,
+				volatilities, etc.), the enumeration function can work on the
+				entire tree.  If the tree flag and the leaves-only flag are
+				used, then only the true underlyers of the portfolio will be
+				enumerated.
+
+				The portfolio is just one type of security class, the
+				enumeration and child concept works for all security classes.
+
+				Enumeration flags:
+
+					SDB_ENUM_EXTERNAL	  - Only enumerate children who are
+											marked external.  The external
+											flag is controlled by the object
+											to indicate a value that comes
+											from an external source.
+					SDB_ENUM_FIRST_LEVEL  - Only enumerate the security's
+											immediate children.
+					SDB_ENUM_SELF_ONLY	  - Only enumerate children belonging
+											to this security.
+					SDB_ENUM_LEAVES_ONLY  - Only enumerate children who
+											themselves have no children.
+					SDB_ENUM_PRUNE		  - Prune tree descent when a child
+											matches the filter criteria.
+					SDB_ENUM_SORT		  - Sort the children by value type
+											first and then by security name.
+					SDB_ENUM_TREE		  - Enumerate the whole family tree.
+					SDB_ENUM_BELOW_SET	  - Normally, enumeration stops at
+											a node that has been set.  This
+											flag allows enumeration beneath
+											the set value.
+
+				The 'FilterSecType' argument if non-zero will only enumerate
+				the children securities of the specified security type.  If the
+				'FilterSecType' argument is zero, all children regardless of
+				their security class will be enumerated.
+
+				The 'FilterValueType' argument if non-zero will only enumerate
+				the children securities of the specified value type.  If the
+				'FilterValueType' argument is zero, all children regardless of
+				their value types will be enumerated.
+
+				The SecDbChildEnumFirst function obtains a pointer that can be
+				used in subsequent calls to the SecDbChildEnumNext function.
+
+				SecDbChildEnumClose must be called at the end of enumeration,
+				even if SecDbChildEnumFirst or SecDbChildEnumNext returns NULL.
+
+	  SEE ALSO: SecDbChildEnumNext, SecDbChildEnumClose
+
+	   EXAMPLE: /*
+				**	Enumerate the first level children of a portfolio security
+				**	and print the list of children and their value types
+				*/
+
+					SDB_CHILD_INFO
+							*ChildInfo;
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+					SDB_VALUE_TYPE
+							ValueTypePrice;
+
+					SDB_OBJECT
+							*SecPtr;
+
+
+					SecPtr = SecDbGetByName( "Portfolio", SecDbRootDb, 0 );
+
+					ValueTypePrice = SecDbValueTypeFromName(
+							"Price",				// Name
+							NULL );					// Data type
+
+					SDB_SET_VALUE_PARAMS(	
+							&ValueParams,			// Target structure
+							ValueTypePrice,			// Value type
+							0,						// Optional arg1
+							0 );					// Optional arg2
+
+					ChildInfo = SecDbChildEnumFirst(
+							SecPtr,					// Security pointer
+							SDB_ENUM_FIRST_LEVEL,	// Enumeration flags
+							&EnumPtr,				// Enumeration pointer
+							ValueTypePrice,			// Value type
+							0,						// No args
+							NULL,
+							0,						// All Security Types
+							0 );					// All Value Types
+
+					for( ; ChildInfo; ChildInfo = SecDbChildEnumNext( EnumPtr ))
+					{
+						printf( "%-*s %-*s %4d\n",
+								SDB_SEC_NAME_SIZE,
+								ChildInfo->SecPtr->SecData.Name,
+								SDB_VALUE_NAME_SIZE,
+								ChildInfo->ValueType->Name,
+								ChildInfo->Count );
+					}
+
+					SecDbChildEnumClose( EnumPtr );
+
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbChildEnumNext
+
+   DESCRIPTION: The SecDbChildEnumFirst function obtains a pointer that
+				can be used in subsequent calls to the SecDbChildEnumNext
+				function.  SecDbChildEnumNext gets the next child in the
+				enumeration, and returns NULL when there are no more children.
+
+	  SEE ALSO: SecDbChildEnumFirst, SecDbChildEnumClose
+
+	   EXAMPLE: See example for SecDbChildEnumFirst
+
+	  FUNCTION: SecDbChildListInfo
+
+   DESCRIPTION: SecDbChildListInfo fills in a DtStructure with information
+				translated from the SDB_CHILD_LIST structure into a format
+				suitable for printing or use with Slang.
+
+	  SEE ALSO: SDB_CHILD_LIST, SecDbChildDescription
+
+	  FUNCTION: SecDbClassEnumClose
+
+   DESCRIPTION: SecDbClassEnumClose closes (frees) the enumeration pointer
+				used by SecDbClassEnumFirst and SecDbClassEnumNext functions.
+
+	  SEE ALSO: SecDbClassEnumFirst, SecDbClassEnumNext
+
+	   EXAMPLE: See example for SecDbClassEnumFirst
+
+	  FUNCTION: SecDbClassEnumFirst
+
+   DESCRIPTION: The SecDbClassEnumFirst, SecDbClassEnumNext and
+				SecDbClassClose functions are used to obtain a list of
+				security classes and associated information.
+
+				The SecDbClassEnumFirst function obtains a pointer that can
+				be used in subsequent calls to the SecDbClassEnumNext
+				function.
+
+				The SDB_CLASS_INFO structure elements are:
+
+					Type		- Security class type
+					DllPath		- DLL name containing the object function
+					FuncName	- Name of the function within the DLL
+					Description	- Description of security class (class name)
+					FuncPtr		- Pointer to object function, NULL if class
+								  not loaded
+
+	  SEE ALSO: SecDbClassEnumNext, SecDbClassEnumClose
+
+	   EXAMPLE: /*
+				**	Print a list of security classes
+				*/
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+					SDB_CLASS_INFO
+							*ClassInfo;
+
+					for( ClassInfo = SecDbClassEnumFirst( &EnumPtr );
+						 ClassInfo;
+						 ClassInfo = SecDbClassEnumNext( EnumPtr ))
+					{
+						print( "%5d - %-*s\n",
+								ClassInfo->Type,
+								SDB_CLASS_NAME_SIZE,
+								ClassInfo->Description );
+					}
+					SecDbClassEnumClose( EnumPtr );
+
+	  FUNCTION: SecDbClassEnumNext
+
+   DESCRIPTION: SecDbClassEnumFirst obtains a pointer that can be used in
+				subsequent calls to the SecDbClassEnumNext function.
+
+				SecDbClassEnumNext returns the next security class's
+				information or NULL when all classes have been enumerated.
+
+	  SEE ALSO: SecDbClassEnumFirst, SecDbClassEnumClose
+
+	   EXAMPLE: See example for SecDbClassEnumFirst
+
+	  FUNCTION: SecDbClassNameFromType
+
+   DESCRIPTION: The SecDbClassNameFromType function returns a pointer to a
+				string that contains the class name associated the 'Type'.
+				If the class type cannot be found, SecDbClassNameFromType
+				returns NULL.
+
+	  SEE ALSO: SecDbClassTypeFromName
+
+	   EXAMPLE: /*
+				**	Get a security and display the security class name
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					char	*ClassName;
+
+
+					SecPtr = SecDbGetByName( "DEM/USD", SDB_ROOT_DATABASE );
+
+					ClassName = SecDbClassNameFromType( SecPtr->SecData.Type );
+					printf( "Security type: %s\n", ClassName );
+
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbClassTypeFromName
+
+   DESCRIPTION: The SecDbClassTypeFromName function retrieves the security
+				class type from the security class name.  Security types are
+				used by SecDbGetByInference, SecDbNew, SecDbNameLookup.
+
+	  SEE ALSO: SecDbClassNameFromType
+
+	   EXAMPLE: /*
+				**	Print a list of all currency crosses
+				*/
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+					SDB_CLASS_INFO
+							*ClassInfo;
+
+					SDB_SEC_TYPE
+							SecTypeCross;
+
+					char	SecName[ SDB_SEC_NAME_SIZE ];
+
+
+					// Get the security class type from the class name
+					SecTypeCross = SecDbClassTypeFromName( "Currency Cross" );
+
+					*SecName = '\0';
+					while( SecDbNameLookup( SecName, SecTypeCross,
+							SDB_GET_NEXT, SDB_ROOT_DATABASE ))
+						printf( "%s\n", SecName );
+
+	  FUNCTION: SecDbDataTypeEnumClose
+
+   DESCRIPTION: SecDbDataTypeEnumClose closes (frees) the enumeration pointer
+				used by SecDbDataTypeEnumFirst and SecDbDataTypeEnumNext
+				functions.
+
+	  SEE ALSO: SecDbDataTypeEnumFirst, SecDbDataTypeEnumNext
+
+	   EXAMPLE: See example for SecDbDataTypeEnumFirst
+
+	  FUNCTION: SecDbDataTypeEnumFirst
+
+   DESCRIPTION: The SecDbDataTypeEnumFirst, SecDbDataTypeEnumNext and
+				SecDbDataTypeEnumClose functions are used to obtain a list of
+				data types currently supported by SecDb.
+
+				The SecDbDataTypeEnumFirst function obtains a pointer that
+				can be used in subsequent calls to the SecDbDataTypeEnumNext
+				function.
+
+	  SEE ALSO: DT_DATA_TYPE, SecDbDataTypeEnumNext, SecDbDataTypeEnumClose
+
+	   EXAMPLE: /*
+				**	Enumerate and print out the names of all data types
+				*/
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+					DT_DATA_TYPE
+							DataType;
+
+
+					for( DataType = SecDbDataTypeEnumFirst( &EnumPtr );
+						 DataType;
+						 DataType = SecDbDataTypeEnumNext( EnumPtr ))
+					{
+						printf( "%s\n", DataType->Name );
+					}
+
+					SecDbDataTypeEnumClose( EnumPtr );
+
+	  FUNCTION: SecDbDataTypeEnumNext
+
+   DESCRIPTION: Return the next data type, using the pointer obtained from
+				SecDbDataTypeEnumFirst.
+
+	  SEE ALSO: SecDbDataTypeEnumFirst, SecDbDataTypeEnumClose
+
+	   EXAMPLE: See example for SecDbDataTypeEnumFirst
+
+	  FUNCTION: SecDbDbInfoEnumClose
+
+   DESCRIPTION: See description for SecDbDbInfoEnumFirst
+
+	  SEE ALSO: SecDbDbInfoEnumFirst, SecDbInfoEnumNext, SecDbDbInfoFromName,
+				SecDbDbInfoFromDb, SDB_DB_INFO
+
+	   EXAMPLE: See example for SecDbDbInfoEnumFirst
+
+	  FUNCTION: SecDbDbInfoEnumFirst
+
+   DESCRIPTION: The SecDbDbInfoEnumFirst, SecDbDbInfoEnumNext and
+				SecDbDbInfoEnumClose functions are used to obtain a list of
+				databases that are accessible through SecDb.
+
+				SecDbDbInfoEnumFirst is used to begin the enumeration, and
+				SecDbDbInfoEnumNext is used to obtain subsequent database
+				information.  The SecDbDbInfoEnumClose function must be called
+				after the enumeration to free up any memory used during the
+				enumeration.
+
+	  SEE ALSO: SecDbDbInfoEnumNext, SecDbInfoEnumClose, SecDbDbInfoFromName,
+				SecDbDbInfoFromDb, SDB_DB_INFO
+
+	   EXAMPLE: /*
+				**	Print a list of all available databases
+				*/
+
+					SDB_ENUM_PTR
+							EnumPtr;
+							
+					SDB_DB_INFO
+							*DbInfo;
+							
+					
+					for( DbInfo = SecDbDbInfoEnumFirst( &EnumPtr );
+							DbInfo;
+							DbInfo = SecDbDbInfoEnumNext( EnumPtr ))
+					{
+						printf( "%s\n", DbInfo->DbName );
+					}
+					SecDbDbInfoEnumClose( EnumPtr );
+
+	  FUNCTION: SecDbDbInfoEnumNext
+
+   DESCRIPTION: See description for SecDbDbInfoEnumFirst
+
+	  SEE ALSO: SecDbDbInfoEnumFirst, SecDbInfoEnumClose, SecDbDbInfoFromName,
+				SecDbDbInfoFromDb, SDB_DB_INFO
+
+	   EXAMPLE: See example for SecDbDbInfoEnumFirst
+
+	  FUNCTION: SecDbDbInfoFromDb
+
+   DESCRIPTION: Get database information associated with the database ID.
+
+				See the description for SDB_DB_INFO for a detailed description
+				of the database information structure.
+
+	  SEE ALSO: SDB_DB_INFO
+
+	   EXAMPLE: /*
+				**	Display the database information for the root database
+				*/
+				
+					SDB_DB_INFO
+							DbInfo;
+							
+							
+					SecDbDbInfoFromDb( SecDbRootDb, &DbInfo );
+					printf( "         Name: %s\n",	DbInfo.DbName		);
+					printf( " Mirror Group: %s\n",	DbInfo.MirrorGroup	);
+					printf( "     Location: %s\n",	DbInfo.Location		);
+					printf( "Database Path: %s\n",	DbInfo.DatabasePath	);
+					printf( "  Database ID: %d\n",	DbInfo.DbID			);
+					printf( "   Open Count: %d\n",	DbInfo.OpenCount	);
+
+	  FUNCTION: SecDbDbInfoFromName
+
+   DESCRIPTION: Get database information associated with the database name.
+
+				See the description for SDB_DB_INFO for a detailed description
+				of the database information structure.
+
+	  SEE ALSO: SDB_DB_INFO
+
+	   EXAMPLE: /*
+				**	Display the database information for a database
+				*/
+				
+					SDB_DB_INFO
+							DbInfo;
+							
+							
+					if( !SecDbDbInfoFromName( "NYC Test", &DbInfo ))
+						printf( "Database information couldn't be found\n" );
+					else
+					{
+						printf( "         Name: %s\n",	DbInfo.DbName		);
+						printf( " Mirror Group: %s\n",	DbInfo.MirrorGroup	);
+						printf( "     Location: %s\n",	DbInfo.Location		);
+						printf( "Database Path: %s\n",	DbInfo.DatabasePath	);
+						printf( "  Database ID: %d\n",	DbInfo.DbID			);
+						printf( "   Open Count: %d\n",	DbInfo.OpenCount	);
+					}
+
+	  FUNCTION: SecDbDeleteByName
+
+   DESCRIPTION: SecDbDeleteByName removes a security from a security-master
+				database.  The security is referenced by the security name.
+				Databases that are opened in read-only mode will not allow
+				a security to be deleted.
+
+				If the 'NoLoadFlag' argument is FALSE, then the security is
+				loaded before it is deleted.  This is important in that the
+				security's class might need to take action based upon one
+				of its instances being deleted.
+
+				Setting the 'NoLoadFlag' argument to TRUE prevents the
+				security's object function from receiving the delete message,
+				and should only be done if a security exists in the database
+				that can't be loaded or the user explicitly wishes to prevent
+				the class from taking action such as a Trade object updating
+				its Position objects.
+
+	  SEE ALSO: SecDbAdd, SecDbNew, SecDbRename
+
+	   EXAMPLE: /*
+				**	Delete a test security
+				*/
+
+					int		Success;
+
+					Success = SecDbDeleteByName(
+							"Test Security 2",	// Security name
+							SdbPublic,			// Database ID
+							FALSE ); 			// Normal operation
+
+					if( Success )
+						printf( "Security deleted without error" );
+					else
+						printf( Error: %s\n", ErrGetString() );
+
+	  FUNCTION: SecDbDetach
+
+   DESCRIPTION: Detach a SecDb database that was attached previously using the
+				SecDbAttach function.  If the 'DbId' argument is
+				SDB_ROOT_DATABASE, then detach all of the databases.
+
+	  SEE ALSO: SecDbAttach
+
+	   EXAMPLE: /*
+				**	Detach all security databases
+				*/
+
+					SecDbDetach( SDB_ROOT_DATABASE );
+
+	  FUNCTION: SecDbDuplicate
+
+   DESCRIPTION: Copy values matching 'ValueFlags' from 'SrcSecPtr' to
+				'TgtSecPtr'.  To copy all of the disk values, use
+				SDB_IN_STREAM for 'ValueFlags'.  'SetFlags' are passed
+				to the SecDbSetValue used to set the values in the target
+				security.
+
+	  SEE ALSO: SecDbNew, SecDbGetByName, SecDbGetValue, SecDbSetValue,
+				SecDbRename
+
+	   EXAMPLE: /*
+				**	Create a new security with the same values of an
+				**	existing security
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+
+					SecPtr = SecDbNew(
+							NULL,						// Create unique name
+							OldSecPtr->SecData.Type,	// Same type
+							SdbPublic );				// Public database
+					if( !SecDbDuplicate(
+							SecPtr,						// New security
+							OldSecPtr,					// Existing security
+							SDB_IN_STREAM,				// Values to Copy
+							0 ))						// Default set action
+						return FALSE;
+
+	  FUNCTION: SecDbError
+
+	   SUMMARY: Obsolete, use Err from the Kool_Ade library
+
+   DESCRIPTION: SecDbError is a macro which calls Err.
+
+	  SEE ALSO: Err, ErrMore, ErrGetString, ErrStringFromNum
+
+	  FUNCTION: SecDbErrorMore
+
+	   SUMMARY: Obsolete, use ErrMore from the Kool_Ade library
+
+   DESCRIPTION: SecDbErrorMore is a macro which calls ErrMore.
+
+	  SEE ALSO: Err, ErrMore, ErrGetString, ErrStringFromNum
+
+	  FUNCTION: SecDbErrorStringFromNum
+
+	   SUMMARY: Obsolete, use ErrStringFromNum from the Kool_Ade library
+
+   DESCRIPTION: SecDbErrorStringFromNum is a macro which calls ErrStringFromNum.
+
+	  SEE ALSO: Err, ErrMore, ErrGetString, ErrStringFromNum
+
+	  FUNCTION: SecDbFree
+
+   DESCRIPTION: Once a security has been loaded using a SecDbGet function,
+				an in-memory copy of the security is made.  Multiple gets of
+				the same security simply increment a reference counter inside
+				the security.  SecDbFree decrements this reference counter,
+				and when the number of references falls to zero the security
+				is 'released'.  All diddles and cached values are also
+				released.
+
+				SecDb uses a security caching mechanism that will load the
+				security only once, even if it is referenced many times.
+				Once the number of references to a security falls to zero,
+				the security gets placed in a deadpool.  When the deadpool
+				fills up, securities are removed from the deadpool, and their
+				memory is released.
+
+				SecDbFree will ignore a 'SecPtr' that is NULL.
+
+	  SEE ALSO: SecDbGetByName, SecDbGetByInference, SecDbIncrementReference,
+				SecDbNew
+
+	   EXAMPLE: See example for SecDbGetByName
+
+	  FUNCTION: SecDbGetByInference
+
+   DESCRIPTION: There are two ways to get securities from SecDb.  The first,
+				and easiest way is through the SecDbGetByName function.
+				SecDbGetByName assumes that the only thing known about a
+				security is its name.  SecDbGetByName does not require the
+				application to know about the security class that the security
+				belongs to.  SecDbGetByName is the preferred method of getting
+				securities because it handles the general case, which is one of
+				the main reasons why SecDb was written.
+
+				SecDbGetByInference handles the specific case of a known
+				security class.  It is more powerful than SecDbGetByName in
+				that it is capable of creating securities that it couldn't find
+				in the database.  The application that uses SecDbGetByInference
+				must know the type of security, and the value methods required
+				to infer a unique security.
+
+				Another major difference between SecDbGetByName and
+				SecDbGetByInference is that the former is defined and
+				implemented within SecDb itself, while the latter is defined
+				almost entirely by the security class.
+
+				Unlike other functions that deal with security pointers, the
+				'SecPtr' argument is a pointer to a security pointer.
+				
+				'SecPtr' must be created using SecDbNew, and then filled in
+				with SecDbSetValue before calling SecDbGetByInference.
+
+				'SecPtr' must always be SecDbFree()d, regardless of whether
+				or not the function returns TRUE or FALSE.
+
+				'CreateFlag' is one of:
+
+					SDB_GET_CREATE		- Create in database if not found
+
+					SDB_GET_CACHE_ONLY	- Look in cache only, don't go to
+										  database.  Use this when creating
+										  in-memory only securities.
+
+					0					- Don't create, but use existing
+										  security if found in database.
+										  (Not very useful--first two flags
+										  are prefered values.)
+
+	  SEE ALSO: SecDbGetByName, SecDbFree, SecDbIncrementReference
+
+	   EXAMPLE:	/*
+				**	Get an option by inference
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					SDB_SEC_TYPE
+							SecType;
+
+					int		Success;
+
+
+					SecType = SecDbClassTypeFromName( "Option" );
+
+					SecPtr = SecDbNew( NULL, SecType, SDB_ROOT_DATABASE );
+
+					// Set values for:
+					//		Expiration Date
+					//		Expiration Location
+					//		Option Style
+					//		Option Type
+					//		Quantity Unit
+					//		Strike
+					//
+					// The above would be done using SecDbSetValue.
+
+					Success = SecDbGetByInference(
+							&SecPtr,			// Ptr to inference security
+							SDB_GET_CREATE );	// Create if not found
+
+					if( Success )
+						printf( "Got %s by inference", SecPtr->SecData.Name );
+					else
+						printf( "Error: %s", ErrGetString() );
+
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbGetByName
+
+   DESCRIPTION: The SecDbGetByName function retrieves a security from the
+				SecDb system by using the security name as the lookup key.
+				Once the security is no longer needed, it must be freed using
+				SecDbFree.
+
+				Once a security has been loaded using SecDbGetByName or
+				SecDbGetByInference, certain operations can be done on it.
+
+				SecDbValueTypeEnumFirst (and related functions) allows an
+				application to determine what a security was capable of.
+
+				SecDbChildEnumFirst (and related functions) lists all of the
+				underlying securities, and their quantities, needed to return
+				a certain value.
+
+				SecDbGetValue, SecDbSetDiddle (and related functions) allows
+				an application to get values, curves, etc. from objects and
+				to optionally override any of these values.
+
+				SecDb uses a security caching mechanism that will load the
+				security only once, even if it is referenced many times.
+				Once the number of references to a security falls to zero,
+				the security gets placed in a deadpool.  When the deadpool
+				fills up, securities are removed from the deadpool, and their
+				memory is released.
+
+				If the DbID argument is SDB_ROOT_DATABASE, then the security
+				will be gotten from the first database in the linked list of
+				databases.  If the database referenced by DbID has a search
+				path, then SecDbGetByName will look for the security in each
+				database in the path sequentially until the security is
+				found.
+
+				If the DbID argument is or'ed with SDB_REFRESH_CACHE, then a
+				fresh copy of the security will be loaded.  This will affect
+				all other references to the loaded security.
+
+				If the DbID argument is or'ed with SDB_CACHE_ONLY, then the
+				security is only searched for in the security cache.
+				
+				If the DbID argument is or'ed with SDB_IGNORE_PATH, then the
+				security is only search for in the parent database and not
+				any of the databases in the search path (note this is true
+				even if parent database is not in its own search path).
+				SDB_IGNORE_PATH can be combined with SDB_REFRESH_CACHE or
+				SDB_CACHE_ONLY since each database in the search path has
+				its own distinct cache.
+
+	  SEE ALSO: SecDbGetByInference, SecDbFree, SecDbGetDiskInfo,
+				SecDbIncrementReference
+
+	   EXAMPLE: /*
+				**	Get the price for a currency cross
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					SDB_VALUE_TYPE
+							ValueTypePrice;
+
+					DT_VALUE
+							*SpotValue;
+
+
+					SecPtr = SecDbGetByName( "DEM/USD", SDB_ROOT_DATABASE );
+
+					ValueTypePrice = SecDbValueTypeFromName(
+							"Price",			// Name
+							NULL );				// Data type
+
+					SpotValue = SecDbGetValue(
+							SecPtr,				// Security pointer
+							ValueTypePrice );	// Value type
+
+					if( SpotValue )
+						printf( "Spot price for DEM/USD = %lf\n",
+								SpotValue->Data.Number );
+					else
+						printf( "Error getting spot price\n%s\n",
+								ErrGetString() );
+					
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbGetDiskInfo
+
+	  SEE ALSO: SecDbGetByName, SDB_DISK
+
+	   EXAMPLE: /*
+				**	Get and display disk info for security 'USD'
+				*/
+
+					SDB_DISK
+							Disk;
+
+
+					if( SecDbGetDiskInfo( &Disk, "USD", SDB_ROOT_DATABASE ))
+					{
+						printf( "Name         %s\n",	Disk.Name );
+						printf( "Type         %s\n", 
+								SecDbClassNameFromType( Disk.Type ));
+						printf( "Time Created %s\n",
+								ctime( &Disk.TimeCreated ));
+						printf( "Time Updated %s\n",
+								ctime( &Disk.TimeUpdated ));
+						printf( "Update Count %ld\n",	Disk.UpdateCount );
+						printf( "DbID Created %d\n",	Disk.DbIDCreated );
+						printf( "DbID Updated %d\n",	Disk.DbIDUpdated );
+					}
+
+	  FUNCTION: SecDbGetValue
+
+   DESCRIPTION: Securities in SecDb can return values.  These values can be of
+				predefined data types such as doubles, curves, strings, etc.
+				or values returned can be of an object or application defined
+				data type.
+
+				The 'ValueType' parameter indicates which valuation to perform.
+				There are some value types that are predefined for convenience.
+				These types are:
+
+					SecDbValueCurrentDate	- Current date
+					SecDbValuePricingDate	- Pricing date
+					SecDbValueSecurityName	- Name of the security
+					SecDbValueSecurityType	- Type of the security
+					SecDbValueTimeCreated 	- Time security created
+					SecDbValueTimeModified	- Time security modified
+
+				Most security objects support more value types than listed
+				above.  An application can ask a security what value types it
+				supports by using the SecDbValueTypeEnumFirst and
+				SecDbValueTypeEnumNext functions.  Value types can also be
+				derived by using the SecDbValueTypeFromName function.
+
+	  SEE ALSO: GobGetDouble, GobGetPointer, GobGetString, GobGetValue,
+				SecDbGetByName, SecDbGetByInference, SecDbGetValueWithArgs,
+				SecDbValueTypeEnumFirst, SecDbValueTypeFromName,
+				SecDbSetDiddle, SecDbSetValue
+
+	   EXAMPLE: /*
+				**	Get the price for a currency cross
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					SDB_VALUE_TYPE
+							ValueTypePrice;
+
+					DT_VALUE
+							*SpotValue;
+
+
+					SecPtr = SecDbGetByName( "DEM/USD", SDB_ROOT_DATABASE );
+
+					ValueTypePrice = SecDbValueTypeFromName(
+							"Price",			// Name
+							NULL );				// Data type
+
+					SpotValue = SecDbGetValue(
+							SecPtr,				// Security pointer
+							ValueTypePrice );	// Value type
+
+					if( SpotValue )
+						printf( "Spot price for DEM/USD = %lf\n",
+								SpotValue->Data.Number );
+					else
+						printf( "Error getting spot price\n%s\n",
+								ErrGetString() );
+					
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbGetValueWithArgs
+
+	  SEE ALSO: GobGetDouble, GobGetPointer, GobGetString, GobGetValue,
+				SecDbGetByName, SecDbGetByInference, SecDbGetValue,
+				SecDbValueTypeEnumFirst, SecDbValueTypeFromName,
+				SecDbSetDiddle, SecDbSetValue
+
+	   EXAMPLE: /*
+				**	Get the 1 month vol 90 days forward for a cross
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					SDB_VALUE_TYPE
+							VtVol;
+
+					DT_VALUE
+							*Args[ 2 ],
+							*ArgPtrs[ 2 ],
+							*VolValue;
+							
+
+					SecPtr = SecDbGetByName( "DEM/USD", SDB_ROOT_DATABASE );
+
+					VtVol = SecDbValueTypeFromName(
+							"Volatility ATM",	// Name
+							NULL );				// Data type
+
+					// First arg is volatility target date
+					Args[0].DataType	= DtDate;
+					Args[0].Data.Number = SecDbCurrentDate + 120;
+					ArgPtrs[0]			= &Args[0];
+
+					// Second arg is volatility start date
+					Args[1].DataType	= DtDate;
+					Args[1].Data.Number = SecDbCurrentDate + 120;
+					ArgPtrs[1]			= &Args[1];
+					
+					VolValue = SecDbGetValueWithArgs(
+							SecPtr,			// Security pointer
+							VtVol,			// Value type
+							2,				// Arg count
+							ArgPtrs,		// Argument pointers
+							DtDouble );		// Data type restriction
+
+					if( VolValue )
+						printf( "1m vol 3m forward for DEM/USD = %lf\n",
+								VolValue->Data.Number );
+					else
+						printf( "Error getting volatility\n%s\n",
+								ErrGetString() );
+					
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbIncrementReference
+
+   DESCRIPTION: SecDbIncrementReference increments the reference count of
+				an object.  This is equivalent to:
+				
+					SecDbGetByName( SecPtr->SecData.Name, SDB_ROOT_DATABASE )
+					
+				An application should have a corresponding SecDbFree for each
+				SecDbIncrementReference call.
+				
+				Obviously this function can only be used on objects that have
+				already been loaded using SecDbGetByName, SecDbGetByInference
+				or SecDbNew.
+
+	  SEE ALSO: SecDbGetByName, SecDbGetByInference, SecDbFree
+
+	  FUNCTION: SecDbIndexAdd
+
+   DESCRIPTION: After an index has been defined by using SecDbIndexNew,
+				SecDbIndexAddPart and SecDbIndexAddClass it can be added
+				to a database by using SecDbIndexAdd.
+
+				An index is added for ALL applications using the database,
+				but the applications will not be able to use or update the
+				index until the database has been reloaded.  An index can
+				be misaligned if one application adds an index without the
+				other applications reloading the database.
+
+				In general, indices should be a permanent addition to a
+				database.
+
+				If an index is added to an already populated database, then
+				the securities in the database that match the index criteria
+				will automatically be put into the index.
+
+				As with other elements of SecDb, indices are delay-loaded.
+				This means that it is possible to get an index not found, or
+				index invalid type of message when trying to add or modify
+				a security.
+
+	  SEE ALSO: SecDbIndexNew, SecDbIndexAddPart, SecDbIndexAddClass
+
+	   EXAMPLE: /*
+				**	Add an index to the database based upon trade time
+				**	for the trade security class
+				*/
+
+					SDB_INDEX
+							*Index;
+
+					SDB_VALUE_TYPE
+							ValueTypeTradeTime;
+
+					SDB_SEC_TYPE
+							SecTypeTrade;
+
+
+					// Get class type and the value type
+					SecTypeTrade = SecDbClassTypeFromName( "Trade" );
+					ValueTypeTradeTime = SecDbValueTypeFromName(
+							"Trade Time",			// Value type name
+							NULL );					// Data type
+
+
+					// Create the index
+					Index = SecDbIndexNew( "Trades by Time",
+										   SDB_ROOT_DATABASE );
+					SecDbIndexAddPart(
+							Index,
+							ValueTypeTradeTime,
+							SDB_INDEX_ASCENDING,
+							0 );
+					SecDbIndexAddClass(
+							Index,
+							SecTypeTrade );
+
+					if( SecDbIndexAdd( Index ))
+						printf( "Index added without error\n" );
+					else
+						printf( "Couldn't add index\n%s\n", ErrGetString() );
+
+	  FUNCTION: SecDbIndexAddPart
+
+   DESCRIPTION: Add a value type to an index.  Indices are made from one or
+				more value types.  Composite indices can be created by calling
+				SecDbIndexAddPart more than once.
+
+				The 'ValueType' argument must contain the type of value to use
+				for this segment of the sort key.
+
+				Below are the possible 'Flags' values:
+					SDB_INDEX_ASCENDING		- Ascending order
+					SDB_INDEX_DESCENDING	- Descending order
+
+				The 'ByteWidth' argument is needed when storing any datatype
+				that is pointer based (as opposed to being numeric).  Since
+				a pointer based datatype can be variable length, and since
+				some databases can't sort on variable length fields, the
+				'ByteWidth' argument indicates how many significant bytes
+				should be used for these datatypes.
+
+				A 'ByteWidth' of 0 is appropriate for numeric datatypes,
+				and will default to 32 significant bytes for pointer
+				datatypes.
+
+	  SEE ALSO: SecDbIndexNew, SecDbIndexAdd, SecDbIndexAddClass
+
+	   EXAMPLE: See example for SecDbIndexAdd
+
+	  FUNCTION: SecDbIndexAddClass
+
+   DESCRIPTION: Indices are specific to one or more classes.  A class can
+				be added to an index by using SecDbIndexAddClass.  The class
+				should support all of the value types specified in the index
+				(done by SecDbIndexAddPart).
+
+	  SEE ALSO: SecDbIndexNew, SecDbIndexAdd, SecDbIndexAddPart
+
+	   EXAMPLE: See example for SecDbIndexAdd
+
+	  FUNCTION: SecDbIndexClose
+
+   DESCRIPTION: End the use of an index.  This function is used internally
+				by SecDb and is called when the database that the index is
+				associated with is closed.  In general there is no reason
+				for an application program to call this function
+
+	  SEE ALSO: SecDbIndexOpen, SecDbIndexDestroy, SecDbIndexFromName
+
+	   EXAMPLE: See example for SecDbIndexAdd
+
+	  FUNCTION: SecDbIndexDeleteClass
+
+   DESCRIPTION: The SecDbIndexDeleteClass function is used to remove a class
+				from an index.  This function is normally used when a class
+				is no longer being used, or if there is no longer any need to
+				index a specific class.
+				
+				The SecDbIndexDestroy function should be used to entirely
+				remove an index from a database.
+
+	  SEE ALSO: SecDbIndexAddClass, SecDbIndexDestroy
+
+	  FUNCTION: SecDbIndexDestroy
+
+   DESCRIPTION: Remove an index from a database.  An index can only be
+				destroyed when no applications are using it.  This function
+				has many of the same constraints as SecDbIndexAdd.
+
+	  SEE ALSO: SecDbIndexAdd
+
+	   EXAMPLE: /*
+				**	Destroy the 'Trades by Time' index
+				*/
+
+					if( SecDbIndexDestroy( "Trades by Time" ))
+						printf( "Index destroyed without error\n" );
+					else
+						printf( "Error destroying index\n%s\n", ErrGetString() );
+
+	  FUNCTION: SecDbIndexEnumClose
+
+   DESCRIPTION: End the enumeration of index information.  For a more complete
+				understanding of this function read the description for
+				SecDbIndexEnumFirst.
+
+	  SEE ALSO: SecDbIndexEnumFirst, SecDbIndexEnumNext
+
+	   EXAMPLE: See example for SecDbIndexEnumFirst
+
+	  FUNCTION: SecDbIndexEnumFirst
+
+   DESCRIPTION: The SecDbIndexEnumFirst, SecDbIndexEnumNext and
+				SecDbIndexEnumClose functions are used to enumerate all
+				available indices.
+
+				Indices have unique names within a database.  There can
+				be more than one index with the same name if there is
+				more than one database loaded.
+
+				SecDbIndexEnumFirst is used to begin the enumeration, and
+				SecDbIndexEnumnext is used to obtain subsequent indices.
+				The SecDbIndexEnumClose function must be called after the
+				enumeration to free up any memory used during the enumeration.
+
+	  SEE ALSO: SecDbIndexEnumNext, SecDbIndexEnumClose, SDB_INDEX
+
+	   EXAMPLE: /*
+				**	Print a list of all available indices
+				*/
+
+					SDB_INDEX
+							*Index;
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+
+					for( Index = SecDbIndexEnumFirst( &EnumPtr );
+							Index;
+							Index = SecDbIndexEnumNext( EnumPtr ))
+					{
+						printf( "%05d %s\n", Index->DbID, Index->Name );
+					}
+					SecDbIndexEnumClose( EnumPtr );
+
+	  FUNCTION: SecDbIndexEnumNext
+
+   DESCRIPTION: Get the next index in the enumeration.  For a more complete
+				understanding of this function read the description for
+				SecDbIndexEnumFirst.
+
+	  SEE ALSO: SecDbIndexEnumFirst, SecDbIndexEnumClose
+
+	   EXAMPLE: See example for SecDbIndexEnumFirst
+
+	  FUNCTION: SecDbIndexFromName
+
+   DESCRIPTION: Each index on a given database has a unique name that was
+				given to the index when the index was created (SecDbIndexNew
+				and SecDbIndexAdd functions).  There can be more than one
+				index with the same name if there is more than one database
+				loaded, this is why the database ID (DbID) is required when
+				referencing the index.
+
+				Once a pointer to an index is obtained, an index position
+				structure (SDB_INDEX_POS) can be made by using the
+				SecDbIndexPosCreate	function.  The index position acts like
+				a cursor (in SQL-speak) or as a current record (in normal
+				database-speak).
+
+	  SEE ALSO: SecDbIndexAdd, SecDbIndexEnumFirst, SecDbIndexEnumNext
+
+	   EXAMPLE: /*
+				**	Get the index, and print out the name of all trades
+				**	in the order that they are found in the index (by time)
+				*/
+				
+					SDB_INDEX
+							*Index;
+
+					SDB_INDEX_POS
+							*Pos;
+
+					char	*Name;
+
+
+					Index = SecDbIndexFromName(
+							"Trades by Time",
+							SDB_ROOT_DATABASE );
+
+					Pos = SecDbIndexPosCreate( Index );
+					for( Name = SecDbIndexGet( Pos, SDB_GET_FIRST );
+							Name;
+							Name = SecDbIndexGet( Pos, SDB_GET_NEXT ))
+					{
+						printf( "%s\n", Name );
+					}
+					SecDbIndexPosDestroy( Pos );
+
+	  FUNCTION: SecDbIndexGet
+
+   DESCRIPTION: The SecDbIndexGet function repositions the 'IndexPos' within
+				an index.  The 'IndexPos' is filled in with the information
+				for the new position and the name of the object is returned.
+
+				Table of 'GetType' values:
+
+					SDB_GET_FIRST	- First name in index
+					SDB_GET_LAST	- Last name in index
+					SDB_GET_EQUAL	- Equal to IndexPos
+					SDB_GET_LESS	- Less than IndexPos
+					SDB_GET_LE		- Less or equal to IndexPos
+					SDB_GET_GREATER	- Greater than IndexPos
+					SDB_GET_GE		- Greater or equal to IndexPos
+					SDB_GET_NEXT	- Next name in index
+					SDB_GET_PREV	- Previous name in index
+
+				The GET_FIRST and GET_LAST types don't require the 'IndexPos'
+				to be previously filled in by the application.
+
+				The GET_NEXT and GET_PREV types will only work if there has
+				been a previous call to SecDbIndexGet in order to establish
+				a current position to get from.  It is possible for GET_NEXT
+				or GET_PREV to fail if the record that is the current position
+				is removed from the database.
+
+	  SEE ALSO: SecDbIndexPosCreate, SecDbIndexPosDestroy, SecDbIndexPosCopy,
+				SecDbIndexPosGetValue, SecDbIndexPosSetValue,
+				SecDbIndexPosCompare
+
+	   EXAMPLE: /*
+				**	Get the index, and print out the name of all trades
+				**	in the order that they are found in the index (by time)
+				*/
+				
+					SDB_INDEX
+							*Index;
+
+					SDB_INDEX_POS
+							*Pos;
+
+					char	*Name;
+
+
+					Index = SecDbIndexFromName(
+							"Trades by Time",
+							SDB_ROOT_DATABASE );
+
+					IndexPos = SecDbIndexPosCreate( Index );
+					for( Name = SecDbIndexGet( Pos, SDB_GET_FIRST );
+							Name;
+							Name = SecDbIndexGet( Pos, SDB_GET_NEXT ))
+					{
+						printf( "%s\n", Name );
+					}
+					SecDbIndexPosDestroy( Pos );
+
+	  FUNCTION: SecDbIndexNew
+
+   DESCRIPTION: Create a new index structure.  SecDbIndexAddPart and
+				SecDbIndexAddClass should be called to define the value types
+				and security classes that the index should keep track of.
+				SecDbIndexAdd should be used to attach the index to a
+				database.
+
+	  SEE ALSO: SecDbIndexAddPart, SecDbIndexAddClass, SecDbIndexAdd
+
+	   EXAMPLE: See example for SecDbIndexAdd
+
+	  FUNCTION: SecDbIndexPosCompare
+
+   DESCRIPTION: Compare one index postion against another.  This function is
+				usefull when reading through an index and there a limit is
+				needed (e.g. reading an index from 1/1/92 through 1/31/92).
+
+	  SEE ALSO: SecDbIndexPosCreate, SecDbIndexPosDestroy, SecDbIndexPosCopy,
+				SecDbIndexPosGetValue, SecDbIndexPosSetValue
+
+	   EXAMPLE: See example for SecDbIndexPosSetValue
+
+	  FUNCTION: SecDbIndexPosCopy
+
+   DESCRIPTION: Create a new index position and copy the contents of an
+				existing index position into it.
+
+	  SEE ALSO: SecDbIndexPosCreate, SecDbIndexPosDestroy,
+				SecDbIndexPosCompare, SecDbIndexPosGetValue,
+				SecDbIndexPosSetValue, SDB_INDEX_POS
+
+	  FUNCTION: SecDbIndexPosCreate
+
+   DESCRIPTION: An index position maintains a current position within an
+				index.  The contents of the index position structure change
+				after a SecDbIndexGet or SecDbIndexPosSetValue function.
+
+				The SecDbIndexPosSetValue is used to set values in an index
+				position structure.  Once values in the structure are set,
+				then the index get operations GET_EQUAL, GET_LESS, GET_LE,
+				GET_GREATER and GET_GE can be used to find records in an
+				index.
+
+	  SEE ALSO: SecDbIndexPosCopy, SecDbIndexPosDestroy,
+				SecDbIndexPosCompare, SecDbIndexPosSetValue, SDB_INDEX_POS
+
+	   EXAMPLE: See example for SecDbIndexPosSetValue
+
+	  FUNCTION: SecDbIndexPosDestroy
+
+   DESCRIPTION: Destroy an index position structure that was created using
+				SecDbIndexPosCreate or SecDbIndexPosCopy.
+
+	  SEE ALSO: SecDbIndexPosCreate, SecDbIndexPosCopy,
+				SecDbIndexPosCompare, SecDbIndexPosSetValue
+
+	   EXAMPLE: See example for SecDbIndexGet and SecDbIndexPosSetValue
+
+	  FUNCTION: SecDbIndexPosGetValue
+
+   DESCRIPTION: An index is based upon one or more value types.  An index
+				position contains the same value types as an index.
+
+				The SecDbIndexPosGetValue function retrieves a value from an
+				index position structure.  The value should not be changed.
+
+	  SEE ALSO: SecDbIndexPosCreate, SecDbIndexPosDestroy, SecDbIndexPosCopy,
+				SecDbIndexPosCompare
+
+	   EXAMPLE: /*
+				**	Open an index and try to get all records that fall
+				**	in the range of current time yesterday to current time
+				**	today.  Pos1 is the low range (yesterday) and Pos2 is
+				**	the high range (today).
+				*/
+
+					SDB_INDEX
+							*Index;
+							
+					SDB_INDEX_POS
+							*Pos1,
+							*Pos2;
+
+					SDB_VALUE_TYPE
+							ValueTypeTradeTime;
+
+					DT_VALUE
+							Value,
+							*ValuePtr,
+							StringValue;
+
+					char	*Name;
+
+
+					Index = SecDbIndexFromName(
+							"Trades by Time",
+							SDB_ROOT_DATABASE );
+
+					ValueTypeTradeTime = SecDbValueTypeFromName(
+							"Trade Time",			// Value type name
+							NULL );					// Data type
+
+					Pos1 = SecDbIndexPosCreate( Index );
+					Pos2 = SecDbIndexPosCreate( Index );
+					Value.DataType		= DtTime;
+					Value.Data.Number	= time( NULL );
+					SecDbIndexPosSetValue( Pos2, ValueTypeTradeTime, &Value );
+
+					Value.Data.Number	-= 86400L;	// Number of seconds/day
+					SecDbIndexPosSetValue( Pos1, ValueTypeTradeTime, &Value );
+
+					for( Name = SecDbIndexGet( Pos1, SDB_GET_GE );
+							Name
+							&& SecDbIndexPosCompare( Pos1, Pos2 ) <= 0;
+							Name = SecDbIndexGet( Pos1, SDB_GET_NEXT ))
+					{
+						ValuePtr = SecDbIndexPosGetValue(
+								Pos1,
+								ValueTypeTradeTime );
+
+						StringValue.DataType = DtString;
+						DTM_TO( &StringValue, ValuePtr );
+						printf( "%s %s\n", Name, StringValue.Data.Pointer );
+						DTM_FREE( &StringValue );
+					}
+
+					SecDbIndexPosDestroy( Pos1 );
+					SecDbIndexPosDestroy( Pos2 );
+
+	  FUNCTION: SecDbIndexPosSetValue
+
+   DESCRIPTION: An index is based upon one or more value types.  An index
+				position contains the same value types as an index.
+
+	  SEE ALSO: SecDbIndexPosCreate, SecDbIndexPosDestroy, SecDbIndexPosCopy,
+				SecDbIndexPosCompare
+
+	   EXAMPLE: /*
+				**	Open an index and try to get all records that fall
+				**	in the range of current time yesterday to current time
+				**	today.  Pos1 is the low range (yesterday) and Pos2 is
+				**	the high range (today).
+				*/
+
+					SDB_INDEX
+							*Index;
+							
+					SDB_INDEX_POS
+							*Pos1,
+							*Pos2;
+
+					SDB_VALUE_TYPE
+							ValueTypeTradeTime;
+
+					DT_VALUE
+							Value;
+
+					char	*Name;
+
+
+					Index = SecDbIndexFromName(
+							"Trades by Time",
+							SDB_ROOT_DATABASE );
+
+					ValueTypeTradeTime = SecDbValueTypeFromName(
+							"Trade Time",			// Value type name
+							NULL );					// Data type
+
+					Pos1 = SecDbIndexPosCreate( Index );
+					Pos2 = SecDbIndexPosCreate( Index );
+					Value.DataType		= DtTime;
+					Value.Data.Number	= time( NULL );
+					SecDbIndexPosSetValue( Pos2, ValueTypeTradeTime, &Value );
+
+					Value.Data.Number	-= 86400L;	// Number of seconds/day
+					SecDbIndexPosSetValue( Pos1, ValueTypeTradeTime, &Value );
+
+					for( Name = SecDbIndexGet( Pos1, SDB_GET_GE );
+							Name
+							&& SecDbIndexPosCompare( Pos1, Pos2 ) <= 0;
+							Name = SecDbIndexGet( Pos1, SDB_GET_NEXT ))
+					{
+						printf( "%s\n", Name );
+					}
+
+					SecDbIndexPosDestroy( Pos1 );
+					SecDbIndexPosDestroy( Pos2 );
+
+	  FUNCTION: SecDbInferredName
+
+   DESCRIPTION: An inferred name is a name that is based upon certain
+				values for a specific instance of an object.  Each class
+				generates an inferred name in their own way, some classes
+				don't support inferred names.
+
+	  FUNCTION: SecDbInitialize
+
+   DESCRIPTION: SecDbInitialize is fairly low-level, SecDbStartup should
+				be generally be used instead.
+
+				Before any other SecDb functions can be used, the application
+				program must initialize the SecDb system.  The first call to
+				SecDbInitialize creates internal tables and initializes data
+				structures.  Subsequent calls can be used to change the
+				application name or the user name.
+
+				The 'MsgFunc' parameter is a pointer to an application supplied
+				function used to display messages generated by the SecDb
+				system.  If the application doesn't need to display the
+				messages, this parameter should be set to NULL.
+
+				The 'ErrMsgFunc' argument is a pointer to an application
+				supplied function used to display error messages.  If the
+				application doesn't need to display the messages, this
+				parameter should be set to NULL.
+
+				The 'Application' argument should contain the name of the
+				program.  This argument can, but should not be NULL.
+				
+				The 'UserName' argument must contain the name of the user.
+				This argument cannot be NULL.
+
+	  SEE ALSO: SecDbStartup, SecDbAttach
+
+	   EXAMPLE: /*
+				**	Initialize the security database system
+				*/
+
+					if( !SecDbInitialize(
+							NULL,
+							NULL,
+							"Test Application",
+							getenv( "USER_NAME" )))
+					{
+						fprintf( stderr, "Couldn't connect to database\n" );
+						exit( 1 );
+					}
+
+	  FUNCTION: SecDbIsEqual
+
+   DESCRIPTION: Compare values matching 'ValueFlags' from 'SecPtr1' to
+				values from 'SecPtr2'.  To compare all of the disk values,
+				use SDB_IN_STREAM for 'ValueFlags'.
+
+	  SEE ALSO: SecDbGetByName, SecDbGetValue
+
+	   EXAMPLE: /*
+				**	Compare two securites
+				*/
+					int AreEqual;
+
+					
+					AreEqual = SecDbIsEqual(
+							SecPtr1,			// New security
+							SecPtr2,			// Existing security
+							SDB_IN_STREAM );	// Values to compare
+
+	  FUNCTION: SecDbMessage
+
+	   SUMMARY: Message handling function
+
+		 USAGE:	void SecDbMessage(
+					const char *Msg )		// Message to display
+
+	   RETURNS: Nothing
+
+   DESCRIPTION: SecDbMessage is used to display messages from SecDb, SecDb
+				objects and application programs.  The application program
+				registers a message function when SecDbStartup or
+				SecDbInitialize is called.  This function is called by
+				SecDbMessage.
+
+				If the 'Msg' argument is NULL, any displayed message will be
+				removed (that is of course up to the application supplied
+				message function).
+
+	  SEE ALSO: ErrMsg, SecDbErrorMessage
+
+	  FUNCTION: SecDbNameLookup
+
+   DESCRIPTION: The SecDbNameLookup function is used to lookup names in the
+				database using search criteria.  The criteria, as well as the
+				returned security name, are passed in 'SecName'.
+
+				Table of 'GetType' values:
+
+					SDB_GET_FIRST	- First name in database
+					SDB_GET_LAST	- Last name in database
+					SDB_GET_EQUAL	- Equal to SecName
+					SDB_GET_LESS	- Less than SecName
+					SDB_GET_LE		- Less or equal to SecName
+					SDB_GET_GREATER	- Greater than SecName
+					SDB_GET_GE		- Greater or equal to SecName
+					SDB_GET_NEXT	- Same as SDB_GET_GREATER
+					SDB_GET_PREV	- Same as SDB_GET_LESS
+
+				The GET_FIRST and GET_LAST types don't require the 'SecName'
+				to be previously filled in by the application.
+
+	  SEE ALSO: SecDbNameUsed, SecDbNameLookupMany
+
+	   EXAMPLE: /*
+				**	Print all of the security names in the database
+				**	(Sorry for the indenting nightmare)
+				*/
+
+					char	SecName[ SDB_SEC_NAME_SIZE ];
+
+
+					for( 	SecName = SecDbNameLookup( SecName, 0,
+							SDB_GET_FIRST, SDB_ROOT_DATABASE );
+							SecName;
+							SecName = SecDbNameLookup( SecName, 0,
+							SDB_GET_NEXT, SDB_ROOT_DATABASE ))
+						printf( "%s\n", SecName );
+
+	  FUNCTION: SecDbNameUsed
+
+   DESCRIPTION: Check to see if the security name already appears in the
+				database or in the in-memory cache for that database.
+   				Also, all databases in the search path, if one
+   				exists, are	checked, again both in memory and
+   				in database unless SDB_IGNORE_PATH is set.
+				
+				Security names must be unique and trying to create a
+				security with a name that already exists will fail.
+
+	   EXAMPLE: /*
+				**	Determine if a security already exists
+				*/
+
+					if( SecDbNameUsed( "Test Security 2", SdbPublic ))
+						printf( "Test Security 2 exists\n" );
+					else
+						printf( "Test Security 2 does not exist\n" );
+
+	  FUNCTION: SecDbNew
+
+   DESCRIPTION: The SecDbNew function is used to create new securities.
+				The new security is created only in memory, to add the
+				security to a the database, SecDbAdd should be called.
+
+				Securities don't always have to be added to databases;
+				it is sometimes desirable to have securities that are only
+				used temporarily, in which case the SecDbAdd function should
+				not be called.
+
+				After SecDbNew is called, and before the security is used or
+				added to a database, the SecDbSetValue function can be used
+				to set attributes of the security.
+
+				Security names must be unique within a database, the
+				SecDbNameUsed function can be used to determine if a name is
+				already used.  The SecDbUniqueID function returns a unique
+				identifier that can be used to build a unique security name.
+
+				If the 'SecName' argument is NULL, then a unique security
+				name will automatically be created.  The name of such a
+				security must be changed using the SecDbRename function
+				before it can be added to the database.
+
+				The GobSecurityFromStructure provides a complete API to create,
+				set values, and add a security in one function call.
+
+	  SEE ALSO: GobSecurityFromStructure, SecDbAdd, SecDbNewLoad, SecDbUpdate,
+				SecDbGetByInference, SecDbClassTypeFromName, SecDbNameUsed,
+				SecDbRename, SecDbUpdateIncremental
+
+	   EXAMPLE: /*
+				**	Create an option add it to a database
+				*/
+
+					SDB_SEC_TYPE
+							SecTypeOption;
+
+					SDB_OBJECT
+							*SecPtr;
+
+
+					SecTypeOption = SecDbClassTypeFromName( "Option" );
+
+					SecPtr = SecDbNew(
+							"Test Option", 			// Security name
+							SecTypeOption, 			// Security type
+							SDB_ROOT_DATABASE );	// Database
+
+					// Set values for:
+					//		Expiration Date
+					//		Expiration Location
+					//		Option Style
+					//		Option Type
+					//		Quantity Unit
+					//		Strike
+					//
+					// The above would be done using SecDbSetValue.
+
+					if( SecDbAdd( SecPtr ))
+						printf( "Created Test Security 1\n" );
+					else
+					{
+						printf( "Error, couldn't add security\n" );
+						printf( "ERROR TEXT: %s\n", ErrGetString() );
+					}
+
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SecDbReload
+
+   DESCRIPTION: The SecDbReload function can reload a single security, or all
+				of the securities that are currently loaded.  This includes
+				securities that are in the deadpool.
+
+	  SEE ALSO: SecDbGetByName
+
+	   EXAMPLE: /*
+				**	Reload all of the currently loaded securities
+				*/
+
+					if( !SecDbReload( NULL ))
+						printf( "Error reloading: %s\n", ErrGetString() );
+
+	  FUNCTION: SecDbRemoveDiddle
+
+   DESCRIPTION: The SecDbRemoveDiddle function removes a diddle from a security
+				that was set by the SecDbSetDiddle function.  All diddles can
+				be removed by passing NULL for 'ValueType'.
+
+				FIX--Describe this better.  Describe SecDbRemoveDiddleWithArgs.
+
+				When a diddle is removed and there is a cached value that
+				matches the value parameters of the diddle, the cached value is
+				also removed.  This is done to force the calculation tree to
+				properly recalculate next time SecDbGetValue is called.
+
+	  SEE ALSO: SecDbSetDiddle, SecDbRemoveCachedValue
+
+	   EXAMPLE: See example for SecDbSetDiddle
+
+	  FUNCTION: SecDbRemoveFromDeadPool
+
+   DESCRIPTION: The SecDbRemoveFromDeadPool function can be used by an
+				application to explicitly remove an unreferenced security
+				from the deadpool.  If the security being removed has at least
+				one reference, or the security is already out of the deadpool
+				then the function will fail.  If the database has a search 
+				path the reference(s) will be removed from each database
+   				in the search path unless SDB_IGNORE_PATH is set.
+
+				If the 'SecName' argument is NULL the the entire deadpool will
+				be cleared.
+
+	  SEE ALSO: SecDbInitialize, SecDbRemoveCachedValue, SecDbFree
+
+	   EXAMPLE: /*
+				**	Clear the deadpool, but only for the parent database
+				*/
+
+					SecDbRemoveFromDeadPool( 
+								SDB_ROOT_DATABASE | SDB_IGNORE_PATH, NULL );
+
+	  FUNCTION: SecDbRename
+
+   DESCRIPTION: SecDbRename changes the name of a security.  The new name of
+				the security must be unique (exact same constraints as
+				specified by SecDbNew).
+
+				SecDbRename changes the name of the security in memory and
+				in the database that the security was loaded from.
+
+				If the 'NewName' argument is NULL, then the security class
+				is asked to create a name that would be representative of
+				that specific security instance.
+
+	  SEE ALSO: SecDbAdd, SecDbNew, SecDbDelete
+
+	   EXAMPLE: /*
+				**	Rename a test security
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					int		Success;
+
+
+					SecPtr = SecDbGetByName(
+							"Test Security 2",
+							SDB_ROOT_DATABASE );
+
+					Success = SecDbRename( SecPtr, "Test Security 9" );
+
+					if( Success )
+						printf( "Security renamed without error\n" );
+					else
+						printf( "Couldn't rename Test Security 2\n%s\n",
+								ErrGetString() );
+
+      FUNCTION: SecDbSearchPathAppend
+
+   DESCRIPTION:	When objects exist only in other databases, but are
+   				wished to appear as though they exist in the current
+   				root database, the database search path can be used.
+   				SecDbSearchPathAppend appends the ChildDb to the
+   				list of databases that SecDb searches when trying to
+   				find any object in the root database.
+   				
+   				If the ChildDb is already in the search path, it
+   				will remain in the search path but not be moved
+   				to the end.
+   				
+      SEE ALSO:	SecDbSearchPathDelete, SecDbSearchPathGet,
+      			SecDbSearchPathSet, SecDbGetByName, SecDbNameUsed,
+      			SecDbRemoveFromDeadpool
+
+      FUNCTION: SecDbSearchPathDelete
+
+   DESCRIPTION:	The SecDbSearchPathDelete function deletes a 
+   				database previously put into the search
+   				path with SecDbSearchPathAppend or SecDbSearchPathSet.
+   				
+   				Regardless of how many times the ChildDb has been
+   				appended or set in the search path, and regardless
+   				of its order in the search path, it is deleted.
+   				The parent database can even be deleted from the
+   				search list if there is at least one other db in
+   				its path.
+   				
+   				When the last item in the search path is deleted,
+   				the search path is reverted to just the parent
+   				database.
+   				
+   				If the ChildDb is not currently in the search path,
+   				the function completes successfully as though it
+   				had deleted it.
+   				
+      SEE ALSO:	SecDbSearchPathAppend, SecDbSearchPathGet,
+      			SecDbSearchPathSet
+
+      FUNCTION: SecDbSearchPathGet
+
+   DESCRIPTION:	SecDbSearchPathGet retrieves the current search
+   				path for the root database as set or modified by
+   				SecDbSearchPathAppend, SecDbSearchPathDelete,
+   				or SecDbSearchPathSet.
+   				
+      SEE ALSO:	SecDbSearchPathAppend, SecDbSearchPathDelete,
+      			SecDbSearchPathSet
+
+      FUNCTION: SecDbSearchPathSet
+
+   DESCRIPTION:	When objects exist only in other databases, but are
+   				wished to appear as though they exist in the current
+   				root database, the database search path can be used.
+   				SecDbSearchPathSet sets the list of databases that
+   				SecDb searches when trying to find any object in the
+   				root database.
+   				
+   				The root database itself will not automatically be
+   				in the search path.  It must be included explicitly
+   				(typically as its first element).
+   				
+      SEE ALSO:	SecDbSearchPathDelete, SecDbSearchPathGet,
+      			SecDbSearchPathGet, SecDbGetByName, SecDbNameUsed,
+      			SecDbRemoveFromDeadpool
+   				
+       EXAMPLE: /*
+       			**	Set the search path to look in the archive db
+       			**	if it cannot find objects in production.
+       			**	Also set search path for archive to look
+       			**	first in production, then in archive so any
+       			**	child references come back to production if
+       			**	possible.
+       			*/
+       			
+       			SDB_DB_INFO
+       					DbInfo;
+       					
+       			SDB_DB_ID
+       					Archive,
+       					*DbIds;
+       					
+       			char	*RootDbName,
+       					*ArchiveDbName = "NYC Archive",
+       					SearchPath[ 3 ];
+       					
+       					
+       			SecDbDbInfoFromDb( SecDbRootDb, &DbInfo );
+       			RootDbName = DbInfo.DbName;
+       			
+       			SearchPath[ 0 ] = RootDbName;
+       			SearchPath[ 1 ] = ArchiveDbName;
+       			SearchPath[ 2 ] = NULL;
+       			
+       			// Set production to also look in archive
+       			DbIds = SecDbSearchPathSet( SDB_ROOT_DATABASE, SearchPath );
+       			free( DbIds );
+       			
+       			// Set archive to look first in production
+       			Archive = SecDbAttach( ArchiveDbName, 
+       							SDB_DEFAULT_DEADPOOL_SIZE, SDB_BACK );
+       			
+       			DbIds = SecDbSearchPathSet( Archive, SearchPath );
+       			free( DbIds );
+       			
+       			SecDbDetach( Archive );	// Ok, since root holds a reference
+       									// via its search path
+
+	  FUNCTION: SecDbSetDiddle
+
+   DESCRIPTION: Diddles provide a way for an application to temporarily change
+				a value that a security returns.  If a diddle is set for a
+				value when SecDbGetValue is called, the diddled value will be
+				used instead of the original value.
+
+				By using diddles, applications can perform what-if scenarios by
+				changing the children's prices, volatilities, etc. and then
+				asking the parent security for its price.
+
+				Diddles should be removed using the SecDbRemoveDiddle function
+				when they are no longer needed.
+
+				See SecDbSetValue for a discussion of the 'Flags' parameter.
+
+	  SEE ALSO: SecDbChangeDiddle, SecDbGetValue, SecDbSetDiddleWithArgs,
+	  			SecDbSetValue, SecDbRemoveDiddle
+
+	   EXAMPLE: /*
+				**	Determine the delta with respect to Mark/Dollar spot
+				**	for an option.
+				*/
+
+					SDB_OBJECT
+							*SecPtrMarkDollar,
+							*SecPtrOption;
+
+					SDB_VALUE_TYPE
+							VtSpot,
+							VtPrice;
+
+					double	Spot,
+							V1,
+							V2,
+							Delta;
+
+					DT_VALUE
+							TmpSpot,
+							*TmpVal;
+
+					int		DbID = SDB_ROOT_DATABASE;
+
+					int		DiddleID;
+
+
+					// Get the securities
+					SecPtrOpt   = SecDbGetByName( "Opt 1",   DbID );
+					SecPtrCross = SecDbGetByName( "DEM/USD", DbID );
+
+
+					// Find the value types
+					VtPrice = SecDbValueTypeFromName( "Price", NULL );
+					VtSpot  = SecDbValueTypeFromName( "Spot",  NULL );
+
+					// Get the current spot price
+					TmpVal = SecDbGetValue( SecPtrCross, VtSpot );
+					if( !TmpVal )
+					{
+						SecDbFree( SecPtrOption );
+						SecDbFree( SecPtrCross );
+						return FALSE;
+					}
+					Spot = TmpVal->Data.Number;
+
+					// Set the spot price down one hundreth of a percent
+					// and get the value of the option
+					TmpSpot.DataType = DtDouble;
+					TmpSpot.Data.Number = Spot * 0.9999;
+					DiddleID = SecDbSetDiddle( SecPtrCross,
+									VtSpot, &TmpSpot,
+									0, SDB_DIDDLE_ID_NEW );
+					TmpVal = SecDbGetValue( SecPtrOption, VtPrice );
+					if( !TmpVal )
+					{
+						SecDbRemoveDiddle( SecPtrCross, VtSpot, DiddleID );
+						SecDbFree( SecPtrOption );
+						SecDbFree( SecPtrCross );
+						return FALSE;
+					}
+					V1 = TmpVal->Data.Number;
+
+					// Set the spot price up one hundreth of a percent
+					// and get the value of the option
+					TmpSpot.Data.Number = Spot * 1.0001;
+					SecDbChangeDiddle( SecPtrCross,
+									VtSpot, &TmpSpot,
+									0, DiddleID );
+					TmpVal = SecDbGetValue( SecPtrOption, VtPrice );
+					if( !TmpVal )
+					{
+						SecDbRemoveDiddle( SecPtrCross, VtSpot, DiddleID );
+						SecDbFree( SecPtrOption );
+						SecDbFree( SecPtrCross );
+						return FALSE;
+					}
+					V2 = TmpVal->Data.Number;
+					
+					// Calculate the delta
+					if( V2 != HUGE_VAL && V1 != HUGE_VAL )
+						Delta = (V2 - V1) / (Spot * 0.0002);
+
+					// Clean-up
+					SecDbRemoveDiddle( SecPtrCross, VtSpot, DiddleID );
+					SecDbFree( SecPtrOption );
+					SecDbFree( SecPtrMarkDollar );
+
+	  FUNCTION: SecDbSetValue
+
+   DESCRIPTION: Securities in SecDb can return values.  These values can be of
+				predefined data types such as doubles, curves, strings, etc.
+				or values returned can be of an object or application defined
+				data type.
+
+				The 'ValueType' parameter indicates which value is being set.
+				An application can ask a security what value types it supports
+				by using the SecDbValueTypeEnumFirst and SecDbValueTypeEnumNext
+				functions.  Value types can also be derived by using the
+				SecDbValueTypeFromName function.
+
+				The 'Value' parameter points to the value to be set.  The
+				datatype of this value must match the datatype of the
+				'ValueType' parameter.
+
+				The 'Flags' parameter refines the action of SecDbSetValue by
+				controlling which messages get sent to the object and whether
+				values are copied or freed.  Most flags are only used by other
+				SecDb or Gob functions.  To pass no flags (the most common
+				case), just pass 0.
+
+				 Flag					Action
+				 ----------------------	---------------------------------------
+				 SDB_SET_INTERACTIVE	An 'interactive' SetValue is allowed to
+										have additional side-effects, generally
+										to support interactive editing of
+										securities.
+
+				 SDB_CACHE_SET			Force this SetValue to behave as if the
+										SDB_SET_RETAINED_FLAG was set on the
+										SDB_VALUE_TYPE_INFO structure for this
+										value type.
+
+				 SDB_CACHE_TOUCH		Just touch the cached value, causing
+										tree invalidation, but no change in
+										value.
+
+				 SDB_CACHE_NO_COPY		Normally, SecDb copies the value passed
+										to SecDbSetValue.  This flag overrides
+										that behaviour.  The value passed is
+										then owned by SecDb if the SetValue
+										succeeds and must not be freed by the
+										caller.
+
+				 SDB_CACHE_NO_FREE		Tells SecDb to not free the value once
+										it gets stored in the cache.  This flag
+										only makes sense when used with the
+										SDB_CACHE_NO_COPY flag.
+
+				 SDB_CACHE_PASS_THROUGH	A composite of SDB_CACHE_NO_COPY and
+										SDB_CACHE_NO_FREE.  Use this for values
+										that are longer lived than the security
+										upon which they are set.
+
+				 SDB_SET_NO_MESSAGE		Don't send the SDB_MSG_SET_VALUE message
+										to the object.
+
+				 SDB_CACHE_DIDDLE		Used internally by the diddle functions.
+
+				 SDB_SET_UNDER_DIDDLE	Used internally by SecDbGetSecurity to
+										set initial cache values.
+
+	  SEE ALSO: GobSetDouble, GobSetPointer, GobSetString, GobSetValue,
+				SecDbGetByInference, SecDbGetByName, SecDbGetValue,
+				SecDbRemoveCachedValue, SecDbRemoveDiddle, SecDbSetDiddle,
+				SecDbSetValueWithArgs, SecDbValueTypeEnumFirst,
+				SecDbValueTypeEnumNext, SecDbValueTypeFromName
+
+	   EXAMPLE: /*
+				**	Set the strike price for an option, and update it
+				**	in the database
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					SDB_VALUE_TYPE
+							VtStrike;
+
+					DT_VALUE
+							StrikeValue;
+
+
+					VtStrike = SecDbValueTypeFromName( "Strike", NULL );
+
+					StrikeValue.DataType = DtDouble;
+					StrikeValue.Data.Number = 100;
+
+					SecPtr = SecDbGetByName( "Option 1", SDB_ROOT_DATABASE );
+					if( !SecPtr )
+						printf( "Get error: %s", ErrGetString() );
+					else if( !SecDbSetValue(
+								SecPtr,				// Security pointer
+								VtStrike,			// Value type
+								&StrikeValue,		// Value to set
+								0 ))				// Default flags
+						printf( "SetValue error: %s", ErrGetString() );
+					else if( !SecDbUpdate( SecPtr ))
+						printf( "Update error: %s", ErrGetString() );
+
+					// Always safe to call SecDbFree, even if SecPtr == NULL
+					SecDbFree( SecPtr );	// Cleanup
+
+	  FUNCTION: SecDbSetValueWithArgs
+
+   DESCRIPTION: See SecDbSetValue for more information
+
+	  FUNCTION: SecDbShutdown
+
+   DESCRIPTION: Shut down the security database system.  This function should
+				be used in concert with the SecDbStartup function.
+
+				If 'FastAndLoose' is TRUE, SecDb exits quickly without cleaning
+				up all of its resources.  If 'FastAndLoose' is FALSE, then the
+				resources are cleaned up (this is generally used with purify to
+				look for memory leaks).
+
+	  SEE ALSO: SecDbStartup, SecDbDetach
+
+	   EXAMPLE: /*
+				**	Shutdown the security database system
+				*/
+
+					SecDbShutdown( TRUE );
+
+	  FUNCTION: SecDbStartup
+
+   DESCRIPTION: The SecDbStartup function provides a standard mechanism
+				for programs to initialize, attach and load SecDb.  This
+				function calls SecDbInitialize, DtLoadTable,
+				SecDbLoadObjTable, SlangLoadFunctionTable and SecDbAttach.
+
+				The 'DbName' argument is used to indicate which database
+				should be attached.  If the argument is NULL, then the
+				environment variable 'SECDB_DATABASE' is used.  If the
+				environment variable isn't set, then 'SECDB_DATABASE' in
+				the configuration file 'SECDB.CFG' is used.  If 'DbName' is
+				set to "NULL" or "NONE", then no database will be opened.
+
+				The 'DeadSize' argument indicate how large security deadpool
+				should be.  The deadpool is a collection of securities that
+				are no longer being referenced.  The deadpool acts as a caching
+				mechanism to allow some securities to remain in memory after
+				all references to the security have been freed.
+
+				The 'MsgFunc' argument is a pointer to an application supplied
+				function used to display messages generated by the SecDb
+				system.  If the application doesn't need to display the
+				messages, this parameter should be set to NULL.
+
+				The 'ErrMsgFunc' argument is a pointer to an application
+				supplied function used to display error messages.  If the
+				application doesn't need to display the messages, this
+				parameter should be set to NULL.
+
+				The 'Application' argument should contain the name of the
+				program.  This argument can, but should not be NULL.
+				
+				The 'UserName' argument must contain the name of the user.
+				This argument cannot be NULL.
+
+				SecDbInitialize can be used to change the Application and
+				UserName after startup.
+
+	  SEE ALSO: SecDbAttach, SecDbInitialize, SecDbLoadObjTable,
+				DtLoadTable, SlangLoadFunctionTable,
+				SecDbShutdown
+
+	   EXAMPLE: /*
+				**	Start the SecDb system using the 'Test' database
+				*/
+
+					SDB_DB
+							*SdbPublic;
+
+
+					SdbPublic = SecDbStartup(
+							"Test", // NULL for default Database which is Dev in dev and Prod in prod
+							SDB_DEFAULT_DEADPOOL_SIZE,
+							NULL,
+							NULL,
+							"Test Application",
+							getenv( "USER_NAME" ));
+
+					if( !SdbPublic )
+					{
+						fprintf( stderr, "%s\n", ErrGetString() );
+						exit( 1 );
+					}
+
+	  FUNCTION: SecDbStatistics
+
+   DESCRIPTION: The SecDbStatistics function returns the statistics of the
+				SecDb system in the 'Statistics' structure argument.
+
+	  SEE ALSO: SDB_STATISTICS
+
+	   EXAMPLE: /*
+				**	Get & display the statistics
+				*/
+
+					SDB_STATISTICS
+							S;
+
+
+					SecDbStatistics( &S, SDB_ROOT_DATABASE );
+					printf( "   Total References: %ld\n", S.ObjectRefCount  );
+					printf( "     Dead Pool Size: %ld\n", S.DeadPoolSize    );
+					printf( "    Dead Pool Usage: %ld\n", S.DeadPoolUsage   );
+					printf( "   Value Type Usage: %ld\n", S.ValueTypeUsage  );
+					printf( "Security Type Usage: %ld\n", S.SecTypeUsage    );
+					printf( "    Data Type Usage: %ld\n", S.DataTypeUsage   );
+					printf( "       Diddle Count: %ld\n", S.DiddleCount     );
+					printf( "      Object Memory: %ld\n", S.ObjectMemory    );
+					printf( "  Value Cache Count: %ld\n", S.ValueCacheCount );
+					printf( " Value Cache Memory: %ld\n", S.ValueCacheMemory);
+
+	  FUNCTION: SecDbTransAbort
+
+   DESCRIPTION: The SecDbTransAbort function is used to discard all of the
+				operations that have been done since a matching begin.  The
+				database is not modified, and any effects are backed out.
+
+	  SEE ALSO: SecDbTransBegin, SecDbTransCommit
+
+	  FUNCTION: SecDbTransBegin
+
+   DESCRIPTION: The SecDbTransBegin function is used to begin a transaction.
+				A transaction consists of one or more operations that must be
+				done together to guaranty data-relation integrity.
+
+				Transactions can be nested, however the outermost commit or
+				abort will determine the fate of all of the operations within
+				the transaction.
+
+	  SEE ALSO: SecDbTransAbort, SecDbTransCommit
+
+	  FUNCTION: SecDbTransCommit
+
+   DESCRIPTION: The SecDbTransCommit function is used to commit a transaction.
+				If any of the operations within the transaction cannot be
+				accomplished, then none of the operations are done.  It is an
+				all-or-nothing way of performing database operations.
+
+				A transaction consists of one or more operations that must be
+				done together to guaranty data-relation integrity.
+
+				Transactions can be nested, however the outermost commit or
+				abort will determine the fate of all of the operations within
+				the transaction.
+
+	  SEE ALSO: SecDbTransAbort, SecDbTransBegin
+
+	  FUNCTION: SecDbTransFree
+
+   DESCRIPTION: SecDbTransFree is used to free the memory allocated by the
+				SecDbTransLogDetail function.
+
+	  SEE ALSO: SecDbTransLogDetail
+
+	  FUNCTION: SecDbTransLogDetail
+
+   DESCRIPTION: The SecDbTransLogDetail and SecDbTransLogHeader functions are
+				used to read transactions from the transaction log.
+
+				A transaction consists of two portions, the header and the
+				detail.  The header contains information such as the time the
+				transaction, who did it, a general idea of what was done.
+				The detail portion consists of a linked list of parts which
+				contain the information for each step of the transaction
+				(each add, update, etc.).
+
+	  SEE ALSO: SecDbTransLogHeader, SecDbTransFree
+
+	  FUNCTION: SecDbTransLogHeader
+
+   DESCRIPTION: The SecDbTransLogDetail and SecDbTransLogHeader functions are
+				used to read transactions from the transaction log.
+
+				A transaction consists of two portions, the header and the
+				detail.  The header contains information such as the time the
+				transaction, who did it, a general idea of what was done.
+				The detail portion consists of a linked list of parts which
+				contain the information for each step of the transaction
+				(each add, update, etc.).
+
+	  SEE ALSO: SecDbTransLogDetail, SecDbTransLogLast
+
+	  FUNCTION: SecDbTransLogLast
+
+   DESCRIPTION: The SecDbTransLogLast function retrieves the transaction ID
+				of the last transaction written to the transaction log.
+
+	  SEE ALSO: SecDbTransLogHeader
+
+	  FUNCTION: SecDbUniqueID
+
+
+   DESCRIPTION: Sometimes it is necessary for applications or objects to have
+				a unique identifier.  This identifier is useful for building
+				unique security names, codes, etc.
+
+	   EXAMPLE: /*
+				**	Retrieve a unique identifier
+				*/
+
+					SDB_UNIQUE_ID
+							UniqueID;
+
+
+					UniqueID = SecDbUniqueID( SDB_ROOT_DATABASE );
+
+	  FUNCTION: SecDbUpdate
+
+   DESCRIPTION: The SecDbUpdate function is used to update securities in a
+				SecDb database.
+
+				SecDbUpdate is normally called after SecDbGetByName is used
+				to get the security and SecDbSetValue is used to change one
+				or more values.
+
+				If the security that is being updated is modified by a
+				different application before your application's update is
+				completed, then SecDbUpdate will fail.  ErrNum will
+				contain SDB_ERR_OBJECT_MODIFIED if this happens.
+
+	  SEE ALSO: SecDbAdd, SecDbNew, SecDbDeleteByName, SecDbUpdateIncremental
+
+	   EXAMPLE: /*
+				**	Set the strike price for an option, and update it
+				**	in the database
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					SDB_VALUE_TYPE
+							VtStrike;
+
+					DT_VALUE
+							StrikeValue;
+
+
+					VtStrike = SecDbValueTypeFromName( "Strike", NULL );
+
+					StrikeValue.DataType = DtDouble;
+					StrikeValue.Data.Number = 100;
+
+					SecPtr = SecDbGetByName( "Option 1", SDB_ROOT_DATABASE );
+					if( !SecPtr )
+						printf( "Get error: %s", ErrGetString() );
+					else if( !SecDbSetValue(
+								SecPtr,				// Security pointer
+								VtStrike,			// Value type
+								&StrikeValue,		// Value to set
+								0 ))				// Default flags
+						printf( "SetValue error: %s", ErrGetString() );
+					else if( !SecDbUpdate( SecPtr ))
+						printf( "Update error: %s", ErrGetString() );
+
+					// Always safe to call SecDbFree, even if SecPtr == NULL
+					SecDbFree( SecPtr );	// Cleanup
+
+	  FUNCTION: SecDbUpdateIncremental
+
+   DESCRIPTION: The SecDbUpdateIncremental function is used to update
+				securities in a	SecDb database.  This function is used by
+				classes that can be updated in any order.  In other words
+				commutative affects (e.g. Adding/deleting positions) can be
+				handled by this function.
+
+				The benefits of using incremental update over update occur
+				in situations where the order of updates doesn't matter and
+				the number of updates will lead to too much contention.
+				The example above of adding/deleting positions match these
+				criteria.
+
+				'Mem' and 'MemSize' are used to pass a message to the object
+				with the information needed to modify the object.  The class
+				defines the format of the information being passed.
+
+				This function should never be called directly from an
+				application, instead it should be incorporated into an API
+				that the class provides.
+
+	  SEE ALSO: SecDbAdd, SecDbNew, SecDbDeleteByName, SecDbUpdate
+
+	  FUNCTION: SecDbValidateEnumClose
+
+   DESCRIPTION:	SecDbValidateEnumClose closes (frees) the enumeration pointer
+				used by the SecDbValidateEnumFirst and SecDbValidateEnumNext
+				functions.
+
+	  SEE ALSO:	SecDbValidateEnumFirst, SecDbValidateEnumNext,
+				SecDbValidateEnumRewind
+
+	   EXAMPLE:	See example for SecDbValidateEnumFirst
+
+	  FUNCTION: SecDbValidateEnumFirst
+
+   DESCRIPTION:	The validate enumeration functions are used to obtain a list
+				of errors and warnings which are based upon the validity of
+				a security's values.
+
+				If SecDbValidateEnumFirst returns a NULL, that indicates that
+				there is no validation information and that the security is
+				assumed to be valid.
+
+				The SDB_VALIDATE structure has the following elements that
+				can be accessed by an application program:
+
+					ValueType	- Type of value that has a problem
+					Flags		- Type of problem
+					Text		- Optional associated text
+
+
+				The 'Flags' argument can have the following values or'ed
+				together:
+
+					SDB_VALIDATE_ERROR		- Treat the problem as an error
+					SDB_VALIDATE_WARNING	- Treat the problem as a warning
+
+					SDB_VALIDATE_MISSING	- Value is missing
+					SDB_VALIDATE_INVALID	- Value is invalid
+					SDB_VALIDATE_RANGE		- Value is out of range
+
+
+	  SEE ALSO:	SecDbValidateEnumNext, SecDbValidateEnumClose,
+				SecDbValidateEnumRewind
+
+	   EXAMPLE:	/*
+				**	Print out validation information for a security
+				*/
+
+					SDB_VALIDATE
+							*ValInfo;
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+
+					ValInfo = SecDbValidateEnumFirst( SecPtr, &EnumPtr );
+					if( !ValInfo )
+						printf( "%s is valid", SecPtr->SecData.Name );
+					else
+						for(; ValInfo; ValInfo=SecDbValidateEnumNext( EnumPtr ))
+						{
+							if( ValInfo->Flags & SDB_VALIDATE_WARNING )
+								printf( "WARNING " );
+							else if( ValInfo->Flags & SDB_VALIDATE_ERROR )
+								printf( "ERROR " );
+
+							if( ValInfo->ValueType )
+								printf( "%s ", ValInfo->ValueType->Name );
+
+							if( ValInfo->Flags & SDB_VALIDATE_MISSING )
+								printf( "Missing value " );
+							else if( ValInfo->Flags & SDB_VALIDATE_INVALID )
+								printf( "Invalid value " );
+							else if( ValInfo->Flags & SDB_VALIDATE_RANGE )
+								printf( "Value out of range " );
+
+							if( ValInfo->Text )
+								printf( "%s", ValInfo->Text );
+
+							printf( "\n" );
+						}
+
+					SecDbValidateEnumClose( EnumPtr );
+
+	  FUNCTION: SecDbValidateEnumNext
+
+   DESCRIPTION:	See description for SecDbValidateEnumFirst
+
+	  SEE ALSO:	SecDbValidateEnumFirst, SecDbValidateEnumClose,
+				SecDbValidateEnumRewind
+
+	   EXAMPLE:	See example for SecDbValidateEnumFirst
+
+	  FUNCTION: SecDbValidateEnumRewind
+
+   DESCRIPTION:	See description for SecDbValidateEnumFirst
+
+	  SEE ALSO:	SecDbValidateEnumFirst, SecDbValidateEnumClose,
+				SecDbValidateEnumRewind
+
+	   EXAMPLE:	See example for SecDbValidateEnumFirst
+
+	  FUNCTION: SecDbValueFlags
+
+   DESCRIPTION:	A table of value flags is maintained which keeps track of
+				the value flags for value type within each security class.
+				
+				Value flags can be or'ed together.
+
+				 Description of value flags:
+				 ---------------------------
+				  SDB_CALCULATED	- The value is calculated from other
+									  values supplied either by the security
+									  itself or from other securities.
+				  SDB_STATIC		- The value is static to the class.  All
+									  securities of this class have the same
+									  value.
+				  SDB_EXTERNAL_FLAG	- This indicates that the value comes from
+									  some external source, such as market
+									  spot rates, volatilities, etc...
+				  SDB_IN_STREAM		- The value is stored in the 'Mem' portion
+									  of the security and will be written to
+									  the database.
+				  SDB_SET_RETAINED_FLAG - The value is created by a
+				  					  SecDbSetValue operation and will be
+				  					  retained even if other cached values are
+				  					  removed.
+				  SDB_ALIAS			- Identical to only child.
+				  SDB_EXPORT_FLAG	- Value is available from other objects.
+									  Not currently in use.
+				  SDB_HIDDEN		- Moribund, no existing use.
+				  SDB_CACHE			- Moribund, no existing use.
+
+				 Composite flags (prefer these flags in VALUE_TYPE_INFOs)
+				 --------------------------------------------------------
+				  SDB_STORED		- Both SET_RETAINED_FLAG and IN_STREAM
+				  SDB_SET_RETAINED	- Both SET_RETAINED_FLAG and CACHE
+				  SDB_EXPORT		- Both SET_EXPORT_FLAG   and CACHE
+				  SDB_EXTERNAL		- Both SET_EXTERNAL_FLAG and CACHE
+
+
+	  FUNCTION: SecDbValueTypeEnumClose
+
+   DESCRIPTION: SecDbValueTypeEnumClose closes (frees) the enumeration pointer
+				used by SecDbValueTypeEnumFirst and SecDbValueTypeEnumNext
+				functions.
+
+	  SEE ALSO: SecDbValueTypeEnumFirst, SecDbValueTypeEnumNext
+
+	   EXAMPLE: See example for SecDbValueTypeEnumFirst
+
+	  FUNCTION: SecDbValueTypeEnumFirst
+
+   DESCRIPTION: The SecDbValueTypeEnumFirst, SecDbValueTypeEnumNext and
+				SecDbValueTypeClose functions are used to obtain the list of
+				value types that a security can handle.
+
+				The SecDbValueTypeEnumFirst function obtains a pointer that
+				can be used in subsequent calls to the SecDbValueTypeEnumNext
+				function.
+
+				If the 'SecPtr' argument is NULL, then all of the value types
+				that SecDb currently knows about will be enumerated.
+
+				See the description for SDB_VALUE_TYPE_INFO for a description
+				of structure elements.
+
+	  SEE ALSO: SecDbValueTypeEnumNext, SecDbValueTypeEnumClose,
+				SDB_VALUE_TYPE_INFO
+
+	   EXAMPLE: /*
+				**	Enumerate and print out the value types and the
+				**	data types for a security
+				*/
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+					SDB_VALUE_TYPE_INFO
+							*Vti;
+
+					DT_DATA_TYPE
+							DataType;
+
+					char	*ValueName,
+							*DataName;
+
+
+					for( Vti = SecDbValueTypeEnumFirst( SecPtr, &EnumPtr );
+						 Vti;
+						 Vti = SecDbValueTypeEnumNext( EnumPtr ))
+					{
+						ValueName = Vti->ValueType->Name;
+						DataType  = Vti->ValueType->DataType;
+						DataName  = DataType->Name;
+						printf( "%s - %s\n", ValueName, DataName );
+					} 
+					SecDbValueTypeEnumClose( EnumPtr );
+
+	  FUNCTION: SecDbValueTypeEnumNext
+
+   DESCRIPTION: The SecDbValueTypeEnumFirst, SecDbValueTypeEnumNext and
+				SecDbValueTypeClose functions are used to obtain a list of
+				value types that the security can handle.
+
+				The SecDbValueTypeEnumFirst function obtains a pointer that
+				can be used in subsequent calls to the SecDbValueTypeEnumNext
+				function.  SecDbEnumNextValue gets the next value type in the
+				enumeration, and returns NULL when there are not more value
+				types.
+
+	  SEE ALSO: SecDbValueTypeEnumFirst, SecDbValueTypeEnumClose
+
+	   EXAMPLE: See example for SecDbValueTypeEnumFirst
+
+	  FUNCTION: SecDbValueNameFromType
+
+   DESCRIPTION: The SecDbValueNameFromType function returns a pointer to a
+				string that contains the name associated the 'ValueType'.
+				If the value type can't be found, SecDbValueNameFromType
+				returns "NULL".  Thus, the function always returns a legal
+				string.
+
+				Aside from the NULL pointer checking, this function is
+				identical to 'ValueType->Name'.
+
+	  SEE ALSO: SecDbValueTypeFromName, SecDbValueTypeEnumFirst,
+				SecDbValueTypeEnumNext
+
+	   EXAMPLE: /*
+				**	Enumerate and print out the value types and the data types
+				*/
+
+					SDB_ENUM_PTR
+							EnumPtr;
+
+					SDB_VALUE_TYPE_INFO
+							*Vt;
+
+					DT_DATA_TYPE
+							DataType;
+
+					char	*ValueName,
+							*DataName;
+
+
+					for( Vti = SecDbValueTypeEnumFirst( SecPtr, &EnumPtr );
+						 Vti;
+						 Vti = SecDbValueTypeEnumNext( EnumPtr ))
+					{
+						ValueName = SecDbValueNameFromType( Vti->ValueType );
+						DataType  = Vti->ValueType->DataType;
+						DataName  = DtNameFromType( DataType );
+						printf( "%s - %s\n", ValueName, DataName );
+					}
+					SecDbValueTypeEnumClose( EnumPtr );
+
+	  FUNCTION: SecDbValueTypeFromName
+
+   DESCRIPTION:	To get a value from a security, an application must set value
+				parameters.  One component of the value parameters is the type
+				of thing being valued.  SecDbValueTypeFromName converts a value
+				name into a value type.
+
+				Each value type has its associated data type.  The data type
+				indicates how the value is passed between the application and
+				SecDb.  Read the description of DtFromName to understand more
+				about data types.  'DataType' may be NULL to access an existing
+				value type.  If 'DataType' is non-NULL and the value type
+				exists, 'DataType' must match the existing datatype.
+
+				There are some value types that are predefined for convenience.
+				These value types are:
+
+					SecDbValueCurrentDate	- Current date
+					SecDbValuePricingDate	- Pricing date
+					SecDbValueSecurityName	- Name of the security
+					SecDbValueSecurityType	- Type of the security
+					SecDbValueTimeCreated 	- Time security was created
+					SecDbValueTimeModified	- Time security was modified
+
+	  SEE ALSO: SecDbValueNameFromType, SecDbValueTypeEnumFirst
+
+	   EXAMPLE: /*
+				**	Get a copy of a volatility curve
+				*/
+
+					SDB_OBJECT
+							*SecPtr;
+
+					SDB_VALUE_TYPE
+							VtVolCurve;
+
+					DT_VALUE
+							*VolCurveValue;
+
+					DT_CURVE
+							*Curve;
+
+
+					SecPtr = SecDbGetByName( "DEM/USD", SDB_ROOT_DATABASE );
+
+					VtVolCurve = SecDbValueTypeFromName(
+							"Volatility Curve",		// Value name
+							NULL );					// Data type
+
+					VolCurveValue = SecDbGetValue( SecPtr, VtVolCurve );
+					Curve = DtCurveCopy(
+									(DT_CURVE *) VolCurveValue->Data.Pointer );
+
+					SecDbFree( SecPtr );
+
+	  FUNCTION: SDB_CHILD_INFO
+
+	   SUMMARY: Child information from enumeration
+
+   DESCRIPTION:	typedef struct SdbChildInfoStructure
+				{
+					SDB_OBJECT
+							*SecPtr;	// Pointer to child security
+			
+					SDB_VALUE_TYPE
+							ValueType;	// Valuetype on child security
+			
+					int		Argc;		// Arg count (0 if no args)
+	
+					DT_VALUE
+							*Argv;		// Arguments (NULL if no args)
+
+					SDB_NODE
+							*Node;		// Associated node
+
+				} SDB_CHILD_INFO;
+
+	  SEE ALSO:	SecDbChildEnumFirst
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_CHILD_COMPONENT
+
+	   SUMMARY: Child list component
+
+   DESCRIPTION:	typedef struct SdbChildComponentStructure
+				{
+					SDB_CHILD_ITEM_TYPE
+							Type;		// Source type of child component
+		
+					int		Element;	// Element number of source array
+
+				} /* SDB_CHILD_COMPONENT */;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_CHILD_ITEM_TYPE
+
+	   SUMMARY: Enum for child list component types
+
+   DESCRIPTION:	typedef enum
+				{
+				 SDB_CHILD_LIST_SELF,			 // Current SecPtr or ValueType
+				 SDB_CHILD_LIST_LITERAL,		 // Get from ChildList.Literals
+				 SDB_CHILD_LIST_ARGUMENT,		 // Get from my argument list
+				 SDB_CHILD_LIST_INTERMEDIATE,	 // Get from/put to prior child
+				 SDB_CHILD_LIST_TERMINAL,		 // Put to results for val func
+				 SDB_CHILD_LIST_INTERMEDIATE_REF,// Used by UFO while building
+												 // child lists
+				 SDB_CHILD_LIST_CONSTANT,		 // Just use ChildList.Literals
+				 								 // directly
+				 SDB_CHILD_LIST_ARG_OR_NULL,	 // From arg list, but if not
+				 								 // there or DtNull, use DtNull
+				 SDB_CHILD_LIST_ARGUMENT_REF,	 // Used by UFO while building
+				 								 // child lists
+				 SDB_CHILD_LIST_LAST
+	
+				} SDB_CHILD_ITEM_TYPE;
+
+	  SEE ALSO:	SDB_CHILD_COMPONENT
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_CHILD_LIST
+
+	   SUMMARY: Child list
+
+   DESCRIPTION:	typedef struct SdbChildListStructure
+				{
+					SDB_CHILD_LIST_ITEM
+							*Items;				// Children in evaluation order
+			
+					int		ArgChildCount,		// Number of children
+												// replaceable by arguments
+
+							TerminalCount,		// Number of children used by
+												// value function
+
+							IntermediateCount,	// Number of children used to
+												// build other children
+
+							LiteralCount;		// Number of nodes in Literals
+			
+					SDB_NODE
+							**Literals;			// Literal values used by items
+			
+					int		ChildDataSize;		// Number of bytes in pull vals
+	
+					SDB_CHILD_PULL_VALUE		// List of details of how to
+							*PullValues;		// pull values into ChildData
+
+					char	PassErrors,			// Do not fail if error getting
+												// child values
+
+							ForceExport;		// Allow non-exported children
+
+				} SDB_CHILD_LIST;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_CHILD_LIST_ITEM
+
+	   SUMMARY: Individual item within a child list
+
+   DESCRIPTION:	typedef struct SdbChildListItemStructure
+				{
+					SDB_CHILD_LIST_ITEM
+							*Next;  		// Next child
+	
+					SDB_CHILD_COMPONENT
+							Security,		// Instructions for security object
+							ValueType,		// Instructions for value type
+							Result;			// Where to put results
+		
+					int		Argc;			// Number of arguments
+	
+					SDB_CHILD_COMPONENT		// Instructions for getting
+							*Argv;			// arguments
+
+					int		ReferenceCount,
+							OrigIntermediate;
+
+					char	*Name;			// Name of child or arg
+
+				} /* SDB_CHILD_LIST_ITEM */;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_CLASS_INFO
+
+	   SUMMARY: Security class information
+
+   DESCRIPTION:	typedef struct SdbClassInfoStructure
+				{
+					SDB_SEC_TYPE
+							Type;			// Security class type
+
+					char	DllPath[	SDB_PATH_NAME_SIZE  ],
+							FuncName[	SDB_FUNC_NAME_SIZE  ],
+							Name[	 	SDB_CLASS_NAME_SIZE ],
+							Argument[	SDB_CLASS_ARG_SIZE  ];
+
+					int		ObjectVersion;	// Version number for entire class
+
+					SDB_OBJ_FUNC
+							FuncPtr;		// Pointer to function in dll
+			
+					SDB_VALUE_TYPE_MAP			
+							*ValueTypeMap;	// Default value type map
+
+					int		ValueTypeCount;	// Number of non-NULL values in
+											// ValueTypeMap
+
+					void	*ClassData;		// Class specific data
+
+					SDB_INDEX_POINTER
+							*IndexList;		// Pointer to related indices
+
+					SDB_VALUE_TYPE_INFO
+							*ValueTable;	// Table of values & functions
+
+					BSTREAM_COMPRESS_INIT
+							*FixedInit;		// Pre-defined strings for BSTREAM
+
+					BSTREAM_COMPRESS
+							*FixedData;		// Constructed from FixedInit
+
+				} SDB_CLASS_INFO;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_DB_INFO
+
+	   SUMMARY: Database information
+
+   DESCRIPTION:	typedef struct SdbDbInfoStructure
+				{
+					char	*DbName,		// Name of database
+							*Location,		// Physical location of database
+							*MirrorGroup,	// Mirror group of database
+							*DllPath,		// Dll path
+							*FuncName,		// Main database function
+							*DatabasePath,	// Path for database
+							*Argument,		// Optional argument
+							*LockServer;	// Server where locks are kept
+
+					SDB_DB_ID
+							DbID;			// Unique ID number of database
+
+					int		OpenCount,		// Greater than 0 if Db is open
+							DbAttributes;	
+
+				} SDB_DB_INFO;
+
+
+				Description of components:
+				--------------------------
+					DbName		 - Name of database.  This is the same name
+								   that is used by SecDbAttach & SecDbStartup.
+					MirrorGroup	 - Name of the mirror group that the database
+								   belongs to.  Mirror groups consist of one
+								   or more databases that are kept in synch
+								   by the SecSync utility program.
+					Location	 - Physical location of the database.  This
+								   usually contains the country where the
+								   database is stored.
+					DatabasePath - Directory where database files are stored.
+								   This path is not just used by the database
+								   itself, if objects need a 'home' directory
+								   then this is usually the path they use.
+					DbID		 - Unique database ID number
+					OpenCount	 - The number of times this database has been
+								   opened (attached) by the application.
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_DISK
+
+	   SUMMARY: Security information stored in a security database
+
+   DESCRIPTION:	typedef struct SdbDiskStructure
+				{
+					char	Name[ SDB_SEC_NAME_SIZE ];	// Security name
+
+					SDB_SEC_TYPE
+							Type;						// Security class
+
+					long	TimeCreated,				// Creation time
+							TimeUpdated,				// Modified time
+							UpdateCount;				// Modify count
+
+					SDB_DB_ID
+							DbIDCreated,				// Creation database
+							DbIDUpdated;				// Modify database
+
+					short	VersionInfo;			 	// Version number
+
+				} SDB_DISK;
+
+	  SEE ALSO: SDB_DISK_VERSION
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_DISK_VERSION
+
+	   SUMMARY: Structure used to decompose SDB_DISK->versionInfo
+
+   DESCRIPTION:	typedef struct SdbDiskVersionStructure
+				{
+					int		Stream,				// [0..1]
+							Object;				// [0..15]
+
+				} SDB_DISK_VERSION;
+
+				The SDB_DISK_VERSION structure is used to hold the
+				decomposition of the SDB_DISK->VersionInfo short.
+				To read/write, use the SecDbDiskInfoSetVersion and
+				SecDbDiskInfoGetVersion functions.
+
+	  SEE ALSO: SDB_DISK, SecDbDiskInfoGetVersion, SecDbDiskInfoSetVersion
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_ENUM_PTR
+
+	   SUMMARY: General purpose enumeration pointer
+
+   DESCRIPTION:	typedef struct SdbEnumStructure
+				{
+					long	Count;			// Number of children enumerated
+
+					struct HashStructure
+							*Hash;			// Hash table of children
+
+					struct HashPairStructure
+							*HashPair,		// Used when sorting children
+							*HashPairPos;	// Current position
+
+					SDB_VALIDATE
+							*Validate;		// For validate info
+
+					struct HashEntryStructure
+							*Ptr;			// Used when iterating thru hash
+											
+					void	*Extra;			// Extra pointer
+
+				} SDB_ENUM_STRUCT, *SDB_ENUM_PTR;
+
+				This structure is used internally by the SecDbEnum functions
+				and the components are never accessed outside of the SecDb
+				library.
+
+				FIX-Why not move this structure to sdb_int.h?
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_OBJECT
+
+	   SUMMARY: Security data
+
+   DESCRIPTION:	typedef struct SdbObjectStructure
+				{
+					SDB_CLASS_INFO
+							*Class;			// Pointer to class information
+
+					SDB_DB_ID
+							DbID;			// ID number of database
+
+					int		ReferenceCount,	// Number of pending references
+							DeadPoolID;		// ID when in the deadpool
+
+					void	*Object;		// Pointer to object specific data
+
+					SDB_VALUE_TYPE_MAP			
+							*ValueTypeMap;	// Value type map table
+			
+					SDB_DISK
+							SecData;		// Instance data
+
+				} SDB_OBJECT;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_STATISTICS
+
+	   SUMMARY: Security database statistics
+
+   DESCRIPTION:	typedef struct SdbStatisticsStructure
+				{
+					long	ValueTypeUsage,
+							SecTypeUsage,
+							DataTypeUsage;
+
+					long	DeadPoolSize,
+							DeadPoolUsage,
+							ObjectCacheUsage,
+							ObjectRefCount,
+							DiddleCount,
+							ObjectMemory,
+							ValueCacheCount,
+							ValueCacheMemory;
+
+				} SDB_STATISTICS;
+
+
+				Description of components:
+				--------------------------
+					DeadPoolSize	- Total size of the deadpool.
+					DeadPoolUsage	- How much of the deadpool is being used.
+					ObjectCacheUsage- Number of securities in the cache.  This
+									  includes the securities in the deadpool.
+					ObjectRefCount	- Total number of security references.
+					ValueTypeUsage	- Number of different value types.
+					SecTypeUsage	- Number of different security classes.
+					DataTypeUsage	- Number of different data types.
+					DiddleCount		- Number of diddles on securities.
+					ObjectMemory	- Number of bytes used by the 'Mem'
+									  portion of all loaded securities.
+					ValueCacheCount	- Number of values being held by the value
+									  cache for all loaded securities.
+					ValueCacheMemory- Number of bytes used by the value cache.
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_STORED_OBJECT
+
+	   SUMMARY: Structure used for holding stored object information
+
+   DESCRIPTION:	typedef struct SdbStoredObjectStructure
+				{
+					SDB_DISK
+							SdbDisk;
+
+					unsigned short
+							MemSize;
+
+					void	*Mem;
+	
+				} SDB_STORED_OBJECT;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_TRANS_HEADER
+
+	   SUMMARY: Structure used for holding transaction information
+
+   DESCRIPTION:	typedef struct SdbTransHeaderStructure
+				{
+					SDB_TRANS_ID
+							TransID;			// Transaction id
+			
+					long	DetailKey1,			// For internal use of driver
+							DetailKey2,			// For internal use of driver
+							DetailParts,		// Number of parts in detail
+							DetailBytes;		// Number of bytes in detail
+			
+					long	GMTime;				// Time of transaction
+			
+					char	UserName[ SDB_USER_NAME_SIZE ],
+							ApplicationName[ SDB_APP_NAME_SIZE ];
+			
+					char	SecName[ SDB_SEC_NAME_SIZE ];	// Primary security
+	
+					SDB_SEC_TYPE
+							SecType;			// Type of primary security
+	
+					SDB_TRANS_TYPE
+							TransType;			// Primary transaction type
+			
+					SDB_DB_ID
+							DbID;				// Originating database
+	
+					SDB_TRANS_TYPE				// SDB_TRAN_COMMIT or
+							Type;				// SDB_TRAN_ABORT
+
+					SDB_TRANS_ID				// Transaction ID in
+							SourceTransID;		// originating database
+
+					unsigned long
+							NetworkAddress;		// Network address
+
+					long	ReservedForFutureUse[ 6 ];
+
+				} SDB_TRANS_HEADER;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_TRANS_PART
+
+	   SUMMARY: Structure used to hold transaction parts
+
+   DESCRIPTION:	Values flagged "Stored" are primary input/output values from
+   				all transaction functions, but are not necessarily the values
+   				stored in the transaction log.  For example, IndexID rather
+   				than IndexName is usually stored in the transaction log.
+
+				typedef struct SdbTransPartStructure
+				{
+				  SDB_TRANS_PART
+						*Next,
+						*Prev;
+
+				  SDB_TRANS_TYPE
+						Type;
+
+				  SDB_TRANS_TYPE
+						ActionType;		// Provided for driver
+
+				  void	*Handle;		// Handle reserved for driver
+				  						// implementation
+				  union
+				  {
+					struct
+					{
+						char	SecName[ SDB_SEC_NAME_SIZE ];
+
+						SDB_SEC_TYPE
+								SecType;
+
+						SDB_TRANS_TYPE
+								TransType;
+
+						SDB_DB_ID
+								DbID;
+
+						SDB_TRANS_ID
+								SourceTransID;
+
+					} Begin;
+
+					struct
+					{
+						SDB_STORED_OBJECT
+								StoredObject;	// Stored
+
+						SDB_DISK
+								OldSdbDisk;		// For restore if commit fails
+
+						SDB_OBJECT
+								*SecPtr;		// For restore if commit fails
+
+						SDB_DRV_RECORD
+								*ObjRecord;		// Provided for driver
+
+					} Op;
+
+					struct
+					{
+						SDB_DISK
+								SdbDisk;		// Stored
+
+						unsigned short
+								MsgMemSize;		// Stored
+
+						void	*MsgMem;		// Stored
+
+						short	Direction;		// Stored: 1 or -1
+
+						SDB_DISK				// Stored, also necessary
+								OldSdbDisk;		// for restore if commit fails
+
+						SDB_OBJECT
+								*SecPtr;		// For restore if commit fails
+
+						SDB_DRV_INCREMENTAL
+								*Incremental;	// Provided for driver
+
+					} Incremental;
+
+					struct
+					{
+						SDB_DISK
+								SdbDisk;		// Stored
+
+						short	IgnoreErrors;	// Stored
+
+					} Delete;
+
+					struct
+					{
+						SDB_DISK
+								NewSdbDisk,		// Stored
+								OldSdbDisk;		// Stored
+
+						SDB_OBJECT
+								*SecPtr;		// For restore if commit fails
+
+					} Rename;
+
+					struct SdbTransIndexOpStructure
+					{
+						SDB_DRV_INDEX_VALUES
+								*Data;
+
+					} IndexOp;
+
+					struct SdbTransIndexIncrementalStructure
+					{
+						char	SecName[ SDB_SEC_NAME_SIZE ];		// Stored
+
+						SDB_DRV_INDEX
+								*Index;								// Stored
+
+					} IndexIncremental;
+
+					struct SdbTransIndexDeleteStructure
+					{
+						char	IndexName[ SDB_INDEX_NAME_SIZE ],	// Stored
+								SecName[ SDB_SEC_NAME_SIZE ];		// Stored
+
+						short	IgnoreErrors;						// Stored
+
+						SDB_DRV_INDEX
+								*Index;					// Provided for driver
+
+						SDB_INDEX_ID
+								IndexID;				// Provided for driver
+
+					} IndexDelete;
+
+					struct SdbTransIndexRenameStructure
+					{
+						char	IndexName[ SDB_INDEX_NAME_SIZE ],	// Stored
+								OldSecName[ SDB_SEC_NAME_SIZE ],	// Stored
+								NewSecName[ SDB_SEC_NAME_SIZE ];	// Stored
+
+						SDB_DRV_INDEX
+								*Index;					// Provided for driver
+
+						SDB_INDEX_ID
+								IndexID;				// Provided for driver
+
+					} IndexRename;
+
+					struct
+					{
+						SDB_INDEX_DESCRIPTOR
+								*IndexDescriptor;					// Stored
+
+					} IndexCreate;
+
+					struct
+					{
+						char	IndexName[ SDB_INDEX_NAME_SIZE ];	// Stored
+
+						SDB_DRV_INDEX
+								*Index;					// Provided for driver
+
+					} IndexDestroy;
+
+					struct
+					{
+						SDB_FILE_HANDLE
+								File;								// Stored
+
+					} FileDelete;
+
+					struct
+					{
+						SDB_FILE_HANDLE
+								File;								// Stored
+
+						const void
+								*Data;								// Stored
+
+						SDB_FILE_SIZE
+								Length,								// Stored
+								Position;							// Stored
+
+					} FileWrite;
+
+					struct
+					{
+						SDB_FILE_HANDLE
+								File;								// Stored
+
+						SDB_FILE_INFO
+								Info;								// Stored
+
+					} FileInfoSet;
+
+				  } Data;
+
+				} SDB_TRANS_PART;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_TRANS_TYPE
+
+	   SUMMARY: Type of transaction
+
+   DESCRIPTION:	typedef enum SdbTransTypeEnum
+				{
+					SDB_TRAN_BEGIN,
+					SDB_TRAN_COMMIT,
+					SDB_TRAN_ABORT,
+					SDB_TRAN_INSERT,
+					SDB_TRAN_UPDATE,
+					SDB_TRAN_DELETE,
+					SDB_TRAN_RENAME,
+					SDB_TRAN_INDEX_INSERT,
+					SDB_TRAN_INDEX_UPDATE,
+					SDB_TRAN_INDEX_DELETE,
+					SDB_TRAN_INDEX_RENAME,
+					SDB_TRAN_INDEX_CREATE,
+					SDB_TRAN_INDEX_DESTROY,
+					SDB_TRAN_INCREMENTAL,
+					SDB_TRAN_INDEX_INCREMENTAL,
+					SDB_TRAN_FILE_DELETE,
+					SDB_TRAN_FILE_WRITE,
+					SDB_TRAN_FILE_INFO_SET,
+
+					SDB_TRAN_LAST
+
+				} SDB_TRANS_TYPE;
+
+				Note: The order of this enum may never be changed since the
+				values are stored on disk.
+
+	SORT ORDER: 5.0
+
+.................Here I Am.........................
+	  FUNCTION: SDB_VALIDATE
+
+	   SUMMARY: Structure used when validating a security object
+
+   DESCRIPTION:	typedef struct SdbValidateStructure
+				{
+					SDB_VALUE_TYPE
+							ValueType;
+
+					int		Flags;
+
+					char	*Text;
+
+					struct SdbValidateStructure
+							*Next;
+
+				} SDB_VALIDATE;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_VALUE_CACHE
+
+	   SUMMARY: Structure used in the caching of values for an object
+
+   DESCRIPTION:	typedef struct SdbValueCacheStructure
+				{
+					DT_VALUE
+							Value;		// Cached value for above parameters
+
+					SDB_TIME_STAMP
+							TimeStamp;	// Time value results was last set
+			
+					SDB_CACHE_FLAGS
+							Flags;		// Indication of cache type
+
+				} SDB_VALUE_CACHE;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_VALUE_CACHE_ELEMENT
+
+	   SUMMARY: Structure used in the caching of values for an object
+
+   DESCRIPTION:	typedef struct SdbValueCacheElementStructure
+				{
+					struct SdbValueCacheElementStructure
+							*Next;		// Next element in linked list
+
+					SDB_VALUE_TYPE
+							ValueType;	// Type of value being cached
+		
+					SDB_VALUE_CACHE
+							Cache;		// Cached value
+
+				} SDB_VALUE_CACHE_ELEMENT;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_VALUE_FLAGS
+
+	   SUMMARY: Type of value when associated with a security class.
+
+   DESCRIPTION:	typedef unsigned int	SDB_VALUE_FLAGS;
+
+				Value flags can be or'ed together.
+
+				Description of value flags:
+				---------------------------
+					SDB_CALCULATED	- The value is calculated from other
+									  values supplied either by the security
+									  itself or from other securities.
+					SDB_EXTERNAL	- This indicates that the value comes from
+									  some external source, such as market
+									  spot rates, volatilities, etc...
+					SDB_HIDDEN		- For most purposes this value is not to
+									  be seen or used outside of the class of
+									  the security. 
+					SDB_IN_STREAM	- The value is stored in the 'Mem' portion
+									  of the security.
+					SDB_SET_RETAINED- The value was created by a SecDbSetValue
+									  operation and will be retained even if
+									  other cached values are removed.
+					SDB_STATIC		- The value does not change.
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_VALUE_PARAMS
+
+	   SUMMARY: Valuation parameters
+
+   DESCRIPTION:	typedef struct SdbValueParamsStructure
+				{
+					SDB_VALUE_TYPE
+							Type;			// Type of valuation
+
+					long	Arg1,			// First optional argument
+							Arg2;			// Second optional argument
+
+				} SDB_VALUE_PARAMS;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_VALUE_TYPE
+
+	   SUMMARY: Value type information
+
+   DESCRIPTION:	typedef struct SdbValueTypeStructure
+				{
+					char	Name[ SDB_VALUE_NAME_SIZE ];
+
+					SDB_VALUE_TYPE_ID
+							ID;
+			
+					DT_DATA_TYPE
+							DataType;
+
+				} *SDB_VALUE_TYPE, SDB_VALUE_TYPE_STRUCTURE;
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_VALUE_TYPE_INFO
+
+	   SUMMARY: Value type information for enumeration
+
+   DESCRIPTION:	typedef struct SdbValueTypeInfoStructure
+				{
+					char	*Name;			// Name of value type
+	
+					DT_DATA_TYPE
+							*DataType;		// Pointer to data type of value
+			
+					SDB_VALUE_FUNC
+							Func;			// Message function
+			
+					void	*ValueData;		// ValueType specific data
+			
+					SDB_VALUE_FLAGS
+							ValueFlags;		// Value flags
+
+					unsigned int			// Size of child list results data
+							ResultsSize;	// for this value type
+
+					int		SecNum;			// Index into SecPtr->SecPtrTable
+
+					struct SdbChildListStructure
+							*ChildList;		// Child list for this value type
+	
+					SDB_VALUE_TYPE
+							ValueType;		// Value type
+
+				} SDB_VALUE_TYPE_INFO;
+
+	  SEE ALSO:	SecDbValueFlags
+
+	SORT ORDER: 5.0
+
+	  FUNCTION: SDB_VALUE_TYPE_MAP
+
+	   SUMMARY: Value type map
+
+   DESCRIPTION:	typedef struct SdbValueTypeMapStructure
+				{
+					SDB_VALUE_TYPE_INFO		// Pointer to value type info 
+							*ValueTypeInfo;	// for this value type
+			
+					int		CacheNumber;	// Index into object's Cache.Table
+	
+				} SDB_VALUE_TYPE_MAP;
+
+	SORT ORDER: 5.0
+
