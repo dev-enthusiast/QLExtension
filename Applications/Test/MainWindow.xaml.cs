@@ -32,7 +32,7 @@ namespace Test
         {
             // DataTable aprimeTable = CEGLib.APrimeDB.GetAPrimeDataForLiquidityStress(new DateTime(2015, 1, 30), new DateTime(2023, 12, 31), "");
 
-            DataTable aprimeTable = CEGLib.APrimeDB.GetRAFTForLiquidityStress(new DateTime(2015, 1, 30));
+            DataTable aprimeTable = CEGLib.SimCube.GetRAFTForLiquidityStress(new DateTime(2015, 1, 30));
 
             foreach (var row in aprimeTable.AsEnumerable())
             {

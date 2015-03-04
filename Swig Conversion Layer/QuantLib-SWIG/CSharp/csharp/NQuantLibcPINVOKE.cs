@@ -3848,6 +3848,9 @@ class NQuantLibcPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Index_addFixing")]
   public static extern void Index_addFixing(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, double jarg3);
 
+  [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_Index_clearFixings")]
+  public static extern void Index_clearFixings(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("NQuantLibc", EntryPoint="CSharp_InterestRateIndex_familyName")]
   public static extern string InterestRateIndex_familyName(global::System.Runtime.InteropServices.HandleRef jarg1);
 

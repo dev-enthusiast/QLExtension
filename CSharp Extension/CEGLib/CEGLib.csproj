@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\APrime.cs" />
+    <Compile Include="Database\SecDB.cs" />
+    <Compile Include="Database\SimCube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Risk\RiskHullWhiteSimulationEngine.cs" />
     <Compile Include="Util\EnumDescConverter.cs" />

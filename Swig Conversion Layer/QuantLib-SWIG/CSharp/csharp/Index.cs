@@ -109,6 +109,11 @@ public class Index : global::System.IDisposable {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public void clearFixings() {
+    NQuantLibcPINVOKE.Index_clearFixings(swigCPtr);
+    if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
+  }
+
 }
 
 }

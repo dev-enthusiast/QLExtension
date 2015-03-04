@@ -15,9 +15,9 @@ namespace LiquidityStress
         {
             DateTime asOfDate = new DateTime(2015, 1, 30);
             DateTime terminationDate = new DateTime(2023, 12, 31);
-            DataTable aprimeTable = APrimeDB.GetAPrimeDataForLiquidityStress(asOfDate, terminationDate);
+            DataTable aprimeTable = APrime.GetAPrimeDataForLiquidityStress(asOfDate, terminationDate);
 
-            APrimeDB.DumpDataTableToCSV(aprimeTable, "aprime_raw.csv");
+            APrime.DumpDataTableToCSV(aprimeTable, "aprime_raw.csv");
 
             // Get Counterparty/Agreement table
             var agreementTable = aprimeTable.AsEnumerable().GroupBy(row => new { Counterparty = row.Field<string>("Counterparty"), Credit_NettingAgreement = row.Field<string>("Credit_NettingAgreement"), ContractMonth = row.Field<DateTime>("ContractMonth") })

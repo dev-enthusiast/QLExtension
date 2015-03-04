@@ -10,11 +10,10 @@ using System.Data.SqlClient;
 
 namespace CEGLib
 {
-    public static class APrimeDB
+    public class APrime
     {
-        static string connectingStrAPrime = "Data Source=rmgdbp;User Id=rmgdb_read;Password=rmgdb_read;";
-        static string connectingStrSqlServer = "Data Source=CECDBP-MSW-01;" + "Initial Catalog=EnergyCredit;" +
-            "User id=ExecSpOnly;" + "Password=EnergyCredit_ExecSPOnly;";
+        public static string connectingString = "Data Source=rmgdbp;User Id=rmgdb_read;Password=rmgdb_read;";
+        
 
         public static DataTable GetAPrimeDataForLiquidityStress(DateTime asOfDate, DateTime TerminationDate, string filter = "")
         {
@@ -72,7 +71,7 @@ namespace CEGLib
                     + " GROUP BY Counterparty, Credit_NettingAgreement, commod_curve, ContractMonthAdj, MARGINAL, MARGINED, PRICE, REGION_BU, GLT"
                     + " ORDER BY Counterparty, Credit_NettingAgreement";
 
-                using (OracleConnection conn = new OracleConnection(connectingStrAPrime))
+                using (OracleConnection conn = new OracleConnection(connectingString))
                 {
                     conn.Open();
                     OracleCommand cmd = new OracleCommand();
@@ -215,27 +214,6 @@ namespace CEGLib
             return returnTable;
         }
 
-        public static DataTable GetRAFTForLiquidityStress(DateTime asOfDate)
-        {
-            DataTable dataTable = new DataTable();
-
-            SqlConnection conn = new SqlConnection(connectingStrSqlServer);
-            SqlCommand cmd = new SqlCommand("RptCollateral", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            // cmd.Parameters.Add("@TaskName", SqlDbType.NVarChar, 50).Value = t;
-            cmd.Parameters.Add(new SqlParameter("@DataAsOfDate", "2015-01-02"));
-            conn.Open();
-
-            // create data adapter
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            // this will query your database and return the result to your datatable
-            da.Fill(dataTable);
-            conn.Close();
-            da.Dispose();
-
-            return dataTable;
-        }
-
         public static void DumpDataTableToCSV(DataTable dt, string filename)
         {
             if (System.IO.File.Exists(filename))
@@ -263,6 +241,31 @@ namespace CEGLib
             }
 
             System.IO.File.AppendAllText(filename, sb.ToString());
+        }
+
+        public static object[,] DumpTableToObject(DataTable table)
+        {
+            int nrows = table.Rows.Count;
+            int ncols = table.Columns.Count;
+            object[,] ret = new object[nrows + 1, ncols + 1];
+
+            int i = 0, j = 0;
+            ret[i, j++] = nrows;
+            foreach (DataColumn col in table.Columns)
+            {
+                ret[i, j++] = col.ColumnName;
+            }
+            foreach (DataRow row in table.Rows)
+            {
+                i++; j = 0;
+                ret[i, j++] = i;
+                foreach (DataColumn col in table.Columns)
+                {
+                    ret[i, j++] = row[col].ToString();
+                }
+            }
+
+            return ret;
         }
     }
 }
