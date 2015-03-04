@@ -36,14 +36,14 @@ namespace CEGLibXll
         public void Help_Click(IRibbonControl control_)
         {
             //System.Diagnostics.Process.Start(xllDir + @"documents\CEGLibXll.chm");
-            System.Windows.Forms.MessageBox.Show("No help yet");
+            System.Windows.Forms.MessageBox.Show("Please contact RiskAnalytics for help.");
         }
 
         public void About_Click(IRibbonControl control_)
         {
             // About abt = new About();
             // abt.ShowDialog();
-            System.Windows.Forms.MessageBox.Show("No about info yet");
+            System.Windows.Forms.MessageBox.Show("CEGLib v1.0");
         }
 
         public void Function_Click(IRibbonControl control_)
@@ -71,6 +71,25 @@ namespace CEGLibXll
             FunctionWizardThread othread = new FunctionWizardThread(range, syncContext_);
             Thread thread = new Thread(new ThreadStart(othread.functionargumentsPopup));
             thread.Start();
+        }
+
+        public void excelFile_Click(IRibbonControl control_)
+        {
+            Xl.Application xlApp = (Xl.Application)ExcelDna.Integration.ExcelDnaUtil.Application;
+            String fname = control_.Id;
+
+            string file = "";
+            switch (fname)
+            {
+                case "OptionPricer":
+                    file = "OptionPricer.xlsx";
+                    break;
+                default:
+                    break;
+            }
+
+            file = @"C:\Workspace\Output\Debug\OptionPricer.xlsx";
+            xlApp.Workbooks.Open(file);
         }
         #endregion
     }

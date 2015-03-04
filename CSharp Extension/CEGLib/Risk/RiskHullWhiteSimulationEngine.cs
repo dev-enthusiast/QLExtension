@@ -20,17 +20,17 @@ namespace CEGLib
         /// <param name="yieldcurve"></param>
         /// <param name="a"></param>
         /// <param name="sigma"></param>
-        public RiskHullWhiteSimulationEngine(DateTime asOfDate, YieldTermStructureHandle yieldcurve, double a, double sigma, InstrumentVector instruments,
-            IborIndex index)
+        public RiskHullWhiteSimulationEngine(DateTime asOfDate, YieldTermStructureHandle discountcurve, double a, double sigma, InstrumentVector instruments,
+            IborIndex usd3mIndex, RelinkableYieldTermStructureHandle usdForwardingTSHandle)
         {
             asOfDate_ = calendar_.adjust(new Date((int)asOfDate.ToOADate()), BusinessDayConvention.ModifiedFollowing);
             terminationDate_ = calendar_.advance(asOfDate_, 1, TimeUnit.Years);        // 15 years simulation length
 
             a_ = a; sigma_ = sigma;
-            yieldCurve_ = yieldcurve;
-            index_ = index;
-            forwardingTS_ = index.forwardingTermStructure() as RelinkableYieldTermStructureHandle;
-            process_ = new HullWhiteProcess(yieldcurve, a, sigma);
+            discountCurve_ = discountcurve;
+            usdIndex_ = usd3mIndex;
+            usdForwardingTSHandle_ = usdForwardingTSHandle;
+            process_ = new HullWhiteProcess(discountCurve_, a, sigma);
 
             Settings.instance().includeTodaysCashFlows(false);
             Settings.instance().includeReferenceDateEvents(false);
@@ -82,9 +82,9 @@ namespace CEGLib
         private Date settingsToday_;
         private Date terminationDate_;
         private double a_, sigma_;
-        private YieldTermStructureHandle yieldCurve_;
-        private IborIndex index_;               // to change the forwarding index
-        private RelinkableYieldTermStructureHandle forwardingTS_;        // forwarding index
+        private YieldTermStructureHandle discountCurve_;
+        private IborIndex usdIndex_;               // to change the forwarding index
+        private RelinkableYieldTermStructureHandle usdForwardingTSHandle_;        // forwarding index
         private HullWhiteProcess process_;
         private HullWhite model_;
 
@@ -100,7 +100,7 @@ namespace CEGLib
 
         public void calculate()
         {
-            model_ = new HullWhite(yieldCurve_, a_, sigma_);
+            model_ = new HullWhite(discountCurve_, a_, sigma_);
             // initialize data structure
             // this includes time 0
             pfeMatrix_ = new Dictionary<int,List<List<double>>>(portfolio_.Count+1);        // last one is portfolio
@@ -109,7 +109,7 @@ namespace CEGLib
             double npvPortfolio = 0;
             for (int v = 0; v < portfolio_.Count; v++)          // for each asset
             {
-                DiscountingSwapEngine pricingEngine_ = new DiscountingSwapEngine(yieldCurve_);
+                DiscountingSwapEngine pricingEngine_ = new DiscountingSwapEngine(discountCurve_);
                 portfolio_[v].setPricingEngine(pricingEngine_);
                 double npv = portfolio_[v].NPV();
                 npvPortfolio += npv;
@@ -133,7 +133,7 @@ namespace CEGLib
             }
             pfeMatrix_.Add(portfolio_.Count, onePort);
             // add fixing
-            index_.addFixing(asOfDate_, yieldCurve_.zeroRate(0.25, Compounding.Simple).rate());
+            usdIndex_.addFixing(asOfDate_, discountCurve_.zeroRate(0.25, Compounding.Simple).rate());
 
             // For each sample path
             for (int i = 0; i < sampleSize_; i++)
@@ -172,7 +172,7 @@ namespace CEGLib
                     DiscountingSwapEngine pricingEngine_ = new DiscountingSwapEngine(newyieldcurvehandle);
                     // 2. reprice each deal
                     Settings.instance().setEvaluationDate(d0);
-                    double discount = yieldCurve_.discount(d0);           // discount. Used for CVA/DVA
+                    double discount = discountCurve_.discount(d0);           // discount. Used for CVA/DVA
 
                     double sum = 0;
                     for (int v = 0; v < portfolio_.Count; v++)
@@ -185,7 +185,7 @@ namespace CEGLib
                     pfeMatrix_[portfolio_.Count][i].Add(sum);
 
                     // clear fixings
-                    index_.addFixing(asOfDate_, newyieldcurve.zeroRate(0.25, Compounding.Simple).rate());
+                    usdIndex_.addFixing(asOfDate_, newyieldcurve.zeroRate(0.25, Compounding.Simple).rate());
                 }   // for each simulation step j
             }   // for each sample path i
 

@@ -48,20 +48,26 @@ namespace Test
 
             YieldTermStructure ts = new FlatForward(asofDate, 0.04875825, new Actual365Fixed());
             QuantLib.Calendar calendar = new UnitedStates();
-            Date TDate = calendar.advance(asofDate, 2, TimeUnit.Years);
+
+            Date TDate = calendar.advance(asofDate, 7, TimeUnit.Years);
             Schedule fixedschedule = new Schedule(asofDate, TDate, new Period(Frequency.Semiannual), calendar, BusinessDayConvention.ModifiedFollowing, BusinessDayConvention.ModifiedFollowing,
                 DateGeneration.Rule.Forward, true);
             Schedule floatschedule = new Schedule(asofDate, TDate, new Period(Frequency.Quarterly), calendar, BusinessDayConvention.ModifiedFollowing, BusinessDayConvention.ModifiedFollowing,
                 DateGeneration.Rule.Forward, true);
-            RelinkableYieldTermStructureHandle yieldhandle = new RelinkableYieldTermStructureHandle(ts);
-            IborIndex index = new IborIndex("USDLIB3M", new Period(Frequency.Quarterly), 0, new USDCurrency(), calendar, BusinessDayConvention.ModifiedFollowing, true, new Actual365Fixed(), yieldhandle);
-            index.forwardingTermStructure();
-            VanillaSwap swap = new VanillaSwap(_VanillaSwap.Type.Payer, 1000, fixedschedule, 0.03, new Actual365Fixed(), floatschedule, index, 0.0, new Actual365Fixed());
+            RelinkableYieldTermStructureHandle usdForwardingTSHandle = new RelinkableYieldTermStructureHandle(ts);
+            IborIndex usd3mIndex = new IborIndex("USDLIB3M", new Period(Frequency.Quarterly), 0, new USDCurrency(), calendar, BusinessDayConvention.ModifiedFollowing, true, new Actual365Fixed(), usdForwardingTSHandle);
+            
+            VanillaSwap swap = new VanillaSwap(_VanillaSwap.Type.Payer, 1000, fixedschedule, 0.049, new Actual365Fixed(), floatschedule, usd3mIndex, 0.0, new Actual365Fixed());
+            DiscountingSwapEngine pricingEngine = new DiscountingSwapEngine(usdForwardingTSHandle);
+            swap.setPricingEngine(pricingEngine);
+            double rate = swap.fairRate();
+
             InstrumentVector portfolio = new InstrumentVector();
             portfolio.Add(swap);
-            CEGLib.RiskHullWhiteSimulationEngine engine = new CEGLib.RiskHullWhiteSimulationEngine(DateTime.Today, new YieldTermStructureHandle(ts), a, sigma, portfolio, index);
-            engine.SampleSize = 5;
+            CEGLib.RiskHullWhiteSimulationEngine engine = new CEGLib.RiskHullWhiteSimulationEngine(DateTime.Today, new YieldTermStructureHandle(ts), a, sigma, portfolio, usd3mIndex, usdForwardingTSHandle);
+            engine.SampleSize = 300;
             engine.calculate();
+            Dictionary<Date, double> ret = engine.getPFECurve(0.95);
         }
     }
 }

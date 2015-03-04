@@ -18,9 +18,14 @@
               <button id='buttonLogin' label='Login' image='M' size='large' onAction='RunTagMacro' tag='Login_Click' />
               <button id='buttonError' label='Display Error Details' imageMso='GroupShowHideListView' size='large' onAction='Error_Click'/>
             </group>
+            <group id='Workbooks' label='Workbooks'>
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='SecDB' label='SecDB' imageMso='CreateModule'>
+                <button id='OptionPricer' label='OptionPricer' onAction="excelFile_Click" imageMso="FileSaveAsExcelXlsx"/>
+              </menu>
+            </group>
             <group id='functionGroup' label='CEGLibXll Functions'>
               <!--Menu Time-->
-              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllTime' label='Time'>
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllTime' label='Time' imageMso="StartAfterPrevious">
                 <button id='cegTimeNow' label='cegTimeNow' onAction='Function_Click'/>
                 <button id='cegTimeToday' label='cegTimeToday' onAction='Function_Click'/>
                 <button id='cegTimeSetEvaluationDate' label='cegTimeSetEvaluationDate' onAction='Function_Click'/>
@@ -32,12 +37,12 @@
                 <button id='cegTimeSchedule' label='cegTimeSchedule' onAction='Function_Click'/>
               </menu>
               <!--Menu Database-->
-              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllDatabase' label='Database'>
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllDatabase' label='Database' imageMso="DatabaseCopyDatabaseFile">
                 <button id='cegAPrimeGetDeals' label='cegAPrimeGetDeals' onAction='Function_Click'/>
                 <button id='cegSimCubGetRAFT' label='cegSimCubGetRAFT' onAction='Function_Click'/>
               </menu>
               <!--Menu Operation -->
-              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllOps' label='Operation'>
+              <menu xmlns='http://schemas.microsoft.com/office/2009/07/customui' itemSize='normal' id='CEGLibXllOps' label='Operation' imageMso="SmartArtChangeColorsGallery">
                 <button id='cegOpCheckCallFromWizard' label='cegOpCheckCallFromWizard' onAction='Function_Click'/>
                 <button id='cegOpCallerAddressControl' label='cegOpCallerAddressControl' onAction='Function_Click'/>
                 <button id='cegOpLibXllPath' label='cegOpLibXllPath' onAction='Function_Click'/>
@@ -54,7 +59,7 @@
             </group>
             <group id='helpGroup' label='Help'>
               <button id='buttonHelper' label='Help Context' imageMso='ShapeBasicsHelp' size='large' onAction='Help_Click'/>
-              <button id='buttonAbout' label='About CEGLibXll' imageMso='OfficeDiagnostics' size ='large' onAction='About_Click'/>
+              <button id='buttonAbout' label='About CEGLibXll' imageMso="AddOrRemoveAttendees" size ='large' onAction='About_Click'/>
             </group>
           </tab>
         </tabs>
