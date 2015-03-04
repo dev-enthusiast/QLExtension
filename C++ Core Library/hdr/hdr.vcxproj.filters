@@ -2825,9 +2825,6 @@
     <ClInclude Include="secdbsrc\sdbnprof.h">
       <Filter>secdbsrc</Filter>
     </ClInclude>
-    <ClInclude Include="secdbsrc\seccomp.h">
-      <Filter>secdbsrc</Filter>
-    </ClInclude>
     <ClInclude Include="secdbsrc\seccopy.h">
       <Filter>secdbsrc</Filter>
     </ClInclude>
@@ -3106,16 +3103,10 @@
     <ClCompile Include="secdbsrc\seccheck.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
-    <ClCompile Include="secdbsrc\seccomp.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
     <ClCompile Include="secdbsrc\seccopy.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\secdel.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\secdoc.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\secexpr.c">
@@ -3125,12 +3116,6 @@
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\sq_arg.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\sql_mk.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\test.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\x_base.c">
@@ -3190,11 +3175,9 @@
     <ClCompile Include="secdbsrc\Templates.cpp">
       <Filter>secdbsrc</Filter>
     </ClCompile>
-    <ClCompile Include="secdbsrc\win_auth.cpp">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="hdr.i" />
+    <CustomBuild Include="secdb.i" />
   </ItemGroup>
 </Project>

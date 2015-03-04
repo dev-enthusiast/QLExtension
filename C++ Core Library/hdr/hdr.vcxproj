@@ -1051,7 +1051,6 @@
     <ClInclude Include="secdbsrc\sdb_meta.h" />
     <ClInclude Include="secdbsrc\sdb_pars.h" />
     <ClInclude Include="secdbsrc\sdb_x.h" />
-    <ClInclude Include="secdbsrc\seccomp.h" />
     <ClInclude Include="secdbsrc\seccopy.h" />
     <ClInclude Include="secdbsrc\secdb.h" />
     <ClInclude Include="secdbsrc\secdbcc.h" />
@@ -1281,21 +1280,16 @@
     <ClCompile Include="secdbsrc\sdb_val.c" />
     <ClCompile Include="secdbsrc\sdb_vd.c" />
     <ClCompile Include="secdbsrc\seccheck.c" />
-    <ClCompile Include="secdbsrc\seccomp.c" />
     <ClCompile Include="secdbsrc\seccopy.c" />
     <ClCompile Include="secdbsrc\SecDbGenericTraceFunc.cpp" />
     <ClCompile Include="secdbsrc\SecDbTraceStack.cpp" />
     <ClCompile Include="secdbsrc\secdel.c" />
-    <ClCompile Include="secdbsrc\secdoc.c" />
     <ClCompile Include="secdbsrc\secexpr.c" />
     <ClCompile Include="secdbsrc\secindex.c" />
     <ClCompile Include="secdbsrc\slang_util.cpp" />
     <ClCompile Include="secdbsrc\slang_validate.cpp" />
-    <ClCompile Include="secdbsrc\sql_mk.c" />
     <ClCompile Include="secdbsrc\sq_arg.c" />
     <ClCompile Include="secdbsrc\Templates.cpp" />
-    <ClCompile Include="secdbsrc\test.c" />
-    <ClCompile Include="secdbsrc\win_auth.cpp" />
     <ClCompile Include="secdbsrc\x_base.c" />
     <ClCompile Include="secdbsrc\x_exception.c" />
     <ClCompile Include="secdbsrc\x_inc.c" />
@@ -1306,6 +1300,17 @@
     <CustomBuild Include="hdr.i">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">echo Invoking SWIG...
+echo on
+..\..\..\swigwin\swig.exe -csharp -c++ -includeall -outdir "..\..\Swig Conversion Layer\GS-SWIG\CSharp" -namespace GS -o "..\..\Swig Conversion Layer\GS-SWIG\Cpp\gs_wrap.cpp" hdr.i
+echo off</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">gs_wrap.cpp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="secdb.i">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -1349,7 +1354,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\shadow\nt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\secdbsrc\;.\shadow\nt\;..\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
