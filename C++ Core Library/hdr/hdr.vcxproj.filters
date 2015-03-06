@@ -2924,6 +2924,21 @@
     <ClInclude Include="secdbsrc\secdb\slang_util.h">
       <Filter>secdbsrc\secdb</Filter>
     </ClInclude>
+    <ClInclude Include="secdbinterface\uberglue.h">
+      <Filter>secdbinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbinterface\uberglue_internal.h">
+      <Filter>secdbinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbinterface\Rcpp.hpp">
+      <Filter>secdbinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbinterface\RSecDbConverter.h">
+      <Filter>secdbinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="secdbinterface\RSecDbInterface.h">
+      <Filter>secdbinterface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="secdbinterface\sdbInterface.cpp">
@@ -3025,9 +3040,6 @@
     <ClCompile Include="secdbsrc\sdb_meta.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
-    <ClCompile Include="secdbsrc\sdb_mk.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
     <ClCompile Include="secdbsrc\sdb_obj.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
@@ -3059,9 +3071,6 @@
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\sdb_trni.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\sdb_un.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\sdb_uniq.c">
@@ -3098,18 +3107,6 @@
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\sdbnprof.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\seccheck.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\seccopy.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\secdel.c">
-      <Filter>secdbsrc</Filter>
-    </ClCompile>
-    <ClCompile Include="secdbsrc\secexpr.c">
       <Filter>secdbsrc</Filter>
     </ClCompile>
     <ClCompile Include="secdbsrc\secindex.c">
@@ -3174,6 +3171,33 @@
     </ClCompile>
     <ClCompile Include="secdbsrc\Templates.cpp">
       <Filter>secdbsrc</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\dtvalues.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\handles.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\securities.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\uberglue.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\unnecessary.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\variables.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\Rcpp.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\RSecDbConverter.cpp">
+      <Filter>secdbinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="secdbinterface\RSecDbInterface.cpp">
+      <Filter>secdbinterface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

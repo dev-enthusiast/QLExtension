@@ -9,5 +9,5 @@
 using Gs::SlangInvoker;
 %}
 
-%include <sdbInterface.h>
+//%include <sdbInterface.h>
 #endif

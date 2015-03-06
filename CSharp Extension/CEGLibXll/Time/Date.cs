@@ -190,6 +190,17 @@ namespace CEGLibXll
                 Date newday = can.adjust(d, bdc2);
                 return newday.serialNumber();
             }
+            catch(TypeInitializationException e)
+            {
+                SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);
+                object[,] ret = new object[5,1];
+                ret[0,1] = e.ToString();
+                ret[1,1] = e.Message;
+                ret[2,1] = e.StackTrace;
+                ret[3,3] = e.Source;
+                ret[4,1] = e.InnerException.Message;
+                return ret;
+            }
             catch (Exception e)
             {
                 SystemUtil.logError(callerAddress, System.Reflection.MethodInfo.GetCurrentMethod().Name.ToString(), e.Message);

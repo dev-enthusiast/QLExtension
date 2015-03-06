@@ -272,6 +272,8 @@ public class NQuantLibc {
     if (NQuantLibcPINVOKE.SWIGPendingException.Pending) throw NQuantLibcPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public static readonly int TYPE_BITS = NQuantLibcPINVOKE.TYPE_BITS_get();
+  public static readonly int MAX_NUM_SEXPTYPE = NQuantLibcPINVOKE.MAX_NUM_SEXPTYPE_get();
 }
 
 }

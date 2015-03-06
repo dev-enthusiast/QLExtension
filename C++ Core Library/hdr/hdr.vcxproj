@@ -1036,7 +1036,12 @@
     <ClInclude Include="sdb_meta.h" />
     <ClInclude Include="secdb.h" />
     <ClInclude Include="secdbcc.h" />
+    <ClInclude Include="secdbinterface\Rcpp.hpp" />
+    <ClInclude Include="secdbinterface\RSecDbConverter.h" />
+    <ClInclude Include="secdbinterface\RSecDbInterface.h" />
     <ClInclude Include="secdbinterface\sdbInterface.h" />
+    <ClInclude Include="secdbinterface\uberglue.h" />
+    <ClInclude Include="secdbinterface\uberglue_internal.h" />
     <ClInclude Include="secdbsrc\dtptr.h" />
     <ClInclude Include="secdbsrc\of_test.h" />
     <ClInclude Include="secdbsrc\sdbchild.h" />
@@ -1212,7 +1217,16 @@
     <ClInclude Include="ztcurve.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="secdbinterface\dtvalues.cpp" />
+    <ClCompile Include="secdbinterface\handles.cpp" />
+    <ClCompile Include="secdbinterface\Rcpp.cpp" />
+    <ClCompile Include="secdbinterface\RSecDbConverter.cpp" />
+    <ClCompile Include="secdbinterface\RSecDbInterface.cpp" />
     <ClCompile Include="secdbinterface\sdbInterface.cpp" />
+    <ClCompile Include="secdbinterface\securities.cpp" />
+    <ClCompile Include="secdbinterface\uberglue.cpp" />
+    <ClCompile Include="secdbinterface\unnecessary.cpp" />
+    <ClCompile Include="secdbinterface\variables.cpp" />
     <ClCompile Include="secdbsrc\async_result.cpp" />
     <ClCompile Include="secdbsrc\compile_graph.cpp" />
     <ClCompile Include="secdbsrc\conv.c" />
@@ -1262,7 +1276,6 @@
     <ClCompile Include="secdbsrc\sdb_indx.c" />
     <ClCompile Include="secdbsrc\sdb_mem.c" />
     <ClCompile Include="secdbsrc\sdb_meta.c" />
-    <ClCompile Include="secdbsrc\sdb_mk.c" />
     <ClCompile Include="secdbsrc\sdb_obj.c" />
     <ClCompile Include="secdbsrc\sdb_of.c" />
     <ClCompile Include="secdbsrc\sdb_onum.c" />
@@ -1274,17 +1287,12 @@
     <ClCompile Include="secdbsrc\sdb_trn.c" />
     <ClCompile Include="secdbsrc\sdb_trna.c" />
     <ClCompile Include="secdbsrc\sdb_trni.c" />
-    <ClCompile Include="secdbsrc\sdb_un.c" />
     <ClCompile Include="secdbsrc\sdb_uniq.c" />
     <ClCompile Include="secdbsrc\sdb_updt.c" />
     <ClCompile Include="secdbsrc\sdb_val.c" />
     <ClCompile Include="secdbsrc\sdb_vd.c" />
-    <ClCompile Include="secdbsrc\seccheck.c" />
-    <ClCompile Include="secdbsrc\seccopy.c" />
     <ClCompile Include="secdbsrc\SecDbGenericTraceFunc.cpp" />
     <ClCompile Include="secdbsrc\SecDbTraceStack.cpp" />
-    <ClCompile Include="secdbsrc\secdel.c" />
-    <ClCompile Include="secdbsrc\secexpr.c" />
     <ClCompile Include="secdbsrc\secindex.c" />
     <ClCompile Include="secdbsrc\slang_util.cpp" />
     <ClCompile Include="secdbsrc\slang_validate.cpp" />
@@ -1302,7 +1310,7 @@
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">echo Invoking SWIG...
 echo on
-..\..\..\swigwin\swig.exe -csharp -c++ -includeall -outdir "..\..\Swig Conversion Layer\GS-SWIG\CSharp" -namespace GS -o "..\..\Swig Conversion Layer\GS-SWIG\Cpp\gs_wrap.cpp" hdr.i
+..\..\..\swigwin\swig.exe -csharp -c++  -outdir "..\..\Swig Conversion Layer\GS-SWIG\CSharp" -namespace GS -o "..\..\Swig Conversion Layer\GS-SWIG\Cpp\gs_wrap.cpp" hdr.i
 echo off</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">gs_wrap.cpp</Outputs>
     </CustomBuild>
@@ -1344,7 +1352,7 @@ echo off</Command>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)..\Output\lib\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Output\build\QuantLib\$(qlCompilerTag)\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\Output\build\hdr\$(qlCompilerTag)\$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
