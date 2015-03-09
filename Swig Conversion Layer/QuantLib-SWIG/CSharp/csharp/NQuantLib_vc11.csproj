@@ -133,6 +133,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Actual360.cs" />
     <Compile Include="Actual365Fixed.cs" />
     <Compile Include="Actual365NoLeap.cs" />
@@ -245,7 +262,6 @@
     <Compile Include="China.cs" />
     <Compile Include="ChiSquareDistribution.cs" />
     <Compile Include="ClosestRounding.cs" />
-    <Compile Include="closxp_struct.cs" />
     <Compile Include="CLPCurrency.cs" />
     <Compile Include="CmsCoupon.cs" />
     <Compile Include="CmsCouponPricer.cs" />
@@ -316,7 +332,6 @@
     <Compile Include="DZero.cs" />
     <Compile Include="EEKCurrency.cs" />
     <Compile Include="EndCriteria.cs" />
-    <Compile Include="envsxp_struct.cs" />
     <Compile Include="Eonia.cs" />
     <Compile Include="ESPCurrency.cs" />
     <Compile Include="EUHICP.cs" />
@@ -534,7 +549,6 @@
     <Compile Include="LexicographicalView.cs" />
     <Compile Include="Linear.cs" />
     <Compile Include="LinearInterpolation.cs" />
-    <Compile Include="listsxp_struct.cs" />
     <Compile Include="LocalConstantVol.cs" />
     <Compile Include="LocalVolTermStructure.cs" />
     <Compile Include="LocalVolTermStructureHandle.cs" />
@@ -637,8 +651,6 @@
     <Compile Include="Position.cs" />
     <Compile Include="PositiveConstraint.cs" />
     <Compile Include="PricingEngine.cs" />
-    <Compile Include="primsxp_struct.cs" />
-    <Compile Include="promsxp_struct.cs" />
     <Compile Include="Protection.cs" />
     <Compile Include="PTECurrency.cs" />
     <Compile Include="QlArray.cs" />
@@ -697,8 +709,6 @@
     <Compile Include="SequenceStatistics.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Settlement.cs" />
-    <Compile Include="SEXPREC.cs" />
-    <Compile Include="SEXPTYPE.cs" />
     <Compile Include="SGDCurrency.cs" />
     <Compile Include="ShortRateModel.cs" />
     <Compile Include="ShortRateModelHandle.cs" />
@@ -777,8 +787,6 @@
     <Compile Include="SWIGTYPE_p_ZeroHelper.cs" />
     <Compile Include="SWIGTYPE_p_ZeroInflationTermStructure.cs" />
     <Compile Include="Switzerland.cs" />
-    <Compile Include="sxpinfo_struct.cs" />
-    <Compile Include="symsxp_struct.cs" />
     <Compile Include="Taiwan.cs" />
     <Compile Include="TARGET.cs" />
     <Compile Include="THBCurrency.cs" />
@@ -862,23 +870,6 @@
     <Compile Include="_VanillaSwap.cs" />
     <Compile Include="_YearOnYearInflationSwap.cs" />
     <Compile Include="_ZeroCouponInflationSwap.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

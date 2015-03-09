@@ -2939,6 +2939,9 @@
     <ClInclude Include="secdbinterface\RSecDbInterface.h">
       <Filter>secdbinterface</Filter>
     </ClInclude>
+    <ClInclude Include="Rinternals.h">
+      <Filter>secdbinterface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="secdbinterface\sdbInterface.cpp">

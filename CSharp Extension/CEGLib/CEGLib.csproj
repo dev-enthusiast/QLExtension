@@ -72,16 +72,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\APrime.cs" />
-    <Compile Include="SecDb\DTValues.cs" />
-    <Compile Include="SecDb\ErrorCode.cs" />
-    <Compile Include="SecDb\Errors.cs" />
-    <Compile Include="SecDb\Evaluation.cs" />
-    <Compile Include="SecDb\Uberglue.cs" />
     <Compile Include="Database\SimCube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Risk\RiskHullWhiteSimulationEngine.cs" />
+    <Compile Include="R\RSecDbInterface.cs" />
+    <Compile Include="R\SEXPREC_HEADER.cs" />
+    <Compile Include="R\sxpinfo.cs" />
+    <Compile Include="R\SymbolicExpressionType.cs" />
+    <Compile Include="SecDb\DtValues.cs" />
+    <Compile Include="SecDb\Errors.cs" />
+    <Compile Include="SecDb\Interface.cs" />
+    <Compile Include="SecDb\SecDbManager.cs" />
+    <Compile Include="SecDb\Securities.cs" />
+    <Compile Include="SecDb\Time.cs" />
+    <Compile Include="SecDb\Uberglue.cs" />
+    <Compile Include="SecDb\VariableScope.cs" />
+    <Compile Include="Util\ConfigManager.cs" />
     <Compile Include="Util\EnumDescConverter.cs" />
-    <Compile Include="Util\RInterface.cs" />
+    <Compile Include="R\SEXPREC.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +101,7 @@
       <Name>NQuantLib_vc11</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>echo xcopy "..\..\C++ Core Library\dlls\bonds.dll" "$(OutDir)" /Y</PostBuildEvent>

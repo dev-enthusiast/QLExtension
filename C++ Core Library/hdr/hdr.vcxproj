@@ -1020,6 +1020,7 @@
     <ClInclude Include="q_wrap.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="regex.h" />
+    <ClInclude Include="Rinternals.h" />
     <ClInclude Include="round.h" />
     <ClInclude Include="rtsdb\base.h" />
     <ClInclude Include="rtsdb\rtsdb.h" />

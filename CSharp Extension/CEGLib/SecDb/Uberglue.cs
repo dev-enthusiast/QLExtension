@@ -15,19 +15,10 @@ namespace CEGLib.SecDb
     sealed public class Uberglue
     {
         //////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////           SecDb Return             ///////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public struct Result
-        {
-            public string content;
-        }
-
-        //////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////       DLLImport functions          ///////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////
         #region Top level API functions
-        /// Connect to SecDb database.
+        /// Connect to SecDb database. (*)
         /// @param application reported application name
         /// @param username reported user name
         /// @param database root security database
@@ -38,11 +29,11 @@ namespace CEGLib.SecDb
         public static extern UInt32 Connect(string application, string username,
                 string database, string sourceDatabase, Int32 deadPoolSize);
 
-        /// Get last registered error string.
+        /// Get last registered error string. (*)
         /// @param result (out) returns a string pointer valid until next SecDb API call
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 LastError( [Out]Result result );
+        public static extern UInt32 LastError( [Out]StringHandle result );
 
         /// Get last registered error code.
         /// @parameter result (out) the current error code.
@@ -64,22 +55,22 @@ namespace CEGLib.SecDb
         // until then I'd like to see what is going on. -gpb
         //
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 SlangEval(StringBuilder slang_expression, IntPtr return_code,
-                        IntPtr result_type, IntPtr[] result );
+        public static extern UInt32 SlangEval(string slang_expression, IntPtr return_code,
+                        IntPtr result_type, Handle result );
 
         /// Release resources associated with a handle.  This should be called for
         /// every void *received from this API.  After calling this
         /// function, handle is invalid and should not be passed to any further
-        /// uberglue API calls.
+        /// uberglue API calls. (*)
         /// @param the handle to be released.
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 ReleaseHandle(IntPtr handle);
 
-        /// List the names of all security classes.
+        /// List the names of all security classes. (*)
         /// @param result (out) the resulting array of strings.
         /// @return zero on success or an error
-        public static extern UInt32 ListSecurityClassNames(IntPtr[] result);
+        public static extern UInt32 ListSecurityClassNames(Handle result);
         #endregion
 
         #region Variable and scope related functions.
@@ -98,7 +89,7 @@ namespace CEGLib.SecDb
         // the Slang function "Scope" can used to access any variables in the
         // current Slang call stack.
 
-        /// Look up or a creates a named variable scope.
+        /// Look up or a creates a named variable scope. (*)
         /// @param name of the scope to get or create.
         /// @param create (bool) If create is false, this functions fails when
         ///        no variable scope with the given name exists.  If create is true
@@ -106,19 +97,19 @@ namespace CEGLib.SecDb
         /// @param result (out) the resulting scope object.
         /// @return zero on success or an error
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 GetNamedVariableScope(StringBuilder name, Int32 create,
-                                    IntPtr[] result );
+        public static extern UInt32 GetNamedVariableScope(string name, Int32 create,
+                                    Handle result );
 
-        /// @param name the name for the scope.  This variable is mainly
+        /// @param name the name for the scope.  This variable is mainly (*)
         ///        informational and appears as the "function name" in the Slang
         ///        call stack.  In particular, all local scopes are distict, even
         ///        those with the same name.
         /// @param result (out) the resulting scope object.
         /// @return zero on success or an error
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 CreateLocalVariableScope(StringBuilder name, IntPtr[] result);
+        public static extern UInt32 CreateLocalVariableScope(string name, Handle result);
 
-        /// Push a new variable scope onto the Slang evaluation stack.
+        /// Push a new variable scope onto the Slang evaluation stack. (*)
         /// @param variable_scope A scope handle from a previous call to
         ///        GetNamedVariableScope or CreateLocalVariableScope.
         /// @return zero on success or an error code.
@@ -133,16 +124,15 @@ namespace CEGLib.SecDb
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 PopVariableScope();
 
-        /// List all the names of all variables defined in the given scope.
+        /// List all the names of all variables defined in the given scope. (*)
         /// @param variable_scope A scope handle from a previous call to
         ///        GetNamedVariableScope or CreateLocalVariableScope.
         /// @param result (out) An array of strings.
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 VariableScope_ListVariables( IntPtr variable_scope,
-                                                  IntPtr[] result);
+        public static extern UInt32 VariableScope_ListVariables( IntPtr variable_scope, Handle result);
 
-        /// Retrieve the value associated with the given variable name in the given
+        /// Retrieve the value associated with the given variable name in the given (*)
         /// scope.  The result is passed by value and changes to result do no
         /// impact the value associated with the Slang variable.  This function is
         /// slightly more general than the corresponding Slang function "Scope"
@@ -156,10 +146,10 @@ namespace CEGLib.SecDb
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 SlangVariable_GetValue(IntPtr variable_scope,
-                                             StringBuilder variable_name,
-                                             IntPtr[] result );
+                                             string variable_name,
+                                             Handle result );
 
-        /// Change the value associated with the given variable name in the
+        /// Change the value associated with the given variable name in the (*)
         /// given scope.  The value is essentially passed by value, and the
         /// Slang variable contains a deep copy of value after this call
         /// completes.
@@ -171,17 +161,17 @@ namespace CEGLib.SecDb
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 SlangVariable_SetValue(IntPtr variable_scope,
-                                             StringBuilder variable_name,
+                                             string variable_name,
                                              IntPtr value );
 
-        /// Delete a variable from a scope.
+        /// Delete a variable from a scope. (*)
         /// @param variable_scope a handle from GetNamedVariableScope or
         ///        CreateLocalVariableScope.
         /// @param variable_name the name of variable whose value it returned
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 SlangVariable_Destroy( IntPtr variable_scope,
-                                            StringBuilder variable_name );
+                                            string variable_name );
 
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
@@ -196,25 +186,16 @@ namespace CEGLib.SecDb
                                              IntPtr flags );
         #endregion
 
-        #region
+        #region DtValue
         //////////////////////////////////////////////////////////////////////
         //
-        //
-        //    DT_VALUE accessor functions
-        //
-        //
-        //  Functions for accessing wrapped DT_VALUE object/struct/pointer things.
-        //  At the moment, the API assumes that the calling functions has some
-        //  understanding of the underlying implementation.  For example, once can
-        //  call DtValue_GetPointer on a double, and the result will be garbage.  I
-        //  suppose we could add safer accessor functions at some point, like in
-        //  dot net glue, but I'm not sure it really buys us much.
-
-        /// Allocate a new DtValue structure.
+        //  DT_VALUE accessor functions
+        //    
+        //////////////////////////////////////////////////////////////////////
+        /// Allocate a new DtValue structure. (*)
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_Allocate( StringBuilder data_type_name,
-                               IntPtr[] result );
+        public static extern UInt32 DtValue_Allocate( string data_type_name, Handle result );
 
         /// Compare two wrapped DT_VALUE's.  After the call, result contains 1
         /// if the results are equal, and zero otherwise.
@@ -223,58 +204,50 @@ namespace CEGLib.SecDb
         public static extern UInt32 DtValue_AreEqual( IntPtr x, IntPtr y,
                                        IntPtr result );
 
+        /// Get type name (*)
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_GetTypeName( IntPtr handle,
-                                          StringBuilder[] result );
+        public static extern UInt32 DtValue_GetTypeName( IntPtr handle, [Out]StringHandle result );
 
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_GetNumber( IntPtr handle, IntPtr result );
+        public static extern UInt32 DtValue_GetNumber( Handle handle, IntPtr result );
 
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 DtValue_SetNumber( IntPtr handle, double number );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_GetPointer( IntPtr handle, IntPtr[] pointer );
+        public static extern UInt32 DtValue_GetPointer( IntPtr handle, IntPtr pointer );
 
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 DtValue_SetPointer( IntPtr handle, IntPtr pointer );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_Convert( IntPtr handle,
-                                      StringBuilder new_type_name,
-                                      IntPtr[] result );
+        public static extern UInt32 DtValue_Convert( IntPtr handle, string new_type_name, Handle result );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 DtValue_GetSize( IntPtr obj,IntPtr size );
 
-        /// Returns an Array contains all the valid subscripts for object.
+        /// Returns an Array contains all the valid subscripts for object. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_ListSubscripts( IntPtr obj,
-                                             IntPtr[] result );
+        public static extern UInt32 DtValue_ListSubscripts( IntPtr obj, IntPtr result );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_GetSubscriptValue( IntPtr obj,
-                                                IntPtr subscript,
-                                                IntPtr[] result );
+        public static extern UInt32 DtValue_GetSubscriptValue( IntPtr obj, IntPtr subscript, Handle result );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_SetSubscriptValue( IntPtr obj,
-                                                IntPtr subscript,
-                                                IntPtr value );
+        public static extern UInt32 DtValue_SetSubscriptValue( IntPtr obj, IntPtr subscript, IntPtr value );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 DtValue_DestroySubscript( IntPtr obj,
-                                               IntPtr subscript );
+        public static extern UInt32 DtValue_DestroySubscript( IntPtr obj, IntPtr subscript );
         #endregion  
 
         #region Data type specific creation and accessor functions
@@ -284,19 +257,17 @@ namespace CEGLib.SecDb
         // underlying data object.
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 NewString( IntPtr text, IntPtr[] result );
+        public static extern UInt32 NewString( string text, Handle result );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 Array_InsertElement( IntPtr array, UInt64 index,
-                                          IntPtr value );
+        public static extern UInt32 Array_InsertElement( IntPtr array, UInt64 index, IntPtr value );
 
-        /// @return zero on success or an error code.
+        /// @return zero on success or an error code. (*)
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 Array_DestroyElements( IntPtr array, UInt64 index,
-                                            UInt64 count );
+        public static extern UInt32 Array_DestroyElements( IntPtr array, UInt64 index, UInt64 count );
 
-        /// Create a new Vector.  Copies data from buffer into a new SecDB
+        /// Create a new Vector.  Copies data from buffer into a new SecDB (*)
         /// allocated buffer.
         /// @return zero on success or an error code.
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
@@ -309,7 +280,7 @@ namespace CEGLib.SecDb
         public static extern UInt32 Vector_GetDataView( IntPtr vector, IntPtr size,
                                          IntPtr[] data );
 
-        /// Get a reference to an existing security object in a database.
+        /// Get a reference to an existing security object in a database. (*)
         /// @param database A handle to a database object or 0/NULL.  0 denotes the
         ///        current root database.
         /// @param security_name The name of the security to look up.
@@ -341,7 +312,7 @@ namespace CEGLib.SecDb
         public static extern UInt32 NewSecurity( IntPtr database, StringBuilder class_name,
                                   StringBuilder security_name, IntPtr[] result );
 
-        /// Search for the names of securities that satisfy certain conditions.  If
+        /// Search for the names of securities that satisfy certain conditions.  If (*)
         /// the conditions are not very strict, the result will be huge (how many
         /// securities are in prod? -gpb), and the result must be returned in
         /// "chunks" of size limit.  In particular, one can use this function to
@@ -373,8 +344,8 @@ namespace CEGLib.SecDb
         ///   Contains zero on success or an error code.
         ///
         [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern UInt32 FindSecurities( IntPtr database, StringBuilder class_name,
-                                     StringBuilder start, UInt32 exclude_start,
+        public static extern UInt32 FindSecurities( IntPtr database, string class_name,
+                                     string start, UInt32 exclude_start,
                                      UInt32 limit, IntPtr result);
 
         /// @return zero on success or an error code.
@@ -400,7 +371,7 @@ namespace CEGLib.SecDb
                                                IntPtr arguments);
 
 
-        /// Returns all value type names assocaited with a given security.
+        /// Returns all value type names assocaited with a given security. (*)
         /// @param security a handle associated with a SecDb security.
         /// @param result (out) an array of strings.
         /// @return zero on success or an error code.
