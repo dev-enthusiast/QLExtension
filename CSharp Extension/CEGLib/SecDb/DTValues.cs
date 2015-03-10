@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 namespace CEGLib.SecDb
 {
     // char**
+    // should be IntPtr[]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public struct StringHandle
     {
@@ -165,6 +166,7 @@ namespace CEGLib.SecDb
             return To;
         }
 
+        /*
         public static bool operator==(DtValue x, DtValue y)
         {
             DtValue ret = new DtValue();
@@ -178,7 +180,7 @@ namespace CEGLib.SecDb
             }
 
             return ret.chandle_.pointer_.ToInt32() == 0 ? false : true;
-        }
+        }*/
 
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
@@ -364,6 +366,7 @@ namespace CEGLib.SecDb
         }
     }
 
+    /*
     /// <summary>
     /// dictionary of DtValues
     /// </summary>
@@ -481,7 +484,7 @@ namespace CEGLib.SecDb
 
         public int GetReferenceCount()
         {
-            return GetSubscriptValue("ReferenceCount").
+            return GetSubscriptValue("ReferenceCount");
         }
 
         public string GetExpression()
@@ -504,5 +507,5 @@ namespace CEGLib.SecDb
             private Dictionary<string, object> infostruct_ = new Dictionary<string, object>();
 
         }
-    }
+    }*/
 }

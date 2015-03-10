@@ -69,5 +69,10 @@ namespace Test
             engine.calculate();
             Dictionary<Date, double> ret = engine.getPFECurve(0.95);
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            CEGLib.SecDb.Interface.Connect("python", "E053608");
+        }
     }
 }

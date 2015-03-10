@@ -49,17 +49,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicInterop">
-      <HintPath>..\..\packages\DynamicInterop.0.7.4\lib\net40\DynamicInterop.dll</HintPath>
-    </Reference>
     <Reference Include="Oracle.ManagedDataAccess">
       <HintPath>..\..\packages\odp.net.managed.121.1.2\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
-    </Reference>
-    <Reference Include="RDotNet">
-      <HintPath>..\..\packages\R.NET.Community.1.5.21\lib\net40\RDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="RDotNet.NativeLibrary">
-      <HintPath>..\..\packages\R.NET.Community.1.5.21\lib\net40\RDotNet.NativeLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -76,20 +67,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Risk\RiskHullWhiteSimulationEngine.cs" />
     <Compile Include="R\RSecDbInterface.cs" />
-    <Compile Include="R\SEXPREC_HEADER.cs" />
-    <Compile Include="R\sxpinfo.cs" />
-    <Compile Include="R\SymbolicExpressionType.cs" />
     <Compile Include="SecDb\DtValues.cs" />
-    <Compile Include="SecDb\Errors.cs" />
     <Compile Include="SecDb\Interface.cs" />
-    <Compile Include="SecDb\SecDbManager.cs" />
-    <Compile Include="SecDb\Securities.cs" />
-    <Compile Include="SecDb\Time.cs" />
     <Compile Include="SecDb\Uberglue.cs" />
-    <Compile Include="SecDb\VariableScope.cs" />
+    <Compile Include="SecDb\VariableScope.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Util\ConfigManager.cs" />
     <Compile Include="Util\EnumDescConverter.cs" />
-    <Compile Include="R\SEXPREC.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +84,14 @@
     <ProjectReference Include="..\..\Swig Conversion Layer\QuantLib-SWIG\CSharp\csharp\NQuantLib_vc11.csproj">
       <Project>{928f98ee-7d50-457f-9304-a6818dcf1079}</Project>
       <Name>NQuantLib_vc11</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\R.NET\RDotNet.csproj">
+      <Project>{0923e1a0-2032-4997-ab73-49e42c4034a9}</Project>
+      <Name>RDotNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDotNet.NativeLibrary\RDotNet.NativeLibrary.csproj">
+      <Project>{2a089a59-0f22-4484-b442-0fe8bda10879}</Project>
+      <Name>RDotNet.NativeLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

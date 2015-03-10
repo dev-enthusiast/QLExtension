@@ -46,6 +46,7 @@ namespace CEGLib.SecDb
 
         }
 
+        /*
         /// <summary>
         /// Evaluate a Slang expression and return the result.
         /// The expression is evaluated in a new anonymous scope.  
@@ -92,6 +93,7 @@ namespace CEGLib.SecDb
         {
 
         }
+        */
 
         public static string GetLastError()
         {

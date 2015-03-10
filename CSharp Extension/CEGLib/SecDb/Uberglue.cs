@@ -70,6 +70,7 @@ namespace CEGLib.SecDb
         /// List the names of all security classes. (*)
         /// @param result (out) the resulting array of strings.
         /// @return zero on success or an error
+        [DllImport("uberglue.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern UInt32 ListSecurityClassNames(Handle result);
         #endregion
 

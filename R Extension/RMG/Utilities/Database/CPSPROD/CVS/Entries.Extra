@@ -1,8 +1,0 @@
-/booksToVarMapping.R////*////
-/get.discount.factor.R////*////
-/get.holiday.calendar.r////*////
-/get.outages.IIR.R////*////
-/get.portfolio.hierarchy.R////*////
-/get.portfolio.hierarchyCCG.R////*////
-/get.price.differences.r////*////
-/read.prices.from.CPSPROD.R////*////
