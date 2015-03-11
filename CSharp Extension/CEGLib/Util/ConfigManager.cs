@@ -29,12 +29,15 @@ namespace CEGLib
         {
             if (rengine_ != null)
             {
-                rengine_.Close();
                 rengine_.Dispose();
             }
         }
 
-        
+        public void ConnectToSecDb(string dbname, string appname, string username)
+        {
+            Exelon.Data.SecDb.SecDbAPI.SecDbMsgOutputHandler msgouthandle, errormsgouthandle;
+            Exelon.Data.SecDb.SecDbAPI.Database.SecDbInitialize(dbname, appname, username, msgouthandle, errormsgouthandle);
+        }
 
         public delegate void VoidStringDelegate(string msg);
         public VoidStringDelegate debughandler_;

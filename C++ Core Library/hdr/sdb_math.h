@@ -1,6 +1,6 @@
 /************************************************************************
 **
-** $Header: /home/cvs/src/portable/src/sdb_math.h,v 1.9 2012/03/28 14:05:14 khodod Exp $
+** $Header: /home/cvs/src/portable/src/sdb_math.h,v 1.10 2015/03/02 18:48:48 e19351 Exp $
 ** 
 ** Common math functions.
 **
@@ -70,10 +70,12 @@ inline void  __LOset(double& x, int lx)
     __u_d.d = x; __u_d.i[LOWORD] = lx; x =__u_d.d; 
 }
 
-#ifdef WIN32
+#ifdef _MSC_VER
 
 #define copysign      _copysign
 #define finite        _finite
+
+#if _MSC_VER < 1800
 
 inline bool signbit(double x) 
 {
@@ -95,6 +97,7 @@ static int rint (double x)
     return(i);
 }
 
+#endif
 #endif
 
 #ifdef sparc

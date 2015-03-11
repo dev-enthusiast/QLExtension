@@ -8,7 +8,7 @@ using Oracle.ManagedDataAccess.Types;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace CEGLib
+namespace CEGLib.Database
 {
     public class APrime
     {

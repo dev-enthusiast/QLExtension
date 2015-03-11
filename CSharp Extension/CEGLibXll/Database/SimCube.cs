@@ -41,7 +41,7 @@ namespace CEGLibXll
                 DataTable dataTable = new DataTable();
                 object[,] ret;
 
-                using (SqlConnection conn = new SqlConnection(CEGLib.SimCube.connectingString))
+                using (SqlConnection conn = new SqlConnection(CEGLib.Database.SimCube.connectingString))
                 {
                     SqlCommand cmd = new SqlCommand("RptCollateral", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -55,7 +55,7 @@ namespace CEGLibXll
                     da.Fill(dataTable);
                     da.Dispose();
 
-                    ret = CEGLib.APrime.DumpTableToObject(dataTable);
+                    ret = CEGLib.Database.APrime.DumpTableToObject(dataTable);
                 }
 
                 return ret;

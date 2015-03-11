@@ -56,7 +56,7 @@ namespace CEGLibXll
                 }
 
                 object[,] ret;
-                using (OracleConnection conn = new OracleConnection(CEGLib.APrime.connectingString))
+                using (OracleConnection conn = new OracleConnection(CEGLib.Database.APrime.connectingString))
                 {
                     conn.Open();
                     OracleCommand cmd = new OracleCommand();
@@ -69,7 +69,7 @@ namespace CEGLibXll
 
                     DataTable resultsTable = new DataTable();
                     int nrows = adapter.Fill(resultsTable);
-                    ret = CEGLib.APrime.DumpTableToObject(resultsTable);
+                    ret = CEGLib.Database.APrime.DumpTableToObject(resultsTable);
                 }
                 return ret;
             }

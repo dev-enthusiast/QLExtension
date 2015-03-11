@@ -1,0 +1,28 @@
+#
+# $Header: /home/cvs/src/dotnetglue/src/dotnetglue.mki,v 1.1 2013/10/09 17:10:03 khodod Exp $ 
+#
+
+PROJECT=dotnetglue
+
+PUBLIC_LIBS += dotnetglue
+
+CPPFILES-dotnetglue.dll += SecDbAPI_Impl.cpp
+CPPFILES-dotnetglue.dll += SecDbDatabaseAPI.cpp
+CPPFILES-dotnetglue.dll += Helper.cpp
+CPPFILES-dotnetglue.dll += SecDbDataTypeAPI.cpp
+
+LIB-dotnetglue.dll += portable
+LIB-dotnetglue.dll += kool_ade
+LIB-dotnetglue.dll += err_base
+LIB-dotnetglue.dll += datatype
+LIB-dotnetglue.dll += date
+LIB-dotnetglue.dll += gob
+LIB-dotnetglue.dll += secdb
+LIB-dotnetglue.dll += slangevl
+LIB-dotnetglue.dll += ole32
+
+obj := dotnetglue.dll
+
+include $(MF)/public.mak
+
+C_LANG=cpp

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dotnetglue", "dotnetglue.vcxproj", "{B30C4C01-79EC-4E9B-A0F0-9C68A7D467DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B30C4C01-79EC-4E9B-A0F0-9C68A7D467DB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B30C4C01-79EC-4E9B-A0F0-9C68A7D467DB}.Debug|Win32.Build.0 = Debug|Win32
+		{B30C4C01-79EC-4E9B-A0F0-9C68A7D467DB}.Release|Win32.ActiveCfg = Release|Win32
+		{B30C4C01-79EC-4E9B-A0F0-9C68A7D467DB}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

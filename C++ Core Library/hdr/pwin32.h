@@ -2,7 +2,7 @@
 **
 **	PWIN32.H	- Machine/Compiler Portable definitions - Win NT
 **
-**	$Header: /home/cvs/src/portable/src/pwin32.h,v 1.42 2015/02/05 14:33:18 e19351 Exp $
+**	$Header: /home/cvs/src/portable/src/pwin32.h,v 1.43 2015/03/03 13:38:48 e19351 Exp $
 **
 ****************************************************************/
 
@@ -47,6 +47,8 @@
 #undef max
 #endif
 
+#ifdef SECDB_ALT_ALLOCATORS
+
 // Alternative memory allocator hooks.
 DLLEXPORT void *HappyMalloc(unsigned int size);
 DLLEXPORT void *HappyCalloc(unsigned int n, unsigned int size);
@@ -68,6 +70,8 @@ DLLEXPORT int HappyAllocSize;
 #	define free		HappyFree
 #	define realloc		HappyRealloc
 #	define strdup		HappyStrdup
+#endif
+
 #endif
 
 // These should go away - haven't been relevant since DOS.
