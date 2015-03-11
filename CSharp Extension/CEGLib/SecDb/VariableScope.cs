@@ -27,7 +27,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception e) 
             {
-                ConfigManager.Debug("can't get keys from scope " + name_);
+                ConfigManager.Instance.Debug("can't get keys from scope " + name_);
             }
         }
 
@@ -40,7 +40,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception e)
             {
-                ConfigManager.Debug("can't get variable " + variablename + " from scope " + name_);
+                ConfigManager.Instance.Debug("can't get variable " + variablename + " from scope " + name_);
             }
             return ret;
         }
@@ -53,7 +53,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception e)
             {
-                ConfigManager.Debug("can't set variable " + variablename + " from scope " + name_);
+                ConfigManager.Instance.Debug("can't set variable " + variablename + " from scope " + name_);
             }
         }
 
@@ -65,7 +65,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception e)
             {
-                ConfigManager.Debug("can't delete variable " + variablename + " from scope " + name_);
+                ConfigManager.Instance.Debug("can't delete variable " + variablename + " from scope " + name_);
             }
         }
 
@@ -87,7 +87,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception e)
             {
-                ConfigManager.Debug("can't execute slang code " + slangcode + " in scope " + name_);
+                ConfigManager.Instance.Debug("can't execute slang code " + slangcode + " in scope " + name_);
             }
             finally
             {

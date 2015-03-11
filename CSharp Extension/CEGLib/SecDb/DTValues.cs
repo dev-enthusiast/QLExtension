@@ -91,7 +91,7 @@ namespace CEGLib.SecDb
             }
             catch(Exception)
             {
-                ConfigManager.Debug("unable to get subscripts");
+                ConfigManager.Instance.Debug("unable to get subscripts");
             }
             return ret;
         }
@@ -105,7 +105,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception)
             {
-                ConfigManager.Debug("unable to get one subscript");
+                ConfigManager.Instance.Debug("unable to get one subscript");
             }
 
             return ret;
@@ -150,7 +150,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception e)
             {
-                ConfigManager.Debug("unable to get size: " + e.Message);
+                ConfigManager.Instance.Debug("unable to get size: " + e.Message);
                 return 0;
             }
         }
@@ -176,7 +176,7 @@ namespace CEGLib.SecDb
             }
             catch (Exception e)
             {
-                ConfigManager.Debug("unable to compare dtvalues. " + e.Message);
+                ConfigManager.Instance.Debug("unable to compare dtvalues. " + e.Message);
             }
 
             return ret.chandle_.pointer_.ToInt32() == 0 ? false : true;
@@ -243,7 +243,7 @@ namespace CEGLib.SecDb
                 }
                 catch (Exception e)
                 {
-                    ConfigManager.Debug("unable to set up handle: " + typename_ + ". " + e.Message);
+                    ConfigManager.Instance.Debug("unable to set up handle: " + typename_ + ". " + e.Message);
                 }
             }
 
@@ -264,7 +264,7 @@ namespace CEGLib.SecDb
                 }
                 catch (Exception e)
                 {
-                    ConfigManager.Debug("unable to convert to Double: " + e.Message);
+                    ConfigManager.Instance.Debug("unable to convert to Double: " + e.Message);
                 }
             }
 

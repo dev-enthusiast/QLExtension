@@ -72,7 +72,8 @@ namespace Test
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            CEGLib.SecDb.Interface.Connect("python", "E053608");
+            // CEGLib.SecDb.Interface.Connect("python", "E053608");
+            CEGLib.R.RSecDbInterface.SetDatabase();
         }
     }
 }

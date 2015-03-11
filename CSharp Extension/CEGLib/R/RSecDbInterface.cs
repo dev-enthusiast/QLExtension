@@ -11,34 +11,18 @@ namespace CEGLib.R
 {
     public class RSecDbInterface
     {
-        private static REngine rengine_;
-
-        public RSecDbInterface()
-        {
-            REngine.SetEnvironmentVariables();
-            rengine_ = REngine.GetInstance();
-        }
-        ~RSecDbInterface()
-        {
-            if (rengine_ != null)
-            {
-                rengine_.Close();
-                rengine_.Dispose();
-            }
-        }
-
         public static void SetDatabase(string dbname = "!Bal Prod 1;ReadOnly{!Bal Prod 2}")
         {
             try
             {
-                CharacterVector name = rengine_.CreateCharacter(dbname);
+                CharacterVector name = ConfigManager.Instance.CalcEngine.CreateCharacter(dbname);
                 SEXPREC sexp = name.GetInternalStructure();
                 IntPtr retp = SetSecDbDatabase(ref sexp);
                 SEXPREC ret = (SEXPREC)Marshal.PtrToStructure(retp, typeof(SEXPREC));
             }
             catch(Exception e)
             {
-                ConfigManager.Debug("unable to connect to db: " + e.Message);
+                ConfigManager.Instance.Debug("unable to connect to db: " + e.Message);
             }
         }
 
@@ -46,9 +30,9 @@ namespace CEGLib.R
         {
             try
             {
-                CharacterVector security = rengine_.CreateCharacter(securityname);
+                CharacterVector security = ConfigManager.Instance.CalcEngine.CreateCharacter(securityname);
                 SEXPREC sexpsec = security.GetInternalStructure();
-                CharacterVector type = rengine_.CreateCharacter(valuetype);
+                CharacterVector type = ConfigManager.Instance.CalcEngine.CreateCharacter(valuetype);
                 SEXPREC sexpsectype = type.GetInternalStructure();
 
                 IntPtr retp = GetValueType(ref sexpsec, ref sexpsectype);
@@ -57,7 +41,7 @@ namespace CEGLib.R
             }
             catch(Exception e)
             {
-                ConfigManager.Debug("unable to connect to db: " + e.Message);
+                ConfigManager.Instance.Debug("unable to connect to db: " + e.Message);
             }
         }
 

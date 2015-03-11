@@ -1,6 +1,0 @@
-/run_tests.R////*////
-/test.CRR_Auction.R////*////
-/test.Path.R////*////
-/test.get_clearing_price.R////*////
-/test.get_payoff.R////*////
-/test.get_settle_price.R////*////
