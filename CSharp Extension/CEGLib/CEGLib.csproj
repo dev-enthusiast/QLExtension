@@ -81,6 +81,7 @@
     <Compile Include="Database\SimCube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Risk\RiskHullWhiteSimulationEngine.cs" />
+    <Compile Include="Database\SecDb.cs" />
     <Compile Include="Util\ConfigManager.cs" />
     <Compile Include="Util\EnumDescConverter.cs" />
     <Compile Include="Util\Utils.cs" />
@@ -96,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="R\" />
-    <Folder Include="SecDb\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

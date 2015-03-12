@@ -35,7 +35,18 @@ namespace CEGLib
 
         public void ConnectToSecDb(string dbname, string appname, string username)
         {
-            Exelon.Data.SecDb.SecDbAPI.SecDbMsgOutputHandler msgouthandle, errormsgouthandle;
+            if (string.IsNullOrEmpty(dbname))
+                dbname = "!Bal Prod 1;ReadOnly{!Bal Prod 2}";
+
+            if (string.IsNullOrEmpty(appname))
+                appname = "CEGLib";
+
+            if (string.IsNullOrEmpty(username))
+                username = "E053608";
+
+            Exelon.Data.SecDb.SecDbAPI.SecDbMsgOutputHandler msgouthandle = new Exelon.Data.SecDb.SecDbAPI.SecDbMsgOutputHandler(Debug);
+            Exelon.Data.SecDb.SecDbAPI.SecDbMsgOutputHandler errormsgouthandle = new Exelon.Data.SecDb.SecDbAPI.SecDbMsgOutputHandler(Debug);
+
             Exelon.Data.SecDb.SecDbAPI.Database.SecDbInitialize(dbname, appname, username, msgouthandle, errormsgouthandle);
         }
 

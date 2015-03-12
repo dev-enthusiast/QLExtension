@@ -394,6 +394,12 @@ namespace CurveBuilder
             // of the curve and a repricing of the swap.
 
             //**************************** OIS **************************************************************************
+            // 1. Create an empty yield curve handle
+            // 2. index on the curve handle
+            // 3. Rate Helpers on the index
+            // 4. (bootstrapped) yield curve from rate helpers
+            // 5. link yield curve handle to the yield curve
+            // 6. set pricing engine to the yield curve handle
             QuantLib.RateHelperVector eoniaHelpers = new RateHelperVector();
             QuantLib.RelinkableYieldTermStructureHandle eoniaTermStructure = new RelinkableYieldTermStructureHandle();
             QuantLib.OvernightIndex Eonia = new OvernightIndex("Eonia", 0, new EURCurrency(), new TARGET(), new Actual360(), eoniaTermStructure);
